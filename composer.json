@@ -1,0 +1,31 @@
+{
+    "name": "codein/ezplatform-seo-toolkit",
+    "description": "eZPlatform SEO Toolkit to advise users on best SEO practices.",
+    "type": "ezplatform-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Codein-Labs",
+            "email": "labs@codein.fr",
+            "homepage": "https://www.codein.fr"
+        },
+        {
+            "name": "Meryll Essig",
+            "email": "meryll.essig@codein.fr"
+        },
+        {
+            "name": "Axel Veber",
+            "email": "axel.veber@codein.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codein\\eZPlatformSeoToolkit\\": "bundle",
+            "Codein\\Tests\\eZPlatformSeoToolkit\\": "tests/bundle"
+        }
+    }
+}
