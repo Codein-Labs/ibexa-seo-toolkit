@@ -1,0 +1,8 @@
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="codeinEzSeoToolkit">
+            <directory>tests/bundle</directory>
+            <directory>tests/lib</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
