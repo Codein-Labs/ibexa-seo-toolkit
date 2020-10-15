@@ -69,7 +69,8 @@ final class ConfigurationTest extends TestCase
                         'disallow' => [],
                     ],
                     'metas' => [
-                        'field_types' => [],
+                        'default_metas' => [],
+                        'field_type' => [],
                     ],
                     'links' => [],
                     'hreflang' => [
