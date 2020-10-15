@@ -176,7 +176,7 @@ final class Configuration extends SiteAccessConfiguration
                     ->arrayNode('field_type')
                         ->arrayPrototype()
                             ->children()
-                                ->scalarNode('title')->defaultNull()->example('bo.meta_title')->end()
+                                ->scalarNode('name')->defaultNull()->example('title')->end()
                                 ->scalarNode('label')->defaultNull()->example('bo.meta_label')->end()
                                 ->scalarNode('default_pattern')->defaultNull()->example('<title|name>')->end()
                             ->end()
