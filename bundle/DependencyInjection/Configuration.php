@@ -46,8 +46,29 @@ final class Configuration extends SiteAccessConfiguration
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->arrayNode('content_types')
+                            ->validate()
+                            ->ifTrue(
+                                function ($array) {
+                                    $notValid = false;
+                                    foreach ($array as $key => $value) {
+                                        if (!is_string($key) || empty($key)) {
+                                            $notValid = true;
+                                            break;
+                                        }
+                                        if (1 !== preg_match("/^[[:alnum:]_]+$/", $key)) {
+                                            $notValid = true;
+                                            break;
+                                        }
+                                    }
+
+                                    return $notValid;
+                                }
+                            )
+                            ->thenInvalid("Content type identifier may only contain letters from 'a' to 'z', numbers and underscores.")
+                            ->end()
                         ->arrayPrototype()
                             ->children()
+
                                 ->scalarNode('title_field')->example('name')->end()
                                 ->scalarNode('url_field')->example('url')->end()
                                 ->scalarNode('richtext_field')->example('description')->end()
@@ -57,13 +78,13 @@ final class Configuration extends SiteAccessConfiguration
 
                     ->arrayNode('blocklist')
                         ->scalarPrototype()
-                        ->info('Specify an analyzer service identifier to use.')
+                        ->info('Specify some analyzer services identifier to block.')
                         ->example('ezplatform_seo.rich_text.one_h1_max_analyzer')
                         ->end()
                     ->end()
                     ->arrayNode('passlist')
                         ->scalarPrototype()
-                        ->info('Specify an analyzer service identifier to use.')
+                        ->info('Specify analyzer service identifier to authorize.')
                         ->example('ezplatform_seo.rich_text.title_order_analyzer')
                         ->end()
                     ->end()
@@ -122,7 +143,7 @@ final class Configuration extends SiteAccessConfiguration
             ->arrayNode('robots')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->booleanNode('allow_admin_configuration')->defaultFalse()->info('If true, the admin can manually configure the robots list at the bo interface.')->end()
+                    ->booleanNode('allow_admin_configuration')->defaultFalse()->info(' If true, the admin can manually configure the robots list in the back-office interface.')->end()
                     ->booleanNode('prevent_indexing')->defaultTrue()->info('If true, prevent search engines from indexing.')->end()
                     ->arrayNode('disallow')
                         ->scalarPrototype()->end()
@@ -142,16 +163,21 @@ final class Configuration extends SiteAccessConfiguration
                 ->info('Metas + Field type meta configuration.')
                 ->children()
                     ->arrayNode('default_metas')
+                        ->defaultValue([])
+                        ->example('[ { key: rel, value: next }, { key: title, value: title ]')
+                        ->arrayPrototype()
                         ->children()
-                            ->scalarNode('copyright')->defaultNull()->end()
-                            ->scalarNode('author')->defaultNull()->end()
+                            ->scalarNode('key')->end()
+                            ->scalarNode('value')->end()
+                        ->end()
                         ->end()
                     ->end()
 
-                    ->arrayNode('field_types')
+                    ->arrayNode('field_type')
                         ->arrayPrototype()
                             ->children()
-                                ->scalarNode('label')->defaultNull()->example('bo.meta_title')->end()
+                                ->scalarNode('name')->defaultNull()->example('title')->end()
+                                ->scalarNode('label')->defaultNull()->example('bo.meta_label')->end()
                                 ->scalarNode('default_pattern')->defaultNull()->example('<title|name>')->end()
                             ->end()
                         ->end()
@@ -217,7 +243,7 @@ final class Configuration extends SiteAccessConfiguration
                 ->children()
                     ->booleanNode('enabled')
                     ->defaultFalse()
-                    ->info('If true, hreflang link tags will be generated automatically according to the number of languages already configured.')
+                    ->info('If true, hreflang link tags will be generated automatically according to the languages already configured.')
                     ->end()
                 ->end()
             ->end()
