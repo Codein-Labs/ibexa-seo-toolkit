@@ -27,3 +27,14 @@ services:
             $template: 'EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit.js.twig'
         tags:
             - { name: ezplatform.admin_ui.component, group: 'script-body' }
+
+    codein.ezplatformseotoolkit.seo_analysis.seo_view:
+        parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
+        public: true 
+        autowire: true 
+        autoconfigure: false 
+        arguments:
+            $template: 'EzPlatformSeoToolkitBundle:seo_view:seo_view.html.twig'
+        tags:
+            - { name: ezplatform.admin_ui.component, group: 'content-create-form-after' }
+            - { name: ezplatform.admin_ui.component, group: 'content-edit-form-after' }

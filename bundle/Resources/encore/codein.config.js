@@ -4,8 +4,8 @@ const addCSSEntries = require('./codein.css.config.js');
 
 module.exports = (Encore) => {
     Encore.reset();
-    Encore.setOutputPath('web/assets/build')
-        .setPublicPath('/assets/build')
+    Encore.setOutputPath('web/bundles/codein-ezplatformseotoolkit')
+        .setPublicPath('/bundles/codein-ezplatformseotoolkit')
         .addExternals({
             react: 'React',
             'react-dom': 'ReactDOM'
@@ -14,10 +14,13 @@ module.exports = (Encore) => {
             from: path.resolve(__dirname,'../public/img'),
             to: 'images/[name].[ext]'
         })
+        .disableSingleRuntimeChunk()
+        .enableSassLoader()
 
     addJSEntries(Encore);
     addCSSEntries(Encore);
     const codeinSeoToolkitConfig = Encore.getWebpackConfig(); 
+    codeinSeoToolkitConfig.name = 'codein';
 
     return codeinSeoToolkitConfig;
 };
