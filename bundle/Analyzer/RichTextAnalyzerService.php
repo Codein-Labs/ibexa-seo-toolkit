@@ -5,7 +5,7 @@ namespace Codein\eZPlatformSeoToolkit\Analyzer;
 /**
  * Class RichTextAnalyzerService.
  */
-final class RichTextAnalyzerService
+final class RichTextAnalyzerService implements ContentAnalyzerInterface
 {
     /**
      * @var array|ContentAnalyzerInterface[]
@@ -20,7 +20,6 @@ final class RichTextAnalyzerService
     /**
      * @param $fieldDefinition
      * @param $fieldValue
-     * @return array
      */
     public function analyze($fieldDefinition, $fieldValue): array
     {
@@ -30,7 +29,7 @@ final class RichTextAnalyzerService
                 continue;
             }
 
-            $result[] = $analyzer->analyze($fieldValue);
+            $result[] = $analyzer->analyze($fieldValue, $fieldValue);
         }
 
         return $result;

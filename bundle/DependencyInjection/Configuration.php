@@ -17,12 +17,12 @@ final class Configuration extends SiteAccessConfiguration
     public function getConfigTreeBuilder(): TreeBuilder
     {
         if (\method_exists(TreeBuilder::class, 'getRootNode')) {
-            $treeBuilder = new TreeBuilder(EzPlatformSeoToolkitExtension::EXTENSION_ALIAS);
+            $treeBuilder = new TreeBuilder(EzPlatformSeoToolkitExtension::ALIAS);
             $rootNode = $treeBuilder->getRootNode();
         } else {
             // BC layer for symfony/config 4.1 and older.
             $treeBuilder = new TreeBuilder();
-            $rootNode = $treeBuilder->root(EzPlatformSeoToolkitExtension::EXTENSION_ALIAS);
+            $rootNode = $treeBuilder->root(EzPlatformSeoToolkitExtension::ALIAS);
         }
 
         $systemNode = $this->generateScopeBaseNode($rootNode);
@@ -51,11 +51,11 @@ final class Configuration extends SiteAccessConfiguration
                                 function ($array) {
                                     $notValid = false;
                                     foreach ($array as $key => $value) {
-                                        if (!is_string($key) || empty($key)) {
+                                        if (!\is_string($key) || empty($key)) {
                                             $notValid = true;
                                             break;
                                         }
-                                        if (1 !== preg_match("/^[[:alnum:]_]+$/", $key)) {
+                                        if (1 !== \preg_match('/^[[:alnum:]_]+$/', $key)) {
                                             $notValid = true;
                                             break;
                                         }

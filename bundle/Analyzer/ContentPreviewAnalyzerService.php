@@ -5,7 +5,7 @@ namespace Codein\eZPlatformSeoToolkit\Analyzer;
 /**
  * Class ContentPreviewAnalyzerService.
  */
-final class ContentPreviewAnalyzerService
+final class ContentPreviewAnalyzerService implements ContentAnalyzerInterface
 {
     /**
      * @var array|ContentAnalyzerInterface[]
@@ -20,7 +20,6 @@ final class ContentPreviewAnalyzerService
     /**
      * @param $fieldDefinition
      * @param $fieldValue
-     * @return array
      */
     public function analyze($fieldDefinition, $fieldValue): array
     {
@@ -30,7 +29,7 @@ final class ContentPreviewAnalyzerService
                 continue;
             }
 
-            $result[] = $analyzer->analyze($fieldValue);
+            $result[] = $analyzer->analyze($fieldValue, $fieldValue);
         }
 
         return $result;

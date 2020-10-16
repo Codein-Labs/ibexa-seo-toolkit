@@ -2,7 +2,7 @@
 
 namespace Codein\eZPlatformSeoToolkit;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\ContentAnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\ContentPreviewAnalyzerPass;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\RichTextAnalyzerPass;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,9 +25,8 @@ class EzPlatformSeoToolkitBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-        $container->registerForAutoconfiguration(ContentAnalyzerInterface::class)
-            ->addTag('codein_ez_platform_seo_toolkit.seo_analyzer.richtext')
-        ;
+
         $container->addCompilerPass(new RichTextAnalyzerPass());
+        $container->addCompilerPass(new ContentPreviewAnalyzerPass());
     }
 }

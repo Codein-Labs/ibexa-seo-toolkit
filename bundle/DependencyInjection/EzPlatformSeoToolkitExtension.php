@@ -2,11 +2,10 @@
 
 namespace Codein\eZPlatformSeoToolkit\DependencyInjection;
 
+use Codein\eZPlatformSeoToolkit\Analyzer\ContentAnalyzerInterface;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -14,7 +13,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 final class EzPlatformSeoToolkitExtension extends Extension
 {
-    public const EXTENSION_ALIAS = 'codein_ez_platform_seo_toolkit';
+    public const ALIAS = 'codein_ez_platform_seo_toolkit';
 
     /**
      * {@inheritdoc}
@@ -34,12 +33,13 @@ final class EzPlatformSeoToolkitExtension extends Extension
             }
         );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yaml');
+        $container->registerForAutoconfiguration(ContentAnalyzerInterface::class)
+                   ->addTag('codein_ez_platform_seo_toolkit.seo_analyzer')
+               ;
     }
 
     public function getAlias(): string
     {
-        return self::EXTENSION_ALIAS;
+        return self::ALIAS;
     }
 }

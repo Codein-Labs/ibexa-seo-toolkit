@@ -8,8 +8,9 @@ namespace Codein\eZPlatformSeoToolkit\Analyzer;
 interface ContentAnalyzerInterface
 {
     /**
+     * @param $fieldDefinition
      * @param $fieldValue
      * @return mixed
      */
-    public function analyze($fieldValue);
+    public function analyze($fieldDefinition, $fieldValue);
 }

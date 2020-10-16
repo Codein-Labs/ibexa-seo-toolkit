@@ -13,16 +13,22 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class RichTextAnalyzerPass implements CompilerPassInterface
 {
+    const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.rich_text';
+
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(RichTextAnalyzerService::class)) {
             return;
         }
-
+        $analysis = [];
         $analyzerDefinition = $container->getDefinition(RichTextAnalyzerService::class);
 
-        $allFieldAnalyzers = $container->findTaggedServiceIds(\sprintf('%s.seo_analyzer.richtext', EzPlatformSeoToolkitExtension::EXTENSION_ALIAS));
-        $analysis = $container->getParameter(\sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::EXTENSION_ALIAS))['blocklist'];
+        $allFieldAnalyzers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);
+        if (true === $container->hasParameter($analysisParam)) {
+            $analysis = $container->getParameter($analysisParam)['blocklist'];
+        }
+
         foreach ($allFieldAnalyzers as $id => $tags) {
             if (false === \in_array($id, $analysis, true)) {
                 $analyzerDefinition->addMethodCall('addAnalyzer', [new Reference($id)]);
