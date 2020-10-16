@@ -4,4 +4,4 @@ DOCKER-EXEC     = docker exec --tty=true --user=1000 -w $(DOCKER_APP_DIR) -i $(D
 test: ## Launch all functionnal and unit tests
 test: phpunit.xml
 	- echo '###### <-- Runing functionnal and unit tests --> ######'
-	- $(DOCKER-EXEC) vendor/bin/simple-phpunit --stop-on-failure
+	- $(DOCKER-EXEC) vendor/bin/simple-phpunit --stop-on-failure --debug
