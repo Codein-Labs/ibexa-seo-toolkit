@@ -6,4 +6,13 @@ DOCKER-EXEC     = docker exec --tty=true --user=1000 -w $(DOCKER_APP_DIR) -i $(D
 test: ## Launch all functionnal and unit tests
 test: phpunit.xml
 	- echo '###### <-- Runing functionnal and unit tests --> ######'
-	- $(DOCKER-EXEC) vendor/bin/simple-phpunit --stop-on-failure --debug
+	- $(DOCKER-EXEC) composer test
+
+php-cs-fixer: ## Run php-cs-fixer
+php-cs-fixer:
+	- echo '###### <-- Runing php-cs-fixer --> ######'
+	- $(DOCKER-EXEC) vendor/bin/php-cs-fixer fix --config=./php_cs_fixer.dist --verbose
+
+psalm: ## Run PSALM
+psalm:
+	- $(DOCKER-EXEC) vendor/bin/psalm

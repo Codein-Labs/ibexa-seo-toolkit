@@ -25,18 +25,27 @@
         "symfony/event-dispatcher": "^3.4|^4.0",
         "symfony/http-foundation": "^3.4|^4.0",
         "symfony/http-kernel": "^3.4|^4.0",
-        "ezsystems/ezpublish-kernel": "^7.5"
+        "ezsystems/ezpublish-kernel": "^7.5",
+        "ezsystems/ezplatform-richtext": "^1.1|^2.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "5.x-dev",
         "phpunit/phpunit": "8.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.0"
+        "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+        "friendsofphp/php-cs-fixer": "^2.17@dev",
+        "vimeo/psalm": "^3.10",
+        "psalm/plugin-symfony": "dev-master"
     },
     "autoload": {
         "psr-4": {
             "Codein\\eZPlatformSeoToolkit\\": "bundle",
             "Codein\\Tests\\eZPlatformSeoToolkit\\": "tests/bundle"
         }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/simple-phpunit --stop-on-failure --debug"
+        ]
     },
     "minimum-stability": "dev"
 }
