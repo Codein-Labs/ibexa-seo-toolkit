@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\ContentPreviewAnalyzerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -17,7 +17,7 @@ class ContentPreviewAnalyzerPassTest extends AbstractCompilerPassTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->setDefinition(ContentPreviewAnalyzerService::class, new Definition());
+        $this->setDefinition(ContentPreviewParentAnalyzerService::class, new Definition());
     }
 
     public function testAddAnalyzer()
@@ -29,7 +29,7 @@ class ContentPreviewAnalyzerPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            ContentPreviewAnalyzerService::class,
+            ContentPreviewParentAnalyzerService::class,
              'addAnalyzer',
              [new Reference(self::ANALYZER_ADDEDER_ID)]
          );

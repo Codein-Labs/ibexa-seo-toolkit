@@ -2,7 +2,7 @@
 
 namespace Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -17,11 +17,11 @@ final class ContentPreviewAnalyzerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(ContentPreviewAnalyzerService::class)) {
+        if (!$container->has(ContentPreviewParentAnalyzerService::class)) {
             return;
         }
         $analysis = [];
-        $analyzerDefinition = $container->getDefinition(ContentPreviewAnalyzerService::class);
+        $analyzerDefinition = $container->getDefinition(ContentPreviewParentAnalyzerService::class);
 
         $allFieldAnalyzers = $container->findTaggedServiceIds(self::TAG_NAME);
         $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);

@@ -3,6 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit;
 
 use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\ContentPreviewAnalyzerPass;
+use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\PublicForTestsCompilerPass;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\RichTextAnalyzerPass;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -28,5 +29,6 @@ class EzPlatformSeoToolkitBundle extends Bundle
 
         $container->addCompilerPass(new RichTextAnalyzerPass());
         $container->addCompilerPass(new ContentPreviewAnalyzerPass());
+        $container->addCompilerPass(new PublicForTestsCompilerPass());
     }
 }

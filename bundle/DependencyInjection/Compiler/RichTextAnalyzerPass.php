@@ -2,7 +2,7 @@
 
 namespace Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\RichTextAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -17,11 +17,11 @@ final class RichTextAnalyzerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(RichTextAnalyzerService::class)) {
+        if (!$container->has(RichTextParentAnalyzerService::class)) {
             return;
         }
         $analysis = [];
-        $analyzerDefinition = $container->getDefinition(RichTextAnalyzerService::class);
+        $analyzerDefinition = $container->getDefinition(RichTextParentAnalyzerService::class);
 
         $allFieldAnalyzers = $container->findTaggedServiceIds(self::TAG_NAME);
         $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);

@@ -11,7 +11,11 @@ ____
 
 See the installing procedure: [INSTALL.md](INSTALL.md).
 
-## Using the bundle
+## Usage
+
+Learn how to exploit the power of this bundle, and start making SEO optimization a better experience: [USAGE.md](USAGE.md).
+
+## Analyzers
 
 Learn how to exploit the power of this bundle, and start making SEO optimization a better experience: [USAGE.md](USAGE.md).
 

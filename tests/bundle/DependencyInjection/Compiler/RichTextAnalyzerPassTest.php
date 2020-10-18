@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-use Codein\eZPlatformSeoToolkit\Analyzer\RichTextAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\RichTextAnalyzerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -17,7 +18,7 @@ class RichTextAnalyzerPassTest extends AbstractCompilerPassTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->setDefinition(RichTextAnalyzerService::class, new Definition());
+        $this->setDefinition(RichTextParentAnalyzerService::class, new Definition());
     }
 
     public function testAddAnalyzer()
@@ -29,7 +30,7 @@ class RichTextAnalyzerPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            RichTextAnalyzerService::class,
+            RichTextParentAnalyzerService::class,
              'addAnalyzer',
              [new Reference(self::ANALYZER_ADDEDER_ID)]
          );
