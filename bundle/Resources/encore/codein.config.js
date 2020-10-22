@@ -10,7 +10,6 @@ module.exports = (Encore) => {
       react: "React",
       "react-dom": "ReactDOM",
       "react-spring": "react-spring",
-      "styled-components": "styled-components",
     })
     .copyFiles({
       from: path.resolve(__dirname, "../public/img"),

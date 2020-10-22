@@ -8,33 +8,14 @@ services:
     tags:
       - { name: kernel.event.subscriber }
 
-  codein.ezplatformseotoolkit.entry_stylesheet:
-    parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
-    public: true
-    autowire: true
-    autoconfigure: false
-    arguments:
-      $template: "EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit.css.twig"
-    tags:
-      - { name: ezplatform.admin_ui.component, group: "stylesheet-head" }
-
+  # Bundle pages.
   codein.ezplatformseotoolkit.entry_script:
     parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
     public: true
     autowire: true
     autoconfigure: false
     arguments:
-      $template: "EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit.js.twig"
-    tags:
-      - { name: ezplatform.admin_ui.component, group: "script-body" }
-
-  codein.ezplatformseotoolkit.seo_analysis.seo_view:
-    parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
-    public: true
-    autowire: true
-    autoconfigure: false
-    arguments:
-      $template: "EzPlatformSeoToolkitBundle:pages:seo_view.html.twig"
+      $template: "EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit_seo-menu.html.twig"
     tags:
       - {
           name: ezplatform.admin_ui.component,

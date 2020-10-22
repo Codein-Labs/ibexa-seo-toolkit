@@ -1,18 +1,6 @@
 import React from "react";
 import { animated, Transition } from "react-spring/renderprops";
-import styled from "styled-components";
 import SeoView from "./components/seo_view";
-
-const Page = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
-  z-index: -1;
-`;
 
 export default class App extends React.Component {
   constructor(props) {
@@ -65,11 +53,11 @@ export default class App extends React.Component {
           !seoMenuOpened ? (
             <animated.div style={{ ...style }}></animated.div>
           ) : (
-            <Page style={{ zIndex: 2 }}>
+            <div className="page" style={{ zIndex: 2 }}>
               <animated.div style={{ ...style, background: "#15154b" }}>
                 <SeoView />
               </animated.div>
-            </Page>
+            </div>
           )}
       </Transition>
     );
