@@ -1,40 +1,46 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
 
-    Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
-        tags:
-            - { name: kernel.event.subscriber }
+  Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
+    tags:
+      - { name: kernel.event.subscriber }
 
-    codein.ezplatformseotoolkit.entry_stylesheet:
-        parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
-        public: true 
-        autowire: true 
-        autoconfigure: false 
-        arguments:
-            $template: 'EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit.css.twig'
-        tags:
-            - { name: ezplatform.admin_ui.component, group: 'stylesheet-head' }
+  codein.ezplatformseotoolkit.entry_stylesheet:
+    parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
+    public: true
+    autowire: true
+    autoconfigure: false
+    arguments:
+      $template: "EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit.css.twig"
+    tags:
+      - { name: ezplatform.admin_ui.component, group: "stylesheet-head" }
 
-    codein.ezplatformseotoolkit.entry_script:
-        parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
-        public: true 
-        autowire: true 
-        autoconfigure: false 
-        arguments:
-            $template: 'EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit.js.twig'
-        tags:
-            - { name: ezplatform.admin_ui.component, group: 'script-body' }
+  codein.ezplatformseotoolkit.entry_script:
+    parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
+    public: true
+    autowire: true
+    autoconfigure: false
+    arguments:
+      $template: "EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit.js.twig"
+    tags:
+      - { name: ezplatform.admin_ui.component, group: "script-body" }
 
-    codein.ezplatformseotoolkit.seo_analysis.seo_view:
-        parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
-        public: true 
-        autowire: true 
-        autoconfigure: false 
-        arguments:
-            $template: 'EzPlatformSeoToolkitBundle:seo_view:seo_view.html.twig'
-        tags:
-            - { name: ezplatform.admin_ui.component, group: 'content-create-form-after' }
-            - { name: ezplatform.admin_ui.component, group: 'content-edit-form-after' }
+  codein.ezplatformseotoolkit.seo_analysis.seo_view:
+    parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
+    public: true
+    autowire: true
+    autoconfigure: false
+    arguments:
+      $template: "EzPlatformSeoToolkitBundle:pages:seo_view.html.twig"
+    tags:
+      - {
+          name: ezplatform.admin_ui.component,
+          group: "content-create-form-after",
+        }
+      - {
+          name: ezplatform.admin_ui.component,
+          group: "content-edit-form-after",
+        }
