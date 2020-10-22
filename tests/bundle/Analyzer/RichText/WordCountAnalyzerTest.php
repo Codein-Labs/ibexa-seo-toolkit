@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
 use Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer;
+use eZ\Publish\API\Repository\Values\Content\Field;
+use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Class WordCountAnalyzerTest.
@@ -12,19 +12,28 @@ class WordCountAnalyzerTest extends KernelTestCase
 {
     private $container;
 
-     public function setUp(): void
-     {
-         self::bootKernel();
+    public function setUp(): void
+    {
+        self::bootKernel();
 
-         $this->container = self::$kernel->getContainer();
-     }
+        $this->container = self::$kernel->getContainer();
+    }
+
     public function testWordCount()
-   {
-
-
-
-       $ipsum = $this->container->get('knpu_lorem_ipsum.knpu_ipsum');
-
-       // ...
-   }
+    {
+        /** @var WordCountAnalyzer $ipsum */
+        $ipsum = $this->container->get(WordCountAnalyzer::class);
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ezxhtml="http://ez.no/xmlns/ezpublish/docbook/xhtml" xmlns:ezcustom="http://ez.no/xmlns/ezpublish/docbook/custom" version="5.0-variant ezpublish-1.0">
+  <title>This is a heading.</title>
+  <para>This is a paragraph.</para>
+</section>
+';
+        $value = new Value($xml);
+        $field = new Field(['id' => 42, 'value' => $value]);
+        $response = $ipsum->analyze($field, $value);
+        $this->assertArrayHasKey('items', $response);
+        $this->assertArrayHasKey('totalCount', $response);
+        $this->assertSame($response['totalCount'], 8);
+    }
 }
