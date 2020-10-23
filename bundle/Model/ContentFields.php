@@ -3,20 +3,20 @@
 namespace Codein\eZPlatformSeoToolkit\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Class RichText.
  */
 class ContentFields
 {
+    private $contentTypeIdentifier;
     private $keyword;
     private $isPillarPage;
-    /** @var Field[] */
     private $fields;
-    private $contentTypeIdentifier;
 
     /**
-     * @return mixed
+     * @return ?string
      */
     public function getKeyword()
     {
@@ -24,9 +24,9 @@ class ContentFields
     }
 
     /**
-     * @param mixed $keyword
+     * @param ?string $keyword
      */
-    public function setKeyword($keyword)
+    public function setKeyword(?string $keyword): self
     {
         $this->keyword = $keyword;
 
@@ -34,7 +34,7 @@ class ContentFields
     }
 
     /**
-     * @return mixed
+     * @return ?bool
      */
     public function getIsPillarPage()
     {
@@ -42,9 +42,9 @@ class ContentFields
     }
 
     /**
-     * @param mixed $isPillarPage
+     * @param bool $isPillarPage
      */
-    public function setIsPillarPage($isPillarPage)
+    public function setIsPillarPage(?bool $isPillarPage): self
     {
         $this->isPillarPage = $isPillarPage;
 
@@ -52,7 +52,7 @@ class ContentFields
     }
 
     /**
-     * @return Field[]
+     * @return Collection|ArrayCollection
      */
     public function getFields(): ?ArrayCollection
     {
@@ -62,7 +62,7 @@ class ContentFields
     /**
      * @param Field[] $fields
      */
-    public function setFields($fields)
+    public function setFields($fields): self
     {
         $this->fields = $fields;
 
@@ -70,7 +70,7 @@ class ContentFields
     }
 
     /**
-     * @return mixed
+     * @return ?string
      */
     public function getContentTypeIdentifier()
     {
@@ -78,9 +78,9 @@ class ContentFields
     }
 
     /**
-     * @param mixed $contentTypeIdentifier
+     * @param ?string $contentTypeIdentifier
      */
-    public function setContentTypeIdentifier($contentTypeIdentifier)
+    public function setContentTypeIdentifier(?string $contentTypeIdentifier): self
     {
         $this->contentTypeIdentifier = $contentTypeIdentifier;
 

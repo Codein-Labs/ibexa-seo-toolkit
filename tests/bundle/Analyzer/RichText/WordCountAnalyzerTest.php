@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
 use Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer;
-use eZ\Publish\API\Repository\Values\Content\Field;
 use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -30,8 +29,13 @@ class WordCountAnalyzerTest extends KernelTestCase
 </section>
 ';
         $value = new Value($xml);
-        $field = new Field(['id' => 42, 'value' => $value]);
-        $response = $ipsum->analyze($field, $value);
+        $fieldDefinition = new \eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition(
+            [
+                'id' => 24,
+                'fieldTypeIdentifier' => 'ezrichtext',
+            ]
+        );
+        $response = $ipsum->analyze($fieldDefinition, $value);
         $this->assertArrayHasKey('items', $response);
         $this->assertArrayHasKey('totalCount', $response);
         $this->assertSame($response['totalCount'], 8);

@@ -4,8 +4,8 @@ namespace Codein\eZPlatformSeoToolkit\Controller;
 
 use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\Form\Type\ContentFieldsType;
+use Codein\eZPlatformSeoToolkit\Helper\XmlValidator;
 use Codein\eZPlatformSeoToolkit\Model\ContentFields;
-use Codein\Tests\eZPlatformSeoToolkit\Helper\XmlValidator;
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;

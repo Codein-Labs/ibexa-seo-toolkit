@@ -11,7 +11,7 @@ class Field
     private $fieldValue;
 
     /**
-     * @return mixed
+     * @return ?string
      */
     public function getFieldIdentifier()
     {
@@ -19,9 +19,9 @@ class Field
     }
 
     /**
-     * @param mixed $fieldIdentifier
+     * @param ?string $fieldIdentifier
      */
-    public function setFieldIdentifier($fieldIdentifier)
+    public function setFieldIdentifier(?string $fieldIdentifier): self
     {
         $this->fieldIdentifier = $fieldIdentifier;
 
@@ -29,17 +29,17 @@ class Field
     }
 
     /**
-     * @return mixed
+     * @return ?string
      */
-    public function getFieldValue()
+    public function getFieldValue(): ?string
     {
         return $this->fieldValue;
     }
 
     /**
-     * @param mixed $fieldValue
+     * @param ?string $fieldValue
      */
-    public function setFieldValue($fieldValue)
+    public function setFieldValue(?string $fieldValue): self
     {
         $this->fieldValue = $fieldValue;
 
