@@ -1,0 +1,4 @@
+# config/routes.yaml
+blog_list:
+    path: /api/seo/analyze
+    controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
