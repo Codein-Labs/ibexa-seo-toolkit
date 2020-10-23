@@ -15,6 +15,7 @@ return PhpCsFixer\Config::create()
         'concat_space' => ['spacing' => 'one'],
         'array_syntax' => ['syntax' => 'short'],
         'simplified_null_return' => false,
+        'protected_to_private' => false,
         'phpdoc_align' => false,
         'phpdoc_separation' => false,
         'phpdoc_to_comment' => false,
