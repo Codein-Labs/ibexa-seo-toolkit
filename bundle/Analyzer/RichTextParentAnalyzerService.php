@@ -29,7 +29,7 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface
                 continue;
             }
 
-            $result[\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] = $analyzer->analyze($fieldDefinition, $fieldValue);
+            $result[\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] = $analyzer->analyze($fieldValue);
         }
 
         return $result;

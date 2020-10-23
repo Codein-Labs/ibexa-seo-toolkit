@@ -10,7 +10,7 @@ use eZ\Publish\Core\FieldType\Value as BaseValue;
  */
 interface ContentPreviewAnalyzerInterface
 {
-    public function analyze(FieldDefinition $fieldDefinition, BaseValue $fieldValue): array;
+    public function analyze(BaseValue $fieldValue): array;
 
     public function support(FieldDefinition $fieldDefinition): bool;
 }
