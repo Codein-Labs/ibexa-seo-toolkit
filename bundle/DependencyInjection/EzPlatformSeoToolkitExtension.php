@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 final class EzPlatformSeoToolkitExtension extends Extension
 {
-    public const EXTENSION_ALIAS = 'codein_ez_platform_seo_toolkit';
+    public const ALIAS = 'codein_ez_platform_seo_toolkit';
 
     /**
      * {@inheritdoc}
@@ -40,6 +40,6 @@ final class EzPlatformSeoToolkitExtension extends Extension
 
     public function getAlias(): string
     {
-        return self::EXTENSION_ALIAS;
+        return self::ALIAS;
     }
 }
