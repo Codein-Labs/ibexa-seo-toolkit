@@ -1,8 +1,13 @@
 <phpunit colors="true">
+    <php>
+        <server name="KERNEL_CLASS" value="AppKernel" />
+    </php>
+
     <testsuites>
         <testsuite name="codeinEzSeoToolkit">
-            <directory>tests/bundle</directory>
-            <directory>tests/lib</directory>
+            <directory>./tests/bundle/</directory>
+            <directory>./tests/lib</directory>
         </testsuite>
     </testsuites>
+
 </phpunit>
