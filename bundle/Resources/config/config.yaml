@@ -1,0 +1,13 @@
+fos_rest:
+    body_listener: true
+    param_fetcher_listener: true
+    view:
+        view_response_listener: 'force'
+        empty_content: 204
+        formats:
+            json : true
+    format_listener:
+        rules:
+            - { path: '^/aa', priorities: ['json'], fallback_format: json, prefer_extension: false }
+            - { path: '^/api/seo', priorities: ['json'], fallback_format: json, prefer_extension: false }
+            - { path: '^/', stop: true }
