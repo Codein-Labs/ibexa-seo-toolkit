@@ -9,6 +9,7 @@ export default class App extends React.Component {
     this.state = { seoMenuOpened: false };
 
     this.toggleSeoMenu = this.toggleSeoMenu.bind(this);
+    this.onCloseMenu = this.onCloseMenu.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +39,12 @@ export default class App extends React.Component {
     );
   }
 
+  onCloseMenu() {
+    this.setState(() => ({
+      seoMenuOpened: false,
+    }));
+  }
+
   render() {
     return (
       <Transition
@@ -54,8 +61,8 @@ export default class App extends React.Component {
             <animated.div style={{ ...style }}></animated.div>
           ) : (
             <div className="page" style={{ zIndex: 2 }}>
-              <animated.div style={{ ...style, background: "#15154b" }}>
-                <SeoView />
+              <animated.div style={{ ...style, background: "#fafafa" }}>
+                <SeoView closeMenu={this.onCloseMenu} />
               </animated.div>
             </div>
           )}

@@ -1,7 +1,18 @@
+// Override eZ.
 .ez-context-menu {
   z-index: 2;
 }
 
+// Override boostrap.
+.nav-tabs {
+  border-bottom: none;
+
+  .nav-link.active {
+    background-color: #fafafa;
+  }
+}
+
+// Custom style.
 .page {
   position: fixed;
   width: 100%;
@@ -17,4 +28,8 @@
     height: 100vh;
     z-index: 10;
   }
+}
+
+.tab-content {
+  min-height: 65vh;
 }
