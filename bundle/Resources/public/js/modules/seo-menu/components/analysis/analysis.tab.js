@@ -1,6 +1,17 @@
 import React from "react";
+import { __ } from "../../../../commons/services/language.service";
+import AnalysisKeyword from "./analysis.keyword";
+import AnalysisReadability from "./analysis.readability";
 
-const AnalysisIndex = (props) => {
+const AnalysisTab = (props) => {
+  const transAccordionTitleKeyword = __(
+    "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword"
+  );
+
+  const transAccordionTitleReadability = __(
+    "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability"
+  );
+
   return (
     <>
       <div class="accordion" id="accordionExample">
@@ -15,7 +26,7 @@ const AnalysisIndex = (props) => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                Mot clé
+                {transAccordionTitleKeyword}
               </button>
             </h2>
           </div>
@@ -27,9 +38,7 @@ const AnalysisIndex = (props) => {
             data-parent="#accordionExample"
           >
             <div class="card-body">
-              <ul>
-                <li>...</li>
-              </ul>
+              <AnalysisKeyword />
             </div>
           </div>
         </div>
@@ -44,7 +53,7 @@ const AnalysisIndex = (props) => {
                 aria-expanded="false"
                 aria-controls="collapseTwo"
               >
-                Lisibilité
+                {transAccordionTitleReadability}
               </button>
             </h2>
           </div>
@@ -55,9 +64,7 @@ const AnalysisIndex = (props) => {
             data-parent="#accordionExample"
           >
             <div class="card-body">
-              <ul>
-                <li>Paragraphes trop longs.</li>
-              </ul>
+              <AnalysisReadability />
             </div>
           </div>
         </div>
@@ -66,4 +73,4 @@ const AnalysisIndex = (props) => {
   );
 };
 
-export default AnalysisIndex;
+export default AnalysisTab;

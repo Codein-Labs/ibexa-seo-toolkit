@@ -1,13 +1,10 @@
 import React from "react";
 import Logo from "../../../../img/SEO-Toolkit_logo.svg";
-import AnalysisIndex from "./analysis/analysis.index";
+import { __ } from "../../../commons/services/language.service";
+import AnalysisTab from "./analysis/analysis.tab";
+import ConfigurationTab from "./configuration/configuration.tab";
 import SeoViewTabs from "./seo_view.tabs";
 import SeoViewTabsNav from "./seo_view.tabs.nav";
-
-const TABS = [
-  { title: "Analyse SEO", component: <AnalysisIndex /> },
-  { title: "Configuration SEO", component: <></> },
-];
 
 export default class SeoView extends React.Component {
   constructor(props) {
@@ -23,18 +20,20 @@ export default class SeoView extends React.Component {
   }
 
   render() {
-    const transTitle = Translator.trans(
-      "codein_seo_toolkit.seo_view.title",
-      {},
-      "codein_seo_toolkit"
+    const transTitle = __("codein_seo_toolkit.seo_view.title");
+    const transDesc = __("codein_seo_toolkit.seo_view.desc");
+    const transMadeWith = __("codein_seo_toolkit.seo_view.footer_made_with");
+    const transMadeBy = __("codein_seo_toolkit.seo_view.footer_made_by");
+
+    const transTabAnalysis = __("codein_seo_toolkit.seo_view.tab_analysis");
+    const transTabConfiguration = __(
+      "codein_seo_toolkit.seo_view.tab_configuration"
     );
 
-    const transDesc = Translator.trans(
-      "codein_seo_toolkit.seo_view.desc",
-      {},
-      "codein_seo_toolkit"
-    );
-
+    const TABS = [
+      { title: transTabAnalysis, component: <AnalysisTab /> },
+      { title: transTabConfiguration, component: <ConfigurationTab /> },
+    ];
     return (
       <>
         <div className="ez-header pt-2">
@@ -81,7 +80,8 @@ export default class SeoView extends React.Component {
             </div>
             <div className="container">
               <p>
-                Fait avec ❤️ par <a href="https://codein.Fr">Codéin</a>.
+                {transMadeWith} ❤️ {transMadeBy}{" "}
+                <a href="https://codein.fr">Codéin</a>.
               </p>
             </div>
           </div>
