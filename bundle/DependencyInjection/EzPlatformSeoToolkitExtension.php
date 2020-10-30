@@ -6,15 +6,22 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAw
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class EzPlatformSeoToolkitExtension.
  */
-final class EzPlatformSeoToolkitExtension extends Extension
+final class EzPlatformSeoToolkitExtension extends Extension implements PrependExtensionInterface
 {
     public const ALIAS = 'codein_ez_platform_seo_toolkit';
+
+    public function prepend(ContainerBuilder $container)
+    {
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('config.yaml');
+    }
 
     /**
      * {@inheritdoc}
