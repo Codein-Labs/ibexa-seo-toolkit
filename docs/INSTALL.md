@@ -42,7 +42,6 @@ Register the routes of our seo entrypoint by adding the following lines to ``app
 api_ez_platform_seo:
     resource: .
     type: api_ez_platform_seo
-    prefix: /api # Optional
 ```
 
 Once the bundle is installed and configured, tell
@@ -56,7 +55,7 @@ codein_ez_platform_seo_toolkit: ~
 ## That was it!
 
 Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find out how
-to configure and setup your first upload.
+to specify your custom configuration.
 
 [1]: docs/REQUIREMENTS.md
 

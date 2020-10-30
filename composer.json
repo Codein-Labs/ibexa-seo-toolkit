@@ -29,7 +29,8 @@
         "ezsystems/ezplatform-richtext": "^1.1|^2.0",
         "ext-json": "*",
         "ext-libxml": "*",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "friendsofsymfony/rest-bundle": "^2.8.3"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "5.x-dev",

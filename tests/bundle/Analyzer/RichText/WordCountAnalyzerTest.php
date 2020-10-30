@@ -29,13 +29,8 @@ class WordCountAnalyzerTest extends KernelTestCase
 </section>
 ';
         $value = new Value($xml);
-        $fieldDefinition = new \eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition(
-            [
-                'id' => 24,
-                'fieldTypeIdentifier' => 'ezrichtext',
-            ]
-        );
-        $response = $ipsum->analyze($fieldDefinition, $value);
+
+        $response = $ipsum->analyze($value);
         $this->assertArrayHasKey('items', $response);
         $this->assertArrayHasKey('totalCount', $response);
         $this->assertSame($response['totalCount'], 8);

@@ -35,7 +35,7 @@ class AnalyzeContentController extends AbstractController
         $data = \json_decode($request->getContent(), true);
 
         if (JSON_ERROR_NONE !== \json_last_error()) {
-            throw new HttpException(400, 'Invalid json');
+            throw new HttpException(400, 'Invalid json.');
         }
 
         $form = $this->createForm(ContentFieldsType::class, new ContentFields());
@@ -54,7 +54,7 @@ class AnalyzeContentController extends AbstractController
                     ]
                 );
                 if (false === XmlValidator::isXMLContentValid($field->getFieldValue())) {
-                    throw new HttpException(400, \sprintf('Invalid xml value for field "%s"', $field->getFieldIdentifier()));
+                    throw new HttpException(400, \sprintf('Invalid xml value for field "%s".', $field->getFieldIdentifier()));
                 }
                 $fieldValue = new Value($field->getFieldValue());
                 $result[$field->getFieldIdentifier()] = $this->richTextAnalyzer
