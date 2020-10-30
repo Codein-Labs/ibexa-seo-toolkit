@@ -54,7 +54,8 @@ More details available on [features][2]
 Installation
 -----------
 
-* [Install the bundle][3] with Composer (see [requirements details][4])
+Don't worry, it will be quick and easy (I promise!):
+* [Installation procedure](docs/INSTALL.md)
 
 Documentation
 -------------
