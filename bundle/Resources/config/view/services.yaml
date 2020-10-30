@@ -1,0 +1,27 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+    
+  Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
+    tags:
+      - { name: kernel.event.subscriber }
+
+  # Bundle pages.
+  codein.ezplatformseotoolkit.entry_script:
+    parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
+    public: true
+    autowire: true
+    autoconfigure: false
+    arguments:
+      $template: "EzPlatformSeoToolkitBundle::codein_ezplatformseotoolkit_seo-menu.html.twig"
+    tags:
+      - {
+          name: ezplatform.admin_ui.component,
+          group: "content-create-form-after",
+        }
+      - {
+          name: ezplatform.admin_ui.component,
+          group: "content-edit-form-after",
+        }

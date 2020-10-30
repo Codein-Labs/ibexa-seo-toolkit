@@ -1,5 +1,4 @@
-Installation
-============
+# Installing Codein eZ Platform SEO Toolkit
 
 ## Get the bundle using composer
 
@@ -50,6 +49,22 @@ EzPlatformSeoToolkitBundle that you want to use it.
 ```yaml
 # config/packages/codein_ez_platform_seo_toolkit.yaml or app/config/config.yml
 codein_ez_platform_seo_toolkit: ~
+```
+
+# Configure Webpack to build bundle assets
+
+In your `webpack.config.js` (same level as your composer.json) :
+```js
+const codeinSeoToolkitConfig = require('./vendor/codein/ezplatform-seo-toolkit/bundle/Resources/encore/codein.config.js')(Encore);
+
+module.exports = [ eZConfig, ...customConfigs, codeinSeoToolkitConfig ];
+```
+
+In your `config.yml`:
+```yml
+webpack_encore:
+    builds:
+        codein: "%kernel.project_dir%/web/bundles/codein-ezplatformseotoolkit"
 ```
 
 ## That was it!
