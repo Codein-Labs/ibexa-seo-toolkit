@@ -58,5 +58,3 @@ Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find o
 to specify your custom configuration.
 
 [1]: docs/REQUIREMENTS.md
-
-*
