@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 final class EzPlatformSeoToolkitExtension extends Extension implements PrependExtensionInterface
 {
-    public const EXTENSION_ALIAS = 'codein_ez_platform_seo_toolkit';
+    public const ALIAS = 'codein_ez_platform_seo_toolkit';
 
     /**
      * {@inheritdoc}
@@ -43,7 +43,7 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
 
     public function getAlias(): string
     {
-        return self::EXTENSION_ALIAS;
+        return self::ALIAS;
     }
 
     /**
