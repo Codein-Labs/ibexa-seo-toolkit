@@ -68,11 +68,11 @@ class AnalyzeContentControllerTest extends WebTestCase
                 'description' => [
                     'WordCountAnalyzer' => [
                         'items' => [
-                            'This' => 4,
-                            'is' => 5,
-                            'a' => 6,
-                            'paragraph' => 3,
-                            'heading' => 7,
+                            'This' => 20,
+                            'is' => 25,
+                            'a' => 28,
+                            'paragraph' => 10,
+                            'heading' => 30,
                         ],
                         'totalCount' => 8,
                     ],

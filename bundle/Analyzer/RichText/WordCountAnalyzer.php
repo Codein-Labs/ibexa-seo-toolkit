@@ -26,7 +26,7 @@ final class WordCountAnalyzer implements RichTextAnalyzerInterface
         $text = \strip_tags($html);
 
         return [
-            'items' => \array_flip(\str_word_count($text, 1)),
+            'items' => \array_flip(\str_word_count($text, 2)),
             'totalCount' => \str_word_count($text),
         ];
     }

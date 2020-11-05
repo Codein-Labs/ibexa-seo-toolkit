@@ -19,8 +19,10 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
 
     public function prepend(ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('config.yaml');
+        if (isset($container->getExtensions()['fos_rest'])) {
+            $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+            $loader->load('config.yaml');
+        }
     }
 
     /**

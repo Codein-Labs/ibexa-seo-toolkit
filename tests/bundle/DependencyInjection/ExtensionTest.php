@@ -34,8 +34,6 @@ final class ExtensionTest extends AbstractExtensionTestCase
 
     protected function getContainerExtensions(): array
     {
-        $this->container->setParameter('kernel.debug', false);
-
-        return [new EzPlatformSeoToolkitExtension(), new FOSRestExtension()];
+        return [new EzPlatformSeoToolkitExtension()];
     }
 }
