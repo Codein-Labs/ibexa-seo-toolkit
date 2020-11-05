@@ -1,1 +1,16 @@
-codein_seo_toolkit.content_create_edit.menu_label: 'Analyse SEO'
+codein_seo_toolkit.content_create_edit.menu_label: "Analyse SEO"
+
+# Pages
+codein_seo_toolkit.seo_view.title: "eZ Platform SEO Toolkit"
+codein_seo_toolkit.seo_view.desc: "Fenêtre d'optimisation SEO"
+codein_seo_toolkit.seo_view.footer_made_with: "Fait ave"
+codein_seo_toolkit.seo_view.footer_made_by: "par"
+
+codein_seo_toolkit.seo_view.tab_analysis: "Analyse"
+codein_seo_toolkit.seo_view.tab_configuration: "Configuration"
+
+### Tabs
+
+#### Analysis
+codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword: "Mot clé"
+codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability: "Lisibilité"
