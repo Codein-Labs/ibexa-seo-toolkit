@@ -7,6 +7,8 @@ fos_rest:
         empty_content: 204
         formats:
             json : true
+    zone:
+        - { path: '^/api/seo/.*' }
     format_listener:
         rules:
             - { path: '^/api/seo', priorities: ['json'], fallback_format: json, prefer_extension: false }
