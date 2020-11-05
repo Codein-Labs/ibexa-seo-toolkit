@@ -38,7 +38,8 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
         );
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yaml');
+        $loader->load('analyzer/services.yaml');
+        $loader->load('view/services.yaml');
     }
 
     public function getAlias(): string
