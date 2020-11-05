@@ -1,7 +1,6 @@
 import React from "react";
 import { __ } from "../../../../commons/services/language.service";
-import AnalysisKeyword from "./analysis.keyword";
-import AnalysisReadability from "./analysis.readability";
+import AnalysisCategoryContent from "./analysis.category.content";
 
 const AnalysisTab = (props) => {
   const transAccordionTitleKeyword = __(
@@ -14,12 +13,12 @@ const AnalysisTab = (props) => {
 
   return (
     <>
-      <div class="accordion" id="accordionExample">
-        <div class="card">
-          <div class="card-header" id="headingOne">
+      <div class="accordion" id="accordionCategory">
+        <div class="ez-view-rawcontentview">
+          <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
             <h2 class="mb-0">
-              <button
-                class="btn btn-link btn-block text-left"
+              <a
+                class="ez-content-preview-toggle"
                 type="button"
                 data-toggle="collapse"
                 data-target="#collapseOne"
@@ -27,26 +26,26 @@ const AnalysisTab = (props) => {
                 aria-controls="collapseOne"
               >
                 {transAccordionTitleKeyword}
-              </button>
+              </a>
             </h2>
           </div>
 
           <div
             id="collapseOne"
-            class="collapse show"
+            class="ez-content-preview-collapse collapse show"
             aria-labelledby="headingOne"
-            data-parent="#accordionExample"
+            data-parent="#accordionCategory"
           >
             <div class="card-body">
-              <AnalysisKeyword />
+              <AnalysisCategoryContent />
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header" id="headingTwo">
+        <div class="ez-view-rawcontentview">
+          <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingTwo">
             <h2 class="mb-0">
-              <button
-                class="btn btn-link btn-block text-left collapsed"
+              <a
+                class="ez-content-preview-toggle collapsed"
                 type="button"
                 data-toggle="collapse"
                 data-target="#collapseTwo"
@@ -54,17 +53,17 @@ const AnalysisTab = (props) => {
                 aria-controls="collapseTwo"
               >
                 {transAccordionTitleReadability}
-              </button>
+              </a>
             </h2>
           </div>
           <div
             id="collapseTwo"
-            class="collapse"
+            class="ez-content-preview-collapse collapse"
             aria-labelledby="headingTwo"
-            data-parent="#accordionExample"
+            data-parent="#accordionCategory"
           >
             <div class="card-body">
-              <AnalysisReadability />
+              <AnalysisCategoryContent />
             </div>
           </div>
         </div>
