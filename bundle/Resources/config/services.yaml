@@ -5,17 +5,20 @@ services:
         public: true
     _instanceof:
         Codein\eZPlatformSeoToolkit\Analyzer\ParentAnalyzerInterface:
-            tags: ['codein_ez_platform_seo_toolkit.seo_analyzer.parent']
+            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.parent' ]
         Codein\eZPlatformSeoToolkit\Analyzer\RichText\RichTextAnalyzerInterface:
-            tags: ['codein_ez_platform_seo_toolkit.seo_analyzer.rich_text']
+            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.rich_text' ]
         Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface:
-            tags: ['codein_ez_platform_seo_toolkit.seo_analyzer.content_preview']
+            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.content_preview' ]
+
     Codein\eZPlatformSeoToolkit\Analyzer\:
         resource: '../../Analyzer/*'
+
     Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer:
         arguments:
             $xhtml5Converter: '@ezrichtext.converter.output.xhtml5'
 
     Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController: ~
+
     Codein\eZPlatformSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
