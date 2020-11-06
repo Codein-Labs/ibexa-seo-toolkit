@@ -5,7 +5,7 @@ import SeoView from "./components/seo_view";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
+    this.props = props;
     this.state = { seoMenuOpened: false };
 
     this.toggleSeoMenu = this.toggleSeoMenu.bind(this);
@@ -62,7 +62,7 @@ export default class App extends React.Component {
           ) : (
             <div className="page" style={{ zIndex: 2 }}>
               <animated.div style={{ ...style, background: "#fafafa" }}>
-                <SeoView closeMenu={this.onCloseMenu} />
+                <SeoView closeMenu={this.onCloseMenu} contentAttributes={this.props.contentAttributes} />
               </animated.div>
             </div>
           )}
