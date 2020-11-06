@@ -19,12 +19,18 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
 {
     public const ALIAS = 'codein_ez_platform_seo_toolkit';
 
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
     public function prepend(ContainerBuilder $container)
     {
         if (isset($container->getExtensions()['fos_rest'])) {
             $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
             $loader->load('config.yaml');
         }
+        $this->prependBazingaJsTranslationConfiguration($container);
     }
 
     /**
@@ -55,15 +61,6 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
         return self::ALIAS;
     }
 
-    /**
-     * Allow an extension to prepend the extension configurations.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function prepend(ContainerBuilder $container)
-    {
-        $this->prependBazingaJsTranslationConfiguration($container);
-    }
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
