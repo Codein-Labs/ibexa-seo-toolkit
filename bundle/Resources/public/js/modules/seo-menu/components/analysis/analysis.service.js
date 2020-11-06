@@ -17,7 +17,7 @@ export const getAnalysis = ({ siteaccess, contentId }, callback) => {
             'Content-Type': 'application/json',
             'X-Siteaccess': siteaccess
         },
-        body?,
+        body,
         mode: 'cors'
     });
 
