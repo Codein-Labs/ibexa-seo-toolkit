@@ -1,9 +1,15 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
     # Bundle pages.
     codein.ezplatformseotoolkit.entry_script:
         parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
         autowire: true
         autoconfigure: false
+        public: false
         arguments:
             $template: "EzPlatformSeoToolkitBundle::seo_menu.html.twig"
         tags:
