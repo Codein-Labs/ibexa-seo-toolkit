@@ -4,6 +4,7 @@ use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer;
 use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
+use FOS\RestBundle\DependencyInjection\FOSRestExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
@@ -11,12 +12,6 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
  */
 final class ExtensionTest extends AbstractExtensionTestCase
 {
-    protected function getContainerExtensions()
-    : array
-    {
-        return [new EzPlatformSeoToolkitExtension()];
-    }
-
     public function testTaggedServices()
     {
         $this->load();
@@ -35,5 +30,10 @@ final class ExtensionTest extends AbstractExtensionTestCase
             WordCountAnalyzer::class,
              'codein_ez_platform_seo_toolkit.seo_analyzer.rich_text'
         );
+    }
+
+    protected function getContainerExtensions(): array
+    {
+        return [new EzPlatformSeoToolkitExtension()];
     }
 }

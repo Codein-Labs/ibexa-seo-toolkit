@@ -3,7 +3,6 @@
 namespace Codein\eZPlatformSeoToolkit\EventListener;
 
 use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MainMenuBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ContentCreateEditRightMenuListener implements EventSubscriberInterface
@@ -12,11 +11,11 @@ class ContentCreateEditRightMenuListener implements EventSubscriberInterface
     {
         return [
             ConfigureMenuEvent::CONTENT_CREATE_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
-            ConfigureMenuEvent::CONTENT_EDIT_SIDEBAR_RIGHT => ['onMenuConfigure', 0]
+            ConfigureMenuEvent::CONTENT_EDIT_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
         ];
     }
 
-    public function onMenuConfigure(ConfigureMenuEvent $event) 
+    public function onMenuConfigure(ConfigureMenuEvent $event)
     {
         $menu = $event->getMenu();
 
@@ -28,7 +27,7 @@ class ContentCreateEditRightMenuListener implements EventSubscriberInterface
                 'extras' => [
                     'icon_path' => '/bundles/codein-ezplatformseotoolkit/images/SEO-Toolkit_logo.svg#codein-seo-toolkit-logo',
                     'translation_domain' => 'codein_seo_toolkit',
-                ]
+                ],
             ]
         );
     }

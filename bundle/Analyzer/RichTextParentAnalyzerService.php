@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Analyzer;
 
 use Codein\eZPlatformSeoToolkit\Analyzer\RichText\RichTextAnalyzerInterface;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
@@ -21,7 +21,7 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface
         $this->analyzers[] = $analyzer;
     }
 
-    public function analyze(Field $fieldDefinition, BaseValue $fieldValue): array
+    public function analyze(FieldDefinition $fieldDefinition, BaseValue $fieldValue): array
     {
         foreach ($this->analyzers as $analyzer) {
             $result = [];
@@ -29,7 +29,7 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface
                 continue;
             }
 
-            $result[\get_class($analyzer)] = $analyzer->analyze($fieldDefinition, $fieldValue);
+            $result[\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] = $analyzer->analyze($fieldValue);
         }
 
         return $result;
