@@ -10,7 +10,7 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface;
  */
 final class SiteAccessConfigResolver
 {
-    protected $configResolver;
+    private $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)
     {

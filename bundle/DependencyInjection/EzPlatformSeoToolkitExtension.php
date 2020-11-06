@@ -19,6 +19,14 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
 {
     public const ALIAS = 'codein_ez_platform_seo_toolkit';
 
+    public function prepend(ContainerBuilder $container)
+    {
+        if (isset($container->getExtensions()['fos_rest'])) {
+            $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+            $loader->load('config.yaml');
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -38,8 +46,8 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
         );
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('analyzer/services.yaml');
-        $loader->load('view/services.yaml');
+        $loader->load('services.yaml');
+        $loader->load('admin_ui.yaml');
     }
 
     public function getAlias(): string

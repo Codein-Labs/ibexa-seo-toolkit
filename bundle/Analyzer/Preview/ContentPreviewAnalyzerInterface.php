@@ -2,7 +2,7 @@
 
 namespace Codein\eZPlatformSeoToolkit\Analyzer\Preview;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
@@ -10,7 +10,7 @@ use eZ\Publish\Core\FieldType\Value as BaseValue;
  */
 interface ContentPreviewAnalyzerInterface
 {
-    public function analyze(Field $fieldDefinition, BaseValue $fieldValue): array;
+    public function analyze(BaseValue $fieldValue): array;
 
-    public function support(Field $fieldDefinition): bool;
+    public function support(FieldDefinition $fieldDefinition): bool;
 }
