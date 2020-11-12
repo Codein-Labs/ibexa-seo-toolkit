@@ -44,7 +44,7 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
 
         $processor->mapConfig(
             $config,
-            static function ($scopeSettings, $currentScope, ContextualizerInterface $contextualize) {
+            static function ($scopeSettings, $currentScope, ContextualizerInterface $contextualize): void {
                 foreach ($scopeSettings as $key => $value) {
                     $contextualize->setContextualParameter($key, $currentScope, $value);
                 }
