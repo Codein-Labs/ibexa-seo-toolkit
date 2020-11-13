@@ -1,0 +1,13 @@
+codein_seo_toolkit.content_create_edit.menu_label: 'SEO Analysis'
+codein_seo_toolkit.seo_view.title: 'eZ Platform SEO Toolkit'
+codein_seo_toolkit.seo_view.desc: 'Optimization Window'
+codein_seo_toolkit.seo_view.footer_made_with: 'Made with'
+codein_seo_toolkit.seo_view.footer_made_by: by
+codein_seo_toolkit.seo_view.tab_analysis: Analysis
+codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyze
+codein_seo_toolkit.seo_view.tab_configuration: Configuration
+codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword: Keyword
+codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability: Readability
+codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Focus keyword'
+codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Is a pillar article'
+codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'

@@ -1,2 +1,3 @@
 active_domains:
     - "codein_seo_toolkit"
+locale_fallback: en
