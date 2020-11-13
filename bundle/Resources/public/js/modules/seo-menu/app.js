@@ -1,6 +1,7 @@
 import React from "react";
 import { animated, Transition } from "react-spring/renderprops";
 import SeoView from "./components/seo_view";
+import EzDataContext from "./ez.datacontext";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,6 +11,8 @@ export default class App extends React.Component {
 
     this.toggleSeoMenu = this.toggleSeoMenu.bind(this);
     this.onCloseMenu = this.onCloseMenu.bind(this);
+
+    console.log(this.props.contentAttributes)
   }
 
   componentDidMount() {
@@ -62,7 +65,9 @@ export default class App extends React.Component {
           ) : (
             <div className="page" style={{ zIndex: 2 }}>
               <animated.div style={{ ...style, background: "#fafafa" }}>
-                <SeoView closeMenu={this.onCloseMenu} contentAttributes={this.props.contentAttributes} />
+                <EzDataContext.Provider value={this.props.contentAttributes}>
+                  <SeoView closeMenu={this.onCloseMenu} contentAttributes={this.props.contentAttributes} />
+                </EzDataContext.Provider>
               </animated.div>
             </div>
           )}
