@@ -5,15 +5,6 @@ import { getConfiguration } from './configuration.service';
 import EzDataContext from "../../ez.datacontext";
 import { validateContextData } from '../../services/validator.helper';
 
-const transConfigurationKeyword = __(
-  "codein_seo_toolkit.seo_view.tab_configuration_keyword"
-);
-const transConfigurationIsPillar = __(
-  "codein_seo_toolkit.seo_view.tab_configuration_is_pillar"
-);
-const transConfigurationUpdateConfiguration = __(
-  "codein_seo_toolkit.seo_view.tab_configuration_update_configuration"
-);
 
 
 const SELECTOR_FIELD = '.ez-field-edit--ezrichtext';
@@ -43,6 +34,16 @@ export default class ConfigurationTab extends React.Component {
   }
 
   render() {
+
+    const transConfigurationKeyword = __(
+      "codein_seo_toolkit.seo_view.tab_configuration_keyword"
+    );
+    const transConfigurationIsPillar = __(
+      "codein_seo_toolkit.seo_view.tab_configuration_is_pillar"
+    );
+    const transConfigurationUpdateConfiguration = __(
+      "codein_seo_toolkit.seo_view.tab_configuration_update_configuration"
+    );
     return (
       <>
         <form>

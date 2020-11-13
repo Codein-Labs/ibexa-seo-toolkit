@@ -5,17 +5,7 @@ import { getAnalysis, getSeoRichText } from './analysis.service';
 import { validateContextData } from '../../services/validator.helper';
 import EzDataContext from "../../ez.datacontext";
 
-const transAccordionTitleKeyword = __(
-  "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword"
-);
 
-const transAccordionTitleReadability = __(
-  "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability"
-);
-
-const transAnalyzeButton = __ (
-  "codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis"
-);
 
 const SELECTOR_FIELD = '.ez-field-edit--ezrichtext';
 const SELECTOR_INPUT = '.ez-data-source__richtext';
@@ -52,7 +42,17 @@ export default class AnalysisTab extends React.Component {
 
   
   render() {
-
+    const transAccordionTitleKeyword = __(
+      "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword"
+    );
+    
+    const transAccordionTitleReadability = __(
+      "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability"
+    );
+    
+    const transAnalyzeButton = __ (
+      "codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis"
+    );
     return (
       <>
         <div class="accordion" id="accordionCategory">
