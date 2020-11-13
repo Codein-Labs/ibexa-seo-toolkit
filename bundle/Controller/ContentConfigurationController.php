@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Controller;
 
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
-use Codein\eZPlatformSeoToolkit\Model\ContentConfiguration;
+use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;

@@ -13,3 +13,15 @@ fos_rest:
         rules:
             - { path: '^/api/seo', priorities: ['json'], fallback_format: json, prefer_extension: false }
             - { path: '^/', stop: true }
+
+doctrine:
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:         #..
+            EzPlatformSeoToolkitBundle:
+                is_bundle: true
+                type: annotation
+                dir: 'Entity'
+                prefix: 'Codein\eZPlatformSeoToolkit\Entity'
