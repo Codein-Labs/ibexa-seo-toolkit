@@ -1,4 +1,7 @@
 # config/routes.yaml
-seo_api.analyze:
-    path: /api/seo/analyze
+seo_api.analysis:
+    path: /api/seo/analysis
     controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
+
+seo_api.content_configuration.get:
+    path: /api/seo/content-configuration/get
