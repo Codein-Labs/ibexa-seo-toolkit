@@ -31,7 +31,9 @@
         "ezsystems/ezplatform-admin-ui": "^1.5",
         "ext-json": "*",
         "ext-libxml": "*",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "ezsystems/repository-forms": "^2.5",
+        "twig/twig": "^2"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "5.x-dev",

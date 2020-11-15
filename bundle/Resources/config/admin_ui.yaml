@@ -1,15 +1,9 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: true
-
     # Bundle pages.
     codein.ezplatformseotoolkit.entry_script:
         parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
         autowire: true
         autoconfigure: false
-        public: false
         arguments:
             $template: "EzPlatformSeoToolkitBundle::seo_menu.html.twig"
         tags:
@@ -19,3 +13,28 @@ services:
     Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
         tags:
             - { name: kernel.event.subscriber }
+    # FIELD TYPE
+    Codein\eZPlatformSeoToolkit\FieldType\Type:
+        parent: ezpublish.fieldType
+        tags:
+            - { name: ezpublish.fieldType, alias: seometas }
+    Codein\eZPlatformSeoToolkit\FieldType\FormMapper:
+        tags:
+            - { name: ez.fieldFormMapper.definition, fieldType: seometas }
+            - { name: ez.fieldFormMapper.value, fieldType: seometas }
+        arguments:
+          [ '@ezpublish.config.resolver.core' ]
+    ezsystems.elfinderbundle.fieldtype.ezelfinder.form_mapper:
+        class: Codein\eZPlatformSeoToolkit\FieldType\FormMapper
+        tags:
+            - {name: ez.fieldFormMapper.definition, fieldType: ezelfinder}
+            - {name: ez.fieldFormMapper.value, fieldType: ezelfinder}
+        arguments:
+          [ '@ezpublish.config.resolver.core' ]
+    Codein\eZPlatformSeoToolkit\FieldType\Converter:
+        tags:
+            - { name: ezpublish.storageEngine.legacy.converter, alias: seometas, lazy: true, callback: '::create' }
+    codein.codeinseobundle.field_type.seometas.indexable.unindexed:
+        class: "%ezpublish.fieldType.indexable.unindexed.class%"
+        tags:
+            - { name: ezpublish.fieldType.indexable, alias: seometas }

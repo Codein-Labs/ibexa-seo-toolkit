@@ -10,18 +10,18 @@ use Symfony\Component\Routing\RouteCollection;
  */
 final class ApiLoader extends Loader
 {
+    private const RESOURCE = '@EzPlatformSeoToolkitBundle/Resources/config/routes.yaml';
+    private const TYPE = 'yaml';
+
     public function load($resource, $type = null)
     {
-        $collection = new RouteCollection();
+        $routeCollection = new RouteCollection();
 
-        $resource = '@EzPlatformSeoToolkitBundle/Resources/config/routes.yaml';
-        $type = 'yaml';
+        $importedRoutes = $this->import(self::RESOURCE, self::TYPE);
 
-        $importedRoutes = $this->import($resource, $type);
+        $routeCollection->addCollection($importedRoutes);
 
-        $collection->addCollection($importedRoutes);
-
-        return $collection;
+        return $routeCollection;
     }
 
     public function supports($resource, $type = null)

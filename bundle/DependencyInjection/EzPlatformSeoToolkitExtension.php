@@ -8,7 +8,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
@@ -19,18 +19,16 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
 {
     public const ALIAS = 'codein_ez_platform_seo_toolkit';
 
-    /**
-     * Allow an extension to prepend the extension configurations.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $containerBuilder): void
     {
-        if (isset($container->getExtensions()['fos_rest'])) {
-            $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-            $loader->load('config.yaml');
+        if (isset($containerBuilder->getExtensions()['fos_rest'])) {
+            $yamlFileLoader = new YamlFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../Resources/config'));
+            $yamlFileLoader->load('config.yaml');
         }
-        $this->prependBazingaJsTranslationConfiguration($container);
+        $this->prependBazingaJsTranslationConfiguration($containerBuilder);
+
+        $configDirectoryPath = __DIR__ . '/../Resources/config';
+        $this->prependYamlConfigFile($containerBuilder, 'ezpublish', $configDirectoryPath . '/field_templates.yml');
     }
 
     /**
@@ -51,9 +49,10 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
             }
         );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
         $loader->load('admin_ui.yaml');
+        $loader->load('default_parameters.yaml');
     }
 
     public function getAlias(): string
@@ -61,16 +60,17 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
         return self::ALIAS;
     }
 
+    private function prependYamlConfigFile(ContainerBuilder $container, $extensionName, $configFilePath): void
+    {
+        $config = Yaml::parse(\file_get_contents($configFilePath));
+        $container->prependExtensionConfig($extensionName, $config);
+    }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     private function prependBazingaJsTranslationConfiguration(ContainerBuilder $container)
     {
         $configFile = __DIR__ . '/../Resources/config/bazinga_js_translation.yml';
-        $config = Yaml::parseFile($configFile);
+        $config     = Yaml::parseFile($configFile);
         $container->prependExtensionConfig('bazinga_js_translation', $config);
         $container->addResource(new FileResource($configFile));
     }
-    
 }

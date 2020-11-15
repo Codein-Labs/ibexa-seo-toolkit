@@ -1,0 +1,8 @@
+system:
+    admin_group:
+        ### content view platformui templates
+        field_templates:
+            - {template: '@EzPlatformSeoToolkit/content_type/view.html.twig', priority: 0}
+        ### contentType (edit/new) platformui templates
+        fielddefinition_edit_templates:
+            - {template: '@EzPlatformSeoToolkit/content_type/edit.html.twig', priority: 0}

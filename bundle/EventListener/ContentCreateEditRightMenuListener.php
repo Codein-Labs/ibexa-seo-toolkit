@@ -5,19 +5,11 @@ namespace Codein\eZPlatformSeoToolkit\EventListener;
 use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ContentCreateEditRightMenuListener implements EventSubscriberInterface
+final class ContentCreateEditRightMenuListener implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public function onMenuConfigure(ConfigureMenuEvent $configureMenuEvent)
     {
-        return [
-            ConfigureMenuEvent::CONTENT_CREATE_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
-            ConfigureMenuEvent::CONTENT_EDIT_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
-        ];
-    }
-
-    public function onMenuConfigure(ConfigureMenuEvent $event)
-    {
-        $menu = $event->getMenu();
+        $menu = $configureMenuEvent->getMenu();
 
         $menu->addChild(
             'menu_item_seo_analyzer',
@@ -30,5 +22,12 @@ class ContentCreateEditRightMenuListener implements EventSubscriberInterface
                 ],
             ]
         );
+    }
+    public static function getSubscribedEvents()
+    {
+        return [
+            ConfigureMenuEvent::CONTENT_CREATE_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
+            ConfigureMenuEvent::CONTENT_EDIT_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
+        ];
     }
 }

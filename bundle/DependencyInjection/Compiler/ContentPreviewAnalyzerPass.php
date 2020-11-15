@@ -13,20 +13,20 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class ContentPreviewAnalyzerPass implements CompilerPassInterface
 {
-    const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.content_preview';
+    private const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.content_preview';
 
-    public function process(ContainerBuilder $container): void
+    public function process(ContainerBuilder $containerBuilder): void
     {
-        if (!$container->has(ContentPreviewParentAnalyzerService::class)) {
+        if (!$containerBuilder->has(ContentPreviewParentAnalyzerService::class)) {
             return;
         }
         $analysis = [];
-        $analyzerDefinition = $container->getDefinition(ContentPreviewParentAnalyzerService::class);
+        $analyzerDefinition = $containerBuilder->getDefinition(ContentPreviewParentAnalyzerService::class);
 
-        $allFieldAnalyzers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $allFieldAnalyzers = $containerBuilder->findTaggedServiceIds(self::TAG_NAME);
         $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);
-        if (true === $container->hasParameter($analysisParam)) {
-            $analysis = $container->getParameter($analysisParam)['blocklist'];
+        if (true === $containerBuilder->hasParameter($analysisParam)) {
+            $analysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
         }
 
         foreach ($allFieldAnalyzers as $id => $tags) {
