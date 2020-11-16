@@ -85,6 +85,7 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
             }
         }
 
+
         $fieldForm
             ->add(
                 $formConfig->getFormFactory()
@@ -95,6 +96,7 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
                         [
                             self::REQUIRED => $fieldDefinition->isRequired,
                             'label' => $fieldDefinition->getName($formConfig->getOption('languageCode')),
+
                         ]
                     )
                     ->setAutoInitialize(false)

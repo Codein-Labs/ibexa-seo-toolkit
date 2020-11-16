@@ -38,3 +38,4 @@ services:
         class: "%ezpublish.fieldType.indexable.unindexed.class%"
         tags:
             - { name: ezpublish.fieldType.indexable, alias: seometas }
+

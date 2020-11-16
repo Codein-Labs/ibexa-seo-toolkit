@@ -3,7 +3,6 @@
 namespace Codein\eZPlatformSeoToolkit\FieldType;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +24,7 @@ final class DynamicCollectionType extends AbstractType
         $metaConfigs = $options[self::META_CONFIG];
         $formBuilder->addEventListener(
             FormEvents::POST_SET_DATA,
-            function (FormEvent $event) use ($metaConfigs): void {
+            function (FormEvent $event) use ($metaConfigs, $formBuilder): void {
                 $form = $event->getForm();
 
                 $formViewData = $form->getViewData();
@@ -36,13 +35,16 @@ final class DynamicCollectionType extends AbstractType
                     ) && isset($metaConfigs[$field]['default_choices'])) {
                         $choices = $metaConfigs[$field]['default_choices'];
 
-                        $form->add($field, ChoiceType::class, [
+                        $form->add($field, TextChoiceType::class, [
                             'choices' => \array_combine($choices, $choices),
+                            'multiple' => true,
+                            'expanded' => false,
                         ]);
                     }
                 }
             }
         );
+
     }
 
     /**

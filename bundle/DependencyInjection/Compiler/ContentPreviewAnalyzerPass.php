@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class ContentPreviewAnalyzerPass implements CompilerPassInterface
 {
-    private const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.content_preview';
+    public const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.content_preview';
 
     public function process(ContainerBuilder $containerBuilder): void
     {

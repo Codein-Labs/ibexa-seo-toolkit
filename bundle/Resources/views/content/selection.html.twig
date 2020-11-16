@@ -1,0 +1,33 @@
+{% extends '@EzPlatformAdminUi/content/form_fields.html.twig' %}
+
+{% block form_row_subfield -%}
+    {% set selection = form.vars.selection is defined %}
+    {% if selection %}
+        {% set wrapper_class = 'ez-field-edit ez-field-edit--ezselection' %}
+    {% else %}
+        {% set wrapper_class = 'ez-data-source__field ez-data-source__field--' ~ name %}
+        {% set wrapper_class = wrapper_class|replace({'___name___': name}) %}
+    {% endif %}
+    {% if required %}{% set wrapper_class = (wrapper_class ~ ' ez-data-source__field--required')|trim %}{% endif %}
+    {% if errors|length > 0 %}{% set wrapper_class = (wrapper_class|default('') ~ ' is-invalid')|trim %}{% endif %}
+    {% if selection %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' ez-field-edit__label')|trim}) %}
+        {% set label_wrapper_attr = label_wrapper_attr|default({})|merge({'class': (label_wrapper_attr.class|default('') ~ 'ez-field-edit__label-wrapper')|trim}) %}
+    {% else %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' ez-data-source__label')|trim}) %}
+        {% set label_wrapper_attr = label_wrapper_attr|default({})|merge({'class': (label_wrapper_attr.class|default('') ~ ' ez-data-source__label-wrapper')|trim}) %}
+    {% endif %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-data-source__input')|trim}) %}
+    {% set wrapper_attr = wrapper_attr|default({})|merge({class: (wrapper_attr.class|default('') ~ ' ' ~ wrapper_class)|trim}) %}
+    {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({class: (widget_wrapper_attr.class|default('') ~ ' ez-data-source__input-wrapper')|trim}) %}
+
+    <div{% with { attr: wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
+        <div{% with { attr: label_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
+            {{- block('form_label') }}
+            {{- block('form_errors') -}}
+        </div>
+        <div{% with { attr: widget_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
+            {{- form_widget(form, {'attr': attr}) -}}
+        </div>
+    </div>
+{%- endblock %}

@@ -3,8 +3,10 @@
 namespace Codein\eZPlatformSeoToolkit\Twig;
 
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
+use Twig\TwigFilter;
 
 /**
  * Class CodeineZSeoExtension.
@@ -21,11 +23,6 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
     public function __construct(SiteAccessConfigResolver $configResolver)
     {
         $this->siteAccessConfigResolver = $configResolver;
-    }
-
-    public function getName()
-    {
-        return 'codein_ezseo_extension';
     }
 
     public function getGlobals(): array

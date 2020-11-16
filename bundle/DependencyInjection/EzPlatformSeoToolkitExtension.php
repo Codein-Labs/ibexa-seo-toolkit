@@ -28,7 +28,7 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
         $this->prependBazingaJsTranslationConfiguration($containerBuilder);
 
         $configDirectoryPath = __DIR__ . '/../Resources/config';
-        $this->prependYamlConfigFile($containerBuilder, 'ezpublish', $configDirectoryPath . '/field_templates.yml');
+        $this->prependYamlConfigFile($containerBuilder, 'ezpublish', $configDirectoryPath . '/field_templates.yaml');
     }
 
     /**

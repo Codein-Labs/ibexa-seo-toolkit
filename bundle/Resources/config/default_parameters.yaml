@@ -22,6 +22,6 @@ parameters:
             'og:image':
                 label: 'Image'
                 default_pattern: "<image|picture>"
-            'meta:robots':
+            'robots':
                 label: 'Meta Robots'
-                default_choices: ['noindex', 'nofollow', 'index', 'follow', 'all', 'none', 'nosnippet', 'noarchive', 'nocache', 'noodp', 'unavailable_after']
+                default_choices: ["", 'noindex', 'nofollow', 'index', 'follow', 'all', 'none', 'nosnippet', 'noarchive', 'nocache', 'noodp', 'unavailable_after']
