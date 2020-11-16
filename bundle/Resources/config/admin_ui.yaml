@@ -27,8 +27,8 @@ services:
     ezsystems.elfinderbundle.fieldtype.ezelfinder.form_mapper:
         class: Codein\eZPlatformSeoToolkit\FieldType\FormMapper
         tags:
-            - {name: ez.fieldFormMapper.definition, fieldType: ezelfinder}
-            - {name: ez.fieldFormMapper.value, fieldType: ezelfinder}
+            - {name: ez.fieldFormMapper.definition, fieldType: seometas}
+            - {name: ez.fieldFormMapper.value, fieldType: seometas}
         arguments:
           [ '@ezpublish.config.resolver.core' ]
     Codein\eZPlatformSeoToolkit\FieldType\Converter:
