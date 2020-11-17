@@ -3,7 +3,7 @@
 {% block seometas_field %}
     {% set isTheCanonicalFound = false %}
     {% set isTheTitleFound = false %}
-    {% for meta_name, meta_content in field.value.metas %}
+    {% for meta_name, meta_content in field.value.metas|filter((meta_content) => meta_content is not empty) %}
         {% if meta_content is not empty %}
             {% if meta_name is same as("title") %}
                 <title>{{ meta_content }}</title>
