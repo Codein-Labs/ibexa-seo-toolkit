@@ -21,7 +21,8 @@ final class WordCountAnalyzer implements RichTextAnalyzerInterface
     public function analyze(BaseValue $fieldValue): array
     {
         $xml = $fieldValue->xml;
-        $html = $this->xhtml5Converter->convert($xml)->saveHTML();
+        $html = $this->xhtml5Converter->convert($xml)
+            ->saveHTML();
 
         $text = \strip_tags($html);
 

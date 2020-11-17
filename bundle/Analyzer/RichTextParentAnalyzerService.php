@@ -9,7 +9,7 @@ use eZ\Publish\Core\FieldType\Value as BaseValue;
 /**
  * Class RichTextAnalyzerService.
  */
-final class RichTextParentAnalyzerService implements ParentAnalyzerInterface
+final class RichTextParentAnalyzerService implements ParentAnalyzerInterface, \IteratorAggregate
 {
     /**
      * @var array|RichTextAnalyzerInterface[]
@@ -23,8 +23,8 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface
 
     public function analyze(FieldDefinition $fieldDefinition, BaseValue $fieldValue): array
     {
+        $result = [];
         foreach ($this->analyzers as $analyzer) {
-            $result = [];
             if (!$analyzer->support($fieldDefinition)) {
                 continue;
             }
@@ -33,5 +33,22 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface
         }
 
         return $result;
+    }
+
+    /**
+     * Iterates over the mapped analyzers while generating them.
+     *
+     * An analyzer is initialized only if we really need it (at
+     * the corresponding iteration).
+     *
+     * @return \Generator The generated {@link ParentAnalyzerInterface} implementations
+     */
+    public function getIterator()
+    {
+        foreach ($this->analyzers as $analyzer) {
+            if ($analyzer instanceof ParentAnalyzerInterface) {
+                yield $analyzer;
+            }
+        }
     }
 }

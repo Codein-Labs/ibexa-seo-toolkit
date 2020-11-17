@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class RichTextAnalyzerPass implements CompilerPassInterface
 {
-    const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.rich_text';
+    public const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.rich_text';
 
     public function process(ContainerBuilder $container): void
     {
