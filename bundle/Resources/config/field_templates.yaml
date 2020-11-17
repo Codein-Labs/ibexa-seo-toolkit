@@ -8,7 +8,7 @@ system:
             - {template: '@EzPlatformSeoToolkit/content_type/edit.html.twig', priority: 0}
         admin_ui_forms:
             content_edit_form_templates:
-                - { template: '@@EzPlatformSeoToolkit/content/selection.html.twig', priority: -1 }
+                - { template: '@EzPlatformSeoToolkit/content/selection.html.twig', priority: -1 }
     site_group:
         ### content front templates
         field_templates:
