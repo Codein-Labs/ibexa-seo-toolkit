@@ -2,6 +2,7 @@ export const validateContextData = (contextData) => {
     const requiredKeys = [
         "contentId",
         "locationId",
+        "versionNo",
         "contentTypeIdentifier"
     ]
     Object.keys(requiredKeys).map(key => {
@@ -9,7 +10,7 @@ export const validateContextData = (contextData) => {
             return false;
         }
     });
-    if (requiredKeys['contentId'] == "0" || requiredKeys['contentTypeIdentifier'] == "") {
+    if (contextData['contentId'] == "0" || contextData['locationId'] == "0" || contextData['versionNo'] == "0" || contextData['contentTypeIdentifier'] == "") {
         return false;
     }
     return true;

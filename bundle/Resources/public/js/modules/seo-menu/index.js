@@ -8,6 +8,7 @@ const root = document.getElementById(ROOT_ELEMENT);
 
 const attr = {
   "contentId": root.getAttribute('data-content-id'),
+  "versionNo": root.getAttribute('data-version-no'),
   "locationId": root.getAttribute('data-location-id'),
   "contentTypeIdentifier": root.getAttribute('data-content-type-identifier'),
 }

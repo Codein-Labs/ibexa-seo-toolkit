@@ -66,7 +66,7 @@ export default class App extends React.Component {
             <div className="page" style={{ zIndex: 2 }}>
               <animated.div style={{ ...style, background: "#fafafa" }}>
                 <EzDataContext.Provider value={this.props.contentAttributes}>
-                  <SeoView closeMenu={this.onCloseMenu} contentAttributes={this.props.contentAttributes} />
+                  <SeoView closeMenu={this.onCloseMenu} />
                 </EzDataContext.Provider>
               </animated.div>
             </div>

@@ -31,7 +31,7 @@ export default class AnalysisTab extends React.Component {
     if (!validateContextData(this.context)) return;
 
     var self = this;
-    getAnalysis(this.context.contentId, getSeoRichText(), (err, res) => {
+    getAnalysis(this.context, getSeoRichText(), (err, res) => {
       if (!err) {
         self.seoData = res;
         console.log(self.seoData);
@@ -42,20 +42,36 @@ export default class AnalysisTab extends React.Component {
 
   
   render() {
-    const transAccordionTitleKeyword = __(
-      "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword"
-    );
-    
-    const transAccordionTitleReadability = __(
-      "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability"
-    );
-    
-    const transAnalyzeButton = __(
-      "codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis"
-    );
+    const transAccordionTitleKeyword = __("codein_seo_toolkit.seo_view.tab_analysis.accordion_title_keyword");
+    const transAccordionTitleReadability = __("codein_seo_toolkit.seo_view.tab_analysis.accordion_title_readability");
+    const transAnalyzeButton = __("codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis");
+    const transTipsSaving = __('codein_seo_toolkit.seo_view.tab_analysis.tips.saving');
+    const transTipsTraffic = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic');
+    const transTipsTrafficGreen = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.green');
+    const transTipsTrafficOrange = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.orange');
+    const transTipsTrafficRed = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.red');
+    const transTipsDeveloper = __('codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support');
+
     return (
       <>
         <div class="accordion" id="accordionCategory">
+        <a className="badge badge-info collapsed" data-toggle="collapse" href="#systemInfoCollapse" aria-expanded="false">⚠ Tips</a>
+            <div className="collapse" id="systemInfoCollapse">
+              <div className="alert alert-info mb-0 mt-3" role="alert">
+                <ul>
+                  <li>{transTipsSaving}</li>
+                  <li>
+                    {transTipsTraffic}
+                    <ul>
+                      <li>{transTipsTrafficGreen}</li>
+                      <li>{transTipsTrafficOrange}</li>
+                      <li>{transTipsTrafficRed}</li>
+                    </ul>
+                  </li>
+                  <li>{transTipsDeveloper}</li>
+                </ul>
+              </div>
+            </div>
           {/* {this.seoData?.map((seoAnalysisCategoryValue, seoAnalysisCategoryName) => (
             <div class="ez-view-rawcontentview">
               <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
@@ -85,11 +101,12 @@ export default class AnalysisTab extends React.Component {
               </div>
             </div>
           ))} */}
-          <div class="ez-view-rawcontentview">
-            <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
-              <h2 class="mb-0">
+          <div className="ez-view-rawcontentview">
+            
+            <div className="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
+              <h2 className="mb-0">
                 <a
-                  class="ez-content-preview-toggle"
+                  className="ez-content-preview-toggle"
                   type="button"
                   data-toggle="collapse"
                   data-target="#collapseOne"

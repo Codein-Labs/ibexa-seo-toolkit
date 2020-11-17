@@ -2,8 +2,7 @@ import * as HTTPHelper from '../../services/http.helper';
 
 
 
-export const getAnalysis = (contentId, richText, callback) => {
-
+export const getAnalysis = (context, richTextFields, callback) => {
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -13,43 +12,55 @@ export const getAnalysis = (contentId, richText, callback) => {
 
     const route = HTTPHelper.SEO_ANALYSIS_ROUTE;
 
-    const body = {
-        'keyword': "test",
-        'isPillarPage': false,
-        'contentTypeIdentifier': 2,
-        'fields': [
-            {
-                'fieldIdentifier': 'description',
-                'fieldValue': richText
-            }
-        ]
+    let body = {
+        'fields': richTextFields
     };
+    body = Object.assign(context,body);
 
     HTTPHelper.makeRequest(headers, method, body, route, function(err, res) {
         return callback(err, res);
     })
 }
 
+/**
+ * Extract the richtext being edited on the page (field identifier and field value)
+ * Done via eZ Platform JS global data
+ */
 export const getSeoRichText = () => {
     const configuredValidators = globalThis.eZ.fieldTypeValidators;
-    let richTextValidatorIndex = -1;
+    let richTextValidatorIndexes = [];
     for (const [i, v] of configuredValidators.entries()) {
         if (v.hasOwnProperty('alloyEditor')) {
-            richTextValidatorIndex = i;
+            richTextValidatorIndexes.push(i);
             break;
         }
     }
-    if (richTextValidatorIndex === -1) {
+    if (richTextValidatorIndexes.length === 0) {
         return;
     }
-    
-    let seoRichText = globalThis.eZ.fieldTypeValidators[richTextValidatorIndex]
+    let seoRichTextFields = [];
+    richTextValidatorIndexes.forEach((element) => {
+        let seoRichText = globalThis.eZ.fieldTypeValidators[element]
         .alloyEditor
         .get('nativeEditor')
         .container
         .$.closest('.ez-data-source')
         .querySelector('textarea')
-        .value
-    return seoRichText;
+        
+        let fieldIdentifier = extractFieldIdentifier(seoRichText.getAttribute('name'));
+        if (fieldIdentifier) {
+            seoRichTextFields.push({'fieldIdentifier': fieldIdentifier, 'fieldValue': seoRichText.value});
+        }
+    });
+    
+    return seoRichTextFields;
 }
 
+
+const extractFieldIdentifier = (textareaNameAttribute) => {
+    let matches = textareaNameAttribute.match(/^ezrepoforms_content_edit\[fieldsData\]\[(.*)\]\[value\]/,);
+    if (matches.length && 1 in matches) {
+        return matches[1];
+    }
+    return false;
+}

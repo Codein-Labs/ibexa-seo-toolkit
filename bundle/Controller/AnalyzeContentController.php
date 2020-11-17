@@ -44,7 +44,7 @@ class AnalyzeContentController extends AbstractController
             $result = [];
             /** @var ContentFields $contentFields */
             $contentFields = $form->getData();
-            $contentType = $this->contentTypeService->loadContentType($contentFields->getContentTypeIdentifier());
+            $contentType = $this->contentTypeService->loadContentTypeByIdentifier($contentFields->getContentTypeIdentifier());
 
             foreach ($contentFields->getFields() as $field) {
                 $fieldDefinition = $contentType->getFieldDefinition($field->getFieldIdentifier());

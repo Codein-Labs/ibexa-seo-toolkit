@@ -6,8 +6,14 @@ codein_seo_toolkit.seo_view.footer_made_by: par
 codein_seo_toolkit.seo_view.tab_analysis: Analyse
 codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyser
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword: 'Mot clé'
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability: Lisibilité
+codein_seo_toolkit.seo_view.tab_analysis.accordion_title_keyword: 'Mot clé'
+codein_seo_toolkit.seo_view.tab_analysis.accordion_title_readability: Lisibilité
+codein_seo_toolkit.seo_view.tab_analysis.tips.saving: "Sauvegarder votre contenu pour mettre à jour l'analyse"
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic: 'Les feux indiquent le score:'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.green: 'Vert => Excellent,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.orange: 'Orange => Bon,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.red: 'Rouge => Pas bon'
+codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support: "Les developpeurs peuvent ajouter des types d'analyse"
 codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Mot clé principal'
 codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Est-un contenu pilier'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'

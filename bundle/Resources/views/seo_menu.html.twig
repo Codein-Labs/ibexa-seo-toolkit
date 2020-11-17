@@ -3,9 +3,9 @@
 <div 
     id="codein-seo-toolkit-root" 
     data-content-id="{{ content is defined ? content.id : 0 }}" 
+    data-version-no="{{ content is defined ? content.versionInfo.versionNo : 0 }}"
     data-location-id="{{ location is defined ? location.id : 0}}" 
     data-content-type-identifier="{{ content.contentType.identifier }}"
 >
 </div>
-
 {{ encore_entry_script_tags("codein-ezplatform-seo-toolkit-js", null, "codein") | raw }}

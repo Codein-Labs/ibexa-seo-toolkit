@@ -6,8 +6,14 @@ codein_seo_toolkit.seo_view.footer_made_by: by
 codein_seo_toolkit.seo_view.tab_analysis: Analysis
 codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyze
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword: Keyword
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability: Readability
+codein_seo_toolkit.seo_view.tab_analysis.accordion_title_keyword: Keyword
+codein_seo_toolkit.seo_view.tab_analysis.accordion_title_readability: Readability
+codein_seo_toolkit.seo_view.tab_analysis.tips.saving: 'Save your content to update the analysis'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic: 'Traffic lights indicate the score:'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.green: 'Green => Excellent,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.orange: 'Orange => Good,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.red: 'Red => Not good'
+codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support: 'Developers can add types of analysis if you need it'
 codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Focus keyword'
 codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Is a pillar content'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'

@@ -19,11 +19,20 @@ final class ContentFieldsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('keyword', TextType::class)
-            ->add('isPillarPage', CheckboxType::class, [
-                'constraints' => [],
+            // ->add('keyword', TextType::class)
+            // ->add('isPillarPage', CheckboxType::class, [
+            //     'constraints' => [],
+            // ])
+            ->add('contentTypeIdentifier', TextType::class, [
+                'constraints' => [new Assert\NotBlank()],
             ])
-            ->add('contentTypeIdentifier', IntegerType::class, [
+            ->add('contentId', IntegerType::class, [
+                'constraints' => [new Assert\NotBlank()],
+            ])
+            ->add('locationId', IntegerType::class, [
+                'constraints' => [new Assert\NotBlank()],
+            ])
+            ->add('versionNo', IntegerType::class, [
                 'constraints' => [new Assert\NotBlank()],
             ])
             ->add('fields', FieldType::class, [
