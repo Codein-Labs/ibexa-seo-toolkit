@@ -60,7 +60,7 @@ final class DynamicCollectionType extends AbstractType
                 'entry_type' => TextType::class,
                 'entry_options' => ['required' => false],
                 'required' => false,
-                'label' => 'field_definition',
+                'label' => 'field_definition.codeinseometas.fields',
                 'translation_domain' => 'fieldtypes',
             ])
             ->setAllowedTypes(self::META_CONFIG, ['array', 'null']);

@@ -23,7 +23,7 @@ final class MetasCollectionType extends AbstractType
                     'required' => false,
                 ],
                 'required' => false,
-                'label' => 'field_definition',
+                'label' => 'field_definition.codeinseometas.fields',
                 'translation_domain' => 'fieldtypes',
             ]
         );
