@@ -30,7 +30,7 @@ final class MetasFieldType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type'];
+        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
 
         $builder
             ->add('metas', DynamicCollectionType::class, [
@@ -46,6 +46,6 @@ final class MetasFieldType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'codeinseo_fieldtype_metas';
+        return 'codeinseo_field_type_metas';
     }
 }

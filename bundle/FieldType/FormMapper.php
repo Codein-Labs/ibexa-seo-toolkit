@@ -39,7 +39,7 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
      */
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
-        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type'];
+        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
 
         $aConfigurations = $data->fieldDefinition->fieldSettings[self::CONFIGURATION];
         foreach (\array_keys($metasConfig) as $key) {
@@ -77,14 +77,13 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
         $fieldDefinition = $data->fieldDefinition;
         $formConfig = $fieldForm->getConfig();
 
-        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type'];
+        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
 
-        if (empty($data->value->metas)) {
-            foreach (\array_keys($metasConfig) as $key) {
+        foreach (\array_keys($metasConfig) as $key) {
+            if (empty($data->value->metas[$key])) {
                 $data->value->metas[$key] = '';
             }
         }
-
 
         $fieldForm
             ->add(
@@ -96,7 +95,6 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
                         [
                             self::REQUIRED => $fieldDefinition->isRequired,
                             'label' => $fieldDefinition->getName($formConfig->getOption('languageCode')),
-
                         ]
                     )
                     ->setAutoInitialize(false)

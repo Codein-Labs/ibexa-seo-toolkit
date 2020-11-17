@@ -1,6 +1,6 @@
 parameters:
     codein_ez_platform_seo_toolkit.default.metas:
-        field_type:
+        field_type_metas:
             title:
                 label: 'Title'
                 default_pattern: "<title|name>"
@@ -25,3 +25,5 @@ parameters:
             'robots':
                 label: 'Meta Robots'
                 default_choices: ['noindex', 'nofollow', 'index', 'follow', 'all', 'none', 'nosnippet', 'noarchive', 'nocache', 'noodp', 'unavailable_after']
+
+

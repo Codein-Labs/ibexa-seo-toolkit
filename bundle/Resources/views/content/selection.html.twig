@@ -21,12 +21,12 @@
     {% set wrapper_attr = wrapper_attr|default({})|merge({class: (wrapper_attr.class|default('') ~ ' ' ~ wrapper_class)|trim}) %}
     {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({class: (widget_wrapper_attr.class|default('') ~ ' ez-data-source__input-wrapper')|trim}) %}
 
-    <div{% with { attr: wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
-        <div{% with { attr: label_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
+    <div{% with {attr: wrapper_attr} %}{{ block('attributes') }}{% endwith %}>
+        <div{% with {attr: label_wrapper_attr} %}{{ block('attributes') }}{% endwith %}>
             {{- block('form_label') }}
             {{- block('form_errors') -}}
         </div>
-        <div{% with { attr: widget_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
+        <div{% with {attr: widget_wrapper_attr} %}{{ block('attributes') }}{% endwith %}>
             {{- form_widget(form, {'attr': attr}) -}}
         </div>
     </div>

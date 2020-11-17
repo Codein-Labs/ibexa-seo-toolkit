@@ -3,9 +3,9 @@
 {% block seometas_field %}
     <ul class="codeinseobundle-preview-field">
     {% for meta_name, meta in field.value.metas %}
-        {% if codein_ezseo.fieldtype_metas[meta_name] is defined %}
-            <li class="ez-field meta-value">{% dump(codein_ezseo) %}
-                {% set default_value = codein_ezseo.fieldtype_metas[meta_name] %}
+        {% if codein_ezseo.field_type_metas[meta_name] is defined %}
+            <li class="ez-field meta-value">
+                {% set default_value = codein_ezseo.field_type_metas[meta_name] %}
                 <b>{{ default_value.label }}:</b>
                 {% if default_value.default_pattern is defined %}
 

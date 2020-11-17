@@ -3,10 +3,8 @@
 namespace Codein\eZPlatformSeoToolkit\Twig;
 
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
-use Twig\TwigFilter;
 
 /**
  * Class CodeineZSeoExtension.
@@ -27,10 +25,10 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
 
     public function getGlobals(): array
     {
-        $fieldtypeMetas = $this->siteAccessConfigResolver->getParameterConfig('metas')['field_type'];
-
+        $metas = $this->siteAccessConfigResolver->getParameterConfig('metas');
         $codeineZseo = [
-            'fieldtype_metas' => $fieldtypeMetas,
+            'field_type_metas' => $metas['field_type_metas'],
+            'default_metas' => $metas['default_metas'],
         ];
 
         return ['codein_ezseo' => $codeineZseo];

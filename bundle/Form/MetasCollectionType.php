@@ -36,6 +36,6 @@ final class MetasCollectionType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'codeinseo_fieldtype_metas_metas';
+        return 'codeinseo_field_type_metas_metas';
     }
 }

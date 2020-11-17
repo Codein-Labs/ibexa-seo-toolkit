@@ -32,7 +32,7 @@ final class DynamicCollectionType extends AbstractType
                     if (true === \array_key_exists(
                         $field,
                         $metaConfigs
-                    ) && isset($metaConfigs[$field]['default_choices'])) {
+                    ) && !empty($metaConfigs[$field]['default_choices'])) {
                         $choices = $metaConfigs[$field]['default_choices'];
 
                         $form->add($field, TextChoiceType::class, [

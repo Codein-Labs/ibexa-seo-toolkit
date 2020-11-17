@@ -53,6 +53,7 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
         $loader->load('services.yaml');
         $loader->load('admin_ui.yaml');
         $loader->load('default_parameters.yaml');
+        $processor->mapConfigArray('metas', $config, ContextualizerInterface::MERGE_FROM_SECOND_LEVEL);
     }
 
     public function getAlias(): string
