@@ -26,7 +26,7 @@ export const getAnalysis = (contentId, richText, callback) => {
     };
 
     HTTPHelper.makeRequest(headers, method, body, route, function(err, res) {
-        return callback(err, res)
+        return callback(err, res);
     })
 }
 

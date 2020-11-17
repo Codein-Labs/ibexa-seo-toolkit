@@ -19,6 +19,7 @@ services:
             $xhtml5Converter: '@ezrichtext.converter.output.xhtml5'
 
     Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController: ~
+    Codein\eZPlatformSeoToolkit\Controller\ContentConfigurationController: ~
 
     Codein\eZPlatformSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']

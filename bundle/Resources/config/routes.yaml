@@ -5,3 +5,8 @@ seo_api.analysis:
 
 seo_api.content_configuration.get:
     path: /api/seo/content-configuration/get
+    controller: EzPlatformSeoToolkitBundle:ContentConfiguration:get
+
+seo_api.content_configuration.update:
+    path: /api/seo/content-configuration/update
+    controller: EzPlatformSeoToolkitBundle:ContentConfiguration:update

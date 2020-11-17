@@ -20,7 +20,7 @@ class ContentConfiguration
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false, unique=true)
      */
     private $contentId;
 
@@ -32,7 +32,7 @@ class ContentConfiguration
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isPillarPage;
+    private $isPillarContent;
 
 
     
@@ -62,17 +62,17 @@ class ContentConfiguration
     /**
      * @return ?bool
      */
-    public function getIsPillarPage()
+    public function getIsPillarContent()
     {
-        return $this->isPillarPage;
+        return $this->isPillarContent;
     }
 
     /**
-     * @param bool $isPillarPage
+     * @param bool $isPillarContent
      */
-    public function setIsPillarPage(?bool $isPillarPage): self
+    public function setIsPillarContent(?bool $isPillarContent): self
     {
-        $this->isPillarPage = $isPillarPage;
+        $this->isPillarContent = $isPillarContent;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace Codein\eZPlatformSeoToolkit\Form\Type;
 
+use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
 use Codein\eZPlatformSeoToolkit\Model\ContentFields;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -20,7 +21,7 @@ final class ContentConfigurationType extends AbstractType
     {
         $builder
             ->add('keyword', TextType::class)
-            ->add('isPillarPage', CheckboxType::class, [
+            ->add('isPillarContent', CheckboxType::class, [
                 'constraints' => [],
             ])
             ->add('contentId', IntegerType::class, [

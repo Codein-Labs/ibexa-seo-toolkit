@@ -31,10 +31,10 @@ export default class AnalysisTab extends React.Component {
     if (!validateContextData(this.context)) return;
 
     var self = this;
-    getAnalysis(this.context.contentId, getSeoRichText(), function(err, res) {
+    getAnalysis(this.context.contentId, getSeoRichText(), (err, res) => {
       if (!err) {
         self.seoData = res;
-        console.log(self.seoData)
+        console.log(self.seoData);
       }
       return;
     })
@@ -50,7 +50,7 @@ export default class AnalysisTab extends React.Component {
       "codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability"
     );
     
-    const transAnalyzeButton = __ (
+    const transAnalyzeButton = __(
       "codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis"
     );
     return (

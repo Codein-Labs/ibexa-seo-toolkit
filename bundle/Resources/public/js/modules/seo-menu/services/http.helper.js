@@ -12,11 +12,11 @@ export const handleRequestResponse = response => {
 
 
 export const makeRequest = (headers, method, body, route, callback) => {
-    body = JSON.stringify(body);
+    body = body ? JSON.stringify(body) : null;
     const request = new Request(route, {
         method,
         headers,
-        body,
+        body: body,
         mode: 'cors'
     });
 
