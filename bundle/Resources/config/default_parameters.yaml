@@ -24,4 +24,4 @@ parameters:
                 default_pattern: "<image|picture>"
             'robots':
                 label: 'Meta Robots'
-                default_choices: ["", 'noindex', 'nofollow', 'index', 'follow', 'all', 'none', 'nosnippet', 'noarchive', 'nocache', 'noodp', 'unavailable_after']
+                default_choices: ['noindex', 'nofollow', 'index', 'follow', 'all', 'none', 'nosnippet', 'noarchive', 'nocache', 'noodp', 'unavailable_after']
