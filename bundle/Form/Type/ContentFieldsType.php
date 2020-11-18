@@ -21,7 +21,7 @@ final class ContentFieldsType extends AbstractType
     private const CONSTRAINTS = 'constraints';
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
+        $formBuilder
             ->add('contentTypeIdentifier', TextType::class, [
                 'constraints' => [new Assert\NotBlank()],
             ])
