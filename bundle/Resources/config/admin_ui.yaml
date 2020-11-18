@@ -11,8 +11,10 @@ services:
             - { name: ezplatform.admin_ui.component, group: "content-edit-form-after" }
 
     Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
+        autoconfigure: true
         tags:
             - { name: kernel.event.subscriber }
+
     # FIELD TYPE
     Codein\eZPlatformSeoToolkit\FieldType\Type:
         parent: ezpublish.fieldType
