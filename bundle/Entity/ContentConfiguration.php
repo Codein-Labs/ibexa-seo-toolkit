@@ -94,4 +94,13 @@ class ContentConfiguration
 
         return $this;
     }
+
+    public function toArray(): array {
+        return [
+            'id' => $this->getId(),
+            'keyword' => $this->getKeyword(),
+            'isPillarContent' => $this->getIsPillarContent(),
+            'contentId' => $this->contentId,
+        ];
+    }
 }
