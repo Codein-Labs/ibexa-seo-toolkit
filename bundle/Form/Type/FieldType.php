@@ -14,9 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class FieldType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        $builder
+        $formBuilder
             ->addModelTransformer(new CollectionToArrayTransformer(), true)
             ->addModelTransformer(new FieldArrayToObjectTransformer(), true)
           ;

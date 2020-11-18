@@ -2,6 +2,8 @@
 
 namespace Codein\eZPlatformSeoToolkit\Form\Type;
 
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Count;
 use Codein\eZPlatformSeoToolkit\Model\ContentFields;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -16,13 +18,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 final class ContentFieldsType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    private const CONSTRAINTS = 'constraints';
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $builder
-            // ->add('keyword', TextType::class)
-            // ->add('isPillarPage', CheckboxType::class, [
-            //     'constraints' => [],
-            // ])
             ->add('contentTypeIdentifier', TextType::class, [
                 'constraints' => [new Assert\NotBlank()],
             ])
@@ -36,11 +35,13 @@ final class ContentFieldsType extends AbstractType
                 'constraints' => [new Assert\NotBlank()],
             ])
             ->add('fields', FieldType::class, [
-                'constraints' => [new Assert\Count(['min' => 1])],
+                self::CONSTRAINTS => [new Count([
+                    'min' => 1,
+                ])],
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ContentFields::class,

@@ -4,7 +4,7 @@ namespace Codein\eZPlatformSeoToolkit\Analyzer;
 
 use Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\Core\FieldType\Value as FieldValue;
 
 /**
  * Class ContentPreviewAnalyzerService.
@@ -21,7 +21,7 @@ final class ContentPreviewParentAnalyzerService implements ParentAnalyzerInterfa
         $this->analyzers[] = $analyzer;
     }
 
-    public function analyze(FieldDefinition $fieldDefinition, BaseValue $fieldValue): array
+    public function analyze(FieldDefinition $fieldDefinition, FieldValue $fieldValue): array
     {
         $result = [];
         foreach ($this->analyzers as $analyzer) {

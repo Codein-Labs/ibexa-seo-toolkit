@@ -30,16 +30,17 @@ export default class App extends React.Component {
     const seoButtonAnalysis = document.getElementById(
       "menu_item_seo_analyzer-tab"
     );
-
-    seoButtonAnalysis.addEventListener(
-      "click",
-      () => {
-        this.setState((state) => ({
-          seoMenuOpened: !state.seoMenuOpened,
-        }));
-      },
-      false
-    );
+    if(seoButtonAnalysis) {
+        seoButtonAnalysis.addEventListener(
+          "click",
+          () => {
+            this.setState((state) => ({
+              seoMenuOpened: !state.seoMenuOpened,
+            }));
+          },
+          false
+        );
+    }
   }
 
   onCloseMenu() {

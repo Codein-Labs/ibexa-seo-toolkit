@@ -1,0 +1,3 @@
+{% for meta_name, meta_content in codein_ezseo.default_metas|filter((meta_name, meta_content) => meta_name is not empty and meta_content is not empty) %}
+    <meta name="{{ meta_name }}" content="{{ meta_content }}"/>
+{% endfor %}

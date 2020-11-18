@@ -1,0 +1,20 @@
+{% extends "EzPublishCoreBundle::content_fields.html.twig" %}
+
+{% block seometas_field %}
+    <ul class="codeinseobundle-preview-field">
+    {% for meta_name, meta in field.value.metas %}
+        {% if codein_ezseo.field_type_metas[meta_name] is defined %}
+            <li class="ez-field meta-value">
+                {% set default_value = codein_ezseo.field_type_metas[meta_name] %}
+                <b>{{ default_value.label }}:</b>
+                {% if default_value.default_pattern is defined %}
+
+                {{ meta is empty ? default_value.default_pattern|raw|escape : meta }}
+                {% else %}
+                    {{ meta is empty ? '' : meta }}
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endblock %}

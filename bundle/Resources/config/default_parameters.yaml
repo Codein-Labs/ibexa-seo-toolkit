@@ -1,0 +1,29 @@
+parameters:
+    codein_ez_platform_seo_toolkit.default.metas:
+        field_type_metas:
+            title:
+                label: 'Title'
+                default_pattern: "<title|name>"
+            description:
+                label: 'Description'
+                default_pattern: ~
+            keywords:
+                label: 'Keywords'
+                default_pattern: ~
+            'canonical':
+                label: 'External Canonical URL'
+                default_pattern: ~
+            'og:title':
+                label: 'Title'
+                default_pattern: "<title|name>"
+            'og:description':
+                label: 'Description'
+                default_pattern: "<description|title|name>"
+            'og:image':
+                label: 'Image'
+                default_pattern: "<image|picture>"
+            'robots':
+                label: 'Meta Robots'
+                default_choices: ['noindex', 'nofollow', 'index', 'follow', 'all', 'none', 'nosnippet', 'noarchive', 'nocache', 'noodp', 'unavailable_after']
+
+
