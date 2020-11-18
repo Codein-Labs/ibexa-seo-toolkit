@@ -8,6 +8,7 @@ use Codein\eZPlatformSeoToolkit\Form\Type\ContentConfigurationType;
 use Doctrine\ORM\EntityManager;
 use eZ\Publish\Core\Repository\NotificationService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -44,21 +45,17 @@ class ContentConfigurationController extends Controller
 
         $form = $this->createForm(ContentConfigurationType::class, new ContentConfiguration());
         $form->submit($data);
+        $result = [];
         if ($form->isValid()) {
-            $result = [];
             /** @var ContentConfiguration $contentConfiguration */
             $contentConfigurationData = $form->getData();
             $result = $this->em->getRepository(ContentConfiguration::class)->findOneBy([
                 'contentId' => $contentConfigurationData->getContentId()
-            ]);
-            /**
-             * @TODO
-             */
-
-            return $result ?: [];
+            ])->toArray();
+            // $result = $this->em->createQueryBuilder('c')->from(ContentConfiguration::class, 'cc')->where('cc.contentId = :contentId')
+            // ->setParameter('contentId', $contentConfigurationData->getContentId())->getQuery()->getArrayResult();
         }
-
-        return ['form' => $form];
+        return new JsonResponse($result);
     }
 
     public function updateAction(Request $request)
@@ -71,8 +68,8 @@ class ContentConfigurationController extends Controller
 
         $form = $this->createForm(ContentConfigurationType::class, new ContentConfiguration());
         $form->submit($data);
+        $result = [];
         if ($form->isValid()) {
-            $result = [];
             /** @var ContentConfiguration $contentConfiguration */
             $contentConfiguration = $form->getData();
 
@@ -91,11 +88,8 @@ class ContentConfigurationController extends Controller
                 $result = ['action' => 'created'];
             }
             $this->em->flush();
-            /**
-             * @TODO
-             */
 
-            return $result;
         }
+        return new JsonResponse($result, 200);
     }
 }
