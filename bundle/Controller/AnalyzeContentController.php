@@ -10,6 +10,7 @@ use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -42,8 +43,8 @@ final class AnalyzeContentController extends AbstractController
 
         $form = $this->createForm(ContentFieldsType::class, new ContentFields());
         $form->submit($data);
+        $result = [];
         if ($form->isValid()) {
-            $result = [];
             /** @var ContentFields $contentFields */
             $contentFields = $form->getData();
             $contentType = $this->contentTypeService->loadContentTypeByIdentifier($contentFields->getContentTypeIdentifier());
@@ -63,9 +64,8 @@ final class AnalyzeContentController extends AbstractController
                     ->analyze($fieldDefinition, $fieldValue);
             }
 
-            return $result;
         }
 
-        return ['form' => $form];
+        return new JsonResponse($result);
     }
 }
