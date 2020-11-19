@@ -1,20 +1,25 @@
 {% extends "EzPublishCoreBundle::content_fields.html.twig" %}
 
 {% block seometas_field %}
+    {% set field_value_metas = resolve_pattern(field, fieldSettings, content) %}
     <ul class="codeinseobundle-preview-field">
-    {% for meta_name, meta in field.value.metas %}
-        {% if codein_ezseo.field_type_metas[meta_name] is defined %}
-            <li class="ez-field meta-value">
-                {% set default_value = codein_ezseo.field_type_metas[meta_name] %}
-                <b>{{ default_value.label }}:</b>
-                {% if default_value.default_pattern is defined %}
-
-                {{ meta is empty ? default_value.default_pattern|raw|escape : meta }}
-                {% else %}
-                    {{ meta is empty ? '' : meta }}
-                {% endif %}
-            </li>
-        {% endif %}
+    {% for meta_name, meta_content in field_value_metas %}
+            {% if meta_content is not empty  %}
+                <li class="ez-field meta-value">
+                    {% if codein_ezseo.field_type_metas[meta_name] is defined and codein_ezseo.field_type_metas[meta_name] is not empty %}
+                        {% set label = codein_ezseo.field_type_metas[meta_name].label %}
+                        {% set default_value = codein_ezseo.field_type_metas[meta_name] %}
+                    {% else %}
+                        {% set label = meta_name %}
+                    {% endif %}
+                    <b>{{ label }}:</b> <span class="badge badge-secondary">{{ meta_content }}</span>
+                    {% set default_pattern = default_value is defined and default_value is not empty  ? default_value.default_pattern|raw : null %}
+                    {% set content_defintion_value = fieldSettings.configuration[meta_name] %}
+                    <code style="font-style: italic;font-size: 0.675rem;color: #d0caca;"> (ContentType setting: {{ content_defintion_value is empty ? "<em>empty</em>" : content_defintion_value }} - Default Pattern: {{ default_pattern is empty ? "<em>empty</em>" : default_pattern }})</code>
+                </li>
+            {% endif %}
     {% endfor %}
     </ul>
 {% endblock %}
+
+
