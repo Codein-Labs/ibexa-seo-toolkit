@@ -32,7 +32,7 @@ export default class ConfigurationTab extends React.Component {
           console.log(res);
           self.setState({
             focusKeyword: res.keyword ? res.keyword : '',
-            isPillarContent: res.is_pillar_content ? res.is_pillar_content : false,
+            isPillarContent: res.isPillarContent,
           })
         }
         else {
