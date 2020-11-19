@@ -24,38 +24,49 @@ export default class AnalysisTab extends React.Component {
       'fetchCount': 0
     }
     this.siteaccesses = [];
-    this.seoRichText = "";
     this.seoData = {};
     this.triggerAnalysis = this.triggerAnalysis.bind(this);
     this.handleSiteAccessChange = this.handleSiteAccessChange.bind(this);
   }
   
   componentDidMount() {
+    
+    if (this.siteaccesses.length) return;
     if (this.context.siteaccesses == "") return;
 
-    let siteaccesses = JSON.parse(this.context.siteaccesses);
+    let siteaccesses = [];
+    try {
+      siteaccesses = JSON.parse(this.context.siteaccesses);
+    }
+    catch (e) {
+      console.error(e)
+    }
     if (0 in siteaccesses) {
       this.setState({ 'selectedSiteaccess': siteaccesses[0] });
     }
     this.siteaccesses = siteaccesses;
+
+    this.triggerAnalysis(null)
   }
   
+  /**
+   * Provide data and fetch analysis
+   */
   triggerAnalysis(e) {
-    e.preventDefault();
+    if(e !== null) e.preventDefault();
 
     var self = this;
 
-    let dataContext = this.context;
+    // Deep copy of context data
+    let dataContext = {...this.context};
     delete dataContext.siteaccesses;
     dataContext.siteaccess = this.state.selectedSiteaccess;
-
 
     if (!validateContextData(dataContext)) return;
     getAnalysis(dataContext, getSeoRichText(), (err, res) => {
       if (!err) {
         self.seoData = res;
-        self.forceUpdate()
-        console.log(self.seoData);
+        self.forceUpdate();
       }
       else {
         console.error(err);
@@ -99,6 +110,9 @@ export default class AnalysisTab extends React.Component {
             </ul>
           </div>
         </div>
+        
+        <hr class="separator mt-2 mb-2"></hr>
+
         <div class="ez-field-edit__label-wrapper">
           <label class="ez-field-edit__label" for="ezrepoforms_content_edit_fieldsData_new_type_value">Siteaccess analyzed:</label>
         </div>
@@ -109,15 +123,15 @@ export default class AnalysisTab extends React.Component {
         </select>
         <div class="accordion" id="accordionCategory">
         
-          {Object.keys(this.seoData)?.map((seoAnalysisCategoryName) => (
+          {Object.keys(this.seoData)?.map((seoAnalysisCategoryName, index) => (
             <div class="ez-view-rawcontentview">
-              <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
+              <div class="ez-raw-content-title d-flex justify-content-between mb-3" id={seoAnalysisCategoryName}>
                 <h2 class="mb-0">
                   <a
-                    class="ez-content-preview-toggle"
+                    class={ index == 0 ? "ez-content-preview-toggle": "ez-content-preview-toggle collapsed"}
                     type="button"
                     data-toggle="collapse"
-                    data-target="#collapseOne"
+                    data-target={'#' + seoAnalysisCategoryName.split('.').pop()}
                     aria-expanded="true"
                     aria-controls="collapseOne"
                   >
@@ -127,9 +141,9 @@ export default class AnalysisTab extends React.Component {
               </div>
     
               <div
-                id="collapseOne"
-                class="ez-content-preview-collapse collapse show"
-                aria-labelledby="headingOne"
+                id={seoAnalysisCategoryName.split('.').pop()}
+                class={ index == 0 ? "ez-content-preview-collapse collapse show": "ez-content-preview-collapse collapse"}
+                aria-labelledby={seoAnalysisCategoryName.split('.').pop()}
                 data-parent="#accordionCategory"
               >
                 <div class="card-body">
@@ -138,60 +152,7 @@ export default class AnalysisTab extends React.Component {
               </div>
             </div>
           ))}
-          {/* <div className="ez-view-rawcontentview">
-            
-            <div className="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
-              <h2 className="mb-0">
-                <a
-                  className="ez-content-preview-toggle"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  {transAccordionTitleKeyword}
-                </a>
-              </h2>
-            </div>
-  
-            <div
-              id="collapseOne"
-              class="ez-content-preview-collapse collapse show"
-              aria-labelledby="headingOne"
-              data-parent="#accordionCategory"
-            >
-              <div class="card-body">
-                <AnalysisCategoryContent />
-              </div>
-            </div>
-          </div>
-          <div class="ez-view-rawcontentview">
-            <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingTwo">
-              <h2 class="mb-0">
-                <a
-                  class="ez-content-preview-toggle collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  {transAccordionTitleReadability}
-                </a>
-              </h2>
-            </div>
-            <div
-              id="collapseTwo"
-              class="ez-content-preview-collapse collapse"
-              aria-labelledby="headingTwo"
-              data-parent="#accordionCategory"
-            >
-              <div class="card-body">
-                <AnalysisCategoryContent />
-              </div>
-            </div>
-          </div> */}
+
         </div>
   
         <hr class="separator mt-2"></hr>

@@ -35,10 +35,12 @@ export default class ConfigurationTab extends React.Component {
             isPillarContent: res.is_pillar_content ? res.is_pillar_content : false,
           })
         }
+        else {
+          console.log(err);
+        }
         self.setState({
           loading: false
         })
-        console.log(err);
       });
     }
   }
