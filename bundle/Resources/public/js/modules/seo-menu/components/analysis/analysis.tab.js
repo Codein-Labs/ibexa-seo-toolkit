@@ -19,25 +19,49 @@ export default class AnalysisTab extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      'selectedSiteaccess': '',
+    }
+    this.siteaccesses = [];
     this.seoRichText = "";
     this.seoData = [];
     this.triggerAnalysis = this.triggerAnalysis.bind(this);
+    this.handleSiteAccessChange = this.handleSiteAccessChange.bind(this);
   }
   
-  
+  componentDidMount() {
+    if (this.context.siteaccesses == "") return;
+
+    let siteaccesses = JSON.parse(this.context.siteaccesses);
+    if (0 in siteaccesses) {
+      this.setState({ 'selectedSiteaccess': siteaccesses[0] });
+    }
+    this.siteaccesses = siteaccesses;
+  }
   
   triggerAnalysis(e) {
     e.preventDefault();
-    if (!validateContextData(this.context)) return;
 
     var self = this;
-    getAnalysis(this.context, getSeoRichText(), (err, res) => {
+
+    let dataContext = this.context;
+    delete dataContext.siteaccesses;
+    dataContext.siteaccess = this.state.selectedSiteaccess;
+
+
+    if (!validateContextData(dataContext)) return;
+    getAnalysis(dataContext, getSeoRichText(), (err, res) => {
       if (!err) {
         self.seoData = res;
         console.log(self.seoData);
       }
+      console.error(err);
       return;
     })
+  }
+
+  handleSiteAccessChange(event) {
+    this.setState({selectedSiteaccess: event.target.value});
   }
 
   
@@ -54,24 +78,33 @@ export default class AnalysisTab extends React.Component {
 
     return (
       <>
-        <div class="accordion" id="accordionCategory">
         <a className="badge badge-info collapsed" data-toggle="collapse" href="#systemInfoCollapse" aria-expanded="false">⚠ Tips</a>
-            <div className="collapse" id="systemInfoCollapse">
-              <div className="alert alert-info mb-0 mt-3" role="alert">
+        <div className="collapse" id="systemInfoCollapse">
+          <div className="alert alert-info mb-0 mt-3" role="alert">
+            <ul>
+              <li>{transTipsSaving}</li>
+              <li>
+                {transTipsTraffic}
                 <ul>
-                  <li>{transTipsSaving}</li>
-                  <li>
-                    {transTipsTraffic}
-                    <ul>
-                      <li>{transTipsTrafficGreen}</li>
-                      <li>{transTipsTrafficOrange}</li>
-                      <li>{transTipsTrafficRed}</li>
-                    </ul>
-                  </li>
-                  <li>{transTipsDeveloper}</li>
+                  <li>{transTipsTrafficGreen}</li>
+                  <li>{transTipsTrafficOrange}</li>
+                  <li>{transTipsTrafficRed}</li>
                 </ul>
-              </div>
-            </div>
+              </li>
+              <li>{transTipsDeveloper}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ez-field-edit__label-wrapper">
+          <label class="ez-field-edit__label" for="ezrepoforms_content_edit_fieldsData_new_type_value">Siteaccess analyzed:</label>
+        </div>
+        <select id="siteaccess-selection" class="analysis-content__siteaccess-selection form-control" value={this.state.selectedSiteaccess} onChange={this.handleSiteAccessChange}>
+          {this.siteaccesses?.map((siteaccess, index) => (
+            <option value={siteaccess}>{siteaccess}</option>
+          ))}
+        </select>
+        <div class="accordion" id="accordionCategory">
+        
           {/* {this.seoData?.map((seoAnalysisCategoryValue, seoAnalysisCategoryName) => (
             <div class="ez-view-rawcontentview">
               <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">

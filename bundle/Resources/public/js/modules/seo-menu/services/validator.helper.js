@@ -3,14 +3,21 @@ export const validateContextData = (contextData) => {
         "contentId",
         "locationId",
         "versionNo",
-        "contentTypeIdentifier"
+        "contentTypeIdentifier",
+        "language"
     ]
     Object.keys(requiredKeys).map(key => {
-        if (!key in contextData) {
+        if (!(key in contextData)) {
             return false;
         }
     });
-    if (contextData['contentId'] == "0" || contextData['locationId'] == "0" || contextData['versionNo'] == "0" || contextData['contentTypeIdentifier'] == "") {
+    if (
+        contextData['contentId'] == "0" 
+        || contextData['locationId'] == "0" 
+        || contextData['versionNo'] == "0" 
+        || contextData['contentTypeIdentifier'] == "" 
+        || contextData['language'] == "" 
+    ) {
         return false;
     }
     return true;
