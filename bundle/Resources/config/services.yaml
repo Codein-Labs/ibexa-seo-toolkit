@@ -30,7 +30,9 @@ services:
 
     Codein\eZPlatformSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
-    Codein\eZPlatformSeoToolkit\Twig\CodeineZSeoExtension: ~
+    Codein\eZPlatformSeoToolkit\Twig\CodeineZSeoExtension: 
+        arguments:
+            $siteAccessesByLanguage : '%ezpublish.siteaccesses_by_language%'
 
     Codein\eZPlatformSeoToolkit\Form\MetasFieldType: ~
 
