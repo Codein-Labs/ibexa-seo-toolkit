@@ -21,10 +21,11 @@ export default class AnalysisTab extends React.Component {
     super(props);
     this.state = {
       'selectedSiteaccess': '',
+      'fetchCount': 0
     }
     this.siteaccesses = [];
     this.seoRichText = "";
-    this.seoData = [];
+    this.seoData = {};
     this.triggerAnalysis = this.triggerAnalysis.bind(this);
     this.handleSiteAccessChange = this.handleSiteAccessChange.bind(this);
   }
@@ -53,9 +54,12 @@ export default class AnalysisTab extends React.Component {
     getAnalysis(dataContext, getSeoRichText(), (err, res) => {
       if (!err) {
         self.seoData = res;
+        self.forceUpdate()
         console.log(self.seoData);
       }
-      console.error(err);
+      else {
+        console.error(err);
+      }
       return;
     })
   }
@@ -105,7 +109,7 @@ export default class AnalysisTab extends React.Component {
         </select>
         <div class="accordion" id="accordionCategory">
         
-          {/* {this.seoData?.map((seoAnalysisCategoryValue, seoAnalysisCategoryName) => (
+          {Object.keys(this.seoData)?.map((seoAnalysisCategoryName) => (
             <div class="ez-view-rawcontentview">
               <div class="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
                 <h2 class="mb-0">
@@ -117,7 +121,7 @@ export default class AnalysisTab extends React.Component {
                     aria-expanded="true"
                     aria-controls="collapseOne"
                   >
-                    {__("codein_seo_toolkit.seo_view.tab_analysis_accordion_title_" + seoAnalysisCategoryName)}
+                    {__(seoAnalysisCategoryName)}
                   </a>
                 </h2>
               </div>
@@ -129,12 +133,12 @@ export default class AnalysisTab extends React.Component {
                 data-parent="#accordionCategory"
               >
                 <div class="card-body">
-                  <AnalysisCategoryContent content={seoAnalysisCategoryValue}/>
+                  <AnalysisCategoryContent content={this.seoData[seoAnalysisCategoryName]}/>
                 </div>
               </div>
             </div>
-          ))} */}
-          <div className="ez-view-rawcontentview">
+          ))}
+          {/* <div className="ez-view-rawcontentview">
             
             <div className="ez-raw-content-title d-flex justify-content-between mb-3" id="headingOne">
               <h2 className="mb-0">
@@ -187,7 +191,7 @@ export default class AnalysisTab extends React.Component {
                 <AnalysisCategoryContent />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
   
         <hr class="separator mt-2"></hr>

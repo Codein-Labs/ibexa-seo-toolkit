@@ -1,18 +1,15 @@
 import React from "react";
+import { __ } from "../../../../commons/services/language.service";
 
 const AnalysisCategoryContent = (props) => {
   return (
     <>
       <div className="analysis-content">
-        <p className="analysis-content__result analysis-content__result--high">
-          Texte d'analyse high score
+      {Object.keys(props.content)?.map(analyzer => (
+        <p className={"analysis-content__result analysis-content__result--" + props.content[analyzer].status}>
+          {__("codein_seo_toolkit.analyzer."+ analyzer +".message." + props.content[analyzer].status, "codein_seo_toolkit", props.content[analyzer].data)}
         </p>
-        <p className="analysis-content__result analysis-content__result--medium">
-          Texte d'analyse medium score
-        </p>
-        <p className="analysis-content__result analysis-content__result--low">
-          Texte d'analyse low score
-        </p>
+      ))}
       </div>
     </>
   );
