@@ -6,6 +6,8 @@ services:
     _instanceof:
         Codein\eZPlatformSeoToolkit\Analyzer\ParentAnalyzerInterface:
             tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.parent' ]
+        Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerInterface:
+            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.contentpreviewparent' ]
         Codein\eZPlatformSeoToolkit\Analyzer\RichText\RichTextAnalyzerInterface:
             tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.rich_text' ]
         Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface:
