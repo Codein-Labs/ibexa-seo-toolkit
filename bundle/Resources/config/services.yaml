@@ -33,3 +33,5 @@ services:
     Codein\eZPlatformSeoToolkit\Twig\CodeineZSeoExtension: ~
 
     Codein\eZPlatformSeoToolkit\Form\MetasFieldType: ~
+
+    Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService: ~
