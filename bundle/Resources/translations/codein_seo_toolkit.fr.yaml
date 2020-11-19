@@ -17,3 +17,11 @@ codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support: "Les developpeu
 codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Mot clé principal'
 codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Est-un contenu pilier'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
+codein_seo_toolkit.analyzer.category.keyword: 'Mot-clé'
+codein_seo_toolkit.analyzer.category.lisibility: 'Lisibilité'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.low: "Vous avez seulement %count% mots dans votre contenu, c'est trop faible."
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.medium: "Vous avez %count% mots dans votre contenu, c'est bien."
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.high: "Vous avez %count% mots dans votre contenu, c'est excellent"
+codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.low: "Vous n'avez pas de balise meta title."
+codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.medium: "Votre titre SEO ne contient pas de référence au mot-clé"
+codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.high: "Votre titre SEO contient une référence au mot-clé. C'est génial !"
