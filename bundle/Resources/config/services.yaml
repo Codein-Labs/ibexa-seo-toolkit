@@ -16,6 +16,11 @@ services:
     Codein\eZPlatformSeoToolkit\Analyzer\:
         resource: '../../Analyzer/*'
 
+    Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerService:
+        arguments:
+            $defaultSiteaccess: '%ezpublish.siteaccess.default%'
+            $previewControllerService: '@ezpublish.controller.content.preview.core'
+
     Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer:
         arguments:
             $xhtml5Converter: '@ezrichtext.converter.output.xhtml5'
