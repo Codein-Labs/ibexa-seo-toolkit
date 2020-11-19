@@ -8,9 +8,9 @@ use eZ\Publish\Core\FieldType\Value as FieldValue;
 /**
  * Interface AnalyzerInterface.
  */
-interface ParentAnalyzerInterface
+interface RichTextParentAnalyzerInterface
 {
     public function addAnalyzer($analyzer): void;
 
-    public function analyze(FieldDefinition $fieldDefinition, FieldValue $fieldValue): array;
+    public function analyze(FieldDefinition $fieldDefinition, FieldValue $fieldValue, array $data): array;
 }

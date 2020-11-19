@@ -10,7 +10,7 @@ use eZ\Publish\Core\FieldType\Value as FieldValue;
  */
 interface RichTextAnalyzerInterface
 {
-    public function analyze(FieldValue $fieldValue): array;
+    public function analyze(FieldValue $fieldValue, array $data = []): array;
 
     public function support(FieldDefinition $fieldDefinition): bool;
 }

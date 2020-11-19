@@ -9,7 +9,7 @@ use eZ\Publish\Core\FieldType\Value as FieldValue;
 /**
  * Class RichTextAnalyzerService.
  */
-final class RichTextParentAnalyzerService implements ParentAnalyzerInterface, \IteratorAggregate
+final class RichTextParentAnalyzerService implements RichTextParentAnalyzerInterface, \IteratorAggregate
 {
     /**
      * @var array|RichTextAnalyzerInterface[]
@@ -21,7 +21,7 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface, \I
         $this->analyzers[] = $analyzer;
     }
 
-    public function analyze(FieldDefinition $fieldDefinition, fieldValue $fieldValue): array
+    public function analyze(FieldDefinition $fieldDefinition, fieldValue $fieldValue, array $data): array
     {
         $result = [];
         foreach ($this->analyzers as $analyzer) {
@@ -29,7 +29,11 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface, \I
                 continue;
             }
 
-            $result[\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] = $analyzer->analyze($fieldValue);
+            $analysisResult = $analyzer->analyze($fieldValue, $data);
+            if (!array_key_exists(\key($analysisResult), $result)) {
+                $result[\key($analysisResult)] = [];
+            }
+            $result[\key($analysisResult)][\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] = $analysisResult[\key($analysisResult)];
         }
 
         return $result;
@@ -41,12 +45,12 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface, \I
      * An analyzer is initialized only if we really need it (at
      * the corresponding iteration).
      *
-     * @return \Generator The generated {@link ParentAnalyzerInterface} implementations
+     * @return \Generator The generated {@link RichTextParentAnalyzerInterface} implementations
      */
     public function getIterator()
     {
         foreach ($this->analyzers as $analyzer) {
-            if ($analyzer instanceof ParentAnalyzerInterface) {
+            if ($analyzer instanceof RichTextParentAnalyzerInterface) {
                 yield $analyzer;
             }
         }

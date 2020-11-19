@@ -4,8 +4,8 @@ services:
         autoconfigure: true
         public: true
     _instanceof:
-        Codein\eZPlatformSeoToolkit\Analyzer\ParentAnalyzerInterface:
-            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.parent' ]
+        Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerInterface:
+            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.richtextparent' ]
         Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerInterface:
             tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.contentpreviewparent' ]
         Codein\eZPlatformSeoToolkit\Analyzer\RichText\RichTextAnalyzerInterface:
