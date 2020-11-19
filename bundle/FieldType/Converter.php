@@ -27,7 +27,6 @@ final class Converter implements LegacyConverter
     public function toFieldValue(StorageFieldValue $value, FieldValue $fieldValue): void
     {
         $fieldValue->externalData = \json_decode($value->dataText, true);
-        $fieldValue->data = \json_decode($value->dataText, true);
         $fieldValue->sortKey = $value->sortKeyString;
     }
 
