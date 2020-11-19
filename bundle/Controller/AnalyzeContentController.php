@@ -1,14 +1,9 @@
 <?php declare(strict_types=1);
 
 namespace Codein\eZPlatformSeoToolkit\Controller;
-
-use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\Form\Type\ContentFieldsType;
-use Codein\eZPlatformSeoToolkit\Helper\XmlValidator;
 use Codein\eZPlatformSeoToolkit\Model\ContentFields;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;
+use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,18 +14,15 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 final class AnalyzeContentController extends AbstractController
 {
-    private $richTextAnalyzer;
-    private $contentTypeService;
+    private $analyzeContentService;
 
     /**
      * AnalyzeContentController constructor.
      */
     public function __construct(
-        RichTextParentAnalyzerService $richTextAnalyzer,
-        ContentTypeService $contentTypeService
+        AnalyzeContentService $analyzeContentService
     ) {
-        $this->richTextAnalyzer = $richTextAnalyzer;
-        $this->contentTypeService = $contentTypeService;
+        $this->analyzeContentService = $analyzeContentService;
     }
 
     public function __invoke(Request $request)
@@ -47,23 +39,7 @@ final class AnalyzeContentController extends AbstractController
         if ($form->isValid()) {
             /** @var ContentFields $contentFields */
             $contentFields = $form->getData();
-            $contentType = $this->contentTypeService->loadContentTypeByIdentifier($contentFields->getContentTypeIdentifier());
-
-            foreach ($contentFields->getFields() as $field) {
-                $fieldDefinition = $contentType->getFieldDefinition($field->getFieldIdentifier());
-                $fieldDefinition = ($fieldDefinition) ?? new FieldDefinition(
-                    [
-                        'fieldTypeIdentifier' => 'ezrichtext',
-                    ]
-                );
-                if (false === XmlValidator::isXMLContentValid($field->getFieldValue())) {
-                    throw new HttpException(400, \sprintf('Invalid xml value for field "%s".', $field->getFieldIdentifier()));
-                }
-                $fieldValue = new Value($field->getFieldValue());
-                $result[$field->getFieldIdentifier()] = $this->richTextAnalyzer
-                    ->analyze($fieldDefinition, $fieldValue);
-            }
-
+            $result = $this->analyzeContentService->buildResultObject($request, $contentFields);
         }
 
         return new JsonResponse($result);

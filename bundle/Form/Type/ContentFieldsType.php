@@ -34,6 +34,12 @@ final class ContentFieldsType extends AbstractType
             ->add('versionNo', IntegerType::class, [
                 'constraints' => [new Assert\NotBlank()],
             ])
+            ->add('language', TextType::class, [
+                'constraints' => [new Assert\NotBlank()],
+            ])
+            ->add('siteaccess', TextType::class, [
+                'constraints' => [new Assert\NotBlank()],
+            ])
             ->add('fields', FieldType::class, [
                 self::CONSTRAINTS => [new Count([
                     'min' => 1,

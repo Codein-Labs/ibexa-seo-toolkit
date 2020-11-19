@@ -11,48 +11,13 @@ use Doctrine\Common\Collections\Collection;
 class ContentFields
 {
     private $contentTypeIdentifier;
-    // private $keyword;
-    // private $isPillarPage;
     private $contentId;
     private $versionNo;
     private $locationId;
+    private $language;
+    private $siteaccess;
     private $fields;
 
-    // /**
-    //  * @return ?string
-    //  */
-    // public function getKeyword()
-    // {
-    //     return $this->keyword;
-    // }
-
-    // /**
-    //  * @param ?string $keyword
-    //  */
-    // public function setKeyword(?string $keyword): self
-    // {
-    //     $this->keyword = $keyword;
-
-    //     return $this;
-    // }
-
-    // /**
-    //  * @return ?bool
-    //  */
-    // public function getIsPillarPage()
-    // {
-    //     return $this->isPillarPage;
-    // }
-
-    // /**
-    //  * @param bool $isPillarPage
-    //  */
-    // public function setIsPillarPage(?bool $isPillarPage): self
-    // {
-    //     $this->isPillarPage = $isPillarPage;
-
-    //     return $this;
-    // }
 
     /**
      * @return Collection|ArrayCollection
@@ -142,5 +107,53 @@ class ContentFields
         $this->versionNo = $versionNo;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param ?string $language
+     */
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteaccess()
+    {
+        return $this->siteaccess;
+    }
+
+    /**
+     * @param ?string $siteaccess
+     */
+    public function setSiteaccess(?string $siteaccess): self
+    {
+        $this->siteaccess = $siteaccess;
+
+        return $this;
+    }
+
+    public function toArray(): array 
+    {
+        return [
+            'contentTypeIdentifier' => $this->contentTypeIdentifier,
+            'contentId' => $this->contentId,
+            'locationId' => $this->locationId,
+            'versionNo' => $this->versionNo,
+            'language' => $this->language,
+            'siteaccess' => $this->siteaccess,
+        ];
     }
 }
