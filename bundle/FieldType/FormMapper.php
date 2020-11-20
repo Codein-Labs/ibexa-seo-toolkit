@@ -42,9 +42,17 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
         $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
 
         $aConfigurations = $data->fieldDefinition->fieldSettings[self::CONFIGURATION];
+        // we add new field_type_metas entries
         foreach (\array_keys($metasConfig) as $key) {
-            if (!isset($aConfigurations[$key])) {
+            if (empty($aConfigurations[$key])) {
                 $aConfigurations[$key] = '';
+            }
+        }
+
+        // we remove unused field_type_metas entries
+        foreach ($aConfigurations as $key => $content) {
+            if (false === \array_key_exists($key, $metasConfig)) {
+                unset($aConfigurations[$key]);
             }
         }
         $data->fieldSettings[self::CONFIGURATION] = $aConfigurations;
@@ -75,13 +83,22 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
     public function mapFieldValueForm(FormInterface $fieldForm, FieldData $data): void
     {
         $fieldDefinition = $data->fieldDefinition;
+
         $formConfig = $fieldForm->getConfig();
 
         $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
 
+        // we add new field_type_metas entries
         foreach (\array_keys($metasConfig) as $key) {
             if (empty($data->value->metas[$key])) {
                 $data->value->metas[$key] = '';
+            }
+        }
+
+        // we remove unused field_type_metas entries
+        foreach ($data->value->metas as $key => $content) {
+            if (false === \array_key_exists($key, $metasConfig)) {
+                unset($data->value->metas[$key]);
             }
         }
 

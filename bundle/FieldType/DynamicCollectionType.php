@@ -44,7 +44,6 @@ final class DynamicCollectionType extends AbstractType
                 }
             }
         );
-
     }
 
     /**

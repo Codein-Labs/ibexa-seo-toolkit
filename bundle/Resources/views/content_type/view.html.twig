@@ -1,20 +1,27 @@
 {% extends "EzPublishCoreBundle::content_fields.html.twig" %}
 
 {% block seometas_field %}
-    <ul class="codeinseobundle-preview-field">
-    {% for meta_name, meta in field.value.metas %}
-        {% if codein_ezseo.field_type_metas[meta_name] is defined %}
+    {% set field_value_metas = resolve_pattern(field, fieldSettings, content)|filter(meta_content => meta_content is not empty) %}
+    {% if field_value_metas is not empty %}
+        <ul class="codeinseobundle-preview-field">
+        {% for meta_name, meta_content in field_value_metas %}
             <li class="ez-field meta-value">
-                {% set default_value = codein_ezseo.field_type_metas[meta_name] %}
-                <b>{{ default_value.label }}:</b>
-                {% if default_value.default_pattern is defined %}
-
-                {{ meta is empty ? default_value.default_pattern|raw|escape : meta }}
+                {% if codein_ezseo.field_type_metas[meta_name] is defined and codein_ezseo.field_type_metas[meta_name] is not empty %}
+                    {% set label = codein_ezseo.field_type_metas[meta_name].label %}
+                    {% set default_value = codein_ezseo.field_type_metas[meta_name] %}
                 {% else %}
-                    {{ meta is empty ? '' : meta }}
+                    {% set label = meta_name %}
                 {% endif %}
+                <b>{{ label }}:</b> <span class="badge badge-secondary">{{ meta_content }}</span>
+                {% set default_pattern = default_value is defined and default_value is not empty  ? default_value.default_pattern|raw : null %}
+                {% set content_defintion_value = (fieldSettings.configuration[meta_name] is defined and fieldSettings.configuration[meta_name] is not empty) ? fieldSettings.configuration[meta_name] : null %}
+                <code style="font-style: italic;font-size: 0.675rem;color: #d0caca;"> (ContentType setting: {{ content_defintion_value is empty ? "<em>empty</em>" : content_defintion_value }} - Default Pattern: {{ default_pattern is empty ? "<em>empty</em>" : default_pattern }})</code>
             </li>
-        {% endif %}
-    {% endfor %}
-    </ul>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <em>{{ 'fieldview.field.empty'|trans({}, 'fieldview')|desc('This field is empty') }}</em>
+    {% endif %}
 {% endblock %}
+
+
