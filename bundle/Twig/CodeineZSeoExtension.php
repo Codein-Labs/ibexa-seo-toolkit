@@ -7,6 +7,7 @@ use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\Repository\Helper\NameSchemaService;
+use eZ\Publish\Core\Repository\Repository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;
@@ -18,17 +19,17 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
 {
     /** @var SiteAccessConfigResolver */
     private $siteAccessConfigResolver;
-    /** @var NameSchemaService */
-    private $patternResolver;
+    /** @var Repository */
+    private $eZRepository;
 
     /**
      * CodeineZSeoExtension constructor.
      * @param $configResolver
      */
-    public function __construct(SiteAccessConfigResolver $configResolver, NameSchemaService $patternResolver)
+    public function __construct(SiteAccessConfigResolver $configResolver, Repository $eZRepository)
     {
         $this->siteAccessConfigResolver = $configResolver;
-        $this->patternResolver = $patternResolver;
+        $this->eZRepository = $eZRepository;
     }
 
     public function getFunctions()
@@ -75,7 +76,7 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
                 continue;
             }
             if ($nameSchema) {
-                $metaContent = $this->patternResolver->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
+                $metaContent = $this->eZRepository->getNameSchemaService()->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
                 $fieldMetas[$key] = $metaContent[$mainLanguageCode];
             }
         }
