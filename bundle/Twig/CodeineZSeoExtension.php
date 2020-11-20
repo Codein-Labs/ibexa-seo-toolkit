@@ -40,6 +40,7 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
     {
         return [
             new TwigFunction('resolve_pattern', [$this, 'resolvePattern']),
+            new TwigFunction('codein_siteaccesses_by_language', [$this, 'getSiteaccessesByLanguage']),
         ];
     }
 
@@ -97,13 +98,6 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
         ];
 
         return ['codein_ezseo' => $codeinEzSeo];
-    }
-
-    public function getFunctions()
-    {
-        return [
-            new TwigFunction('codein_siteaccesses_by_language', [$this, 'getSiteaccessesByLanguage']),
-        ];
     }
 
     /**
