@@ -38,7 +38,7 @@ final class MetaTitleContainsKeywordAnalyzer implements ContentPreviewAnalyzerIn
         ];
     }
 
-    public function support(): bool
+    public function support($data): bool
     {
         return true;
     }

@@ -30,12 +30,12 @@ final class RichTextParentAnalyzerService implements RichTextParentAnalyzerInter
             }
 
             $analysisResult = $analyzer->analyze($fieldValue, $data);
+            
             if (!array_key_exists(\key($analysisResult), $result)) {
                 $result[\key($analysisResult)] = [];
             }
             $result[\key($analysisResult)][\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] = $analysisResult[\key($analysisResult)];
         }
-
         return $result;
     }
 

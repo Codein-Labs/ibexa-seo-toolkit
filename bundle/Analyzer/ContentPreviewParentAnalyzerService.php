@@ -71,7 +71,7 @@ final class ContentPreviewParentAnalyzerService implements ContentPreviewParentA
         $data['previewHtml'] = $domDocument;
         
         foreach ($this->analyzers as $analyzer) {
-            if (!$analyzer->support()) {
+            if (!$analyzer->support($data)) {
                 continue;
             }
             $analysisResult = $analyzer->analyze($data);

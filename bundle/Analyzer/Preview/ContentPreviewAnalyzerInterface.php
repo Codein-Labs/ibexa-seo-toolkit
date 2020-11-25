@@ -12,5 +12,5 @@ interface ContentPreviewAnalyzerInterface
 {
     public function analyze(array $data): array;
 
-    public function support(): bool;
+    public function support($data): bool;
 }
