@@ -23,3 +23,6 @@ codein_seo_toolkit.analyzer.WordCountAnalyzer.message.high: "Vous avez %count% m
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.low: "Vous n'avez pas de balise meta title."
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.medium: "Votre titre SEO ne contient pas de référence au mot-clé"
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.high: "Votre titre SEO contient une référence au mot-clé. C'est génial !"
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.low: "Le mot-clé n'apparaît que dans %ratio%% des titres. c'est trop peu"
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.medium: "Le mot-clé apparaît dans %ratio%% des titres, c'est améliorable."
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.high: "Le mot-clé apparaît dans %ratio%% des titres, c'est très bien."
