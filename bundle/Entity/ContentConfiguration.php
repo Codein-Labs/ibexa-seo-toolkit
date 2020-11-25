@@ -28,12 +28,16 @@ class ContentConfiguration
      * @ORM\Column(type="string", length=255)
      */
     private $keyword;
-
+    
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isPillarContent;
-
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $language = 'eng-GB';
 
     
     public function getId() 
@@ -84,13 +88,31 @@ class ContentConfiguration
     {
         return $this->contentId;
     }
-
+    
     /**
      * @param ?string $contentTypeIdentifier
      */
     public function setContentId(?string $contentId): self
     {
         $this->contentId = $contentId;
+        
+        return $this;
+    }
+    
+    /**
+     * @return ?string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param ?string $language
+     */
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }
@@ -100,7 +122,8 @@ class ContentConfiguration
             'id' => $this->getId(),
             'keyword' => $this->getKeyword(),
             'isPillarContent' => $this->getIsPillarContent(),
-            'contentId' => $this->contentId,
+            'contentId' => $this->getContentId(),
+            'language' => $this->getLanguage()
         ];
     }
 }

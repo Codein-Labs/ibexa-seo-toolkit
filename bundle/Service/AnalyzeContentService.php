@@ -56,7 +56,6 @@ final class AnalyzeContentService
         
         $data = \array_merge($data, $contentFields->toArray());
         $data['request'] = $request;
-        
         foreach ($contentFields->getFields() as $field) {
             $fieldDefinition = $contentType->getFieldDefinition($field->getFieldIdentifier());
             $fieldDefinition = ($fieldDefinition) ?? new FieldDefinition(

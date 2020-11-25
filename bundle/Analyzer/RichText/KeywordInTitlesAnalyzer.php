@@ -2,6 +2,7 @@
 
 namespace Codein\eZPlatformSeoToolkit\Analyzer\RichText;
 
+use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
 use DOMDocument;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
@@ -13,7 +14,10 @@ use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInter
  */
 final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
 {
-    /** @var \Codein\eZPlatformSeoToolkit\Service\XmlProcessingService xmlProcessingService */
+    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService $as */
+    private $as; 
+
+    /** @var \Codein\eZPlatformSeoToolkit\Service\XmlProcessingService $xmlProcessingService */
     private $xmlProcessingService;
 
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
@@ -29,8 +33,9 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
         'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
     );
 
-    public function __construct(XmlProcessingService $xmlProcessingService)
+    public function __construct(AnalyzerService $analyzerService, XmlProcessingService $xmlProcessingService)
     {
+        $this->as = $analyzerService;
         $this->xmlProcessingService = $xmlProcessingService;
     }
 
@@ -70,16 +75,12 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
                 $status = 'high';
             }
         }
-        
 
-        return [ 
-            self::CATEGORY => [
-                'status' => $status,
-                'data' => [
-                    'ratio' => $ratioKeywordInTitle
-                ],
-            ]
+        $analysisData = [
+            'ratio' => $ratioKeywordInTitle
         ];
+        
+        return $this->as->compile(self::CATEGORY, $status, $analysisData);
     }
 
     public function support(FieldDefinition $fieldDefinition, $data): bool

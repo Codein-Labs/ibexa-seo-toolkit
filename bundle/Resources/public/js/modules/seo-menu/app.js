@@ -11,8 +11,6 @@ export default class App extends React.Component {
 
     this.toggleSeoMenu = this.toggleSeoMenu.bind(this);
     this.onCloseMenu = this.onCloseMenu.bind(this);
-
-    console.log(this.props.contentAttributes)
   }
 
   componentDidMount() {

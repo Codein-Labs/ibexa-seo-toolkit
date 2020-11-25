@@ -40,8 +40,13 @@ final class AnalyzeContentController extends AbstractController
             /** @var ContentFields $contentFields */
             $contentFields = $form->getData();
             $result = $this->analyzeContentService->buildResultObject($request, $contentFields);
+            return new JsonResponse($result);
+        }
+        else {
+            return new JsonResponse([
+                'error' => 'Form is invalid'
+            ], 422);
         }
 
-        return new JsonResponse($result);
     }
 }

@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Service;
 
 /**
- * Class AnalyzeContentService.
+ * Class XmlProcessingService.
  */
 final class XmlProcessingService
 {

@@ -42,11 +42,12 @@ export default class AnalysisTab extends React.Component {
       console.error(e)
     }
     if (0 in siteaccesses) {
-      this.setState({ 'selectedSiteaccess': siteaccesses[0] });
+      this.setState({ 'selectedSiteaccess': siteaccesses[0] }, () => {
+        // set state is asynchronous, we need to do action that requires it in the callback
+        this.triggerAnalysis(null)
+      });
     }
     this.siteaccesses = siteaccesses;
-
-    this.triggerAnalysis(null)
   }
   
   /**
@@ -56,12 +57,12 @@ export default class AnalysisTab extends React.Component {
     if(e !== null) e.preventDefault();
 
     var self = this;
-
+    
     // Deep copy of context data
     let dataContext = {...this.context};
     delete dataContext.siteaccesses;
     dataContext.siteaccess = this.state.selectedSiteaccess;
-
+    
     if (!validateContextData(dataContext)) return;
     getAnalysis(dataContext, getSeoRichText(), (err, res) => {
       if (!err) {
@@ -81,8 +82,6 @@ export default class AnalysisTab extends React.Component {
 
   
   render() {
-    const transAccordionTitleKeyword = __("codein_seo_toolkit.seo_view.tab_analysis.accordion_title_keyword");
-    const transAccordionTitleReadability = __("codein_seo_toolkit.seo_view.tab_analysis.accordion_title_readability");
     const transAnalyzeButton = __("codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis");
     const transTipsSaving = __('codein_seo_toolkit.seo_view.tab_analysis.tips.saving');
     const transTipsTraffic = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic');

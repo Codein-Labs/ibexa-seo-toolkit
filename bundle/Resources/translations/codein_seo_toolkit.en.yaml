@@ -17,12 +17,16 @@ codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Is a pillar content'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
 codein_seo_toolkit.analyzer.category.keyword: 'Keyword'
 codein_seo_toolkit.analyzer.category.lisibility: 'Lisibility'
+codein_seo_toolkit.analyzer.not_compatible: 'The analyzer "%analyzer%" is not compatible with your content'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.readable_name: 'Word count'
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.low: 'You only have %count% words in your content, it is too low.'
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.medium: 'You have %count% words in your content, it is good.'
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.high: 'You have %count% words in your content, it is excellent.'
+codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.readable_name: 'Meta title contains keyword'
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.low: "You don't have any meta title tag."
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.medium: "Your SEO title does not contain any references to your focus keyword."
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.high: "Your SEO title contains your focus keyword, it's excellent !"
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.readable_name: 'Keyword in titles'
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.low: "The keyword only appears in %ratio%% of titles, it's to low."
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.medium: "The keyword appears in %ratio%% of titles, it's improvable."
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.high: "The keyword appears in %ratio%% of titles, it's very good !"

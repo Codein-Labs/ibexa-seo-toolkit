@@ -17,7 +17,7 @@ export const getConfiguration = (contentId, callback) => {
     })
 }
 
-export const updateConfiguration = (contentId, keyword, isPillarContent, callback) => {
+export const updateConfiguration = (contentId, keyword, isPillarContent, language, callback) => {
 
     const headers = {
         'Accept': 'application/json',
@@ -31,7 +31,8 @@ export const updateConfiguration = (contentId, keyword, isPillarContent, callbac
     const body = {
         contentId,
         keyword,
-        isPillarContent
+        isPillarContent,
+        language
     };
 
     HTTPHelper.makeRequest(headers, method, body, route, function(err, res) {

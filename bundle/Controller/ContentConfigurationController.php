@@ -65,7 +65,6 @@ class ContentConfigurationController extends Controller
         if (JSON_ERROR_NONE !== \json_last_error()) {
             throw new HttpException(400, 'Invalid json.');
         }
-
         $form = $this->createForm(ContentConfigurationType::class, new ContentConfiguration());
         $form->submit($data);
         $result = [];
@@ -79,7 +78,13 @@ class ContentConfigurationController extends Controller
                 /** @var ContentConfiguration $existingContentConfiguration */
                 $existingContentConfiguration->setKeyword($contentConfiguration->getKeyword());
                 $existingContentConfiguration->setIsPillarContent($contentConfiguration->getIsPillarContent());
-                $this->em->persist($existingContentConfiguration);
+                $existingContentConfiguration->setLanguage($contentConfiguration->getLanguage());
+                
+                try {
+                    $this->em->persist($existingContentConfiguration);
+                } catch (\Exception $e) {
+                    return new JsonResponse(['error' => $e->getMessage()], 422);            
+                }
 
                 $result = ['action' => 'updated'];
             }

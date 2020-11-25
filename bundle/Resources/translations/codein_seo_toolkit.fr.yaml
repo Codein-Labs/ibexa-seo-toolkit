@@ -17,12 +17,16 @@ codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Est-un contenu pilier'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
 codein_seo_toolkit.analyzer.category.keyword: 'Mot-clé'
 codein_seo_toolkit.analyzer.category.lisibility: 'Lisibilité'
+codein_seo_toolkit.analyzer.not_compatible: "L'analyse \"%analyzer%\" n'est pas disponible pour votre contenu."
+codein_seo_toolkit.analyzer.WordCountAnalyzer.readable_name: 'Nombre de mots'
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.low: "Vous avez seulement %count% mots dans votre contenu, c'est trop faible."
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.medium: "Vous avez %count% mots dans votre contenu, c'est bien."
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.high: "Vous avez %count% mots dans votre contenu, c'est excellent"
+codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.readable_name: "Titre du contenu contient le mot clé"
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.low: "Vous n'avez pas de balise meta title."
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.medium: "Votre titre SEO ne contient pas de référence au mot-clé"
 codein_seo_toolkit.analyzer.MetaTitleContainsKeywordAnalyzer.message.high: "Votre titre SEO contient une référence au mot-clé. C'est génial !"
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.readable_name: 'Mot clé présent dans les titres'
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.low: "Le mot-clé n'apparaît que dans %ratio%% des titres. c'est trop peu"
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.medium: "Le mot-clé apparaît dans %ratio%% des titres, c'est améliorable."
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.high: "Le mot-clé apparaît dans %ratio%% des titres, c'est très bien."
