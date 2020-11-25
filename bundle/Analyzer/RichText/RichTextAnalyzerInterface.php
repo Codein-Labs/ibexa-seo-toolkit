@@ -12,5 +12,5 @@ interface RichTextAnalyzerInterface
 {
     public function analyze(FieldValue $fieldValue, array $data = []): array;
 
-    public function support(FieldDefinition $fieldDefinition): bool;
+    public function support(FieldDefinition $fieldDefinition, $data): bool;
 }

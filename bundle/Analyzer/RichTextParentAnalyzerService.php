@@ -25,7 +25,7 @@ final class RichTextParentAnalyzerService implements RichTextParentAnalyzerInter
     {
         $result = [];
         foreach ($this->analyzers as $analyzer) {
-            if (!$analyzer->support($fieldDefinition)) {
+            if (!$analyzer->support($fieldDefinition, $data)) {
                 continue;
             }
 

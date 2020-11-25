@@ -53,7 +53,10 @@ final class AnalyzeContentService
         $data = $this->em->getRepository(ContentConfiguration::class)->findOneBy([
             'contentId' => $contentId
         ])->toArray();
-
+        
+        $data = \array_merge($data, $contentFields->toArray());
+        $data['request'] = $request;
+        
         foreach ($contentFields->getFields() as $field) {
             $fieldDefinition = $contentType->getFieldDefinition($field->getFieldIdentifier());
             $fieldDefinition = ($fieldDefinition) ?? new FieldDefinition(
@@ -69,8 +72,6 @@ final class AnalyzeContentService
                 ->analyze($fieldDefinition, $fieldValue, $data);
             
         }
-        $data = \array_merge($data, $contentFields->toArray());
-        $data['request'] = $request;
         $resultContentPreview = $this->contentPreviewAnalyzer->analyze($data);
         $result = \array_merge_recursive($result, $resultContentPreview);
 

@@ -25,7 +25,7 @@ final class WordCountAnalyzer implements RichTextAnalyzerInterface
     {
         $xml = $fieldValue->xml;
         $html = $this->xhtml5Converter->convert($xml)->saveHTML();
-
+        
         $text = \strip_tags($html);
 
         $count = \str_word_count($text);
@@ -48,7 +48,7 @@ final class WordCountAnalyzer implements RichTextAnalyzerInterface
         ];
     }
 
-    public function support(FieldDefinition $fieldDefinition): bool
+    public function support(FieldDefinition $fieldDefinition, $data): bool
     {
         return 'ezrichtext' === $fieldDefinition->fieldTypeIdentifier;
     }

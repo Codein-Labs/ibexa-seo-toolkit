@@ -3,14 +3,12 @@
 namespace Codein\eZPlatformSeoToolkit\Analyzer\Preview;
 
 use Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface;
-use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
 
 /**
  * Class CountWordService.
  */
 final class MetaTitleContainsKeywordAnalyzer implements ContentPreviewAnalyzerInterface
 {
-    private $xhtml5Converter;
 
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
