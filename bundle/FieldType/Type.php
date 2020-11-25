@@ -14,7 +14,7 @@ use eZ\Publish\SPI\Persistence\Content\FieldValue;
  */
 class Type extends FieldType
 {
-    private const IDENTIFIER = 'seometas';
+    private const IDENTIFIER = 'codeinseometas';
 
     /**
      * @var array

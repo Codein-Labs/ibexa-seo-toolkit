@@ -1,6 +1,6 @@
 {% extends "EzPublishCoreBundle::content_fields.html.twig" %}
 
-{% block seometas_field %}
+{% block codeinseometas_field %}
     {% set field_value_metas = resolve_pattern(field, fieldSettings, content)|filter(meta_content => meta_content is not empty) %}
     {% if field_value_metas is not empty %}
         <ul class="codeinseobundle-preview-field">
