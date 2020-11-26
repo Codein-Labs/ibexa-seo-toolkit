@@ -26,6 +26,7 @@ services:
             $xhtml5Converter: '@ezrichtext.converter.output.xhtml5'
 
     Codein\eZPlatformSeoToolkit\Analyzer\RichText\KeywordInTitlesAnalyzer: ~
+    Codein\eZPlatformSeoToolkit\Analyzer\Preview\OneH1TagMaximumAnalyzer: ~
 
     Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController: ~
     Codein\eZPlatformSeoToolkit\Controller\ContentConfigurationController: ~

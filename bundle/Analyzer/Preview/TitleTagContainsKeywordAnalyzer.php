@@ -8,9 +8,9 @@ use Exception;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class CountWordService.
+ * Class TitleTagContainsKeywordAnalyzer.
  */
-final class MetaTitleContainsKeywordAnalyzer implements ContentPreviewAnalyzerInterface
+final class TitleTagContainsKeywordAnalyzer implements ContentPreviewAnalyzerInterface
 {
 
     /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService $as */
@@ -31,15 +31,21 @@ final class MetaTitleContainsKeywordAnalyzer implements ContentPreviewAnalyzerIn
     public function analyze(array $data): array
     {
         $selector = new \DOMXPath($data['previewHtml']);
-        $metaTitle = $selector->query('//meta[@name="title"]');
 
+        /** @var \DOMNodeList $titleTag */
+        $titleTags = $selector->query('//title');
         try {
             $status = 'medium';
-            if ($metaTitle->count() == 0) {
+            if ($titleTags->count() == 0) {
                 $status = 'low';
             }
-            else if (strpos($metaTitle->item(0)->getAttribute('content'), $data['keyword']) !== false) {
-                $status = 'high';
+            else {
+                foreach($titleTags as $titleTag) {
+                    if (strpos($titleTag->getAttribute('content'), $data['keyword']) !== false) {
+                        $status = 'high'; 
+                        break;
+                    }
+                }
             }
             return $this->as->compile(self::CATEGORY, $status, []);
         } catch (Exception $e) {
