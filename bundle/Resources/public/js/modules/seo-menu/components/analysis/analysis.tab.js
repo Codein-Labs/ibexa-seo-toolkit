@@ -120,8 +120,8 @@ export default class AnalysisTab extends React.Component {
 
     return (
       <>
-        <a className="badge badge-info collapsed" data-toggle="collapse" href="#systemInfoCollapse" aria-expanded="false">⚠ Tips</a>
-        <div className="collapse" id="systemInfoCollapse">
+        <a className="badge badge-info collapsed" data-toggle="collapse" href="#generalHelpCollapse" aria-expanded="false">⚠ Tips</a>
+        <div className="collapse" id="generalHelpCollapse">
           <div className="alert alert-info mb-0 mt-3" role="alert">
             <ul>
               <li>{transTipsSaving}</li>
