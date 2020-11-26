@@ -65,6 +65,7 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
         }
 
         $status = 'low';
+        $ratioKeywordInTitle = 0;
         if ($numberOfTitles > 0) {
             $ratioKeywordInTitle = round($numberOfTitlesContainingKeyword / $numberOfTitles * 100, 2); 
 

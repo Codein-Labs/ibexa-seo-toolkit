@@ -40,12 +40,16 @@ final class AnalyzeContentController extends AbstractController
             /** @var ContentFields $contentFields */
             $contentFields = $form->getData();
             $result = $this->analyzeContentService->buildResultObject($request, $contentFields);
+
+            if (array_key_exists('error', $result)) {
+                return new JsonResponse($result, JsonResponse::HTTP_BAD_REQUEST);
+            }
             return new JsonResponse($result);
         }
         else {
             return new JsonResponse([
-                'error' => 'Form is invalid'
-            ], 422);
+                'error' => 'codein_seo_toolkit.analyzer.error.analyzer_form_invalid'
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
     }

@@ -52,7 +52,14 @@ final class AnalyzeContentService
 
         $data = $this->em->getRepository(ContentConfiguration::class)->findOneBy([
             'contentId' => $contentId
-        ])->toArray();
+        ]);
+        
+        if ($data) {
+            $data = $data->toArray();
+        }
+        else {
+            return ['error' => 'codein_seo_toolkit.analyzer.error.content_not_configured'];
+        }
         
         $data = \array_merge($data, $contentFields->toArray());
         $data['request'] = $request;

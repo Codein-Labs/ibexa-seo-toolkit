@@ -2,12 +2,9 @@ export const SEO_ANALYSIS_ROUTE = '/api/seo/analysis';
 export const SEO_GET_CONFIGURATION_ROUTE = '/api/seo/content-configuration/get'
 export const SEO_PUT_CONFIGURATION_ROUTE = '/api/seo/content-configuration/update';
 
-export const handleRequestResponse = response => {
-    if (!response.ok) {
-        throw Error(response.statusText);
-    }
-
-    return response.json();
+export const handleRequestResponse = (response) => {
+    
+    return (response)
 };
 
 
@@ -21,12 +18,16 @@ export const makeRequest = (headers, method, body, route, callback) => {
     });
 
     fetch(request)
-        .then(handleRequestResponse)
-        .then((res) => {
-            callback(null, res)
-        })
-        .catch((error) => {
-            callback(error, null);
+        .then(response => {
+            if (!response.ok) {
+                response.json().then(json => {
+                    callback(response.statusText, json);
+                })
+                return;
+            }
+            response.json().then(json => {
+                callback(null, json);
+            })
         })
 }
 

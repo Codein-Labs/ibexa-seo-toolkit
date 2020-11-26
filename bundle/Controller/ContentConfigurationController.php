@@ -51,9 +51,13 @@ class ContentConfigurationController extends Controller
             $contentConfigurationData = $form->getData();
             $result = $this->em->getRepository(ContentConfiguration::class)->findOneBy([
                 'contentId' => $contentConfigurationData->getContentId()
-            ])->toArray();
-            // $result = $this->em->createQueryBuilder('c')->from(ContentConfiguration::class, 'cc')->where('cc.contentId = :contentId')
-            // ->setParameter('contentId', $contentConfigurationData->getContentId())->getQuery()->getArrayResult();
+            ]);
+            if ($result) {
+                $result = $result->toArray();
+            }
+            else {
+                return new JsonResponse((new ContentConfiguration())->toArray());
+            }
         }
         return new JsonResponse($result);
     }

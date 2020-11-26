@@ -27,6 +27,8 @@ export default class AnalysisTab extends React.Component {
     this.seoData = {};
     this.triggerAnalysis = this.triggerAnalysis.bind(this);
     this.handleSiteAccessChange = this.handleSiteAccessChange.bind(this);
+    this.renderError = this.renderError.bind(this);
+    this.error = false;
   }
   
   componentDidMount() {
@@ -67,10 +69,17 @@ export default class AnalysisTab extends React.Component {
     getAnalysis(dataContext, getSeoRichText(), (err, res) => {
       if (!err) {
         self.seoData = res;
+        self.error = false;
         self.forceUpdate();
       }
       else {
-        console.error(err);
+        self.seoData = [];
+        if ('error' in res) {
+          self.error = res.error;
+        }
+        else {
+          self.error = 'codein_seo_toolkit.analyzer.error.undefined';
+        }
       }
       return;
     })
@@ -78,6 +87,25 @@ export default class AnalysisTab extends React.Component {
 
   handleSiteAccessChange(event) {
     this.setState({selectedSiteaccess: event.target.value});
+  }
+
+  renderError() {
+
+    if (this.error) {
+      return (
+        <>
+          <div className="alert alert-danger mt-4" role="alert">
+            {__(this.error)}
+          </div>
+        </>
+      )
+    }
+    else {
+      return (
+        <>
+        </>
+      )
+    }
   }
 
   
@@ -121,7 +149,7 @@ export default class AnalysisTab extends React.Component {
           ))}
         </select>
         <div class="accordion" id="accordionCategory">
-        
+          {this.renderError()}
           {Object.keys(this.seoData)?.map((seoAnalysisCategoryName, index) => (
             <div class="ez-view-rawcontentview">
               <div class="ez-raw-content-title d-flex justify-content-between mb-3" id={seoAnalysisCategoryName}>

@@ -20,7 +20,7 @@ final class AnalyzerService
      */
     public function compile(string $category, ?string $status, ?array $data): array {
         if (
-            is_string($status)
+            !is_string($status)
             || !in_array($status, self::STATUS_VALUES)
             || !is_array($data)
         ) 
