@@ -36,3 +36,8 @@ codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.high: "The keyword a
 codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.readable_name: 'Correct number of H1'
 codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.low: "You have %count% H1 tags in your content. You should have only one !"
 codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.high: "You have exactly one H1 Tag in your article, perfect !"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.readable_name: "Keyword in URL Slug"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.info: "Your keyword should preferably be an exact match with the url slug."
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.low: "Your keyword is not present in the URL, keep in mind it's a good practice !"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.medium: "Your keyword seems present in the URL, make sure there are no typos or useless words in it"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.high: "Your URL slug perfectly matches your keyword"
