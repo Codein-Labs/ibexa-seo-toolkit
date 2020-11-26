@@ -17,7 +17,6 @@ export default class ConfigurationTab extends React.Component {
       'isPillarContent': false,
       'loading': true
     }
-    // this.componentDidMount = this.componentDidMount.bind(this);
     this.triggerUpdateConfiguration = this.triggerUpdateConfiguration.bind(this);
     this.onChangeFocusKeyword = this.onChangeFocusKeyword.bind(this)
     this.onChangePillar = this.onChangePillar.bind(this)
