@@ -10,7 +10,7 @@ use eZ\Publish\Core\FieldType\Value as FieldValue;
 use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
 
 /**
- * Class CountWordService.
+ * Class KeywordInTitlesAnalyzer.
  */
 final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
 {

@@ -7,7 +7,7 @@ use eZ\Publish\Core\FieldType\Value as FieldValue;
 use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
 
 /**
- * Class CountWordService.
+ * Class WordCountAnalyzer.
  */
 final class WordCountAnalyzer implements RichTextAnalyzerInterface
 {

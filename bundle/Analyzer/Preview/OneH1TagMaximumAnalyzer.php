@@ -6,7 +6,7 @@ use Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 
 /**
- * Class CountWordService.
+ * Class OneH1TagMaximumAnalyzer.
  */
 final class OneH1TagMaximumAnalyzer implements ContentPreviewAnalyzerInterface
 {
