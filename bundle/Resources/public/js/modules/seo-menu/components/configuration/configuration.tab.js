@@ -84,6 +84,9 @@ export default class ConfigurationTab extends React.Component {
     const transConfigurationUpdateConfiguration = __(
       "codein_seo_toolkit.seo_view.tab_configuration_update_configuration"
     );
+    const transConfigurationKeywordSynonyms = __(
+      "codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms"
+    );
     const css = ``
     if (this.state.loading) {
       return (
@@ -123,6 +126,8 @@ export default class ConfigurationTab extends React.Component {
             </div>
           </div>
           <button type="button" class="btn btn-primary" onClick={this.triggerUpdateConfiguration}>{transConfigurationUpdateConfiguration}</button>
+          <hr/>
+          <em class="light-text">{transConfigurationKeywordSynonyms}</em>
         </form>
       </>
     );

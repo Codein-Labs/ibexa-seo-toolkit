@@ -39,31 +39,39 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
         
         $titles = $selector->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
 
+        $status = 'low';
+        $preprocessedKeywords = explode(',', strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+        foreach ($preprocessedKeywords as $key => $preprocessedKeyword) 
+        {
+            $preprocessedKeywords[$key] = trim($preprocessedKeyword);
+        }
+
         $numberOfTitles = 0;
         $numberOfTitlesContainingKeyword = 0;
         foreach($titles as $title) 
         {
-            /** @var \DOMElement $title */
-            $titleLowercase = strtr(mb_strtolower($title->textContent), AnalyzerService::ACCENT_VALUES);
-            $preprocessedKeyword = strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES);
-            if (strpos($titleLowercase, $preprocessedKeyword) !== false) 
-            {
-                $numberOfTitlesContainingKeyword++;
+            foreach ($preprocessedKeywords as $preprocessedKeyword) {
+                /** @var \DOMElement $title */
+                $titleLowercase = strtr(mb_strtolower($title->textContent), AnalyzerService::ACCENT_VALUES);
+                if (strpos($titleLowercase, $preprocessedKeyword) !== false) 
+                {
+                    $numberOfTitlesContainingKeyword++;
+                    break;
+                }
             }
             $numberOfTitles++;
         }
 
-        $status = 'low';
         $ratioKeywordInTitle = 0;
         if ($numberOfTitles > 0) {
             $ratioKeywordInTitle = round($numberOfTitlesContainingKeyword / $numberOfTitles * 100, 2); 
+        }
 
-            if ($ratioKeywordInTitle > 10 && $ratioKeywordInTitle < 40 ) {
-                $status = 'medium';
-            }
-            else if ($ratioKeywordInTitle >= 40) {
-                $status = 'high';
-            }
+        if ($ratioKeywordInTitle > 10 && $ratioKeywordInTitle < 30 ) {
+            $status = 'medium';
+        }
+        else if ($ratioKeywordInTitle >= 30) {
+            $status = 'high';
         }
 
         $analysisData = [

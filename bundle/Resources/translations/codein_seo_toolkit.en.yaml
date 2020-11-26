@@ -15,6 +15,7 @@ codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support: 'Developers can
 codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Focus keyword'
 codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Is a pillar content'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
+codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "You can separate synonyms of your keyword with a comma."
 codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
 codein_seo_toolkit.analyzer.error.content_not_configured: "Please configure the content in the associated tab."
 codein_seo_toolkit.analyzer.error.analyzer_form_invalid: "Form is invalid. Please contact technical assitance."
