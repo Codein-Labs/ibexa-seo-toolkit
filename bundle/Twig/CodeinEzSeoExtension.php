@@ -13,9 +13,9 @@ use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;
 
 /**
- * Class CodeineZSeoExtension.
+ * Class CodeinEzSeoExtension.
  */
-final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInterface
+final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInterface
 {
     /** @var SiteAccessConfigResolver */
     private $siteAccessConfigResolver;
@@ -26,7 +26,7 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
     private $siteAccessesByLanguage;
 
     /**
-     * CodeineZSeoExtension constructor.
+     * CodeinEzSeoExtension constructor.
      * @param $configResolver
      */
     public function __construct(SiteAccessConfigResolver $configResolver, Repository $eZRepository, array $siteAccessesByLanguage)
