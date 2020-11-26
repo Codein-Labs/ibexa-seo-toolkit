@@ -16,16 +16,18 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * Class AnalyzeContentController.
  */
-class AnalyzeContentController extends AbstractController
+final class AnalyzeContentController extends AbstractController
 {
-    protected $richTextAnalyzer;
-    protected $contentTypeService;
+    private $richTextAnalyzer;
+    private $contentTypeService;
 
     /**
      * AnalyzeContentController constructor.
      */
-    public function __construct(RichTextParentAnalyzerService $richTextAnalyzer, ContentTypeService $contentTypeService)
-    {
+    public function __construct(
+        RichTextParentAnalyzerService $richTextAnalyzer,
+        ContentTypeService $contentTypeService
+    ) {
         $this->richTextAnalyzer = $richTextAnalyzer;
         $this->contentTypeService = $contentTypeService;
     }

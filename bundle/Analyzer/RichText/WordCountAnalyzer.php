@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Analyzer\RichText;
 
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\Core\FieldType\Value as FieldValue;
 use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
 
 /**
@@ -18,11 +18,10 @@ final class WordCountAnalyzer implements RichTextAnalyzerInterface
         $this->xhtml5Converter = $xhtml5Converter;
     }
 
-    public function analyze(BaseValue $fieldValue): array
+    public function analyze(FieldValue $fieldValue): array
     {
         $xml = $fieldValue->xml;
-        $html = $this->xhtml5Converter->convert($xml)
-            ->saveHTML();
+        $html = $this->xhtml5Converter->convert($xml)->saveHTML();
 
         $text = \strip_tags($html);
 

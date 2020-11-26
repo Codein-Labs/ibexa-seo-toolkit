@@ -4,7 +4,7 @@ namespace Codein\eZPlatformSeoToolkit\Analyzer;
 
 use Codein\eZPlatformSeoToolkit\Analyzer\RichText\RichTextAnalyzerInterface;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\Core\FieldType\Value as FieldValue;
 
 /**
  * Class RichTextAnalyzerService.
@@ -21,7 +21,7 @@ final class RichTextParentAnalyzerService implements ParentAnalyzerInterface, \I
         $this->analyzers[] = $analyzer;
     }
 
-    public function analyze(FieldDefinition $fieldDefinition, BaseValue $fieldValue): array
+    public function analyze(FieldDefinition $fieldDefinition, fieldValue $fieldValue): array
     {
         $result = [];
         foreach ($this->analyzers as $analyzer) {

@@ -15,7 +15,7 @@ final class XmlValidator
      * @param string $encoding utf-8
      * @return bool
      */
-    public static function isXMLContentValid($xmlContent, $version = '1.0', $encoding = 'utf-8')
+    public static function isXMLContentValid(string $xmlContent, string $version = '1.0', string $encoding = 'utf-8')
     {
         if ('' === \trim($xmlContent)) {
             return false;
@@ -23,8 +23,8 @@ final class XmlValidator
 
         \libxml_use_internal_errors(true);
 
-        $doc = new DOMDocument($version, $encoding);
-        $doc->loadXML($xmlContent);
+        $domDocument = new DOMDocument($version, $encoding);
+        $domDocument->loadXML($xmlContent);
 
         $errors = \libxml_get_errors();
         \libxml_clear_errors();
