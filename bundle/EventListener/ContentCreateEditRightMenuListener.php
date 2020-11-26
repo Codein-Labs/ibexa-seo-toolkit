@@ -26,7 +26,6 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
     public static function getSubscribedEvents()
     {
         return [
-            ConfigureMenuEvent::CONTENT_CREATE_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
             ConfigureMenuEvent::CONTENT_EDIT_SIDEBAR_RIGHT => ['onMenuConfigure', 0],
         ];
     }

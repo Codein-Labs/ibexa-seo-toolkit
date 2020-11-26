@@ -7,7 +7,6 @@ services:
         arguments:
             $template: "EzPlatformSeoToolkitBundle::seo_menu.html.twig"
         tags:
-            - { name: ezplatform.admin_ui.component, group: "content-create-form-after" }
             - { name: ezplatform.admin_ui.component, group: "content-edit-form-after" }
 
     Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
