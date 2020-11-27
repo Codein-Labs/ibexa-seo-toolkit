@@ -29,9 +29,9 @@ ______________
 
 ## Features
 
-<img align="right" src="https://via.placeholder.com/350" alt="Example" />
+<img align="right" src="https://i.ibb.co/wBTfdyQ/S-lection-397.png" alt="Codein SEO Toolkit demo" />
 
-- :electric_plug: Super easy to install and start using the full-featured controllers and services :point_right:
+- :electric_plug: Super easy to start using the full-featured controllers and services :point_right:
 
 - :octopus: Extendable analysis type of SEO content
 

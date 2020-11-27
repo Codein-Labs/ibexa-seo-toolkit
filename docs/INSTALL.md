@@ -85,9 +85,8 @@ php bin/console bazinga:js-translation:dump web/assets --merge-domains
 yarn encore dev
 ```
 
-## That was it!
+## That's it!
 
-Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find out how
-to specify your custom configuration.
+Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find out how to specify your custom configuration.
 
 [1]: docs/REQUIREMENTS.md
