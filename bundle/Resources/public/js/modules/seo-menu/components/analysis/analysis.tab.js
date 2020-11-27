@@ -1,19 +1,9 @@
 import React from "react";
 import { __ } from "../../../../commons/services/language.service";
 import AnalysisCategoryContent from "./analysis.category.content";
-import { getAnalysis, getSeoRichText } from './analysis.service';
+import { getAnalysis, getSeoRichText, calculateScore } from './analysis.service';
 import { validateContextData } from '../../services/validator.helper';
 import EzDataContext from "../../ez.datacontext";
-
-
-
-const SELECTOR_FIELD = '.ez-field-edit--ezrichtext';
-const SELECTOR_INPUT = '.ez-data-source__richtext';
-
-var toType = function(obj) {
-  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-}
-
 
 export default class AnalysisTab extends React.Component {
 
@@ -25,8 +15,11 @@ export default class AnalysisTab extends React.Component {
     }
     this.siteaccesses = [];
     this.seoData = {};
+    this.scores = {};
+    this.globalScore = -1;
     this.triggerAnalysis = this.triggerAnalysis.bind(this);
     this.handleSiteAccessChange = this.handleSiteAccessChange.bind(this);
+    this.updateScore = this.updateScore.bind(this);
     this.renderError = this.renderError.bind(this);
     this.error = false;
   }
@@ -70,6 +63,7 @@ export default class AnalysisTab extends React.Component {
       if (!err) {
         self.seoData = res;
         self.error = false;
+        self.updateScore()
         self.forceUpdate();
       }
       else {
@@ -89,8 +83,15 @@ export default class AnalysisTab extends React.Component {
     this.setState({selectedSiteaccess: event.target.value});
   }
 
-  renderError() {
+  updateScore() {
+    if (!(Object.keys(this.seoData).length === 0 && this.seoData.constructor === Object)) {
+      let scores = calculateScore(this.seoData);
+      this.globalScore = scores[0];
+      this.scores = scores[1];
+    }
+  }
 
+  renderError() {
     if (this.error) {
       return (
         <>
@@ -106,6 +107,27 @@ export default class AnalysisTab extends React.Component {
         </>
       )
     }
+  }
+  
+  getScoreDisplayValue(scores = null, seoCategoryName = null) {
+    let score = 0;
+    if (scores == null && seoCategoryName == null) {
+      score = this.globalScore;
+    }
+    else if (seoCategoryName in scores) {
+      score = scores[seoCategoryName];
+    }
+    else {
+      return '';
+    }
+      if (score < 33.333) {
+        return 'low';
+      } else if (score >= 33.333 && score < 66.666) {
+        return 'medium';
+      } else if (score >= 66.666 && score <= 100) {
+        return 'high';
+      }
+    return '';
   }
 
   
@@ -150,34 +172,39 @@ export default class AnalysisTab extends React.Component {
         </select>
         <div class="accordion" id="accordionCategory">
           {this.renderError()}
+          {this.globalScore != -1 ? (
+            <div className={"mt-4 badge badge--"+this.getScoreDisplayValue()}>Note globale: {this.globalScore}</div>
+          ) : ''}
           {Object.keys(this.seoData)?.map((seoAnalysisCategoryName, index) => (
-            <div class="ez-view-rawcontentview">
-              <div class="ez-raw-content-title d-flex justify-content-between mb-3" id={seoAnalysisCategoryName}>
-                <h2 class="mb-0">
-                  <a
-                    class={ index == 0 ? "ez-content-preview-toggle": "ez-content-preview-toggle collapsed"}
-                    type="button"
-                    data-toggle="collapse"
-                    data-target={'#' + seoAnalysisCategoryName.split('.').pop()}
-                    aria-expanded="true"
-                    aria-controls="collapseOne"
-                  >
-                    {__(seoAnalysisCategoryName)}
-                  </a>
-                </h2>
-              </div>
-    
-              <div
-                id={seoAnalysisCategoryName.split('.').pop()}
-                class={ index == 0 ? "ez-content-preview-collapse collapse show": "ez-content-preview-collapse collapse"}
-                aria-labelledby={seoAnalysisCategoryName.split('.').pop()}
-                data-parent="#accordionCategory"
-              >
-                <div class="card-body">
-                  <AnalysisCategoryContent content={this.seoData[seoAnalysisCategoryName]}/>
+            <>
+              <div className="ez-view-rawcontentview">
+                <div className="ez-raw-content-title d-flex justify-content-between mb-3" id={seoAnalysisCategoryName}>
+                  <h2 className="mb-0">
+                    <span className={"subscore subscore--" + this.getScoreDisplayValue(this.scores, seoAnalysisCategoryName)}></span>
+                    <a
+                      className={ index == 0 ? "ez-content-preview-toggle": "ez-content-preview-toggle collapsed"}
+                      type="button"
+                      data-toggle="collapse"
+                      data-target={'#' + seoAnalysisCategoryName.split('.').pop()}
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      {__(seoAnalysisCategoryName)}
+                    </a>
+                  </h2>
+                </div>
+      
+                <div
+                  id={seoAnalysisCategoryName.split('.').pop()}
+                  class={ index == 0 ? "ez-content-preview-collapse collapse show": "ez-content-preview-collapse collapse"}
+                  aria-labelledby={seoAnalysisCategoryName.split('.').pop()}
+                >
+                  <div class="card-body">
+                    <AnalysisCategoryContent content={this.seoData[seoAnalysisCategoryName]}/>
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           ))}
 
         </div>

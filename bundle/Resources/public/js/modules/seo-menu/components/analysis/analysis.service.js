@@ -64,3 +64,36 @@ const extractFieldIdentifier = (textareaNameAttribute) => {
     }
     return false;
 }
+
+export const calculateScore = (seoData) => {
+    let globalScore = 0;
+    let subScores = {};
+    
+    for (let i in seoData) {
+        let subNote = 0;
+        let subTotal = 0;
+        Object.keys(seoData[i]).map((analyzer) => {
+            if ('status' in seoData[i][analyzer]) {
+                switch (seoData[i][analyzer]["status"]) {
+                    case 'high':
+                        subNote += 2;
+                        break;
+                    case 'medium':
+                        subNote += 1;
+                        break;
+                    case 'low':
+                        subNote += 0;
+                        break;
+                }
+                subTotal += 2;
+            }
+        })
+
+        subScores[i] = Math.round((subNote / subTotal) * 100);
+    }
+
+    globalScore = Object.values(subScores).reduce((a, b) => a + b) / Object.keys(subScores).length;
+    globalScore = Math.round(globalScore);
+
+    return [globalScore, subScores];
+}
