@@ -5,6 +5,7 @@ codein_seo_toolkit.seo_view.footer_made_with: 'Fait avec'
 codein_seo_toolkit.seo_view.footer_made_by: par
 codein_seo_toolkit.seo_view.tab_analysis: Analyse
 codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyser
+codein_seo_toolkit.seo_view.tab_analysis.global_note: Note globale
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
 codein_seo_toolkit.seo_view.tab_analysis.tips.saving: "Sauvegarder votre contenu pour mettre à jour l'analyse"
 codein_seo_toolkit.seo_view.tab_analysis.tips.traffic: 'Les feux indiquent le score:'

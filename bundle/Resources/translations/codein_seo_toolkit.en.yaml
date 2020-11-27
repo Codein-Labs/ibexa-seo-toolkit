@@ -5,6 +5,7 @@ codein_seo_toolkit.seo_view.footer_made_with: 'Made with'
 codein_seo_toolkit.seo_view.footer_made_by: by
 codein_seo_toolkit.seo_view.tab_analysis: Analysis
 codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyze
+codein_seo_toolkit.seo_view.tab_analysis.global_note: Global note
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
 codein_seo_toolkit.seo_view.tab_analysis.tips.saving: 'Save your content to update the analysis'
 codein_seo_toolkit.seo_view.tab_analysis.tips.traffic: 'Traffic lights indicate the score:'

@@ -139,7 +139,8 @@ export default class AnalysisTab extends React.Component {
     const transTipsTrafficOrange = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.orange');
     const transTipsTrafficRed = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.red');
     const transTipsDeveloper = __('codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support');
-
+    const transGlobalNote = __('codein_seo_toolkit.seo_view.tab_analysis.global_note');
+    
     return (
       <>
         <a className="badge badge-info collapsed" data-toggle="collapse" href="#generalHelpCollapse" aria-expanded="false">⚠ Tips</a>
@@ -173,7 +174,7 @@ export default class AnalysisTab extends React.Component {
         <div class="accordion" id="accordionCategory">
           {this.renderError()}
           {this.globalScore != -1 ? (
-            <div className={"mt-4 badge badge--"+this.getScoreDisplayValue()}>Note globale: {this.globalScore}</div>
+            <div className={"mt-4 badge badge--"+this.getScoreDisplayValue()}>{transGlobalNote}: {this.globalScore}%</div>
           ) : ''}
           {Object.keys(this.seoData)?.map((seoAnalysisCategoryName, index) => (
             <>
