@@ -34,15 +34,25 @@ final class TitleTagContainsKeywordAnalyzer implements ContentPreviewAnalyzerInt
 
         /** @var \DOMNodeList $titleTag */
         $titleTags = $selector->query('//title');
+
+        
         try {
+            $keywordSynonyms = explode(',',strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+
+            $keywordSynonyms = array_map('trim', $keywordSynonyms);
             $status = 'medium';
             if ($titleTags->count() == 0) {
                 $status = 'low';
             }
             else {
                 foreach($titleTags as $titleTag) {
-                    if (strpos($titleTag->getAttribute('content'), $data['keyword']) !== false) {
-                        $status = 'high'; 
+                    foreach ($keywordSynonyms as $keyword) {
+                        if (strpos($titleTag->getAttribute('content'), $keyword) !== false) {
+                            $status = 'high'; 
+                            break;
+                        }
+                    }
+                    if($status === 'high') {
                         break;
                     }
                 }

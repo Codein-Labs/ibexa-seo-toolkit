@@ -68,7 +68,6 @@ final class Configuration extends SiteAccessConfiguration
                             ->end()
                         ->arrayPrototype()
                             ->children()
-                                ->scalarNode('url_field')->example('url')->end()
                                 ->scalarNode('richtext_field')->example('description')->end()
                             ->end()
                         ->end()

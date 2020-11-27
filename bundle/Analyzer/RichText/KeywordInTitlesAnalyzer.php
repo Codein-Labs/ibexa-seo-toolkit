@@ -40,20 +40,17 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
         $titles = $selector->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
 
         $status = 'low';
-        $preprocessedKeywords = explode(',', strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
-        foreach ($preprocessedKeywords as $key => $preprocessedKeyword) 
-        {
-            $preprocessedKeywords[$key] = trim($preprocessedKeyword);
-        }
+        $keywordSynonyms = explode(',', strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+        $keywordSynonyms = array_map('trim', $keywordSynonyms);
 
         $numberOfTitles = 0;
         $numberOfTitlesContainingKeyword = 0;
         foreach($titles as $title) 
         {
-            foreach ($preprocessedKeywords as $preprocessedKeyword) {
+            foreach ($keywordSynonyms as $keyword) {
                 /** @var \DOMElement $title */
                 $titleLowercase = strtr(mb_strtolower($title->textContent), AnalyzerService::ACCENT_VALUES);
-                if (strpos($titleLowercase, $preprocessedKeyword) !== false) 
+                if (strpos($titleLowercase, $keyword) !== false) 
                 {
                     $numberOfTitlesContainingKeyword++;
                     break;

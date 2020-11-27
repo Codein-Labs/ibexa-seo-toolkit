@@ -52,19 +52,25 @@ final class KeywordInUrlSlugAnalyzer implements ContentPreviewAnalyzerInterface
             $pathArray = explode('/', $urlAlias->path);
             $urlSlug = mb_strtolower(end($pathArray));
             $urlSlugWithoutDashes = str_replace('-', " ", $urlSlug);
-            $keyword = strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES);
+            $keywordSynonyms = explode(',',strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = array_map('trim', $keywordSynonyms);
+
+            $bestRatio = 0;
+            foreach ($keywordSynonyms as $keyword) {
+                $distance = AnalyzerService::levenshtein_utf8($keyword, $urlSlugWithoutDashes);
+                $lenSum = strlen($urlSlugWithoutDashes) + strlen($keyword);
+                $levenshteinRatio = 1 - ($distance / $lenSum);
+                $bestRatio = ($levenshteinRatio > $bestRatio ? $levenshteinRatio : $bestRatio);
+            }
             
-            $distance = AnalyzerService::levenshtein_utf8($keyword, $urlSlugWithoutDashes);
-            $lenSum = strlen($urlSlugWithoutDashes) + strlen($keyword);
-            $levenshteinRatio = 1 - ($distance / $lenSum);
     
             $status = 'low';
 
-            if ($levenshteinRatio > 0.85 && $levenshteinRatio < 1)
+            if ($bestRatio > 0.85 && $bestRatio < 1)
             {
                 $status = 'medium';
             }
-            else if ($levenshteinRatio == 1) {
+            else if ($bestRatio == 1) {
                 $status = 'high';
             }
             
@@ -78,12 +84,39 @@ final class KeywordInUrlSlugAnalyzer implements ContentPreviewAnalyzerInterface
         }
         
         return $this->as->compile(self::CATEGORY, $status, [
-            'similarity' => $levenshteinRatio * 100 
+            'similarity' => $bestRatio * 100 
         ]);
     }
 
     public function support($data): bool
     {
+        // Difficult to get non latin alphabet languages
+        // to work well with this analyzer.
+        // Moreover, we don't know how Search Engines treats them
+        if (in_array($data['language'], [
+            'ara-SA',
+            'chi-CN',
+            'chi-HK',
+            'chi-TW',
+            'cze-CZ',
+            'ell-GR',
+            'heb-IL',
+            'hin-IN',
+            'ind-ID',
+            'jpn-JP',
+            'kor-KR',
+            'mkd-MK',
+            'pol-PL',
+            'rus-RU',
+            'slk-SK',
+            'slo-SI',
+            'srp-RS',
+            'tur-TR',
+            'ukr-UA',
+            'vie-VN'
+        ])) {
+            return false;
+        }
         return true;
     }
 }
