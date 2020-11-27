@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class RichTextAnalyzerPassTest extends AbstractCompilerPassTestCase
 {
-    const ANALYZER_ADDEDER_ID = 'alanyzer.example.id';
+    const ANALYZER_ADDER_ID = 'analyzer.example.id';
 
     protected function setUp(): void
     {
@@ -26,13 +26,13 @@ class RichTextAnalyzerPassTest extends AbstractCompilerPassTestCase
         $definition = new Definition();
         $definition->addTag(RichTextAnalyzerPass::TAG_NAME);
 
-        $this->setDefinition(self::ANALYZER_ADDEDER_ID, $definition);
+        $this->setDefinition(self::ANALYZER_ADDER_ID , $definition);
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             RichTextParentAnalyzerService::class,
              'addAnalyzer',
-             [new Reference(self::ANALYZER_ADDEDER_ID)]
+             [new Reference(self::ANALYZER_ADDER_ID )]
          );
     }
 

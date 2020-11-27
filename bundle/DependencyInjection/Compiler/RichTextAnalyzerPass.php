@@ -20,7 +20,7 @@ final class RichTextAnalyzerPass implements CompilerPassInterface
         if (!$containerBuilder->has(RichTextParentAnalyzerService::class)) {
             return;
         }
-        $analysis = [];
+        $blockedAnalysis = [];
         $analyzerDefinition = $containerBuilder->getDefinition(RichTextParentAnalyzerService::class);
 
         $allFieldAnalyzers = $containerBuilder->findTaggedServiceIds(self::TAG_NAME);

@@ -31,8 +31,10 @@ class WordCountAnalyzerTest extends KernelTestCase
         $value = new Value($xml);
 
         $response = $ipsum->analyze($value);
-        $this->assertArrayHasKey('items', $response);
-        $this->assertArrayHasKey('totalCount', $response);
-        $this->assertSame($response['totalCount'], 8);
+        
+        $this->assertArrayHasKey(WordCountAnalyzer::CATEGORY, $response);
+        $this->assertArrayHasKey('data', $response[WordCountAnalyzer::CATEGORY]);
+        $this->assertArrayHasKey('count', $response[WordCountAnalyzer::CATEGORY]['data']);
+        $this->assertSame($response[WordCountAnalyzer::CATEGORY]['data']['count'], 8);
     }
 }

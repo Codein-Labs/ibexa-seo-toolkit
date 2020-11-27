@@ -20,17 +20,17 @@ final class ContentPreviewAnalyzerPass implements CompilerPassInterface
         if (!$containerBuilder->has(ContentPreviewParentAnalyzerService::class)) {
             return;
         }
-        $analysis = [];
+        $blockedAnalysis = [];
         $analyzerDefinition = $containerBuilder->getDefinition(ContentPreviewParentAnalyzerService::class);
 
         $allFieldAnalyzers = $containerBuilder->findTaggedServiceIds(self::TAG_NAME);
         $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);
         if (true === $containerBuilder->hasParameter($analysisParam)) {
-            $analysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
+            $blockedAnalysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
         }
 
         foreach ($allFieldAnalyzers as $id => $tags) {
-            if (false === \in_array($id, $analysis, true)) {
+            if (false === \in_array($id, $blockedAnalysis, true)) {
                 $analyzerDefinition->addMethodCall('addAnalyzer', [new Reference($id)]);
             }
         }

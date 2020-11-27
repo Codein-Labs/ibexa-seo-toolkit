@@ -48,7 +48,6 @@ final class ConfigurationTest extends TestCase
                     'analysis' => [
                         'content_types' => [],
                         'blocklist' => [],
-                        'passlist' => [],
                     ],
                     'sitemap' => [
                         'split_by' => 'content_type',
@@ -70,7 +69,7 @@ final class ConfigurationTest extends TestCase
                     ],
                     'metas' => [
                         'default_metas' => [],
-                        'field_type' => [],
+                        'field_type_metas' => [],
                     ],
                     'links' => [],
                     'hreflang' => [
