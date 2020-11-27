@@ -141,14 +141,38 @@ final class Configuration extends SiteAccessConfiguration
     {
         $nodeBuilder
             ->arrayNode('robots')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->booleanNode('allow_admin_configuration')->defaultFalse()->info(' If true, the admin can manually configure the robots list in the back-office interface.')->end()
-                    ->booleanNode('prevent_indexing')->defaultTrue()->info('If true, prevent search engines from indexing.')->end()
-                    ->arrayNode('disallow')
-                        ->scalarPrototype()->end()
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('crawl-delay')->defaultNull()->end()
+                            ->arrayNode('disallow')
+                                ->scalarPrototype()->end()
+                            ->end()
+                            ->arrayNode('allow')
+                                ->scalarPrototype()->end()
+                            ->end()
+                            ->arrayNode('sitemap')
+                            ->defaultValue(['route' => 'codein_ez_platform_seo_toolkit.sitemap'])
+                            ->validate()
+                             ->ifTrue(
+                                 function ($array) {
+                                     $notValid = false;
+                                     foreach ($array as $key => $value) {
+                                         if ('url' === $key && false === \filter_var($value, FILTER_VALIDATE_URL)) {
+                                             $notValid = true;
+                                             break;
+                                         }
+                                     }
+
+                                     return $notValid;
+                                 }
+                             )
+                             ->thenInvalid('This value is not a valid URL.')
+                            ->end()
+
+                            ->scalarPrototype()->end()
+                            ->end()
+                        ->end()
                     ->end()
-                ->end()
             ->end()
         ;
 

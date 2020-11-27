@@ -13,12 +13,13 @@ services:
 
     Codein\eZPlatformSeoToolkit\Analyzer\:
         resource: '../../Analyzer/*'
+    Codein\eZPlatformSeoToolkit\Controller\:
+        resource: '../../Controller/*'
 
     Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer:
         arguments:
             $xhtml5Converter: '@ezrichtext.converter.output.xhtml5'
 
-    Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController: ~
 
     Codein\eZPlatformSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
