@@ -6,7 +6,6 @@ use Codein\eZPlatformSeoToolkit\FieldType\Value;
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Helper\NameSchemaService;
 use eZ\Publish\Core\Repository\Repository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
@@ -101,17 +100,15 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
     }
 
     /**
-     * Find potential siteaccesses for this language code
-     *
-     * @param string $languageCode
-     * @return string
+     * Find potential siteaccesses for this language code.
      */
     public function getSiteaccessesByLanguage(string $languageCode): string
     {
         $siteAccesses = [];
-        if ($languageCode && array_key_exists($languageCode, $this->siteAccessesByLanguage)) {
+        if ($languageCode && \array_key_exists($languageCode, $this->siteAccessesByLanguage)) {
             $siteAccesses = $this->siteAccessesByLanguage[$languageCode];
         }
+
         return \json_encode($siteAccesses);
     }
 }

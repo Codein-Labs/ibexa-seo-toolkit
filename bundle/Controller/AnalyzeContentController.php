@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace Codein\eZPlatformSeoToolkit\Controller;
+
 use Codein\eZPlatformSeoToolkit\Form\Type\ContentFieldsType;
 use Codein\eZPlatformSeoToolkit\Model\ContentFields;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
@@ -41,19 +42,18 @@ final class AnalyzeContentController extends AbstractController
             $contentFields = $form->getData();
             $result = $this->analyzeContentService->buildResultObject($request, $contentFields);
 
-            if (array_key_exists('error', $result)) {
-                return new JsonResponse(array_merge($result, [
-                    'code' => JsonResponse::HTTP_BAD_REQUEST
+            if (\array_key_exists('error', $result)) {
+                return new JsonResponse(\array_merge($result, [
+                    'code' => JsonResponse::HTTP_BAD_REQUEST,
                 ]), JsonResponse::HTTP_BAD_REQUEST);
             }
+
             return new JsonResponse($result);
         }
-        else {
-            return new JsonResponse([
-                'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
-                'error' => 'codein_seo_toolkit.analyzer.error.analyzer_form_invalid'
-            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
+        return new JsonResponse([
+            'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+            'error' => 'codein_seo_toolkit.analyzer.error.analyzer_form_invalid',
+        ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

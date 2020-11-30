@@ -18,7 +18,6 @@ class ContentFields
     private $siteaccess;
     private $fields;
 
-
     /**
      * @return Collection|ArrayCollection
      */
@@ -145,7 +144,7 @@ class ContentFields
         return $this;
     }
 
-    public function toArray(): array 
+    public function toArray(): array
     {
         return [
             'contentTypeIdentifier' => $this->contentTypeIdentifier,

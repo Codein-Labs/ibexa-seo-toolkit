@@ -4,23 +4,20 @@ namespace Codein\eZPlatformSeoToolkit\Analyzer\RichText;
 
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
-use DOMDocument;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\FieldType\Value as FieldValue;
-use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
 
 /**
  * Class KeywordInTitlesAnalyzer.
  */
 final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
 {
-    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService $as */
-    private $as; 
-
-    /** @var \Codein\eZPlatformSeoToolkit\Service\XmlProcessingService $xmlProcessingService */
-    private $xmlProcessingService;
-
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
+    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
+    private $as;
+
+    /** @var \Codein\eZPlatformSeoToolkit\Service\XmlProcessingService */
+    private $xmlProcessingService;
 
     public function __construct(AnalyzerService $analyzerService, XmlProcessingService $xmlProcessingService)
     {
@@ -30,51 +27,48 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
 
     public function analyze(FieldValue $fieldValue, array $data = []): array
     {
-        libxml_use_internal_errors(true);
+        \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
-        $xml = $fieldValue->xml;        
+        $xml = $fieldValue->xml;
         $html = $this->xmlProcessingService->processDocument($xml);
 
         $selector = new \DOMXPath($html);
-        
+
         $titles = $selector->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
 
         $status = 'low';
-        $keywordSynonyms = explode(',', strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
-        $keywordSynonyms = array_map('trim', $keywordSynonyms);
+        $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+        $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
         $numberOfTitles = 0;
         $numberOfTitlesContainingKeyword = 0;
-        foreach($titles as $title) 
-        {
+        foreach ($titles as $title) {
             foreach ($keywordSynonyms as $keyword) {
                 /** @var \DOMElement $title */
-                $titleLowercase = strtr(mb_strtolower($title->textContent), AnalyzerService::ACCENT_VALUES);
-                if (strpos($titleLowercase, $keyword) !== false) 
-                {
-                    $numberOfTitlesContainingKeyword++;
+                $titleLowercase = \strtr(\mb_strtolower($title->textContent), AnalyzerService::ACCENT_VALUES);
+                if (false !== \strpos($titleLowercase, $keyword)) {
+                    ++$numberOfTitlesContainingKeyword;
                     break;
                 }
             }
-            $numberOfTitles++;
+            ++$numberOfTitles;
         }
 
         $ratioKeywordInTitle = 0;
         if ($numberOfTitles > 0) {
-            $ratioKeywordInTitle = round($numberOfTitlesContainingKeyword / $numberOfTitles * 100, 2); 
+            $ratioKeywordInTitle = \round($numberOfTitlesContainingKeyword / $numberOfTitles * 100, 2);
         }
 
-        if ($ratioKeywordInTitle > 10 && $ratioKeywordInTitle < 30 ) {
+        if ($ratioKeywordInTitle > 10 && $ratioKeywordInTitle < 30) {
             $status = 'medium';
-        }
-        else if ($ratioKeywordInTitle >= 30) {
+        } elseif ($ratioKeywordInTitle >= 30) {
             $status = 'high';
         }
 
         $analysisData = [
-            'ratio' => $ratioKeywordInTitle
+            'ratio' => $ratioKeywordInTitle,
         ];
-        
+
         return $this->as->compile(self::CATEGORY, $status, $analysisData);
     }
 

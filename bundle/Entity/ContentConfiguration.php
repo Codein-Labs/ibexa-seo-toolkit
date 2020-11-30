@@ -2,8 +2,6 @@
 
 namespace Codein\eZPlatformSeoToolkit\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,19 +26,18 @@ class ContentConfiguration
      * @ORM\Column(type="string", length=255)
      */
     private $keyword;
-    
+
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isPillarContent;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $language = 'eng-GB';
 
-    
-    public function getId() 
+    public function getId()
     {
         return $this->id;
     }
@@ -88,17 +85,18 @@ class ContentConfiguration
     {
         return $this->contentId;
     }
-    
+
     /**
      * @param ?string $contentTypeIdentifier
+     * @param ?string $contentId
      */
     public function setContentId(?string $contentId): self
     {
         $this->contentId = $contentId;
-        
+
         return $this;
     }
-    
+
     /**
      * @return ?string
      */
@@ -117,13 +115,14 @@ class ContentConfiguration
         return $this;
     }
 
-    public function toArray(): array {
+    public function toArray(): array
+    {
         return [
             'id' => $this->getId(),
             'keyword' => $this->getKeyword(),
             'isPillarContent' => $this->getIsPillarContent(),
             'contentId' => $this->getContentId(),
-            'language' => $this->getLanguage()
+            'language' => $this->getLanguage(),
         ];
     }
 }

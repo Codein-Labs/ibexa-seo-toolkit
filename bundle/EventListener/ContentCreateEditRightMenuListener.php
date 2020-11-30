@@ -23,6 +23,7 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
             ]
         );
     }
+
     public static function getSubscribedEvents()
     {
         return [

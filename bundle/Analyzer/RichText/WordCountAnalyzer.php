@@ -11,10 +11,8 @@ use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInter
  */
 final class WordCountAnalyzer implements RichTextAnalyzerInterface
 {
-    private $xhtml5Converter;
-
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
-
+    private $xhtml5Converter;
 
     public function __construct(RichTextConverterInterface $xhtml5Converter)
     {
@@ -25,26 +23,25 @@ final class WordCountAnalyzer implements RichTextAnalyzerInterface
     {
         $xml = $fieldValue->xml;
         $html = $this->xhtml5Converter->convert($xml)->saveHTML();
-        
+
         $text = \strip_tags($html);
 
         $count = \str_word_count($text);
         $status = 'low';
 
         if ($count > 700 && $count < 1500) {
-            $status = 'medium';    
-        }
-        else if ($count >= 1500) {
+            $status = 'medium';
+        } elseif ($count >= 1500) {
             $status = 'high';
         }
 
-        return [ 
+        return [
             self::CATEGORY => [
                 'status' => $status,
                 'data' => [
-                    'count' => $count
+                    'count' => $count,
                 ],
-            ]
+            ],
         ];
     }
 

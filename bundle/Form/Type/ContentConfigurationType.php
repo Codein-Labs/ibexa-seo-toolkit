@@ -3,7 +3,6 @@
 namespace Codein\eZPlatformSeoToolkit\Form\Type;
 
 use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
-use Codein\eZPlatformSeoToolkit\Model\ContentFields;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;

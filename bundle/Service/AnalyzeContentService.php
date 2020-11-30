@@ -6,12 +6,12 @@ use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\eZPlatformSeoToolkit\Helper\XmlValidator;
+use Codein\eZPlatformSeoToolkit\Model\ContentFields;
 use Doctrine\ORM\EntityManager;
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;
-use Codein\eZPlatformSeoToolkit\Helper\XmlValidator;
-use Codein\eZPlatformSeoToolkit\Model\ContentFields;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -21,30 +21,28 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 final class AnalyzeContentService
 {
-
-    /** @var EntityManager $em */
+    /** @var EntityManager */
     private $em;
 
-    /** @var LoggerInterface $logger */
+    /** @var LoggerInterface */
     private $logger;
 
-    /** @var ContentTypeService $contentTypeService*/
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var ContentPreviewParentAnalyzerService $contentPreviewAnalyzer */
+    /** @var ContentPreviewParentAnalyzerService */
     private $contentPreviewAnalyzer;
 
-    /** @var RichTextParentAnalyzerService $richTextAnalyzer */
+    /** @var RichTextParentAnalyzerService */
     private $richTextAnalyzer;
 
-    /** @var SiteAccessConfigResolver $siteAccessConfigResolver */
+    /** @var SiteAccessConfigResolver */
     private $siteAccessConfigResolver;
 
-
     public function __construct(
-        EntityManager $em, 
+        EntityManager $em,
         LoggerInterface $logger,
-        ContentTypeService $contentTypeService, 
+        ContentTypeService $contentTypeService,
         RichTextParentAnalyzerService $richTextAnalyzer,
         ContentPreviewParentAnalyzerService $contentPreviewAnalyzer,
         SiteAccessConfigResolver $siteAccessConfigResolver
@@ -58,22 +56,19 @@ final class AnalyzeContentService
     }
 
     /**
-     * Launch analysis
+     * Launch analysis.
      *
-     * @param Request $request
-     * @param ContentFields $contentFields
-     * @return array
-     * 
      * @throws HttpException 400 if xmlvalue field is invalid
+     * @return array
      */
-    public function buildResultObject(Request $request, ContentFields $contentFields) {
+    public function buildResultObject(Request $request, ContentFields $contentFields)
+    {
         $contentType = $this->contentTypeService->loadContentTypeByIdentifier($contentFields->getContentTypeIdentifier());
-        
+
         $result = [];
 
         $data = $this->createAnalysisDataArray($request, $contentFields);
-        if (array_key_exists('error', $data))
-        {
+        if (\array_key_exists('error', $data)) {
             return $data;
         }
 
@@ -106,7 +101,7 @@ final class AnalyzeContentService
     }
 
     /**
-     * Get and aggregate data needed for analysis
+     * Get and aggregate data needed for analysis.
      *
      * @param Request $request
      * @param ContentFields $contentFields
@@ -117,16 +112,15 @@ final class AnalyzeContentService
         $contentId = $contentFields->getContentId();
 
         $data = $this->em->getRepository(ContentConfiguration::class)->findOneBy([
-            'contentId' => $contentId
+            'contentId' => $contentId,
         ]);
-        
+
         if ($data) {
             $data = $data->toArray();
-        }
-        else {
+        } else {
             return ['error' => 'codein_seo_toolkit.analyzer.error.content_not_configured'];
         }
-        
+
         $data = \array_merge($data, $contentFields->toArray());
         $data['request'] = $request;
 
@@ -134,11 +128,7 @@ final class AnalyzeContentService
     }
 
     /**
-     * Get richtext field identifier configured for the provided content type
-     *
-     * @param string $contentTypeIdentifier
-     * @param string $siteaccess
-     * @return string
+     * Get richtext field identifier configured for the provided content type.
      */
     public function getRichtextFieldConfiguredForContentType(string $contentTypeIdentifier, string $siteaccess): string
     {
@@ -147,11 +137,10 @@ final class AnalyzeContentService
                 'analysis',
                 $siteaccess
             )['content_types'][$contentTypeIdentifier]['richtext_field'];
-        }
-        catch (\Exception $e) {
-            $this->logger->warning('Analyzer config is not set correctly for this content type: '.$contentTypeIdentifier);
-            return "";
+        } catch (\Exception $e) {
+            $this->logger->warning('Analyzer config is not set correctly for this content type: ' . $contentTypeIdentifier);
+
+            return '';
         }
     }
-
 }

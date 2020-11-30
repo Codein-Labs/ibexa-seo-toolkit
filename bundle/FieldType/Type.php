@@ -23,7 +23,7 @@ class Type extends FieldType
         'configuration' => [
             'type' => 'array',
             'default' => [],
-        ]
+        ],
     ];
 
     /**

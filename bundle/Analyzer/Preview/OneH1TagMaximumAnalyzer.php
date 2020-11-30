@@ -2,7 +2,6 @@
 
 namespace Codein\eZPlatformSeoToolkit\Analyzer\Preview;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 
 /**
@@ -10,11 +9,9 @@ use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
  */
 final class OneH1TagMaximumAnalyzer implements ContentPreviewAnalyzerInterface
 {
-    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService $as */
-    private $as;
-
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
-
+    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
+    private $as;
 
     public function __construct(AnalyzerService $analyzerService)
     {
@@ -27,12 +24,13 @@ final class OneH1TagMaximumAnalyzer implements ContentPreviewAnalyzerInterface
         $h1 = $selector->query('//h1');
         $count = $h1->count();
         $status = 'low';
-        if ($count == 1) {
+        if (1 === $count) {
             $status = 'high';
         }
         $analysisData = [
-            'count' => $count
+            'count' => $count,
         ];
+
         return $this->as->compile(self::CATEGORY, $status, $analysisData);
     }
 

@@ -13,16 +13,15 @@ use Psr\Log\LoggerInterface;
  */
 final class ContentPreviewParentAnalyzerService implements ContentPreviewParentAnalyzerInterface, \IteratorAggregate
 {
-
     /**
-     * @var Client $client
+     * @var Client
      */
     private $client;
 
     /** @var string */
     private $defaultSiteaccess;
 
-    /** @var PreviewController $previewControllerService */
+    /** @var PreviewController */
     private $previewControllerService;
 
     /**
@@ -34,7 +33,7 @@ final class ContentPreviewParentAnalyzerService implements ContentPreviewParentA
 
     public function __construct($defaultSiteaccess, PreviewController $previewControllerService, LoggerInterface $logger)
     {
-        $this->client     = new Client();
+        $this->client = new Client();
         $this->defaultSiteaccess = $defaultSiteaccess;
         $this->previewControllerService = $previewControllerService;
         $this->logger = $logger;
@@ -50,35 +49,35 @@ final class ContentPreviewParentAnalyzerService implements ContentPreviewParentA
         $result = [];
 
         $dataPreviewHtml = $this->previewControllerService->previewContentAction(
-            $data['request'], 
-            $data['contentId'], 
-            $data['versionNo'], 
-            $data['language'], 
+            $data['request'],
+            $data['contentId'],
+            $data['versionNo'],
+            $data['language'],
             $data['siteaccess']
         )->getContent();
-        if (!$dataPreviewHtml || strlen($dataPreviewHtml) == 0) {
+        if (!$dataPreviewHtml || 0 === \strlen($dataPreviewHtml)) {
             return [];
         }
 
         try {
-
             $domDocument = new DOMDocument();
             $domDocument->loadHTML($dataPreviewHtml);
         } catch (\DOMException $domError) {
             $this->logger->error($domError);
+
             return [];
         }
         $data['previewHtml'] = $domDocument;
-        
+
         foreach ($this->analyzers as $analyzer) {
             if (!$analyzer->support($data)) {
                 continue;
             }
             $analysisResult = $analyzer->analyze($data);
-            if (!array_key_exists(\key($analysisResult), $result)) {
+            if (!\array_key_exists(\key($analysisResult), $result)) {
                 $result[\key($analysisResult)] = [];
             }
-            $result[\key($analysisResult)][\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] 
+            $result[\key($analysisResult)][\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)]
                 = $analysisResult[\key($analysisResult)];
         }
 

@@ -2,7 +2,6 @@
 
 namespace Codein\eZPlatformSeoToolkit\Analyzer\Preview;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -12,15 +11,13 @@ use Psr\Log\LoggerInterface;
  */
 final class TitleTagContainsKeywordAnalyzer implements ContentPreviewAnalyzerInterface
 {
-
-    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService $as */
-    private $as; 
-
-    /** @var \Psr\Log\LoggerInterface $logger */
-    private $logger;
-
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
+    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
+    private $as;
+
+    /** @var \Psr\Log\LoggerInterface */
+    private $logger;
 
     public function __construct(AnalyzerService $analyzerService, LoggerInterface $loggerInterface)
     {
@@ -35,34 +32,33 @@ final class TitleTagContainsKeywordAnalyzer implements ContentPreviewAnalyzerInt
         /** @var \DOMNodeList $titleTag */
         $titleTags = $selector->query('//title');
 
-        
         try {
-            $keywordSynonyms = explode(',',strtr(mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
 
-            $keywordSynonyms = array_map('trim', $keywordSynonyms);
+            $keywordSynonyms = \array_map('trim', $keywordSynonyms);
             $status = 'medium';
-            if ($titleTags->count() == 0) {
+            if (0 === $titleTags->count()) {
                 $status = 'low';
-            }
-            else {
-                foreach($titleTags as $titleTag) {
+            } else {
+                foreach ($titleTags as $titleTag) {
                     foreach ($keywordSynonyms as $keyword) {
-                        if (strpos($titleTag->getAttribute('content'), $keyword) !== false) {
-                            $status = 'high'; 
+                        if (false !== \strpos($titleTag->getAttribute('content'), $keyword)) {
+                            $status = 'high';
                             break;
                         }
                     }
-                    if($status === 'high') {
+                    if ('high' === $status) {
                         break;
                     }
                 }
             }
+
             return $this->as->compile(self::CATEGORY, $status, []);
         } catch (Exception $e) {
             $this->logger->error($e);
+
             return $this->as->compile(self::CATEGORY, null, null);
         }
-
     }
 
     public function support($data): bool

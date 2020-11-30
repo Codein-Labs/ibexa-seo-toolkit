@@ -2,9 +2,9 @@
 
 namespace Codein\eZPlatformSeoToolkit\Controller;
 
-use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
 use Codein\eZPlatformSeoToolkit\Form\Type\ContentConfigurationType;
+use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use Doctrine\ORM\EntityManager;
 use eZ\Publish\Core\Repository\NotificationService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,13 +17,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class ContentConfigurationController extends Controller
 {
-    /** @var SiteAccessConfigResolver $siteAccessConfigResolver */
+    /** @var SiteAccessConfigResolver */
     protected $siteAccessConfigResolver;
 
-    /** @var EntityManager $em */
+    /** @var EntityManager */
     protected $em;
 
-    /** @var NotificationService $notificationService */
+    /** @var NotificationService */
     protected $notificationService;
 
     /**
@@ -50,15 +50,15 @@ class ContentConfigurationController extends Controller
             /** @var ContentConfiguration $contentConfiguration */
             $contentConfigurationData = $form->getData();
             $result = $this->em->getRepository(ContentConfiguration::class)->findOneBy([
-                'contentId' => $contentConfigurationData->getContentId()
+                'contentId' => $contentConfigurationData->getContentId(),
             ]);
             if ($result) {
                 $result = $result->toArray();
-            }
-            else {
+            } else {
                 return new JsonResponse((new ContentConfiguration())->toArray());
             }
         }
+
         return new JsonResponse($result);
     }
 
@@ -83,22 +83,21 @@ class ContentConfigurationController extends Controller
                 $existingContentConfiguration->setKeyword($contentConfiguration->getKeyword());
                 $existingContentConfiguration->setIsPillarContent($contentConfiguration->getIsPillarContent());
                 $existingContentConfiguration->setLanguage($contentConfiguration->getLanguage());
-                
+
                 try {
                     $this->em->persist($existingContentConfiguration);
                 } catch (\Exception $e) {
-                    return new JsonResponse(['error' => $e->getMessage()], 422);            
+                    return new JsonResponse(['error' => $e->getMessage()], 422);
                 }
 
                 $result = ['action' => 'updated'];
-            }
-            else {
+            } else {
                 $this->em->persist($contentConfiguration);
                 $result = ['action' => 'created'];
             }
             $this->em->flush();
-
         }
+
         return new JsonResponse($result, 200);
     }
 }

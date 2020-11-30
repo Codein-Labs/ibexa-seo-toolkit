@@ -19,12 +19,13 @@ final class DynamicCollectionType extends AbstractType
      * @var string
      */
     private const META_CONFIG = 'meta_config';
+
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $metaConfigs = $options[self::META_CONFIG];
         $formBuilder->addEventListener(
             FormEvents::POST_SET_DATA,
-            function (FormEvent $event) use ($metaConfigs, $formBuilder): void {
+            function (FormEvent $event) use ($metaConfigs): void {
                 $form = $event->getForm();
 
                 $formViewData = $form->getViewData();
