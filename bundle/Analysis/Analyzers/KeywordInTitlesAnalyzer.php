@@ -7,7 +7,6 @@ use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 
 /**
  * Class KeywordInTitlesAnalyzer.
@@ -30,7 +29,7 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer implements Analyzer
     public function analyze(AnalysisDTO $data): array
     {
         $fields = $data->getFields();
-        
+
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
         $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
@@ -38,7 +37,7 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer implements Analyzer
         $selector = new \DOMXPath($html);
 
         $titles = $selector->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
-        
+
         $status = 'low';
         $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data->getKeyword()), AnalyzerService::ACCENT_VALUES));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);

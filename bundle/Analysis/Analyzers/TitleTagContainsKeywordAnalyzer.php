@@ -32,7 +32,7 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer implements 
     {
         $htmlDocument = new \DOMDocument();
         $htmlDocument->loadHTML($data->getPreviewHtml());
-        
+
         $selector = new \DOMXPath($htmlDocument);
 
         /** @var \DOMNodeList $titleTag */

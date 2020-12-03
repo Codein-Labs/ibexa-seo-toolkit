@@ -75,7 +75,7 @@ final class Configuration extends SiteAccessConfiguration
                                         ->ifTrue(
                                             function ($value) {
                                                 $notValid = false;
-                                                
+
                                                 if (!\is_string($value) || empty($value)) {
                                                     $notValid = true;
                                                 }
@@ -98,7 +98,7 @@ final class Configuration extends SiteAccessConfiguration
                                 ->end()
                             ->end()
                         ->end()
-                        
+
                     ->end()
 
                     ->arrayNode('blocklist')

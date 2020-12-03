@@ -6,8 +6,6 @@ use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
 use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
 
 /**
  * Class WordCountAnalyzer.
@@ -27,7 +25,7 @@ final class WordCountAnalyzer extends AbstractAnalyzer implements AnalyzerInterf
     public function analyze(AnalysisDTO $data): array
     {
         $fields = $data->getFields();
-        
+
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
         $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)->saveHTML();

@@ -9,7 +9,8 @@ use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
  */
 abstract class AbstractAnalyzer implements AnalyzerInterface
 {
-    public function support(AnalysisDTO $data): bool {
+    public function support(AnalysisDTO $data): bool
+    {
         return true;
     }
 }

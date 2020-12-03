@@ -7,23 +7,14 @@ namespace Codein\eZPlatformSeoToolkit\Service;
  */
 final class XmlProcessingService
 {
-    private function processDocument(\DOMDocument $xml)
+    public function combineAndProcessXmlFields($fields, $process = true)
     {
-        $xmlStr = $xml->saveHTML();
-        $xml = new \DOMDocument('1.0', 'utf-8');
-        $xml->loadHTML($xmlStr);
-
-        return $xml;
-    }
-
-
-    public function combineAndProcessXmlFields($fields, $process = true) {
-        $xml = "";
+        $xml = '';
         /** @var Field $field */
         foreach ($fields as $key => $field) {
             $fieldXml = $field->getFieldValue();
-            if ($key !== 0) {
-                $fieldXml = preg_replace('/^<\?.*\?>(\n)?/', '', $fieldXml);
+            if (0 !== $key) {
+                $fieldXml = \preg_replace('/^<\?.*\?>(\n)?/', '', $fieldXml);
             }
             $xml .= $fieldXml;
         }
@@ -31,8 +22,19 @@ final class XmlProcessingService
         if ($process) {
             $xmlDocument = new \DOMDocument();
             $xmlDocument->loadXML($xml);
+
             return $this->processDocument($xmlDocument);
         }
+
+        return $xml;
+    }
+
+    private function processDocument(\DOMDocument $xml)
+    {
+        $xmlStr = $xml->saveHTML();
+        $xml = new \DOMDocument('1.0', 'utf-8');
+        $xml->loadHTML($xmlStr);
+
         return $xml;
     }
 }

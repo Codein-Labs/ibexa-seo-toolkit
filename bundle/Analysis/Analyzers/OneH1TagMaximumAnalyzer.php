@@ -26,7 +26,7 @@ final class OneH1TagMaximumAnalyzer extends AbstractAnalyzer implements Analyzer
     {
         $htmlDocument = new DOMDocument();
         $htmlDocument->loadHTML($data->getPreviewHtml());
-        
+
         $selector = new \DOMXPath($htmlDocument);
         $h1 = $selector->query('//h1');
         $count = $h1->count();

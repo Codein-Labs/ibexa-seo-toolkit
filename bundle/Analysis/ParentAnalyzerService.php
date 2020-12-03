@@ -20,16 +20,13 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
      */
     private $siteAccessConfigResolver;
 
-    public function __construct(SiteAccessConfigResolver $siteAccessConfigResolver) {
+    public function __construct(SiteAccessConfigResolver $siteAccessConfigResolver)
+    {
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
     }
-    
+
     /**
-     * Adds an analyzer to the list of analyzers which will run
-     *
-     * @param string $className
-     * @param AnalyzerInterface $analyzer
-     * @return void
+     * Adds an analyzer to the list of analyzers which will run.
      */
     public function addAnalyzer(string $className, AnalyzerInterface $analyzer): void
     {
@@ -37,17 +34,14 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
     }
 
     /**
-     * Fetch result of all analyzers for the provided content data
-     *
-     * @param AnalysisDTO $data
-     * @return array
+     * Fetch result of all analyzers for the provided content data.
      */
     public function analyze(AnalysisDTO $data): array
     {
         $result = [];
         foreach ($this->analyzers as $className => $analyzer) {
             if (
-                !$this->allowAnalyzer($data->getContentTypeIdentifier(), $className, $data->getSiteaccess()) 
+                !$this->allowAnalyzer($data->getContentTypeIdentifier(), $className, $data->getSiteaccess())
                 || !$analyzer->support($data)
             ) {
                 continue;
@@ -67,27 +61,25 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
     /**
      * Checks if analyzer is in a specific blocklist for the content type.
      *
-     * @param string $contentTypeIdentifier
-     * @param string $analyzerClassName
      * @param string $siteAccess
-     * @return boolean
      */
     public function allowAnalyzer(string $contentTypeIdentifier, string $analyzerClassName, string $siteAccess = null): bool
     {
         $analysisConfig = $this->siteAccessConfigResolver->getParameterConfig('analysis', $siteAccess);
-        if (!array_key_exists('content_types', $analysisConfig)) {
+        if (!\array_key_exists('content_types', $analysisConfig)) {
             return true;
         }
-        if (!array_key_exists($contentTypeIdentifier, $analysisConfig['content_types'])) {
+        if (!\array_key_exists($contentTypeIdentifier, $analysisConfig['content_types'])) {
             return true;
         }
-        if (!array_key_exists('blocklist', $analysisConfig['content_types'][$contentTypeIdentifier])) {
+        if (!\array_key_exists('blocklist', $analysisConfig['content_types'][$contentTypeIdentifier])) {
             return true;
         }
         $blocklist = $analysisConfig['content_types'][$contentTypeIdentifier]['blocklist'];
-        if (is_array($blocklist) && in_array($analyzerClassName, $blocklist)) {
+        if (\is_array($blocklist) && \in_array($analyzerClassName, $blocklist, true)) {
             return false;
         }
+
         return true;
     }
 

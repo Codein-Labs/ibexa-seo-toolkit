@@ -3,12 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Controller;
 
 use Codein\eZPlatformSeoToolkit\Form\Type\AnalysisDTOType;
-use Codein\eZPlatformSeoToolkit\Form\Type\ContentFieldsType;
-use Codein\eZPlatformSeoToolkit\Form\Type\RichTextDTOType;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
-use Codein\eZPlatformSeoToolkit\Model\ContentFields;
-use Codein\eZPlatformSeoToolkit\Model\ContentPreviewDTO;
-use Codein\eZPlatformSeoToolkit\Model\RichTextDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
 use Doctrine\ORM\EntityManager;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
@@ -22,14 +17,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 final class AnalyzeContentController extends AbstractController
 {
-
     /** @var AnalyzeContentService */
     private $analyzeContentService;
 
-
     /** @var PreviewController */
     private $previewControllerService;
-
 
     /**
      * AnalyzeContentController constructor.
@@ -72,19 +64,17 @@ final class AnalyzeContentController extends AbstractController
                 'error' => 'codein_seo_toolkit.analyzer.error.preview_not_returning_html',
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
 
         $data['previewHtml'] = $dataPreviewHtml;
         try {
             $data = $this->analyzeContentService->addContentConfigurationToDataArray($data);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return new JsonResponse([
                 'code' => JsonResponse::HTTP_BAD_REQUEST,
-                'error' => 'codein_seo_toolkit.analyzer.error.content_not_configured'
+                'error' => 'codein_seo_toolkit.analyzer.error.content_not_configured',
             ], JsonResponse::HTTP_BAD_REQUEST);
         }
-        
+
         // validating and creating DTO
         $form = $this->createForm(AnalysisDTOType::class, new AnalysisDTO());
         $form->submit($data);
@@ -102,10 +92,10 @@ final class AnalyzeContentController extends AbstractController
 
             return new JsonResponse($result);
         }
+
         return new JsonResponse([
             'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
             'error' => 'codein_seo_toolkit.analyzer.error.analyzer_form_invalid',
-            
         ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
