@@ -26,7 +26,7 @@ final class ContentConfigurationType extends AbstractType
             ->add('contentId', IntegerType::class, [
                 'constraints' => [new Assert\NotBlank()],
             ])
-            ->add('language', TextType::class);
+            ->add('languageCode', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

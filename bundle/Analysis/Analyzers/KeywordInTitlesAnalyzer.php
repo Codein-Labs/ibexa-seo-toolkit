@@ -1,16 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Analyzer\RichText;
+namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
+use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\Value as FieldValue;
 
 /**
  * Class KeywordInTitlesAnalyzer.
  */
-final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
+final class KeywordInTitlesAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
 {
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
     /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
@@ -25,19 +27,20 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
         $this->xmlProcessingService = $xmlProcessingService;
     }
 
-    public function analyze(FieldValue $fieldValue, array $data = []): array
+    public function analyze(AnalysisDTO $data): array
     {
+        $fields = $data->getFields();
+        
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
-        $xml = $fieldValue->xml;
-        $html = $this->xmlProcessingService->processDocument($xml);
+        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
 
         $selector = new \DOMXPath($html);
 
         $titles = $selector->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
-
+        
         $status = 'low';
-        $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+        $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data->getKeyword()), AnalyzerService::ACCENT_VALUES));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
         $numberOfTitles = 0;
@@ -70,10 +73,5 @@ final class KeywordInTitlesAnalyzer implements RichTextAnalyzerInterface
         ];
 
         return $this->as->compile(self::CATEGORY, $status, $analysisData);
-    }
-
-    public function support(FieldDefinition $fieldDefinition, $data): bool
-    {
-        return 'ezrichtext' === $fieldDefinition->fieldTypeIdentifier;
     }
 }

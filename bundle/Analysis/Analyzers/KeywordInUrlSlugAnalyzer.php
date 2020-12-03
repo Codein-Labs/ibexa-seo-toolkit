@@ -1,7 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Analyzer\Preview;
+namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
+use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use eZ\Publish\Core\Repository\LocationService;
 use eZ\Publish\Core\Repository\URLAliasService;
@@ -13,7 +16,7 @@ use eZ\Publish\Core\Repository\URLAliasService;
  *
  * This could be implemented as a richtext analyzer as well as it doesn't need access to content specifically
  */
-final class KeywordInUrlSlugAnalyzer implements ContentPreviewAnalyzerInterface
+final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
 {
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
     /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
@@ -35,9 +38,9 @@ final class KeywordInUrlSlugAnalyzer implements ContentPreviewAnalyzerInterface
         $this->locationService = $locationService;
     }
 
-    public function analyze(array $data): array
+    public function analyze(AnalysisDTO $data): array
     {
-        $locationId = $data['locationId'];
+        $locationId = $data->getLocationId();
 
         try {
             $location = $this->locationService->loadLocation($locationId);
@@ -48,7 +51,7 @@ final class KeywordInUrlSlugAnalyzer implements ContentPreviewAnalyzerInterface
             $pathArray = \explode('/', $urlAlias->path);
             $urlSlug = \mb_strtolower(\end($pathArray));
             $urlSlugWithoutDashes = \str_replace('-', ' ', $urlSlug);
-            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data['keyword']), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data->getKeyword()), AnalyzerService::ACCENT_VALUES));
             $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
             $bestRatio = 0;
@@ -80,12 +83,12 @@ final class KeywordInUrlSlugAnalyzer implements ContentPreviewAnalyzerInterface
         ]);
     }
 
-    public function support($data): bool
+    public function support(AnalysisDTO $data): bool
     {
         // Difficult to get non latin alphabet languages
         // to work well with this analyzer.
         // Moreover, we don't know how Search Engines treats them
-        if (\in_array($data['language'], [
+        if (\in_array($data->getLanguageCode(), [
             'ara-SA',
             'chi-CN',
             'chi-HK',

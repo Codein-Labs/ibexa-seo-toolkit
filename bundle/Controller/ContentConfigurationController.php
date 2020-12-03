@@ -82,7 +82,7 @@ class ContentConfigurationController extends Controller
                 /** @var ContentConfiguration $existingContentConfiguration */
                 $existingContentConfiguration->setKeyword($contentConfiguration->getKeyword());
                 $existingContentConfiguration->setIsPillarContent($contentConfiguration->getIsPillarContent());
-                $existingContentConfiguration->setLanguage($contentConfiguration->getLanguage());
+                $existingContentConfiguration->setLanguageCode($contentConfiguration->getLanguageCode());
 
                 try {
                     $this->em->persist($existingContentConfiguration);

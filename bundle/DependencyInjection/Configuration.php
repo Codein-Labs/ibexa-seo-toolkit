@@ -68,9 +68,37 @@ final class Configuration extends SiteAccessConfiguration
                             ->end()
                         ->arrayPrototype()
                             ->children()
-                                ->scalarNode('richtext_field')->example('description')->end()
+                                ->arrayNode('richtext_fields')
+                                    ->scalarPrototype()
+                                        ->info('Specify rich text fields to analyze in the content type.')
+                                        ->validate()
+                                        ->ifTrue(
+                                            function ($value) {
+                                                $notValid = false;
+                                                
+                                                if (!\is_string($value) || empty($value)) {
+                                                    $notValid = true;
+                                                }
+                                                if (1 !== \preg_match('/^[[:alnum:]_]+$/', $value)) {
+                                                    $notValid = true;
+                                                }
+
+                                                return $notValid;
+                                            }
+                                        )
+                                        ->thenInvalid("Field identifiers may only contain letters from 'a' to 'z', numbers and underscores.")
+                                        ->end()
+                                    ->end()
+                                ->end()
+                                ->arrayNode('blocklist')
+                                    ->scalarPrototype()
+                                    ->info('Specify some analyzer services identifier to block for this content type.')
+                                    ->example('ezplatform_seo.rich_text.one_h1_max_analyzer')
+                                    ->end()
+                                ->end()
                             ->end()
                         ->end()
+                        
                     ->end()
 
                     ->arrayNode('blocklist')

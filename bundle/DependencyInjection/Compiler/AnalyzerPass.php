@@ -2,26 +2,26 @@
 
 namespace Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class RichTextAnalyzerPass.
+ * Class AnalyzerPass.
  */
-final class RichTextAnalyzerPass implements CompilerPassInterface
+final class AnalyzerPass implements CompilerPassInterface
 {
-    public const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.rich_text';
+    public const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer';
 
     public function process(ContainerBuilder $containerBuilder): void
     {
-        if (!$containerBuilder->has(RichTextParentAnalyzerService::class)) {
+        if (!$containerBuilder->has(ParentAnalyzerService::class)) {
             return;
         }
         $blockedAnalysis = [];
-        $analyzerDefinition = $containerBuilder->getDefinition(RichTextParentAnalyzerService::class);
+        $analyzerDefinition = $containerBuilder->getDefinition(ParentAnalyzerService::class);
 
         $allFieldAnalyzers = $containerBuilder->findTaggedServiceIds(self::TAG_NAME);
         $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);
@@ -31,7 +31,7 @@ final class RichTextAnalyzerPass implements CompilerPassInterface
 
         foreach ($allFieldAnalyzers as $id => $tags) {
             if (false === \in_array($id, $blockedAnalysis, true)) {
-                $analyzerDefinition->addMethodCall('addAnalyzer', [new Reference($id)]);
+                $analyzerDefinition->addMethodCall('addAnalyzer', [$id, new Reference($id)]);
             }
         }
     }

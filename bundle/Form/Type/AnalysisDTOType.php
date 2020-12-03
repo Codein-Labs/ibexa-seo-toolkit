@@ -2,8 +2,9 @@
 
 namespace Codein\eZPlatformSeoToolkit\Form\Type;
 
-use Codein\eZPlatformSeoToolkit\Model\ContentFields;
+use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,44 +13,53 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Count;
 
 /**
- * Class ContentFieldsFormType.
+ * Class AnalysisDTOType.
  */
-final class ContentFieldsType extends AbstractType
+final class AnalysisDTOType extends AbstractType
 {
     private const CONSTRAINTS = 'constraints';
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $formBuilder
+            ->add('keyword', TextType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
+            ])
+            ->add('isPillarContent', CheckboxType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
+            ])
             ->add('contentTypeIdentifier', TextType::class, [
-                'constraints' => [new Assert\NotBlank()],
+                self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
             ->add('contentId', IntegerType::class, [
-                'constraints' => [new Assert\NotBlank()],
+                self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
             ->add('locationId', IntegerType::class, [
-                'constraints' => [new Assert\NotBlank()],
+                self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
             ->add('versionNo', IntegerType::class, [
-                'constraints' => [new Assert\NotBlank()],
+                self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
-            ->add('language', TextType::class, [
-                'constraints' => [new Assert\NotBlank()],
+            ->add('languageCode', TextType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
             ->add('siteaccess', TextType::class, [
-                'constraints' => [new Assert\NotBlank()],
+                self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
             ->add('fields', FieldType::class, [
                 self::CONSTRAINTS => [new Count([
                     'min' => 1,
                 ])],
-            ]);
+            ])
+            ->add('previewHtml', TextType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ContentFields::class,
+            'data_class' => AnalysisDTO::class,
             'csrf_protection' => false,
         ]);
     }

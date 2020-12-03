@@ -11,7 +11,7 @@ const attr = {
   "versionNo": root.getAttribute('data-version-no'),
   "locationId": root.getAttribute('data-location-id'),
   "contentTypeIdentifier": root.getAttribute('data-content-type-identifier'),
-  "language": root.getAttribute('data-language'),
+  "languageCode": root.getAttribute('data-language'),
   "siteaccesses": root.getAttribute('data-siteaccesses'),
 }
 

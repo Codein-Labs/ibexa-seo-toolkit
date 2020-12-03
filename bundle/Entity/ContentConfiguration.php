@@ -35,7 +35,7 @@ class ContentConfiguration
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    private $language = 'eng-GB';
+    private $languageCode = 'eng-GB';
 
     public function getId()
     {
@@ -100,17 +100,17 @@ class ContentConfiguration
     /**
      * @return ?string
      */
-    public function getLanguage()
+    public function getLanguageCode()
     {
-        return $this->language;
+        return $this->languageCode;
     }
 
     /**
-     * @param ?string $language
+     * @param ?string $languageCode
      */
-    public function setLanguage(?string $language): self
+    public function setLanguageCode(?string $languageCode): self
     {
-        $this->language = $language;
+        $this->languageCode = $languageCode;
 
         return $this;
     }
@@ -118,11 +118,10 @@ class ContentConfiguration
     public function toArray(): array
     {
         return [
-            'id' => $this->getId(),
             'keyword' => $this->getKeyword(),
             'isPillarContent' => $this->getIsPillarContent(),
             'contentId' => $this->getContentId(),
-            'language' => $this->getLanguage(),
+            'languageCode' => $this->getLanguageCode(),
         ];
     }
 }
