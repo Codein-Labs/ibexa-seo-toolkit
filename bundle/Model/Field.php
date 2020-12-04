@@ -10,6 +10,11 @@ class Field
     private $fieldIdentifier;
     private $fieldValue;
 
+    public function __construct($fieldIdentifier, $fieldValue) {
+        $this->fieldIdentifier = $fieldIdentifier;
+        $this->fieldValue = $fieldValue;
+    }
+
     /**
      * @return ?string
      */

@@ -1,42 +1,43 @@
 <?php declare(strict_types=1);
 
-use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerService;
-use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\ContentPreviewAnalyzerPass;
+use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class ContentPreviewAnalyzerPassTest.
+ * Class RichTextAnalyzerPassTest.
  */
-class ContentPreviewAnalyzerPassTest extends AbstractCompilerPassTestCase
+class AnalyzerPassTest extends AbstractCompilerPassTestCase
 {
     const ANALYZER_ADDER_ID = 'analyzer.example.id';
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->setDefinition(ContentPreviewParentAnalyzerService::class, new Definition());
+        $this->setDefinition(ParentAnalyzerService::class, new Definition());
     }
 
     public function testAddAnalyzer()
     {
         $definition = new Definition();
-        $definition->addTag(ContentPreviewAnalyzerPass::TAG_NAME);
+        $definition->addTag(AnalyzerPass::TAG_NAME);
 
-        $this->setDefinition(self::ANALYZER_ADDER_ID, $definition);
+        $this->setDefinition(self::ANALYZER_ADDER_ID , $definition);
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            ContentPreviewParentAnalyzerService::class,
+            ParentAnalyzerService::class,
              'addAnalyzer',
-             [new Reference(self::ANALYZER_ADDER_ID)]
+             [self::ANALYZER_ADDER_ID, new Reference(self::ANALYZER_ADDER_ID )]
          );
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new ContentPreviewAnalyzerPass());
+        $container->addCompilerPass(new AnalyzerPass());
     }
 }
