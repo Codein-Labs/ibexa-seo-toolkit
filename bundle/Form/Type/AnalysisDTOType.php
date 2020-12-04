@@ -26,7 +26,7 @@ final class AnalysisDTOType extends AbstractType
                 self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
             ->add('isPillarContent', CheckboxType::class, [
-                self::CONSTRAINTS => [new Assert\NotBlank()],
+                self::CONSTRAINTS => [],
             ])
             ->add('contentTypeIdentifier', TextType::class, [
                 self::CONSTRAINTS => [new Assert\NotBlank()],
