@@ -12,34 +12,34 @@ use Psr\Log\LoggerInterface;
 /**
  * Class TitleTagContainsKeywordAnalyzer.
  */
-final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
+final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
 {
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
     /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
-    private $as;
+    private $analyzerService;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    public function __construct(AnalyzerService $analyzerService, LoggerInterface $loggerInterface)
+    public function __construct(AnalyzerService $analyzerService, LoggerInterface $logger)
     {
-        $this->as = $analyzerService;
-        $this->logger = $loggerInterface;
+        $this->analyzerService = $analyzerService;
+        $this->logger = $logger;
     }
 
-    public function analyze(AnalysisDTO $data): array
+    public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $htmlDocument = new \DOMDocument();
-        $htmlDocument->loadHTML($data->getPreviewHtml());
+        $domDocument = new \DOMDocument();
+        $domDocument->loadHTML($analysisDTO->getPreviewHtml());
 
-        $selector = new \DOMXPath($htmlDocument);
+        $domxPath = new \DOMXPath($domDocument);
 
-        /** @var \DOMNodeList $titleTag */
-        $titleTags = $selector->query('//title');
+        /** @var \DOMNodeList $titleTags */
+        $titleTags = $domxPath->query('//title');
 
         try {
-            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data->getKeyword()), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
 
             $keywordSynonyms = \array_map('trim', $keywordSynonyms);
             $status = 'medium';
@@ -48,7 +48,8 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer implements 
             } else {
                 foreach ($titleTags as $titleTag) {
                     foreach ($keywordSynonyms as $keyword) {
-                        if (false !== \strpos($titleTag->getAttribute('content'), $keyword)) {
+                        $contentTitleTagAttribute = $titleTag->getAttribute('content');
+                        if (false !== \strpos($contentTitleTagAttribute, $keyword)) {
                             $status = 'high';
                             break;
                         }
@@ -59,11 +60,11 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer implements 
                 }
             }
 
-            return $this->as->compile(self::CATEGORY, $status, []);
+            return $this->analyzerService->compile(self::CATEGORY, $status, []);
         } catch (Exception $e) {
             $this->logger->error($e);
 
-            return $this->as->compile(self::CATEGORY, null, null);
+            return $this->analyzerService->compile(self::CATEGORY, null, null);
         }
     }
 }

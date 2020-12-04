@@ -96,7 +96,9 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
             'default_metas' => $metas['default_metas'],
         ];
 
-        return ['codein_ezseo' => $codeinEzSeo];
+        return [
+            'codein_ezseo' => $codeinEzSeo,
+        ];
     }
 
     /**

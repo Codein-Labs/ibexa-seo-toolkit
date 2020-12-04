@@ -21,6 +21,32 @@ final class AnalyzerService
     private const STATUS_VALUES = ['low', 'medium', 'high'];
 
     /**
+     * Helper method to provide readable analysis.
+     *
+     * @param string $status
+     * @param array $data
+     */
+    public function compile(string $category, ?string $status, ?array $data): array
+    {
+        if (
+            !\is_string($status)
+            || !\in_array($status, self::STATUS_VALUES, true)
+            || !\is_array($data)
+        ) {
+            return [
+                $category => [],
+            ];
+        }
+
+        return [
+            $category => [
+                'status' => $status,
+                'data' => $data,
+            ],
+        ];
+    }
+
+    /**
      * Convert an UTF-8 encoded string to a single-byte string suitable for
      * functions such as levenshtein.
      *
@@ -64,31 +90,5 @@ final class AnalyzerService
         $s2 = self::utf8_to_extended_ascii($s2, $charMap);
 
         return \levenshtein($s1, $s2);
-    }
-
-    /**
-     * Helper method to provide readable analysis.
-     *
-     * @param string $status
-     * @param array $data
-     */
-    public function compile(string $category, ?string $status, ?array $data): array
-    {
-        if (
-            !\is_string($status)
-            || !\in_array($status, self::STATUS_VALUES, true)
-            || !\is_array($data)
-        ) {
-            return [
-                $category => [],
-            ];
-        }
-
-        return [
-            $category => [
-                'status' => $status,
-                'data' => $data,
-            ],
-        ];
     }
 }

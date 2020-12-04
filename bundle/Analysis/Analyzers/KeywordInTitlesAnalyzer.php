@@ -11,35 +11,35 @@ use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
 /**
  * Class KeywordInTitlesAnalyzer.
  */
-final class KeywordInTitlesAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
+final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
 {
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
     /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
-    private $as;
+    private $analyzerService;
 
     /** @var \Codein\eZPlatformSeoToolkit\Service\XmlProcessingService */
     private $xmlProcessingService;
 
     public function __construct(AnalyzerService $analyzerService, XmlProcessingService $xmlProcessingService)
     {
-        $this->as = $analyzerService;
+        $this->analyzerService = $analyzerService;
         $this->xmlProcessingService = $xmlProcessingService;
     }
 
-    public function analyze(AnalysisDTO $data): array
+    public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $fields = $data->getFields();
+        $fields = $analysisDTO->getFields();
 
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
         $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
 
-        $selector = new \DOMXPath($html);
+        $domxPath = new \DOMXPath($html);
 
-        $titles = $selector->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
+        $titles = $domxPath->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
 
         $status = 'low';
-        $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data->getKeyword()), AnalyzerService::ACCENT_VALUES));
+        $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
         $numberOfTitles = 0;
@@ -71,6 +71,6 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer implements Analyzer
             'ratio' => $ratioKeywordInTitle,
         ];
 
-        return $this->as->compile(self::CATEGORY, $status, $analysisData);
+        return $this->analyzerService->compile(self::CATEGORY, $status, $analysisData);
     }
 }

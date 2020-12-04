@@ -16,11 +16,11 @@ use eZ\Publish\Core\Repository\URLAliasService;
  *
  * This could be implemented as a richtext analyzer as well as it doesn't need access to content specifically
  */
-final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
+final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
 {
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
     /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
-    private $as;
+    private $analyzerService;
 
     /** @var URLAliasService */
     private $urlAliasService;
@@ -33,14 +33,14 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer implements Analyze
         URLAliasService $urlAliasService,
         LocationService $locationService
     ) {
-        $this->as = $analyzerService;
+        $this->analyzerService = $analyzerService;
         $this->urlAliasService = $urlAliasService;
         $this->locationService = $locationService;
     }
 
-    public function analyze(AnalysisDTO $data): array
+    public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $locationId = $data->getLocationId();
+        $locationId = $analysisDTO->getLocationId();
 
         try {
             $location = $this->locationService->loadLocation($locationId);
@@ -51,7 +51,7 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer implements Analyze
             $pathArray = \explode('/', $urlAlias->path);
             $urlSlug = \mb_strtolower(\end($pathArray));
             $urlSlugWithoutDashes = \str_replace('-', ' ', $urlSlug);
-            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($data->getKeyword()), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
             $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
             $bestRatio = 0;
@@ -75,20 +75,20 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer implements Analyze
                 $status = 'medium';
             }
         } catch (\Exception $e) {
-            return $this->as->compile(self::CATEGORY, null, null);
+            return $this->analyzerService->compile(self::CATEGORY, null, null);
         }
 
-        return $this->as->compile(self::CATEGORY, $status, [
+        return $this->analyzerService->compile(self::CATEGORY, $status, [
             'similarity' => $bestRatio * 100,
         ]);
     }
 
-    public function support(AnalysisDTO $data): bool
+    public function support(AnalysisDTO $analysisDTO): bool
     {
         // Difficult to get non latin alphabet languages
         // to work well with this analyzer.
         // Moreover, we don't know how Search Engines treats them
-        if (\in_array($data->getLanguageCode(), [
+        return !\in_array($analysisDTO->getLanguageCode(), [
             'ara-SA',
             'chi-CN',
             'chi-HK',
@@ -109,10 +109,6 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer implements Analyze
             'tur-TR',
             'ukr-UA',
             'vie-VN',
-        ], true)) {
-            return false;
-        }
-
-        return true;
+        ], true);
     }
 }

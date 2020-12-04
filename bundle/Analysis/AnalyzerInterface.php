@@ -9,7 +9,7 @@ use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
  */
 interface AnalyzerInterface
 {
-    public function analyze(AnalysisDTO $data): array;
+    public function analyze(AnalysisDTO $analysisDTO): array;
 
-    public function support(AnalysisDTO $data): bool;
+    public function support(AnalysisDTO $analysisDTO): bool;
 }

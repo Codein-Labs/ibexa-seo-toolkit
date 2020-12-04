@@ -56,9 +56,9 @@ final class AnalysisDTOType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults([
+        $optionsResolver->setDefaults([
             'data_class' => AnalysisDTO::class,
             'csrf_protection' => false,
         ]);

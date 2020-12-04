@@ -118,10 +118,10 @@ class ContentConfiguration
     public function toArray(): array
     {
         return [
-            'keyword' => $this->getKeyword(),
-            'isPillarContent' => $this->getIsPillarContent(),
-            'contentId' => $this->getContentId(),
-            'languageCode' => $this->getLanguageCode(),
+            'keyword' => $this->keyword,
+            'isPillarContent' => $this->isPillarContent,
+            'contentId' => $this->contentId,
+            'languageCode' => $this->languageCode,
         ];
     }
 }

@@ -10,7 +10,7 @@ use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
 /**
  * Class WordCountAnalyzer.
  */
-final class WordCountAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
+final class WordCountAnalyzer extends AbstractAnalyzer
 {
     const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
 
@@ -22,9 +22,9 @@ final class WordCountAnalyzer extends AbstractAnalyzer implements AnalyzerInterf
         $this->xmlProcessingService = $xmlProcessingService;
     }
 
-    public function analyze(AnalysisDTO $data): array
+    public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $fields = $data->getFields();
+        $fields = $analysisDTO->getFields();
 
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */

@@ -7,11 +7,12 @@ namespace Codein\eZPlatformSeoToolkit\Model;
  */
 class AnalysisDTO
 {
+    public $language;
     /** @var string */
     private $keyword;
 
     /** @var bool */
-    private $isPillarContent;
+    private $isPillarContent = false;
 
     /** @var int */
     private $contentId;

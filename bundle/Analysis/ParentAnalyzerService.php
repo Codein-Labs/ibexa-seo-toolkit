@@ -11,7 +11,7 @@ use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorAggregate
 {
     /**
-     * @var array|AnalyzerInterface[]
+     * @var AnalyzerInterface[]
      */
     private $analyzers = [];
 
@@ -19,6 +19,8 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
      * @var \Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver
      */
     private $siteAccessConfigResolver;
+
+    private const CONTENT_TYPES = 'content_types';
 
     public function __construct(SiteAccessConfigResolver $siteAccessConfigResolver)
     {
@@ -36,18 +38,18 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
     /**
      * Fetch result of all analyzers for the provided content data.
      */
-    public function analyze(AnalysisDTO $data): array
+    public function analyze(AnalysisDTO $analysisDTO): array
     {
         $result = [];
         foreach ($this->analyzers as $className => $analyzer) {
             if (
-                !$this->allowAnalyzer($data->getContentTypeIdentifier(), $className, $data->getSiteaccess())
-                || !$analyzer->support($data)
+                !$this->allowAnalyzer($analysisDTO->getContentTypeIdentifier(), $className, $analysisDTO->getSiteaccess())
+                || !$analyzer->support($analysisDTO)
             ) {
                 continue;
             }
 
-            $analysisResult = $analyzer->analyze($data);
+            $analysisResult = $analyzer->analyze($analysisDTO);
 
             if (!\array_key_exists(\key($analysisResult), $result)) {
                 $result[\key($analysisResult)] = [];
@@ -66,21 +68,17 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
     public function allowAnalyzer(string $contentTypeIdentifier, string $analyzerClassName, string $siteAccess = null): bool
     {
         $analysisConfig = $this->siteAccessConfigResolver->getParameterConfig('analysis', $siteAccess);
-        if (!\array_key_exists('content_types', $analysisConfig)) {
+        if (!\array_key_exists(self::CONTENT_TYPES, $analysisConfig)) {
             return true;
         }
-        if (!\array_key_exists($contentTypeIdentifier, $analysisConfig['content_types'])) {
+        if (!\array_key_exists($contentTypeIdentifier, $analysisConfig[self::CONTENT_TYPES])) {
             return true;
         }
-        if (!\array_key_exists('blocklist', $analysisConfig['content_types'][$contentTypeIdentifier])) {
+        if (!\array_key_exists('blocklist', $analysisConfig[self::CONTENT_TYPES][$contentTypeIdentifier])) {
             return true;
         }
-        $blocklist = $analysisConfig['content_types'][$contentTypeIdentifier]['blocklist'];
-        if (\is_array($blocklist) && \in_array($analyzerClassName, $blocklist, true)) {
-            return false;
-        }
-
-        return true;
+        $blocklist = $analysisConfig[self::CONTENT_TYPES][$contentTypeIdentifier]['blocklist'];
+        return !(\is_array($blocklist) && \in_array($analyzerClassName, $blocklist, true));
     }
 
     /**

@@ -16,9 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 final class ContentConfigurationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        $builder
+        $formBuilder
             ->add('keyword', TextType::class)
             ->add('isPillarContent', CheckboxType::class, [
                 'constraints' => [],
@@ -29,9 +29,9 @@ final class ContentConfigurationType extends AbstractType
             ->add('languageCode', TextType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $resolver->setDefaults([
+        $optionsResolver->setDefaults([
             'data_class' => ContentConfiguration::class,
             'csrf_protection' => false,
         ]);

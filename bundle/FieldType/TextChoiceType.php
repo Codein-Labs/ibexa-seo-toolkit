@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormView;
 /**
  * Class TextChoiceType.
  */
-class TextChoiceType extends AbstractType
+final class TextChoiceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
@@ -33,10 +33,12 @@ class TextChoiceType extends AbstractType
         ));
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $formView, FormInterface $form, array $options)
     {
-        $view->vars = \array_merge($view->vars, ['selection' => true]);
-        parent::buildView($view, $form, $options);
+        $formView->vars = \array_merge($formView->vars, [
+            'selection' => true,
+        ]);
+        parent::buildView($formView, $form, $options);
     }
 
     public function getParent(): string

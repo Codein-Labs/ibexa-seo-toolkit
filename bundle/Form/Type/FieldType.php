@@ -22,9 +22,9 @@ final class FieldType extends AbstractType
           ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $resolver->setDefaults([
+        $optionsResolver->setDefaults([
             'multiple' => true,
             'csrf_protection' => false,
         ]);
