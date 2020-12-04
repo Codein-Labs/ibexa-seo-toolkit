@@ -33,19 +33,19 @@ final class GetRobotsController
         $i = 1;
         foreach ($robotsRulesPerUserAgent as $userAgent => $robotsElementsRules) {
             ++$i;
-            $content .= "User-agent: {$userAgent}\n";
+            $content .= \sprintf("User-agent: %s\n", $userAgent);
             if (!empty($robotsElementsRules['crawl-delay'])) {
-                $content .= "Crawl-Delay: {$robotsElementsRules['crawl-delay']}";
+                $content .= \sprintf('Crawl-Delay: %s', $robotsElementsRules['crawl-delay']);
             }
             if (\is_array($robotsElementsRules['disallow'])) {
                 foreach ($robotsElementsRules['disallow'] as $rule) {
-                    $content .= "Disallow: {$rule}\n";
+                    $content .= \sprintf("Disallow: %s\n", $rule);
                 }
             }
 
             if (\is_array($robotsElementsRules['allow'])) {
                 foreach ($robotsElementsRules['allow'] as $rule) {
-                    $content .= "Allow: {$rule}\n";
+                    $content .= \sprintf("Allow: %s\n", $rule);
                 }
             }
 
@@ -53,10 +53,10 @@ final class GetRobotsController
                 foreach ($robotsElementsRules['sitemap']  as $key => $value) {
                     if ('route' === $key) {
                         $url = $this->urlGenerator->generate($value, [], UrlGeneratorInterface::ABSOLUTE_URL);
-                        $content .= "Sitemap: {$url}\n";
+                        $content .= \sprintf("Sitemap: %s\n", $url);
                     }
                     if ('url' === $key) {
-                        $content .= "Sitemap: {$value}\n";
+                        $content .= \sprintf("Sitemap: %s\n", $value);
                     }
                 }
             }
