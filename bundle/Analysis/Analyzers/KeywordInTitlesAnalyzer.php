@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
 use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
@@ -13,15 +13,15 @@ use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
  */
 final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
 {
-    const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
-    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
-    private $analyzerService;
+    private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
-    /** @var \Codein\eZPlatformSeoToolkit\Service\XmlProcessingService */
+    private $analyzerService;
     private $xmlProcessingService;
 
-    public function __construct(AnalyzerService $analyzerService, XmlProcessingService $xmlProcessingService)
-    {
+    public function __construct(
+        AnalyzerService $analyzerService,
+        XmlProcessingService $xmlProcessingService
+    ) {
         $this->analyzerService = $analyzerService;
         $this->xmlProcessingService = $xmlProcessingService;
     }
@@ -38,7 +38,6 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
 
         $titles = $domxPath->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
 
-        $status = 'low';
         $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
@@ -61,16 +60,15 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
             $ratioKeywordInTitle = \round($numberOfTitlesContainingKeyword / $numberOfTitles * 100, 2);
         }
 
+        $status = RatioLevels::LOW;
         if ($ratioKeywordInTitle > 10 && $ratioKeywordInTitle < 30) {
-            $status = 'medium';
+            $status = RatioLevels::MEDIUM;
         } elseif ($ratioKeywordInTitle >= 30) {
-            $status = 'high';
+            $status = RatioLevels::HIGH;
         }
 
-        $analysisData = [
-            'ratio' => $ratioKeywordInTitle,
-        ];
-
-        return $this->analyzerService->compile(self::CATEGORY, $status, $analysisData);
+        return $this->analyzerService->compile(self::CATEGORY, $status, [
+            'ratio' => $ratioKeywordInTitle
+        ]);
     }
 }

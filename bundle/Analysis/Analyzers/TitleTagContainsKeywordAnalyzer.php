@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
 use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Exception;
@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
  */
 final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
 {
-    const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
+    private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
     /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
     private $analyzerService;
@@ -22,8 +22,10 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    public function __construct(AnalyzerService $analyzerService, LoggerInterface $logger)
-    {
+    public function __construct(
+        AnalyzerService $analyzerService,
+        LoggerInterface $logger
+    ) {
         $this->analyzerService = $analyzerService;
         $this->logger = $logger;
     }
@@ -42,19 +44,19 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
             $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
 
             $keywordSynonyms = \array_map('trim', $keywordSynonyms);
-            $status = 'medium';
+            $status = RatioLevels::MEDIUM;
             if (0 === $titleTags->count()) {
-                $status = 'low';
+                $status = RatioLevels::LOW;
             } else {
                 foreach ($titleTags as $titleTag) {
                     foreach ($keywordSynonyms as $keyword) {
                         $contentTitleTagAttribute = $titleTag->getAttribute('content');
                         if (false !== \strpos($contentTitleTagAttribute, $keyword)) {
-                            $status = 'high';
+                            $status = RatioLevels::HIGH;
                             break;
                         }
                     }
-                    if ('high' === $status) {
+                    if (RatioLevels::HIGH === $status) {
                         break;
                     }
                 }

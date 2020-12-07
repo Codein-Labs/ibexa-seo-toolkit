@@ -16,20 +16,22 @@ use Twig\TwigFunction;
  */
 final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInterface
 {
-    /** @var SiteAccessConfigResolver */
-    private $siteAccessConfigResolver;
-    /** @var Repository */
-    private $eZRepository;
+    private const FIELD_TYPE_METAS = 'field_type_metas';
 
-    /** @var array */
+    private $eZRepository;
     private $siteAccessesByLanguage;
+    private $siteAccessConfigResolver;
 
     /**
      * CodeinEzSeoExtension constructor.
+     *
      * @param $configResolver
      */
-    public function __construct(SiteAccessConfigResolver $configResolver, Repository $eZRepository, array $siteAccessesByLanguage)
-    {
+    public function __construct(
+        SiteAccessConfigResolver $configResolver,
+        Repository $eZRepository,
+        array $siteAccessesByLanguage
+    ) {
         $this->siteAccessConfigResolver = $configResolver;
         $this->eZRepository = $eZRepository;
         $this->siteAccessesByLanguage = $siteAccessesByLanguage;
@@ -38,8 +40,12 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
     public function getFunctions()
     {
         return [
-            new TwigFunction('resolve_pattern', [$this, 'resolvePattern']),
-            new TwigFunction('codein_siteaccesses_by_language', [$this, 'getSiteaccessesByLanguage']),
+            new TwigFunction('resolve_pattern', function (Field $field, array $fieldSettings, Content $content): array {
+                return $this->resolvePattern($field, $fieldSettings, $content);
+            }),
+            new TwigFunction('codein_siteaccesses_by_language', function (string $languageCode): string {
+                return $this->getSiteaccessesByLanguage($languageCode);
+            }),
         ];
     }
 
@@ -54,12 +60,12 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
         if (!$metasFieldValue instanceof Value) {
             throw new \Exception(\sprintf('Expected argument of type "%s", "%s" given', Value::class, \is_object($metasFieldValue) ? \get_class($metasFieldValue) : \gettype($metasFieldValue)));
         }
-        $metasConfig = $this->siteAccessConfigResolver->getParameterConfig('metas')['field_type_metas'];
+        $metasConfig = $this->siteAccessConfigResolver->getParameterConfig('metas')[self::FIELD_TYPE_METAS];
 
         $fieldMetas = $field->value->metas;
         $mainLanguageCode = $content->getVersionInfo()->getContentInfo()->mainLanguageCode;
 
-        foreach ($metasConfig as $key => $entry) {
+        foreach (\array_keys($metasConfig) as $key) {
             if (false === \array_key_exists($key, $fieldMetas)) {
                 unset($fieldMetas[$key]);
                 continue;
@@ -80,7 +86,8 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
                 continue;
             }
             if ($nameSchema) {
-                $metaContent = $this->eZRepository->getNameSchemaService()->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
+                $metaContent = $this->eZRepository->getNameSchemaService()
+                    ->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
                 $fieldMetas[$key] = $metaContent[$mainLanguageCode];
             }
         }
@@ -92,7 +99,7 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
     {
         $metas = $this->siteAccessConfigResolver->getParameterConfig('metas');
         $codeinEzSeo = [
-            'field_type_metas' => $metas['field_type_metas'],
+            self::FIELD_TYPE_METAS => $metas[self::FIELD_TYPE_METAS],
             'default_metas' => $metas['default_metas'],
         ];
 

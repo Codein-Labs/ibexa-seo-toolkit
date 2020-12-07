@@ -1,0 +1,29 @@
+<?php declare(strict_types=1);
+
+namespace Codein\eZPlatformSeoToolkit\Controller;
+
+use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
+use Doctrine\ORM\EntityManagerInterface;
+
+/**
+ * Class GetContentConfigurationController.
+ */
+final class GetContentConfigurationController
+{
+    private $entityManager;
+
+    /**
+     * ContentConfigurationController constructor.
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function __invoke(int $contentId)
+    {
+        return $this->entityManager->getRepository(ContentConfiguration::class)->findOneBy([
+            'contentId' => $contentId,
+        ]) ?: (new ContentConfiguration())->toArray();
+    }
+}

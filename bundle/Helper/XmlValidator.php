@@ -13,6 +13,7 @@ final class XmlValidator
      * @param string $xmlContent A well-formed XML string
      * @param string $version    1.0
      * @param string $encoding   utf-8
+     *
      * @return bool
      */
     public static function isXMLContentValid(string $xmlContent, string $version = '1.0', string $encoding = 'utf-8')

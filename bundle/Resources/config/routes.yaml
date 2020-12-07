@@ -1,12 +1,26 @@
 # config/routes.yaml
 seo_api.analysis:
-    path: /api/seo/analysis
+    path: /analysis
     controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
+    methods:    POST
 
 seo_api.content_configuration.get:
-    path: /api/seo/content-configuration/get
-    controller: EzPlatformSeoToolkitBundle:ContentConfiguration:get
+    path: /content-configuration/{contentId}
+    controller: Codein\eZPlatformSeoToolkit\Controller\GetContentConfigurationController
+    methods:    GET
+    requirements:
+        contentId: '\d+'
 
 seo_api.content_configuration.update:
-    path: /api/seo/content-configuration/update
-    controller: EzPlatformSeoToolkitBundle:ContentConfiguration:update
+    path: /content-configuration/{contentId}
+    controller: Codein\eZPlatformSeoToolkit\Controller\UpdateContentConfigurationController
+    methods:    PUT
+    requirements:
+        contentId: '\d+'
+
+seo_api.content_configuration.post:
+    path: /content-configuration
+    controller: Codein\eZPlatformSeoToolkit\Controller\UpdateContentConfigurationController
+    methods:    PUT
+    requirements:
+        contentId: '\d+'

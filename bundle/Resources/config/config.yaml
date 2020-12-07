@@ -1,4 +1,6 @@
 fos_rest:
+    serializer:
+        serialize_null: true
     body_listener: true
     param_fetcher_listener: true
     view:

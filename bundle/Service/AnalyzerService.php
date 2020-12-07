@@ -14,7 +14,7 @@ final class AnalyzerService
         'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss',
         'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c', 'è' => 'e', 'é' => 'e',
         'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o',
-        'ô' => 'o', 'õ' => 'o', 'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'ý' => 'y', 'þ' => 'b',
+        'ô' => 'o', 'õ' => 'o', 'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b',
         'ÿ' => 'y', 'Ŕ' => 'R', 'ŕ' => 'r',
     ];
 
@@ -24,14 +24,14 @@ final class AnalyzerService
      * Helper method to provide readable analysis.
      *
      * @param string $status
-     * @param array $data
+     * @param array  $data
      */
     public function compile(string $category, ?string $status, ?array $data): array
     {
         if (
-            !\is_string($status)
-            || !\in_array($status, self::STATUS_VALUES, true)
-            || !\is_array($data)
+            !\is_string($status) ||
+            !\in_array($status, self::STATUS_VALUES, true) ||
+            !\is_array($data)
         ) {
             return [
                 $category => [],
@@ -56,6 +56,7 @@ final class AnalyzerService
      *
      * Thus it supports up to 128 different multibyte code points max over
      * the whole set of strings sharing this encoding.
+     *
      * @param mixed $str
      * @param mixed $map
      */
@@ -70,7 +71,7 @@ final class AnalyzerService
         // update the encoding map with the characters not already met
         foreach ($matches[0] as $mbc) {
             if (!isset($map[$mbc])) {
-                $map[$mbc] = \chr(128 + \count($map));
+                $map[$mbc] = \chr(128 + (\is_countable($map) ? \count($map) : 0));
             }
         }
 
@@ -80,6 +81,7 @@ final class AnalyzerService
 
     /**
      * https://www.php.net/manual/en/function.levenshtein.php#113702.
+     *
      * @param mixed $s1
      * @param mixed $s2
      */

@@ -10,17 +10,12 @@ use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
  */
 final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorAggregate
 {
+    private const CONTENT_TYPES = 'content_types';
     /**
      * @var AnalyzerInterface[]
      */
     private $analyzers = [];
-
-    /**
-     * @var \Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver
-     */
     private $siteAccessConfigResolver;
-
-    private const CONTENT_TYPES = 'content_types';
 
     public function __construct(SiteAccessConfigResolver $siteAccessConfigResolver)
     {
@@ -43,8 +38,8 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
         $result = [];
         foreach ($this->analyzers as $className => $analyzer) {
             if (
-                !$this->allowAnalyzer($analysisDTO->getContentTypeIdentifier(), $className, $analysisDTO->getSiteaccess())
-                || !$analyzer->support($analysisDTO)
+                !$this->isAllowed($analysisDTO->getContentTypeIdentifier(), $className, $analysisDTO->getSiteaccess()) ||
+                !$analyzer->support($analysisDTO)
             ) {
                 continue;
             }
@@ -65,7 +60,7 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
      *
      * @param string $siteAccess
      */
-    public function allowAnalyzer(string $contentTypeIdentifier, string $analyzerClassName, string $siteAccess = null): bool
+    public function isAllowed(string $contentTypeIdentifier, string $analyzerClassName, ?string $siteAccess = null): bool
     {
         $analysisConfig = $this->siteAccessConfigResolver->getParameterConfig('analysis', $siteAccess);
         if (!\array_key_exists(self::CONTENT_TYPES, $analysisConfig)) {
@@ -78,6 +73,7 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
             return true;
         }
         $blocklist = $analysisConfig[self::CONTENT_TYPES][$contentTypeIdentifier]['blocklist'];
+
         return !(\is_array($blocklist) && \in_array($analyzerClassName, $blocklist, true));
     }
 

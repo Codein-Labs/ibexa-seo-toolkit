@@ -19,7 +19,7 @@ class Field
     /**
      * @return ?string
      */
-    public function getFieldIdentifier()
+    public function getFieldIdentifier(): string
     {
         return $this->fieldIdentifier;
     }

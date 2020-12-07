@@ -7,10 +7,6 @@ namespace Codein\eZPlatformSeoToolkit\Model;
  */
 class AnalysisDTO
 {
-    public $language;
-    /** @var string */
-    private $keyword;
-
     /** @var bool */
     private $isPillarContent = false;
 
@@ -33,17 +29,19 @@ class AnalysisDTO
     private $siteaccess;
 
     /** @var Field[] */
-    private $fields;
+    private $fields = [];
+    /** @var ?string */
+    private $keyword;
 
-    /** @var string */
+    /** @var ?string */
     private $previewHtml;
 
     /**
      * Get the value of keyword.
      *
-     * @return string
+     * @return ?string
      */
-    public function getKeyword()
+    public function getKeyword(): ?string
     {
         return $this->keyword;
     }
@@ -51,10 +49,9 @@ class AnalysisDTO
     /**
      * Set the value of keyword.
      *
-     * @param mixed $keyword
-     * @return  self
+     * @param ?string $keyword
      */
-    public function setKeyword($keyword)
+    public function setKeyword(?string $keyword): self
     {
         $this->keyword = $keyword;
 
@@ -63,10 +60,8 @@ class AnalysisDTO
 
     /**
      * Get the value of isPillarContent.
-     *
-     * @return bool
      */
-    public function getIsPillarContent()
+    public function isPillarContent(): bool
     {
         return $this->isPillarContent;
     }
@@ -74,10 +69,9 @@ class AnalysisDTO
     /**
      * Set the value of isPillarContent.
      *
-     * @param mixed $isPillarContent
-     * @return  self
+     * @param bool $isPillarContent
      */
-    public function setIsPillarContent($isPillarContent)
+    public function setIsPillarContent($isPillarContent): self
     {
         $this->isPillarContent = $isPillarContent;
 
@@ -86,10 +80,8 @@ class AnalysisDTO
 
     /**
      * Get the value of contentId.
-     *
-     * @return int
      */
-    public function getContentId()
+    public function getContentId(): int
     {
         return $this->contentId;
     }
@@ -97,10 +89,9 @@ class AnalysisDTO
     /**
      * Set the value of contentId.
      *
-     * @param mixed $contentId
-     * @return  self
+     * @param int $contentId
      */
-    public function setContentId($contentId)
+    public function setContentId($contentId): self
     {
         $this->contentId = $contentId;
 
@@ -109,10 +100,8 @@ class AnalysisDTO
 
     /**
      * Get the value of locationId.
-     *
-     * @return int
      */
-    public function getLocationId()
+    public function getLocationId(): int
     {
         return $this->locationId;
     }
@@ -121,9 +110,8 @@ class AnalysisDTO
      * Set the value of locationId.
      *
      * @param mixed $locationId
-     * @return  self
      */
-    public function setLocationId($locationId)
+    public function setLocationId($locationId): self
     {
         $this->locationId = $locationId;
 
@@ -132,10 +120,8 @@ class AnalysisDTO
 
     /**
      * Get the value of versionNo.
-     *
-     * @return int
      */
-    public function getVersionNo()
+    public function getVersionNo(): int
     {
         return $this->versionNo;
     }
@@ -143,10 +129,9 @@ class AnalysisDTO
     /**
      * Set the value of versionNo.
      *
-     * @param mixed $versionNo
-     * @return  self
+     * @param int $versionNo
      */
-    public function setVersionNo($versionNo)
+    public function setVersionNo($versionNo): self
     {
         $this->versionNo = $versionNo;
 
@@ -155,10 +140,8 @@ class AnalysisDTO
 
     /**
      * Get the value of language.
-     *
-     * @return string
      */
-    public function getLanguageCode()
+    public function getLanguageCode(): string
     {
         return $this->languageCode;
     }
@@ -166,10 +149,9 @@ class AnalysisDTO
     /**
      * Set the value of language.
      *
-     * @param mixed $languageCode
-     * @return  self
+     * @param string $languageCode
      */
-    public function setLanguageCode($languageCode)
+    public function setLanguageCode($languageCode): self
     {
         $this->languageCode = $languageCode;
 
@@ -178,10 +160,8 @@ class AnalysisDTO
 
     /**
      * Get the value of contentTypeIdentifier.
-     *
-     * @return string
      */
-    public function getContentTypeIdentifier()
+    public function getContentTypeIdentifier(): string
     {
         return $this->contentTypeIdentifier;
     }
@@ -189,10 +169,9 @@ class AnalysisDTO
     /**
      * Set the value of contentTypeIdentifier.
      *
-     * @param mixed $contentTypeIdentifier
-     * @return  self
+     * @param string $contentTypeIdentifier
      */
-    public function setContentTypeIdentifier($contentTypeIdentifier)
+    public function setContentTypeIdentifier($contentTypeIdentifier): self
     {
         $this->contentTypeIdentifier = $contentTypeIdentifier;
 
@@ -201,10 +180,8 @@ class AnalysisDTO
 
     /**
      * Get the value of siteaccess.
-     *
-     * @return string
      */
-    public function getSiteaccess()
+    public function getSiteaccess(): string
     {
         return $this->siteaccess;
     }
@@ -212,10 +189,9 @@ class AnalysisDTO
     /**
      * Set the value of siteaccess.
      *
-     * @param mixed $siteaccess
-     * @return  self
+     * @param string $siteaccess
      */
-    public function setSiteaccess($siteaccess)
+    public function setSiteaccess($siteaccess): self
     {
         $this->siteaccess = $siteaccess;
 
@@ -227,7 +203,7 @@ class AnalysisDTO
      *
      * @return Field[]
      */
-    public function getFields()
+    public function getFields(): array
     {
         return $this->fields;
     }
@@ -235,10 +211,9 @@ class AnalysisDTO
     /**
      * Set the value of fields.
      *
-     * @param mixed $fields
-     * @return  self
+     * @param Field[] $fields
      */
-    public function setFields($fields)
+    public function setFields($fields): self
     {
         $this->fields = $fields;
 
@@ -248,9 +223,9 @@ class AnalysisDTO
     /**
      * Get the value of previewHtml.
      *
-     * @return \string
+     * @return ?string
      */
-    public function getPreviewHtml()
+    public function getPreviewHtml(): ?string
     {
         return $this->previewHtml;
     }
@@ -258,10 +233,9 @@ class AnalysisDTO
     /**
      * Set the value of previewHtml.
      *
-     * @param mixed $previewHtml
-     * @return  self
+     * @param string $previewHtml
      */
-    public function setPreviewHtml($previewHtml)
+    public function setPreviewHtml(?string $previewHtml): self
     {
         $this->previewHtml = $previewHtml;
 
@@ -275,7 +249,7 @@ class AnalysisDTO
             'contentId' => $this->contentId,
             'locationId' => $this->locationId,
             'versionNo' => $this->versionNo,
-            'language' => $this->language,
+            'languageCode' => $this->languageCode,
             'siteaccess' => $this->siteaccess,
         ];
     }

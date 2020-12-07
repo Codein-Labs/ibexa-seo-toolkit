@@ -53,7 +53,8 @@ final class AnalysisDTOType extends AbstractType
             ])
             ->add('previewHtml', TextType::class, [
                 self::CONSTRAINTS => [new Assert\NotBlank()],
-            ]);
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void

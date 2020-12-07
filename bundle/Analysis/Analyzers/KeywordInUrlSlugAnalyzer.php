@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
 use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use eZ\Publish\Core\Repository\LocationService;
@@ -19,13 +19,9 @@ use eZ\Publish\Core\Repository\URLAliasService;
 final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
 {
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
-    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
+
     private $analyzerService;
-
-    /** @var URLAliasService */
     private $urlAliasService;
-
-    /** @var LocationService */
     private $locationService;
 
     public function __construct(
@@ -62,17 +58,17 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
                 $bestRatio = ($levenshteinRatio > $bestRatio ? $levenshteinRatio : $bestRatio);
             }
 
-            $status = 'low';
+            $status = RatioLevels::LOW;
 
             if ($bestRatio > 0.85 && $bestRatio < 1) {
-                $status = 'medium';
+                $status = RatioLevels::LOW;
             } elseif (1 === $bestRatio) {
-                $status = 'high';
+                $status = RatioLevels::HIGH;
             }
 
             // case keyword is included, but far from equal
-            if ('low' === $status && false !== \strpos($urlSlugWithoutDashes, $keyword)) {
-                $status = 'medium';
+            if (RatioLevels::LOW === $status && false !== \strpos($urlSlugWithoutDashes, $keyword)) {
+                $status = RatioLevels::MEDIUM;
             }
         } catch (\Exception $e) {
             return $this->analyzerService->compile(self::CATEGORY, null, null);

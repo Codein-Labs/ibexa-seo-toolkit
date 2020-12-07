@@ -5,10 +5,10 @@ namespace Codein\eZPlatformSeoToolkit\Controller;
 use Codein\eZPlatformSeoToolkit\Form\Type\AnalysisDTOType;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
-use Doctrine\ORM\EntityManager;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -17,19 +17,15 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 final class AnalyzeContentController extends AbstractController
 {
-    /** @var AnalyzeContentService */
     private $analyzeContentService;
-
-    /** @var PreviewController */
     private $previewControllerService;
 
     /**
      * AnalyzeContentController constructor.
      */
     public function __construct(
-        AnalyzeContentService $analyzeContentService,
         PreviewController $previewControllerService,
-        EntityManager $entityManager
+        AnalyzeContentService $analyzeContentService
     ) {
         $this->analyzeContentService = $analyzeContentService;
         $this->previewControllerService = $previewControllerService;
@@ -37,7 +33,8 @@ final class AnalyzeContentController extends AbstractController
 
     public function __invoke(Request $request)
     {
-        $data = \json_decode($request->getContent(), true);
+        /** @var ParameterBag $data */
+        $data = $request->request->all();
 
         if (JSON_ERROR_NONE !== \json_last_error()) {
             throw new HttpException(400, 'Invalid json.');
@@ -78,7 +75,6 @@ final class AnalyzeContentController extends AbstractController
         // validating and creating DTO
         $form = $this->createForm(AnalysisDTOType::class, new AnalysisDTO());
         $form->submit($data);
-        $result = [];
         if ($form->isValid()) {
             /** @var AnalysisDTO $analysisDTO */
             $analysisDTO = $form->getData();

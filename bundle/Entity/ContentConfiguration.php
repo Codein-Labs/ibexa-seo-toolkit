@@ -13,27 +13,27 @@ class ContentConfiguration
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue()
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, unique=true)
+     * @ORM\Column(type="integer", unique=true)
      */
     private $contentId;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $keyword;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $isPillarContent;
+    private $isPillarContent = false;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $languageCode = 'eng-GB';
 
@@ -61,7 +61,7 @@ class ContentConfiguration
     }
 
     /**
-     * @return ?bool
+     * @return bool
      */
     public function getIsPillarContent()
     {
@@ -79,18 +79,14 @@ class ContentConfiguration
     }
 
     /**
-     * @return ?string
+     * @return int
      */
     public function getContentId()
     {
         return $this->contentId;
     }
 
-    /**
-     * @param ?string $contentTypeIdentifier
-     * @param ?string $contentId
-     */
-    public function setContentId(?string $contentId): self
+    public function setContentId(int $contentId): self
     {
         $this->contentId = $contentId;
 
@@ -98,17 +94,14 @@ class ContentConfiguration
     }
 
     /**
-     * @return ?string
+     * @return string
      */
     public function getLanguageCode()
     {
         return $this->languageCode;
     }
 
-    /**
-     * @param ?string $languageCode
-     */
-    public function setLanguageCode(?string $languageCode): self
+    public function setLanguageCode(string $languageCode): self
     {
         $this->languageCode = $languageCode;
 

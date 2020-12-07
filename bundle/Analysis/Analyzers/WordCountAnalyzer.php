@@ -3,7 +3,7 @@
 namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
 use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
 
@@ -12,7 +12,7 @@ use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
  */
 final class WordCountAnalyzer extends AbstractAnalyzer
 {
-    const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
+    private const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
 
     /** @var XmlProcessingService */
     private $xmlProcessingService;
@@ -28,17 +28,18 @@ final class WordCountAnalyzer extends AbstractAnalyzer
 
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
-        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)->saveHTML();
+        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)
+            ->saveHTML();
 
         $text = \strip_tags($html);
 
         $count = \str_word_count($text);
-        $status = 'low';
+        $status = RatioLevels::LOW;
 
         if ($count > 700 && $count < 1500) {
-            $status = 'medium';
+            $status = RatioLevels::MEDIUM;
         } elseif ($count >= 1500) {
-            $status = 'high';
+            $status = RatioLevels::HIGH;
         }
 
         return [

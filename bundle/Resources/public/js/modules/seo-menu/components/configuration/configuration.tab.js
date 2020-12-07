@@ -64,7 +64,7 @@ export default class ConfigurationTab extends React.Component {
   onChangeFocusKeyword(event) {
     this.setState({focusKeyword: event.target.value})
   }
-  
+
   onChangePillar(event) {
     console.log(event.target.checked)
     this.setState({isPillarContent: event.target.checked})
@@ -107,7 +107,7 @@ export default class ConfigurationTab extends React.Component {
         <form>
           <div className="ez-field-edit">
             <div className="ez-field-edit__label-wrapper">
-                <label className="ez-field-edit__label" for="keyword">{transConfigurationKeyword}</label>            
+                <label className="ez-field-edit__label" for="keyword">{transConfigurationKeyword}</label>
             </div>
             <div className="ez-field-edit__data">
                 <div className="ez-data-source">
@@ -117,7 +117,7 @@ export default class ConfigurationTab extends React.Component {
           </div>
           <div className="ez-field-edit ez-field-edit--ezboolean">
             <div className="ez-field-edit__label-wrapper">
-                <label className="ez-field-edit__label" for="isPillarContent">{transConfigurationIsPillar}</label>            
+                <label className="ez-field-edit__label" for="isPillarContent">{transConfigurationIsPillar}</label>
             </div>
             <div className="ez-field-edit__data">
               <div className="ez-data-source">

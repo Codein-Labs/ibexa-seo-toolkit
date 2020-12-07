@@ -2,6 +2,8 @@
 
 namespace Codein\eZPlatformSeoToolkit\Service;
 
+use Codein\eZPlatformSeoToolkit\Model\Field;
+
 /**
  * Class XmlProcessingService.
  */

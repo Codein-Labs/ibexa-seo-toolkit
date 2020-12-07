@@ -14,12 +14,12 @@ services:
 
     Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService: ~
 
-    Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController: ~
-    Codein\eZPlatformSeoToolkit\Controller\ContentConfigurationController: ~
+    Codein\eZPlatformSeoToolkit\Controller\:
+        resource: '../../Controller/*'
 
     Codein\eZPlatformSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
-    Codein\eZPlatformSeoToolkit\Twig\CodeinEzSeoExtension: 
+    Codein\eZPlatformSeoToolkit\Twig\CodeinEzSeoExtension:
         arguments:
             $siteAccessesByLanguage : '%ezpublish.siteaccesses_by_language%'
 
