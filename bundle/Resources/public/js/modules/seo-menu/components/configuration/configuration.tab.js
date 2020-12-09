@@ -51,9 +51,6 @@ export default class ConfigurationTab extends React.Component {
     if (validateContextData(this.context)) {
       var self = this;
       updateConfiguration(this.context.contentId, this.state.focusKeyword, this.state.isPillarContent, this.context.languageCode, function(err, res) {
-        if (!err) {
-          console.log(res);
-        }
         self.setState({
           loading: false
         })

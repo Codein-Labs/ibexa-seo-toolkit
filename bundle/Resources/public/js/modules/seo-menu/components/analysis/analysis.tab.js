@@ -57,7 +57,7 @@ export default class AnalysisTab extends React.Component {
     let dataContext = {...this.context};
     delete dataContext.siteaccesses;
     dataContext.siteaccess = this.state.selectedSiteaccess;
-    console.log(dataContext)
+    
     if (!validateContextData(dataContext)) return;
     getAnalysis(dataContext, getSeoRichText(), (err, res) => {
       if (!err) {

@@ -20,6 +20,7 @@ codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "Vous pouvez sé
 codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
 codein_seo_toolkit.analyzer.error.content_not_configured: "Veuillez configurer le contenu dans l'onglet associé."
 codein_seo_toolkit.analyzer.error.analyzer_form_invalid: "Le formulaire est invalide. Veuillez contacter votre prestataire pour une résolution."
+codein_seo_toolkit.analyzer.error.data_transfered: "Des données nécessaires pour l'analyse sont manquantes."
 codein_seo_toolkit.analyzer.category.keyword: 'Mot-clé'
 codein_seo_toolkit.analyzer.category.lisibility: 'Lisibilité'
 codein_seo_toolkit.analyzer.not_compatible: "L'analyse \"%analyzer%\" n'est pas disponible pour votre contenu."

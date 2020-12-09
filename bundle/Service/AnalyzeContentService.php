@@ -74,7 +74,7 @@ final class AnalyzeContentService
     /**
      * Checks configuration and reorder/.
      */
-    public function manageRichTextData(array $richTextFieldsData, string $contentTypeIdentifier, string $siteaccess): ?array
+    public function manageRichTextData($richTextFieldsData, string $contentTypeIdentifier, string $siteaccess): ?array
     {
         $newRichTextFieldData = [];
         $richTextFieldsConfigured = $this->getRichtextFieldConfiguredForContentType($contentTypeIdentifier, $siteaccess);
@@ -82,7 +82,7 @@ final class AnalyzeContentService
         foreach ($richTextFieldsConfigured as $richTextFieldConfigured) {
             $position = $this->richTextFieldPosition($richTextFieldsData, $richTextFieldConfigured);
             if (self::NOT_FOUND_FIELD_POSITION !== $position) {
-                if (!XmlValidator::isXMLContentValid($richTextFieldsData[$position]['fieldValue'])) {
+                if (!XmlValidator::isXMLContentValid($richTextFieldsData[$position]->getFieldValue())) {
                     $this->logger->warning('Rich text field configured "' . $richTextFieldConfigured . '" has invalid XML content');
                     continue;
                 }
@@ -125,7 +125,7 @@ final class AnalyzeContentService
     private function richTextFieldPosition($richTextFieldsData, $richTextField): int
     {
         foreach ($richTextFieldsData as $key => $someRichTextField) {
-            if ($someRichTextField['fieldIdentifier'] === $richTextField) {
+            if ($someRichTextField->getFieldIdentifier() === $richTextField) {
                 return $key;
             }
         }

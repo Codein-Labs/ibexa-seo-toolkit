@@ -36,9 +36,12 @@ final class WordCountAnalyzer extends AbstractAnalyzer
         $count = \str_word_count($text);
         $status = RatioLevels::LOW;
 
-        if ($count > 700 && $count < 1500) {
+        // Pillar content increases the requirements
+        $infimum = 700 * ($data->getIsPillarContent() ? 1.5 : 1);
+        $supremum = 1500 * ($data->getIsPillarContent() ? 1.5 : 1);
+        if ($count > $infimum && $count < $supremum) {
             $status = RatioLevels::MEDIUM;
-        } elseif ($count >= 1500) {
+        } elseif ($count >= $supremum) {
             $status = RatioLevels::HIGH;
         }
 

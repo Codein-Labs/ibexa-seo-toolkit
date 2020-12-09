@@ -3,7 +3,10 @@
 namespace Codein\eZPlatformSeoToolkit\Controller;
 
 use Codein\eZPlatformSeoToolkit\Form\Type\AnalysisDTOType;
+use Codein\eZPlatformSeoToolkit\Form\Type\PreAnalysisDTOType;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
+use Codein\eZPlatformSeoToolkit\Model\Field;
+use Codein\eZPlatformSeoToolkit\Model\PreAnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,20 +43,35 @@ final class AnalyzeContentController extends AbstractController
             throw new HttpException(400, 'Invalid json.');
         }
 
+        $form = $this->createForm(PreAnalysisDTOType::class, new PreAnalysisDTO());
+        $form->submit($data);
+        if (!$form->isValid()) {
+            return new JsonResponse([
+                'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+                'error' => 'codein_seo_toolkit.analyzer.error.data_transfered',
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        /** @var PreAnalysisDTO */
+        $preAnalysisData = $form->getData();
+        
+        /** @var Field */
+        $fields = $preAnalysisData->getFields();
         // Reorder fields according to configuration
-        $data['fields'] = $this->analyzeContentService->manageRichTextData(
-            $data['fields'],
-            $data['contentTypeIdentifier'],
-            $data['siteaccess']
+        $dataFields = $this->analyzeContentService->manageRichTextData(
+            $preAnalysisData->getFields(),
+            $preAnalysisData->getContentTypeIdentifier(),
+            $preAnalysisData->getSiteaccess()
         );
+        $preAnalysisData->setFields($dataFields);
 
         // Retrieving content preview data
         $dataPreviewHtml = $this->previewControllerService->previewContentAction(
             $request,
-            $data['contentId'],
-            $data['versionNo'],
-            $data['languageCode'],
-            $data['siteaccess']
+            $preAnalysisData->getContentId(),
+            $preAnalysisData->getVersionNo(),
+            $preAnalysisData->getLanguageCode(),
+            $preAnalysisData->getSiteaccess()
         )->getContent();
         if (!$dataPreviewHtml || 0 === \strlen($dataPreviewHtml)) {
             return new JsonResponse([
@@ -61,10 +79,9 @@ final class AnalyzeContentController extends AbstractController
                 'error' => 'codein_seo_toolkit.analyzer.error.preview_not_returning_html',
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
-
-        $data['previewHtml'] = $dataPreviewHtml;
+       
         try {
-            $data = $this->analyzeContentService->addContentConfigurationToDataArray($data);
+            $dataContentConfiguration = $this->analyzeContentService->addContentConfigurationToDataArray($data);
         } catch (\Exception $e) {
             return new JsonResponse([
                 'code' => JsonResponse::HTTP_BAD_REQUEST,
@@ -72,9 +89,16 @@ final class AnalyzeContentController extends AbstractController
             ], JsonResponse::HTTP_BAD_REQUEST);
         }
 
+        $preprocessedData = array_merge(
+            $preAnalysisData->toArray(), 
+            ['previewHtml' => $dataPreviewHtml],
+            $dataContentConfiguration
+        );
+
         // validating and creating DTO
         $form = $this->createForm(AnalysisDTOType::class, new AnalysisDTO());
-        $form->submit($data);
+        $form->submit($preprocessedData);
+        $result = [];
         if ($form->isValid()) {
             /** @var AnalysisDTO $analysisDTO */
             $analysisDTO = $form->getData();

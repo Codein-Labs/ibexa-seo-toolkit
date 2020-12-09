@@ -9,13 +9,8 @@ class Field
 {
     private $fieldIdentifier;
     private $fieldValue;
-
-    public function __construct($fieldIdentifier, $fieldValue)
-    {
-        $this->fieldIdentifier = $fieldIdentifier;
-        $this->fieldValue = $fieldValue;
-    }
-
+    
+    
     /**
      * @return ?string
      */
@@ -50,5 +45,13 @@ class Field
         $this->fieldValue = $fieldValue;
 
         return $this;
+    }
+
+    private function toArray(): array
+    {
+        return [
+            'fieldIdentifier' => $this->getFieldIdentifier(),
+            'fieldValue' => $this->getFieldValue()
+        ];
     }
 }
