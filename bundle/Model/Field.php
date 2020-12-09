@@ -46,4 +46,12 @@ class Field
 
         return $this;
     }
+
+    private function toArray(): array
+    {
+        return [
+            'fieldIdentifier' => $this->getFieldIdentifier(),
+            'fieldValue' => $this->getFieldValue()
+        ];
+    }
 }

@@ -20,6 +20,7 @@ codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "You can separat
 codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
 codein_seo_toolkit.analyzer.error.content_not_configured: "Please configure the content in the associated tab."
 codein_seo_toolkit.analyzer.error.analyzer_form_invalid: "Form is invalid. Please contact technical assitance."
+codein_seo_toolkit.analyzer.error.data_transfered: "Data needed for analysis missing."
 codein_seo_toolkit.analyzer.category.keyword: 'Keyword'
 codein_seo_toolkit.analyzer.category.lisibility: 'Lisibility'
 codein_seo_toolkit.analyzer.not_compatible: 'The analyzer "%analyzer%" is not compatible with your content'
