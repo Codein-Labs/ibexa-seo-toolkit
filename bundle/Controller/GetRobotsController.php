@@ -28,10 +28,10 @@ final class GetRobotsController
 
     public function __invoke()
     {
-        $robotsRulesPerUserAgent = $this->siteAccessConfigResolver->getParameterConfig('robots');
+        $robotsRules = $this->siteAccessConfigResolver->getParameterConfig('robots');
         $content = '';
         $i = 1;
-        foreach ($robotsRulesPerUserAgent as $userAgent => $robotsElementsRules) {
+        foreach ($robotsRules['user_agents'] as $userAgent => $robotsElementsRules) {
             ++$i;
             $content .= \sprintf("User-agent: %s\n", $userAgent);
             if (!empty($robotsElementsRules['crawl-delay'])) {
@@ -49,17 +49,21 @@ final class GetRobotsController
                 }
             }
 
-            if (\is_array($robotsElementsRules['sitemap'])) {
-                foreach ($robotsElementsRules['sitemap']  as $key => $value) {
-                    if ('route' === $key) {
-                        $url = $this->urlGenerator->generate($value, [], UrlGeneratorInterface::ABSOLUTE_URL);
-                        $content .= \sprintf("Sitemap: %s\n", $url);
-                    }
-                    if ('url' === $key) {
-                        $content .= \sprintf("Sitemap: %s\n", $value);
-                    }
+            if (\is_array($robotsRules['sitemap_urls'])) {
+                foreach ($robotsRules['sitemap_urls'] as $key => $value) {
+                    $content .= \sprintf("Sitemap: %s\n", $value);
+
                 }
             }
+
+            if (\is_array($robotsRules['sitemap_routes'])) {
+                foreach ($robotsRules['sitemap_routes'] as $key => $value) {
+                    $url = $this->urlGenerator->generate($value, [], UrlGeneratorInterface::ABSOLUTE_URL);
+                    $content .= \sprintf("Sitemap: %s\n", $url);
+
+                }
+            }
+
             $content .= ($i !== \count($robotsElementsRules)) ? "\n" : '';
         }
         $response = new Response();
