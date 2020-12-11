@@ -1,4 +1,9 @@
 # config/routes.yaml
-seo_api.analyze:
+codein_ez_platform_seo_toolkit.analyze:
     path: /api/seo/analyze
     controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
+codein_ez_platform_seo_toolkit.robots:
+    path: /robots.txt
+    controller: Codein\eZPlatformSeoToolkit\Controller\GetRobotsController
+codein_ez_platform_seo_toolkit.sitemap:
+    path: /sitemap.xml

@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Codein\Tests\eZPlatformSeoToolkit\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 

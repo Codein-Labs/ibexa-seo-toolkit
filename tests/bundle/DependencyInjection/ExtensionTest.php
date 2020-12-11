@@ -4,7 +4,6 @@ use Codein\eZPlatformSeoToolkit\Analyzer\ContentPreviewParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer;
 use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
-use FOS\RestBundle\DependencyInjection\FOSRestExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
