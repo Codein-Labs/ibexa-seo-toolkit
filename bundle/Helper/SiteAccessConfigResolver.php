@@ -21,4 +21,9 @@ final class SiteAccessConfigResolver
     {
         return $this->configResolver->getParameter($paramName, EzPlatformSeoToolkitExtension::ALIAS);
     }
+
+    public function getConfigResolver()
+    {
+        return $this->configResolver;
+    }
 }

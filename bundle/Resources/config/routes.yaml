@@ -7,3 +7,23 @@ codein_ez_platform_seo_toolkit.robots:
     controller: Codein\eZPlatformSeoToolkit\Controller\GetRobotsController
 codein_ez_platform_seo_toolkit.sitemap:
     path: /sitemap.xml
+    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::index
+
+codein_ez_platform_seo_toolkit.sitemap_page_result:
+    path: /sitemap-{page}.xml
+    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::page
+    requirements:
+        page: '\d+'
+    methods: [GET]
+
+codein_ez_platform_seo_toolkit.sitemap_page_content_type:
+    path: /sitemap-{contentTypeIdentifier}.xml
+    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::contentTypePage
+    requirements:
+        contentTypeIdentifier: '[a-zA-Z0-9][a-zA-Z0-9_]*'
+    methods: [GET]
+
+codein_ez_platform_seo_toolkit.sitemap_xsl:
+    path: /main-sitemap.xsl
+    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::xsltStylesheet
+    methods: [GET]

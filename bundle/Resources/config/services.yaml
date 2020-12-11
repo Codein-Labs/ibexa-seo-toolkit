@@ -26,3 +26,11 @@ services:
     Codein\eZPlatformSeoToolkit\Twig\CodeineZSeoExtension: ~
 
     Codein\eZPlatformSeoToolkit\Form\MetasFieldType: ~
+
+    Codein\eZPlatformSeoToolkit\Service\SitemapContentService: 
+        calls:
+            - [setVariationHandler, ["@ezpublish.image_alias.imagine.alias_generator", "@ezpublish.fieldType.ezimage"]]
+
+    Codein\eZPlatformSeoToolkit\Controller\SitemapController:
+        arguments:
+            # $xslFilePath: "@=service('kernel').locateResource('@EzPlatformSeoToolkitBundle/Resources/public/xsl/sitemap.xsl')"
