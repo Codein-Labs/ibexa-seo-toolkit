@@ -31,7 +31,7 @@ final class QueryHelper
      * Get Sitemap Query.
      *
      * @param string $specificContentType for content type sitemap cut
-     * @return void
+     * @return LocationQuery
      */
     public function getSitemapQuery(string $specificContentType = ''): LocationQuery
     {
