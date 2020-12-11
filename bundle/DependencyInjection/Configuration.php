@@ -25,21 +25,19 @@ final class Configuration extends SiteAccessConfiguration
             $rootNode = $treeBuilder->root(EzPlatformSeoToolkitExtension::ALIAS);
         }
 
-        $systemNode = $this->generateScopeBaseNode($rootNode);
-        $this
-            ->addAnalysisSection($systemNode)
-            ->addSitemapSection($systemNode)
-            ->addRobotsSection($systemNode)
-            ->addMetasSection($systemNode)
-            ->addLinksSection($systemNode)
-            ->addHreflangSection($systemNode)
-        ;
-        $systemNode->end();
+        $nodeBuilder = $this->generateScopeBaseNode($rootNode);
+        $this->addAnalysisSection($nodeBuilder);
+        $this->addSitemapSection($nodeBuilder);
+        $this->addRobotsSection($nodeBuilder);
+        $this->addMetasSection($nodeBuilder);
+        $this->addLinksSection($nodeBuilder);
+        $this->addHreflangSection($nodeBuilder);
+        $nodeBuilder->end();
 
         return $treeBuilder;
     }
 
-    protected function addAnalysisSection(NodeBuilder $nodeBuilder): self
+    private function addAnalysisSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('analysis')
@@ -68,24 +66,43 @@ final class Configuration extends SiteAccessConfiguration
                             ->end()
                         ->arrayPrototype()
                             ->children()
+                                ->arrayNode('richtext_fields')
+                                    ->scalarPrototype()
+                                        ->info('Specify rich text fields to analyze in the content type.')
+                                        ->validate()
+                                        ->ifTrue(
+                                            function ($value) {
+                                                $notValid = false;
 
-                                ->scalarNode('title_field')->example('name')->end()
-                                ->scalarNode('url_field')->example('url')->end()
-                                ->scalarNode('richtext_field')->example('description')->end()
+                                                if (!\is_string($value) || empty($value)) {
+                                                    $notValid = true;
+                                                }
+                                                if (1 !== \preg_match('/^[[:alnum:]_]+$/', $value)) {
+                                                    $notValid = true;
+                                                }
+
+                                                return $notValid;
+                                            }
+                                        )
+                                        ->thenInvalid("Field identifiers may only contain letters from 'a' to 'z', numbers and underscores.")
+                                        ->end()
+                                    ->end()
+                                ->end()
+                                ->arrayNode('blocklist')
+                                    ->scalarPrototype()
+                                    ->info('Specify some analyzer services identifier to block for this content type.')
+                                    ->example('ezplatform_seo.rich_text.one_h1_max_analyzer')
+                                    ->end()
+                                ->end()
                             ->end()
                         ->end()
+
                     ->end()
 
                     ->arrayNode('blocklist')
                         ->scalarPrototype()
                         ->info('Specify some analyzer services identifier to block.')
                         ->example('ezplatform_seo.rich_text.one_h1_max_analyzer')
-                        ->end()
-                    ->end()
-                    ->arrayNode('passlist')
-                        ->scalarPrototype()
-                        ->info('Specify analyzer service identifier to authorize.')
-                        ->example('ezplatform_seo.rich_text.title_order_analyzer')
                         ->end()
                     ->end()
                 ->end()
@@ -95,7 +112,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addSitemapSection(NodeBuilder $nodeBuilder): self
+    private function addSitemapSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('sitemap')
@@ -137,7 +154,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addRobotsSection(NodeBuilder $nodeBuilder): self
+    private function addRobotsSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('robots')
@@ -192,7 +209,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addMetasSection(NodeBuilder $nodeBuilder): self
+    private function addMetasSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('metas')
@@ -224,7 +241,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addLinksSection(NodeBuilder $nodeBuilder): self
+    private function addLinksSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('links')
@@ -268,7 +285,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addHreflangSection(NodeBuilder $nodeBuilder): self
+    private function addHreflangSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('hreflang')

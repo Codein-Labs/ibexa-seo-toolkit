@@ -12,6 +12,7 @@ final class ApiLoader extends Loader
 {
     private const RESOURCE = '@EzPlatformSeoToolkitBundle/Resources/config/routes.yaml';
     private const TYPE = 'yaml';
+    private const ROUTE_PREFIX = '/api/seo';
 
     public function load($resource, $type = null)
     {
@@ -20,6 +21,7 @@ final class ApiLoader extends Loader
         $importedRoutes = $this->import(self::RESOURCE, self::TYPE);
 
         $routeCollection->addCollection($importedRoutes);
+        $routeCollection->addPrefix(self::ROUTE_PREFIX);
 
         return $routeCollection;
     }

@@ -70,7 +70,7 @@ final class EzPlatformSeoToolkitExtension extends Extension implements PrependEx
     private function prependBazingaJsTranslationConfiguration(ContainerBuilder $container)
     {
         $configFile = __DIR__ . '/../Resources/config/bazinga_js_translation.yml';
-        $config     = Yaml::parseFile($configFile);
+        $config = Yaml::parseFile($configFile);
         $container->prependExtensionConfig('bazinga_js_translation', $config);
         $container->addResource(new FileResource($configFile));
     }

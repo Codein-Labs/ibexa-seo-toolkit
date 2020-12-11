@@ -7,35 +7,36 @@ services:
         arguments:
             $template: "EzPlatformSeoToolkitBundle::seo_menu.html.twig"
         tags:
-            - { name: ezplatform.admin_ui.component, group: "content-create-form-after" }
             - { name: ezplatform.admin_ui.component, group: "content-edit-form-after" }
 
     Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
+        autoconfigure: true
         tags:
             - { name: kernel.event.subscriber }
+
     # FIELD TYPE
     Codein\eZPlatformSeoToolkit\FieldType\Type:
         parent: ezpublish.fieldType
         tags:
-            - { name: ezpublish.fieldType, alias: seometas }
+            - { name: ezpublish.fieldType, alias: codeinseometas }
     Codein\eZPlatformSeoToolkit\FieldType\FormMapper:
         tags:
-            - { name: ez.fieldFormMapper.definition, fieldType: seometas }
-            - { name: ez.fieldFormMapper.value, fieldType: seometas }
+            - { name: ez.fieldFormMapper.definition, fieldType: codeinseometas }
+            - { name: ez.fieldFormMapper.value, fieldType: codeinseometas }
         arguments:
           [ '@ezpublish.config.resolver.core' ]
     ezsystems.elfinderbundle.fieldtype.ezelfinder.form_mapper:
         class: Codein\eZPlatformSeoToolkit\FieldType\FormMapper
         tags:
-            - {name: ez.fieldFormMapper.definition, fieldType: seometas}
-            - {name: ez.fieldFormMapper.value, fieldType: seometas}
+            - {name: ez.fieldFormMapper.definition, fieldType: codeinseometas}
+            - {name: ez.fieldFormMapper.value, fieldType: codeinseometas}
         arguments:
           [ '@ezpublish.config.resolver.core' ]
     Codein\eZPlatformSeoToolkit\FieldType\Converter:
         tags:
-            - { name: ezpublish.storageEngine.legacy.converter, alias: seometas, lazy: true, callback: '::create' }
-    codein.codeinseobundle.field_type.seometas.indexable.unindexed:
+            - { name: ezpublish.storageEngine.legacy.converter, alias: codeinseometas, lazy: true, callback: '::create' }
+    codein.codeinseobundle.field_type.codeinseometas.indexable.unindexed:
         class: "%ezpublish.fieldType.indexable.unindexed.class%"
         tags:
-            - { name: ezpublish.fieldType.indexable, alias: seometas }
+            - { name: ezpublish.fieldType.indexable, alias: codeinseometas }
 

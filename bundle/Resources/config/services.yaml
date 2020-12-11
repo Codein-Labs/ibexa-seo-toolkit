@@ -4,25 +4,25 @@ services:
         autoconfigure: true
         public: true
     _instanceof:
-        Codein\eZPlatformSeoToolkit\Analyzer\ParentAnalyzerInterface:
-            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.parent' ]
-        Codein\eZPlatformSeoToolkit\Analyzer\RichText\RichTextAnalyzerInterface:
-            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.rich_text' ]
-        Codein\eZPlatformSeoToolkit\Analyzer\Preview\ContentPreviewAnalyzerInterface:
-            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.content_preview' ]
+        Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerInterface:
+            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.parent_interface' ]
+        Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface:
+            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer' ]
 
-    Codein\eZPlatformSeoToolkit\Analyzer\:
-        resource: '../../Analyzer/*'
+    Codein\eZPlatformSeoToolkit\Analysis\:
+        resource: '../../Analysis/*'
+
+    Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService: ~
+
     Codein\eZPlatformSeoToolkit\Controller\:
         resource: '../../Controller/*'
 
-    Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer:
-        arguments:
-            $xhtml5Converter: '@ezrichtext.converter.output.xhtml5'
-
-
     Codein\eZPlatformSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
-    Codein\eZPlatformSeoToolkit\Twig\CodeineZSeoExtension: ~
+    Codein\eZPlatformSeoToolkit\Twig\CodeinEzSeoExtension:
+        arguments:
+            $siteAccessesByLanguage : '%ezpublish.siteaccesses_by_language%'
 
     Codein\eZPlatformSeoToolkit\Form\MetasFieldType: ~
+
+    Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService: ~

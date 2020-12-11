@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-use Codein\eZPlatformSeoToolkit\Analyzer\RichText\WordCountAnalyzer;
-use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;
+use Codein\eZPlatformSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;
+use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
+use Codein\eZPlatformSeoToolkit\Model\Field;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -28,11 +29,17 @@ class WordCountAnalyzerTest extends KernelTestCase
   <para>This is a paragraph.</para>
 </section>
 ';
-        $value = new Value($xml);
+        $analysisDTO = new AnalysisDTO();
+        $analysisDTO->setFields([new Field(
+            'test',
+            $xml
+        )]);
 
-        $response = $ipsum->analyze($value);
-        $this->assertArrayHasKey('items', $response);
-        $this->assertArrayHasKey('totalCount', $response);
-        $this->assertSame($response['totalCount'], 8);
+        $response = $ipsum->analyze($analysisDTO);
+        
+        $this->assertArrayHasKey(WordCountAnalyzer::CATEGORY, $response);
+        $this->assertArrayHasKey('data', $response[WordCountAnalyzer::CATEGORY]);
+        $this->assertArrayHasKey('count', $response[WordCountAnalyzer::CATEGORY]['data']);
+        $this->assertSame($response[WordCountAnalyzer::CATEGORY]['data']['count'], 8);
     }
 }

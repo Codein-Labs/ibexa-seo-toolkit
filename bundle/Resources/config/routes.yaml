@@ -1,9 +1,30 @@
 # config/routes.yaml
-codein_ez_platform_seo_toolkit.analyze:
-    path: /api/seo/analyze
+seo_api.analysis:
+    path: /analysis
     controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
 codein_ez_platform_seo_toolkit.robots:
     path: /robots.txt
     controller: Codein\eZPlatformSeoToolkit\Controller\GetRobotsController
 codein_ez_platform_seo_toolkit.sitemap:
     path: /sitemap.xml
+
+seo_api.content_configuration.get:
+    path: /content-configuration/{contentId}
+    controller: Codein\eZPlatformSeoToolkit\Controller\GetContentConfigurationController
+    methods:    GET
+    requirements:
+        contentId: '\d+'
+
+seo_api.content_configuration.update:
+    path: /content-configuration/{contentId}
+    controller: Codein\eZPlatformSeoToolkit\Controller\UpdateContentConfigurationController
+    methods:    PUT
+    requirements:
+        contentId: '\d+'
+
+seo_api.content_configuration.post:
+    path: /content-configuration
+    controller: Codein\eZPlatformSeoToolkit\Controller\UpdateContentConfigurationController
+    methods:    PUT
+    requirements:
+        contentId: '\d+'

@@ -2,70 +2,90 @@
 
 namespace Codein\eZPlatformSeoToolkit\Controller;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
-use Codein\eZPlatformSeoToolkit\Form\Type\ContentFieldsType;
-use Codein\eZPlatformSeoToolkit\Helper\XmlValidator;
-use Codein\eZPlatformSeoToolkit\Model\ContentFields;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Exception\AnalyzeException;
+use Codein\eZPlatformSeoToolkit\Exception\ValidationException;
+use Codein\eZPlatformSeoToolkit\Form\Type\AnalysisDTOType;
+use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
+use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
+use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
+use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class AnalyzeContentController.
+ * @Rest\View()
  */
-final class AnalyzeContentController extends AbstractController
+final class AnalyzeContentController
 {
-    private $richTextAnalyzer;
-    private $contentTypeService;
+    private $analyzeContentService;
+    private $previewControllerService;
+    private $parentAnalyzerService;
+    private $formFactory;
 
     /**
      * AnalyzeContentController constructor.
      */
     public function __construct(
-        RichTextParentAnalyzerService $richTextAnalyzer,
-        ContentTypeService $contentTypeService
+        PreviewController $previewControllerService,
+        AnalyzeContentService $analyzeContentService,
+        ParentAnalyzerService $parentAnalyzerService,
+        FormFactoryInterface $formFactory
     ) {
-        $this->richTextAnalyzer = $richTextAnalyzer;
-        $this->contentTypeService = $contentTypeService;
+        $this->analyzeContentService = $analyzeContentService;
+        $this->previewControllerService = $previewControllerService;
+        $this->parentAnalyzerService = $parentAnalyzerService;
+        $this->formFactory = $formFactory;
     }
 
     public function __invoke(Request $request)
     {
-        $data = \json_decode($request->getContent(), true);
+        $analysisDTO = new AnalysisDTO();
+        $form = $this->formFactory->create(AnalysisDTOType::class, $analysisDTO);
 
-        if (JSON_ERROR_NONE !== \json_last_error()) {
-            throw new HttpException(400, 'Invalid json.');
+        $form->submit($request->request->all());
+        if (!$form->isValid()) {
+            throw new ValidationException('codein_seo_toolkit.analyzer.error.data_transfered');
         }
 
-        $form = $this->createForm(ContentFieldsType::class, new ContentFields());
-        $form->submit($data);
-        if ($form->isValid()) {
-            $result = [];
-            /** @var ContentFields $contentFields */
-            $contentFields = $form->getData();
-            $contentType = $this->contentTypeService->loadContentType($contentFields->getContentTypeIdentifier());
+        // Select fields according to allowed richText field DI configuration.
+        $filteredDataFields = $this->analyzeContentService->manageRichTextDataFields(
+            $analysisDTO->getFields()->toArray(),
+            $analysisDTO->getContentTypeIdentifier(),
+            $analysisDTO->getSiteaccess()
+        );
+        $analysisDTO->setFields($filteredDataFields);
 
-            foreach ($contentFields->getFields() as $field) {
-                $fieldDefinition = $contentType->getFieldDefinition($field->getFieldIdentifier());
-                $fieldDefinition = ($fieldDefinition) ?? new FieldDefinition(
-                    [
-                        'fieldTypeIdentifier' => 'ezrichtext',
-                    ]
-                );
-                if (false === XmlValidator::isXMLContentValid($field->getFieldValue())) {
-                    throw new HttpException(400, \sprintf('Invalid xml value for field "%s".', $field->getFieldIdentifier()));
-                }
-                $fieldValue = new Value($field->getFieldValue());
-                $result[$field->getFieldIdentifier()] = $this->richTextAnalyzer
-                    ->analyze($fieldDefinition, $fieldValue);
-            }
-
-            return $result;
+        // Retrieving content preview data
+        $dataPreviewHtml = $this->previewControllerService->previewContentAction($request,
+            $analysisDTO->getContentId(),
+            $analysisDTO->getVersionNo(),
+            $analysisDTO->getLanguageCode(),
+            $analysisDTO->getSiteaccess()
+        )->getContent();
+        if (!$dataPreviewHtml || 0 === \strlen($dataPreviewHtml)) {
+            throw new ValidationException('codein_seo_toolkit.analyzer.error.preview_not_returning_html');
         }
 
-        return ['form' => $form];
+        try {
+            $contentConfiguration = $this->analyzeContentService->addContentConfigurationToDataArray($analysisDTO);
+        } catch (\Exception $e) {
+            throw new AnalyzeException('codein_seo_toolkit.analyzer.error.content_not_configured');
+        }
+
+        $analysisDTO->setIsPillarContent($contentConfiguration->getIsPillarContent())
+            ->setKeyword($contentConfiguration->getKeyword())
+            ->setPreviewHtml($dataPreviewHtml);
+
+        $anayzeResult = $this->parentAnalyzerService->analyze($analysisDTO);
+
+        if (\array_key_exists('error', $anayzeResult)) {
+            throw new AnalyzeException('codein_seo_toolkit.analyzer.error.content_not_configured');
+        }
+
+        return $anayzeResult;
     }
 }

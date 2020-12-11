@@ -2,36 +2,36 @@
 
 namespace Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler;
 
-use Codein\eZPlatformSeoToolkit\Analyzer\RichTextParentAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class RichTextAnalyzerPass.
+ * Class AnalyzerPass.
  */
-final class RichTextAnalyzerPass implements CompilerPassInterface
+final class AnalyzerPass implements CompilerPassInterface
 {
-    public const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer.rich_text';
+    public const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer';
 
     public function process(ContainerBuilder $containerBuilder): void
     {
-        if (!$containerBuilder->has(RichTextParentAnalyzerService::class)) {
+        if (!$containerBuilder->has(ParentAnalyzerService::class)) {
             return;
         }
-        $analysis = [];
-        $analyzerDefinition = $containerBuilder->getDefinition(RichTextParentAnalyzerService::class);
+        $blockedAnalysis = [];
+        $analyzerDefinition = $containerBuilder->getDefinition(ParentAnalyzerService::class);
 
         $allFieldAnalyzers = $containerBuilder->findTaggedServiceIds(self::TAG_NAME);
         $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);
         if (true === $containerBuilder->hasParameter($analysisParam)) {
-            $analysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
+            $blockedAnalysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
         }
 
-        foreach ($allFieldAnalyzers as $id => $tags) {
-            if (false === \in_array($id, $analysis, true)) {
-                $analyzerDefinition->addMethodCall('addAnalyzer', [new Reference($id)]);
+        foreach (\array_keys($allFieldAnalyzers) as $id) {
+            if (!\in_array($id, $blockedAnalysis, true)) {
+                $analyzerDefinition->addMethodCall('addAnalyzer', [$id, new Reference($id)]);
             }
         }
     }

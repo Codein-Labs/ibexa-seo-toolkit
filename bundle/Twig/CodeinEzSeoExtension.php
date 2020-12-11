@@ -6,36 +6,46 @@ use Codein\eZPlatformSeoToolkit\FieldType\Value;
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Helper\NameSchemaService;
 use eZ\Publish\Core\Repository\Repository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;
 
 /**
- * Class CodeineZSeoExtension.
+ * Class CodeinEzSeoExtension.
  */
-final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInterface
+final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInterface
 {
-    /** @var SiteAccessConfigResolver */
-    private $siteAccessConfigResolver;
-    /** @var Repository */
+    private const FIELD_TYPE_METAS = 'field_type_metas';
+
     private $eZRepository;
+    private $siteAccessesByLanguage;
+    private $siteAccessConfigResolver;
 
     /**
-     * CodeineZSeoExtension constructor.
+     * CodeinEzSeoExtension constructor.
+     *
      * @param $configResolver
      */
-    public function __construct(SiteAccessConfigResolver $configResolver, Repository $eZRepository)
-    {
+    public function __construct(
+        SiteAccessConfigResolver $configResolver,
+        Repository $eZRepository,
+        array $siteAccessesByLanguage
+    ) {
         $this->siteAccessConfigResolver = $configResolver;
         $this->eZRepository = $eZRepository;
+        $this->siteAccessesByLanguage = $siteAccessesByLanguage;
     }
 
     public function getFunctions()
     {
         return [
-            new TwigFunction('resolve_pattern', [$this, 'resolvePattern']),
+            new TwigFunction('resolve_pattern', function (Field $field, array $fieldSettings, Content $content): array {
+                return $this->resolvePattern($field, $fieldSettings, $content);
+            }),
+            new TwigFunction('codein_siteaccesses_by_language', function (string $languageCode): string {
+                return $this->getSiteaccessesByLanguage($languageCode);
+            }),
         ];
     }
 
@@ -50,12 +60,12 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
         if (!$metasFieldValue instanceof Value) {
             throw new \Exception(\sprintf('Expected argument of type "%s", "%s" given', Value::class, \is_object($metasFieldValue) ? \get_class($metasFieldValue) : \gettype($metasFieldValue)));
         }
-        $metasConfig = $this->siteAccessConfigResolver->getParameterConfig('metas')['field_type_metas'];
+        $metasConfig = $this->siteAccessConfigResolver->getParameterConfig('metas')[self::FIELD_TYPE_METAS];
 
         $fieldMetas = $field->value->metas;
         $mainLanguageCode = $content->getVersionInfo()->getContentInfo()->mainLanguageCode;
 
-        foreach ($metasConfig as $key => $entry) {
+        foreach (\array_keys($metasConfig) as $key) {
             if (false === \array_key_exists($key, $fieldMetas)) {
                 unset($fieldMetas[$key]);
                 continue;
@@ -76,7 +86,8 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
                 continue;
             }
             if ($nameSchema) {
-                $metaContent = $this->eZRepository->getNameSchemaService()->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
+                $metaContent = $this->eZRepository->getNameSchemaService()
+                    ->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
                 $fieldMetas[$key] = $metaContent[$mainLanguageCode];
             }
         }
@@ -87,11 +98,26 @@ final class CodeineZSeoExtension extends AbstractExtension implements GlobalsInt
     public function getGlobals(): array
     {
         $metas = $this->siteAccessConfigResolver->getParameterConfig('metas');
-        $codeineZseo = [
-            'field_type_metas' => $metas['field_type_metas'],
+        $codeinEzSeo = [
+            self::FIELD_TYPE_METAS => $metas[self::FIELD_TYPE_METAS],
             'default_metas' => $metas['default_metas'],
         ];
 
-        return ['codein_ezseo' => $codeineZseo];
+        return [
+            'codein_ezseo' => $codeinEzSeo,
+        ];
+    }
+
+    /**
+     * Find potential siteaccesses for this language code.
+     */
+    public function getSiteaccessesByLanguage(string $languageCode): string
+    {
+        $siteAccesses = [];
+        if ($languageCode && \array_key_exists($languageCode, $this->siteAccessesByLanguage)) {
+            $siteAccesses = $this->siteAccessesByLanguage[$languageCode];
+        }
+
+        return \json_encode($siteAccesses);
     }
 }

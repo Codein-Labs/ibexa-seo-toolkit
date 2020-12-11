@@ -48,7 +48,6 @@ final class ConfigurationTest extends TestCase
                     'analysis' => [
                         'content_types' => [],
                         'blocklist' => [],
-                        'passlist' => [],
                     ],
                     'sitemap' => [
                         'split_by' => 'content_type',

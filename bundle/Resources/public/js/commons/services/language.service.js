@@ -4,6 +4,6 @@
  * @param string key, from language file.
  * @param string domain.
  */
-export function __(key, domain = "codein_seo_toolkit") {
-  return Translator.trans(key, {}, domain);
+export function __(key, domain = "codein_seo_toolkit", data = {}) {
+  return Translator.trans(key, data, domain);
 }

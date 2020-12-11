@@ -9,6 +9,7 @@ import SeoViewTabsNav from "./seo_view.tabs.nav";
 export default class SeoView extends React.Component {
   constructor(props) {
     super(props);
+    this.props = props;
     this.state = {
       currentTabIndex: 0,
     };
