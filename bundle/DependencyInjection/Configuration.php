@@ -146,38 +146,51 @@ final class Configuration extends SiteAccessConfiguration
     {
         $nodeBuilder
             ->arrayNode('robots')
-                    ->arrayPrototype()
-                        ->children()
-                            ->scalarNode('crawl-delay')->defaultNull()->end()
-                            ->arrayNode('disallow')
-                                ->scalarPrototype()->end()
-                            ->end()
-                            ->arrayNode('allow')
-                                ->scalarPrototype()->end()
-                            ->end()
-                            ->arrayNode('sitemap')
-                            ->defaultValue(['route' => 'codein_ez_platform_seo_toolkit.sitemap'])
-                            ->validate()
-                             ->ifTrue(
-                                 function ($array) {
-                                     $notValid = false;
-                                     foreach ($array as $key => $value) {
-                                         if ('url' === $key && false === \filter_var($value, FILTER_VALIDATE_URL)) {
-                                             $notValid = true;
-                                             break;
-                                         }
-                                     }
-
-                                     return $notValid;
-                                 }
-                             )
-                             ->thenInvalid('This value is not a valid URL.')
-                            ->end()
-
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->arrayNode('user_agents')
+            ->defaultValue([])
+                ->arrayPrototype()
+                    ->children()
+                        ->scalarNode('crawl-delay')->defaultNull()->end()
+                        ->arrayNode('disallow')
+                            ->defaultValue([])
                             ->scalarPrototype()->end()
-                            ->end()
                         ->end()
+                        ->arrayNode('allow')
+                            ->defaultValue([])
+                            ->scalarPrototype()->end()
+                        ->end()
+
                     ->end()
+                ->end()
+            ->end()
+            ->arrayNode('sitemap_routes')
+            ->defaultValue([])
+
+            ->scalarPrototype()->end()
+            ->end()
+            ->arrayNode('sitemap_urls')
+            ->defaultValue([])
+            ->validate()
+            ->ifTrue(
+             function ($array) {
+                 $notValid = false;
+                 foreach ($array as $key => $value) {
+                     if (false === \filter_var($value, FILTER_VALIDATE_URL)) {
+                         $notValid = true;
+                         break;
+                     }
+                 }
+
+                 return $notValid;
+             }
+            )
+            ->thenInvalid('This value is not a valid URL.')
+            ->end()
+            ->scalarPrototype()->end()
+            ->end()
+            ->end()
             ->end()
         ;
 
