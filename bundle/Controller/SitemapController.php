@@ -6,6 +6,7 @@ use Codein\eZPlatformSeoToolkit\Service\SitemapContentService;
 use EzSystems\PlatformHttpCacheBundle\ResponseConfigurator\ResponseCacheConfigurator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -42,7 +43,9 @@ final class SitemapController extends Controller
     public function page($page)
     {
         $sitemapContent = $this->sitemapContentService->generatePage($page);
-
+        if (!$sitemapContent) {
+            throw new HttpException(404, 'Not found');
+        }
         $sitemapContent = $this->styleXML($sitemapContent);
 
         $response = new Response();
@@ -57,7 +60,9 @@ final class SitemapController extends Controller
     public function contentTypePage($contentTypeIdentifier)
     {
         $sitemapContent = $this->sitemapContentService->generateContentTypePage($contentTypeIdentifier);
-
+        if (!$sitemapContent) {
+            throw new HttpException(404, 'Not found');
+        }
         $sitemapContent = $this->styleXML($sitemapContent);
 
         $response = new Response();
