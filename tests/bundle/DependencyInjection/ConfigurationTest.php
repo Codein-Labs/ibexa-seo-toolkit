@@ -62,11 +62,7 @@ final class ConfigurationTest extends TestCase
                             'content_type_identifiers' => [],
                         ],
                     ],
-                    'robots' => [
-                        'allow_admin_configuration' => false,
-                        'prevent_indexing' => true,
-                        'disallow' => [],
-                    ],
+                    'robots' => [],
                     'metas' => [
                         'default_metas' => [],
                         'field_type_metas' => [],

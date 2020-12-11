@@ -2,6 +2,11 @@
 seo_api.analysis:
     path: /analysis
     controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
+codein_ez_platform_seo_toolkit.robots:
+    path: /robots.txt
+    controller: Codein\eZPlatformSeoToolkit\Controller\GetRobotsController
+codein_ez_platform_seo_toolkit.sitemap:
+    path: /sitemap.xml
 
 seo_api.content_configuration.get:
     path: /content-configuration/{contentId}
