@@ -7,11 +7,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ContentCreateEditRightMenuListener implements EventSubscriberInterface
 {
-    public function onMenuConfigure(ConfigureMenuEvent $configureMenuEvent)
+    public function onMenuConfigure(ConfigureMenuEvent $configureMenuEvent): void
     {
-        $menu = $configureMenuEvent->getMenu();
+        $menuItem = $configureMenuEvent->getMenu();
 
-        $menu->addChild(
+        $menuItem->addChild(
             'menu_item_seo_analyzer',
             [
                 'label' => 'codein_seo_toolkit.content_create_edit.menu_label',

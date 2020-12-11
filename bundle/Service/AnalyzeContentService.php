@@ -2,66 +2,42 @@
 
 namespace Codein\eZPlatformSeoToolkit\Service;
 
-use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerInterface;
 use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use Codein\eZPlatformSeoToolkit\Helper\XmlValidator;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
-use Doctrine\ORM\EntityManager;
-use eZ\Publish\API\Repository\ContentTypeService;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class AnalyzeContentService.
  */
 final class AnalyzeContentService
 {
-    /** @var EntityManager */
-    private $em;
+    private const CONTENT_ID = 'contentId';
+    private const LANGUAGE_CODE = 'languageCode';
+    private const NOT_FOUND_FIELD_POSITION = -1;
 
-    /** @var LoggerInterface */
     private $logger;
-
-    /** @var ContentTypeService */
-    private $contentTypeService;
-
-    /** @var ParentAnalyzerService */
-    private $analyzer;
-
-    /** @var SiteAccessConfigResolver */
+    private $entityManager;
+    private $parentAnalyzerService;
     private $siteAccessConfigResolver;
 
     public function __construct(
-        EntityManager $em,
+        EntityManagerInterface $entityManager,
         LoggerInterface $logger,
-        ContentTypeService $contentTypeService,
-        ParentAnalyzerService $analyzer,
+        ParentAnalyzerInterface $parentAnalyzer,
         SiteAccessConfigResolver $siteAccessConfigResolver
     ) {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
         $this->logger = $logger;
-        $this->contentTypeService = $contentTypeService;
-        $this->analyzer = $analyzer;
+        $this->parentAnalyzerService = $parentAnalyzer;
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
     }
 
     /**
-     * Launch analysis.
-     *
-     * @throws HttpException 400 if xmlvalue field is invalid
-     * @return array
-     */
-    public function buildResultObject(AnalysisDTO $analysisData)
-    {
-        $result = $this->analyzer
-            ->analyze($analysisData);
-
-        return $result;
-    }
-
-    /**
-     * Get richtext field identifier configured for the provided content type.
+     * Get richText field identifier configured for the provided content type.
      */
     public function getRichtextFieldConfiguredForContentType(string $contentTypeIdentifier, string $siteaccess): array
     {
@@ -70,34 +46,24 @@ final class AnalyzeContentService
                 'analysis',
                 $siteaccess
             )['content_types'][$contentTypeIdentifier]['richtext_fields'];
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->logger->warning('Analyzer config is not set correctly for this content type: ' . $contentTypeIdentifier);
 
             return [];
         }
     }
 
-    public function loadContentConfiguration(string $contentId, string $languageCode): ?ContentConfiguration
-    {
-        return $this->em->getRepository(ContentConfiguration::class)->findOneBy([
-            'contentId' => $contentId,
-            'languageCode' => $languageCode,
-        ]);
-    }
-
     /**
-     * Checks configuration and reorder/.
-     *
-     * @param array $richTextFieldData
+     * Checks configuration and reorder.
      */
-    public function manageRichTextData($richTextFieldsData, string $contentTypeIdentifier, string $siteaccess): ?array
+    public function manageRichTextDataFields(array $richTextFieldsData, string $contentTypeIdentifier, string $siteaccess): ?array
     {
         $newRichTextFieldData = [];
         $richTextFieldsConfigured = $this->getRichtextFieldConfiguredForContentType($contentTypeIdentifier, $siteaccess);
 
         foreach ($richTextFieldsConfigured as $richTextFieldConfigured) {
             $position = $this->richTextFieldPosition($richTextFieldsData, $richTextFieldConfigured);
-            if (-1 !== $position) {
+            if (self::NOT_FOUND_FIELD_POSITION !== $position) {
                 if (!XmlValidator::isXMLContentValid($richTextFieldsData[$position]->getFieldValue())) {
                     $this->logger->warning('Rich text field configured "' . $richTextFieldConfigured . '" has invalid XML content');
                     continue;
@@ -113,31 +79,23 @@ final class AnalyzeContentService
 
     /**
      * Get and aggregate data needed for analysis.
-     *
-     * @param array $contentFields
-     * @param mixed $data
-     * @return array
      */
-    public function addContentConfigurationToDataArray($data)
+    public function addContentConfigurationToDataArray(AnalysisDTO $preAnalysisData): ?ContentConfiguration
     {
-        if (!\array_key_exists('contentId', $data) || !\array_key_exists('languageCode', $data)) {
-            return [];
+        if (!$preAnalysisData->getContentId() || !$preAnalysisData->getLanguageCode()) {
+            return null;
         }
 
-        $contentId = $data['contentId'];
-        $languageCode = $data['languageCode'];
-
-        $contentConfiguration = $this->loadContentConfiguration($contentId, $languageCode);
-
-        if ($contentConfiguration) {
-            $contentConfiguration = $contentConfiguration->toArray();
-        } else {
-            throw new \Exception('Content not configured');
+        /** @var ContentConfiguration $contentConfiguration */
+        $contentConfiguration = $this->entityManager->getRepository(ContentConfiguration::class)->findOneBy([
+            self::CONTENT_ID  => $preAnalysisData->getContentId(),
+            self::LANGUAGE_CODE => $preAnalysisData->getLanguageCode(),
+        ]);
+        if (!$contentConfiguration) {
+            throw new \Exception('Content is not already configured!');
         }
 
-        $data = \array_merge($contentConfiguration, $data);
-
-        return $data;
+        return $contentConfiguration;
     }
 
     private function richTextFieldPosition($richTextFieldsData, $richTextField): int
@@ -145,10 +103,9 @@ final class AnalyzeContentService
         foreach ($richTextFieldsData as $key => $someRichTextField) {
             if ($someRichTextField->getFieldIdentifier() === $richTextField) {
                 return $key;
-                break;
             }
         }
 
-        return -1;
+        return self::NOT_FOUND_FIELD_POSITION;
     }
 }

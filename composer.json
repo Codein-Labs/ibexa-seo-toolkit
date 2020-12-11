@@ -33,7 +33,8 @@
         "ext-libxml": "*",
         "ext-dom": "*",
         "ezsystems/repository-forms": "^2.5",
-        "twig/twig": "^2"
+        "twig/twig": "^2",
+        "doctrine/orm": "^2.5"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "5.x-dev",

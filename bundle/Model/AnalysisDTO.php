@@ -7,21 +7,21 @@ namespace Codein\eZPlatformSeoToolkit\Model;
  */
 class AnalysisDTO extends PreAnalysisDTO
 {
+    /** @var bool */
+    private $isPillarContent = false;
+
     /** @var string */
     private $keyword;
 
-    /** @var bool */
-    private $isPillarContent;
-
-    /** @var string */
+    /** @var ?string */
     private $previewHtml;
 
     /**
      * Get the value of keyword.
      *
-     * @return string
+     * @return ?string
      */
-    public function getKeyword()
+    public function getKeyword(): ?string
     {
         return $this->keyword;
     }
@@ -29,10 +29,9 @@ class AnalysisDTO extends PreAnalysisDTO
     /**
      * Set the value of keyword.
      *
-     * @param mixed $keyword
-     * @return  self
+     * @param ?string $keyword
      */
-    public function setKeyword($keyword)
+    public function setKeyword(?string $keyword): self
     {
         $this->keyword = $keyword;
 
@@ -41,10 +40,8 @@ class AnalysisDTO extends PreAnalysisDTO
 
     /**
      * Get the value of isPillarContent.
-     *
-     * @return bool
      */
-    public function getIsPillarContent()
+    public function isPillarContent(): bool
     {
         return $this->isPillarContent;
     }
@@ -52,10 +49,9 @@ class AnalysisDTO extends PreAnalysisDTO
     /**
      * Set the value of isPillarContent.
      *
-     * @param mixed $isPillarContent
-     * @return  self
+     * @param bool $isPillarContent
      */
-    public function setIsPillarContent($isPillarContent)
+    public function setIsPillarContent($isPillarContent): self
     {
         $this->isPillarContent = $isPillarContent;
 
@@ -65,9 +61,9 @@ class AnalysisDTO extends PreAnalysisDTO
     /**
      * Get the value of previewHtml.
      *
-     * @return \string
+     * @return ?string
      */
-    public function getPreviewHtml()
+    public function getPreviewHtml(): ?string
     {
         return $this->previewHtml;
     }
@@ -75,10 +71,9 @@ class AnalysisDTO extends PreAnalysisDTO
     /**
      * Set the value of previewHtml.
      *
-     * @param mixed $previewHtml
-     * @return  self
+     * @param string $previewHtml
      */
-    public function setPreviewHtml($previewHtml)
+    public function setPreviewHtml(?string $previewHtml): self
     {
         $this->previewHtml = $previewHtml;
 

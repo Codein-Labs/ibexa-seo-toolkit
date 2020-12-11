@@ -25,21 +25,19 @@ final class Configuration extends SiteAccessConfiguration
             $rootNode = $treeBuilder->root(EzPlatformSeoToolkitExtension::ALIAS);
         }
 
-        $systemNode = $this->generateScopeBaseNode($rootNode);
-        $this
-            ->addAnalysisSection($systemNode)
-            ->addSitemapSection($systemNode)
-            ->addRobotsSection($systemNode)
-            ->addMetasSection($systemNode)
-            ->addLinksSection($systemNode)
-            ->addHreflangSection($systemNode)
-        ;
-        $systemNode->end();
+        $nodeBuilder = $this->generateScopeBaseNode($rootNode);
+        $this->addAnalysisSection($nodeBuilder);
+        $this->addSitemapSection($nodeBuilder);
+        $this->addRobotsSection($nodeBuilder);
+        $this->addMetasSection($nodeBuilder);
+        $this->addLinksSection($nodeBuilder);
+        $this->addHreflangSection($nodeBuilder);
+        $nodeBuilder->end();
 
         return $treeBuilder;
     }
 
-    protected function addAnalysisSection(NodeBuilder $nodeBuilder): self
+    private function addAnalysisSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('analysis')
@@ -114,7 +112,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addSitemapSection(NodeBuilder $nodeBuilder): self
+    private function addSitemapSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('sitemap')
@@ -156,7 +154,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addRobotsSection(NodeBuilder $nodeBuilder): self
+    private function addRobotsSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('robots')
@@ -174,7 +172,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addMetasSection(NodeBuilder $nodeBuilder): self
+    private function addMetasSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('metas')
@@ -206,7 +204,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addLinksSection(NodeBuilder $nodeBuilder): self
+    private function addLinksSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('links')
@@ -250,7 +248,7 @@ final class Configuration extends SiteAccessConfiguration
         return $this;
     }
 
-    protected function addHreflangSection(NodeBuilder $nodeBuilder): self
+    private function addHreflangSection(NodeBuilder $nodeBuilder): self
     {
         $nodeBuilder
             ->arrayNode('hreflang')

@@ -5,16 +5,15 @@ namespace Codein\eZPlatformSeoToolkit\Model;
 /**
  * Class Field.
  */
-class Field
+class Field implements ArrayableInterface
 {
     private $fieldIdentifier;
     private $fieldValue;
-    
-    
+
     /**
      * @return ?string
      */
-    public function getFieldIdentifier()
+    public function getFieldIdentifier(): string
     {
         return $this->fieldIdentifier;
     }
@@ -47,7 +46,7 @@ class Field
         return $this;
     }
 
-    private function toArray(): array
+    public function toArray(): array
     {
         return [
             'fieldIdentifier' => $this->getFieldIdentifier(),

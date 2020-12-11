@@ -29,8 +29,8 @@ final class AnalyzerPass implements CompilerPassInterface
             $blockedAnalysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
         }
 
-        foreach ($allFieldAnalyzers as $id => $tags) {
-            if (false === \in_array($id, $blockedAnalysis, true)) {
+        foreach (\array_keys($allFieldAnalyzers) as $id) {
+            if (!\in_array($id, $blockedAnalysis, true)) {
                 $analyzerDefinition->addMethodCall('addAnalyzer', [$id, new Reference($id)]);
             }
         }

@@ -22,15 +22,30 @@ final class AnalysisDTOType extends AbstractType
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $formBuilder
-            ->add('keyword', TextType::class, [
+            ->add('contentTypeIdentifier', TextType::class, [
                 self::CONSTRAINTS => [new Assert\NotBlank()],
             ])
-            ->add('isPillarContent', CheckboxType::class, [
-                self::CONSTRAINTS => [],
-            ])
-            ->add('previewHtml', TextType::class, [
+            ->add('contentId', IntegerType::class, [
                 self::CONSTRAINTS => [new Assert\NotBlank()],
-            ]);
+            ])
+            ->add('locationId', IntegerType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
+            ])
+            ->add('versionNo', IntegerType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
+            ])
+            ->add('languageCode', TextType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
+            ])
+            ->add('siteaccess', TextType::class, [
+                self::CONSTRAINTS => [new Assert\NotBlank()],
+            ])
+            ->add('fields', FieldType::class, [
+                self::CONSTRAINTS => [new Count([
+                    'min' => 1,
+                ])],
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -39,10 +54,5 @@ final class AnalysisDTOType extends AbstractType
             'data_class' => AnalysisDTO::class,
             'csrf_protection' => false,
         ]);
-    }
-
-    public function getParent()
-    {
-        return PreAnalysisDTOType::class;
     }
 }

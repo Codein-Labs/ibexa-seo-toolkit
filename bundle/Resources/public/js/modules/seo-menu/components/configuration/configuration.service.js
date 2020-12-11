@@ -10,7 +10,7 @@ export const getConfiguration = (contentId, callback) => {
 
     const method = 'GET';
 
-    const route = HTTPHelper.SEO_GET_CONFIGURATION_ROUTE + "?contentId=" + contentId;
+    const route = `${HTTPHelper.SEO_CONFIGURATION_ROUTE}/${contentId}`;
 
     HTTPHelper.makeRequest(headers, method, null, route, function(err, res) {
         return callback(err, res);
@@ -26,7 +26,7 @@ export const updateConfiguration = (contentId, keyword, isPillarContent, languag
 
     const method = 'PUT';
 
-    const route = HTTPHelper.SEO_PUT_CONFIGURATION_ROUTE;
+    const route = `${HTTPHelper.SEO_CONFIGURATION_ROUTE}/${contentId}`;
 
     const body = {
         contentId,

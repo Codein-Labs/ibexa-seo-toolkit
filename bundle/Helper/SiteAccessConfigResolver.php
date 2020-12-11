@@ -17,7 +17,7 @@ final class SiteAccessConfigResolver
         $this->configResolver = $configResolver;
     }
 
-    public function getParameterConfig(string $paramName, string $siteAccess = null)
+    public function getParameterConfig(string $paramName, ?string $siteAccess = null)
     {
         return $this->configResolver->getParameter(
             $paramName,

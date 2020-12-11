@@ -18,6 +18,7 @@ codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Est-un contenu pilier'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
 codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "Vous pouvez séparer les synonymes de votre mot clé par une virgule."
 codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
+codein_seo_toolkit.analyzer.error.preview_not_returning_html: "Le content preview ne retourne pas un HTML valide."
 codein_seo_toolkit.analyzer.error.content_not_configured: "Veuillez configurer le contenu dans l'onglet associé."
 codein_seo_toolkit.analyzer.error.analyzer_form_invalid: "Le formulaire est invalide. Veuillez contacter votre prestataire pour une résolution."
 codein_seo_toolkit.analyzer.error.data_transfered: "Des données nécessaires pour l'analyse sont manquantes."

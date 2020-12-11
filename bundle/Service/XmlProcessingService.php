@@ -2,6 +2,8 @@
 
 namespace Codein\eZPlatformSeoToolkit\Service;
 
+use Codein\eZPlatformSeoToolkit\Model\Field;
+
 /**
  * Class XmlProcessingService.
  */
@@ -20,21 +22,21 @@ final class XmlProcessingService
         }
 
         if ($process) {
-            $xmlDocument = new \DOMDocument();
-            $xmlDocument->loadXML($xml);
+            $domDocument = new \DOMDocument();
+            $domDocument->loadXML($xml);
 
-            return $this->processDocument($xmlDocument);
+            return $this->processDocument($domDocument);
         }
 
         return $xml;
     }
 
-    private function processDocument(\DOMDocument $xml)
+    private function processDocument(\DOMDocument $domDocument)
     {
-        $xmlStr = $xml->saveHTML();
-        $xml = new \DOMDocument('1.0', 'utf-8');
-        $xml->loadHTML($xmlStr);
+        $xmlStr = $domDocument->saveHTML();
+        $domDocument = new \DOMDocument('1.0', 'utf-8');
+        $domDocument->loadHTML($xmlStr);
 
-        return $xml;
+        return $domDocument;
     }
 }

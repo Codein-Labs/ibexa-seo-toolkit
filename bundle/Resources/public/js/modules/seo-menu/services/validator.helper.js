@@ -12,11 +12,11 @@ export const validateContextData = (contextData) => {
         }
     });
     if (
-        contextData['contentId'] == "0" 
-        || contextData['locationId'] == "0" 
-        || contextData['versionNo'] == "0" 
-        || contextData['contentTypeIdentifier'] == "" 
-        || contextData['languageCode'] == "" 
+        contextData['contentId'] == 0 ||
+        contextData['locationId'] == 0 ||
+        contextData['versionNo'] == 0 ||
+        contextData['contentTypeIdentifier'] == "" ||
+        contextData['languageCode'] == ""
     ) {
         return false;
     }

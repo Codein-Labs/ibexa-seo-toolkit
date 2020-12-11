@@ -11,7 +11,7 @@ interface ParentAnalyzerInterface
 {
     public function addAnalyzer(string $className, AnalyzerInterface $analyzer): void;
 
-    public function analyze(AnalysisDTO $data): array;
+    public function analyze(AnalysisDTO $analysisDTO): array;
 
-    public function allowAnalyzer(string $contentTypeIdentifier, string $analyzerClassName, string $siteAccess = null): bool;
+    public function isAllowed(string $contentTypeIdentifier, string $analyzerClassName, ?string $siteAccess = null): bool;
 }

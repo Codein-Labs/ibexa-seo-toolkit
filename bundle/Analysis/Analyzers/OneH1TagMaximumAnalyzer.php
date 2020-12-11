@@ -3,41 +3,39 @@
 namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
 use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
-use DOMDocument;
 
 /**
  * Class OneH1TagMaximumAnalyzer.
  */
-final class OneH1TagMaximumAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
+final class OneH1TagMaximumAnalyzer extends AbstractAnalyzer
 {
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
-    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
-    private $as;
+
+    private $analyzerService;
 
     public function __construct(AnalyzerService $analyzerService)
     {
-        $this->as = $analyzerService;
+        $this->analyzerService = $analyzerService;
     }
 
-    public function analyze(AnalysisDTO $data): array
+    public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $htmlDocument = new DOMDocument();
-        $htmlDocument->loadHTML($data->getPreviewHtml());
+        $domDocument = new \DOMDocument();
+        $domDocument->loadHTML($analysisDTO->getPreviewHtml());
 
-        $selector = new \DOMXPath($htmlDocument);
+        $selector = new \DOMXPath($domDocument);
         $h1 = $selector->query('//h1');
         $count = $h1->count();
-        $status = 'low';
+        $status = RatioLevels::LOW;
         if (1 === $count) {
-            $status = 'high';
+            $status = RatioLevels::HIGH;
         }
-        $analysisData = [
-            'count' => $count,
-        ];
 
-        return $this->as->compile(self::CATEGORY, $status, $analysisData);
+        return $this->analyzerService->compile(self::CATEGORY, $status, [
+            'count' => $count,
+        ]);
     }
 }

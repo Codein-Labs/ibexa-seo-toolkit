@@ -1,9 +1,8 @@
 export const SEO_ANALYSIS_ROUTE = '/api/seo/analysis';
-export const SEO_GET_CONFIGURATION_ROUTE = '/api/seo/content-configuration/get'
-export const SEO_PUT_CONFIGURATION_ROUTE = '/api/seo/content-configuration/update';
+export const SEO_CONFIGURATION_ROUTE = '/api/seo/content-configuration'
 
 export const handleRequestResponse = (response) => {
-    
+
     return (response)
 };
 

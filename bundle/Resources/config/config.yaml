@@ -1,4 +1,6 @@
 fos_rest:
+    serializer:
+        serialize_null: true
     body_listener: true
     param_fetcher_listener: true
     view:
@@ -13,6 +15,10 @@ fos_rest:
         rules:
             - { path: '^/api/seo', priorities: ['json'], fallback_format: json, prefer_extension: false }
             - { path: '^/', stop: true }
+    exception:
+        codes:
+            'Codein\eZPlatformSeoToolkit\Exception\ValidationException': 422
+            'Codein\eZPlatformSeoToolkit\Exception\AnalyzeException': 400
 
 doctrine:
     orm:

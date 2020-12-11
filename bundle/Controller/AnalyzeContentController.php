@@ -2,123 +2,90 @@
 
 namespace Codein\eZPlatformSeoToolkit\Controller;
 
+use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\eZPlatformSeoToolkit\Exception\AnalyzeException;
+use Codein\eZPlatformSeoToolkit\Exception\ValidationException;
 use Codein\eZPlatformSeoToolkit\Form\Type\AnalysisDTOType;
-use Codein\eZPlatformSeoToolkit\Form\Type\PreAnalysisDTOType;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
-use Codein\eZPlatformSeoToolkit\Model\Field;
-use Codein\eZPlatformSeoToolkit\Model\PreAnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
-use Doctrine\ORM\EntityManager;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class AnalyzeContentController.
+ * @Rest\View()
  */
-final class AnalyzeContentController extends AbstractController
+final class AnalyzeContentController
 {
-    /** @var AnalyzeContentService */
     private $analyzeContentService;
-
-    /** @var PreviewController */
     private $previewControllerService;
+    private $parentAnalyzerService;
+    private $formFactory;
 
     /**
      * AnalyzeContentController constructor.
      */
     public function __construct(
-        AnalyzeContentService $analyzeContentService,
         PreviewController $previewControllerService,
-        EntityManager $entityManager
+        AnalyzeContentService $analyzeContentService,
+        ParentAnalyzerService $parentAnalyzerService,
+        FormFactoryInterface $formFactory
     ) {
         $this->analyzeContentService = $analyzeContentService;
         $this->previewControllerService = $previewControllerService;
+        $this->parentAnalyzerService = $parentAnalyzerService;
+        $this->formFactory = $formFactory;
     }
 
     public function __invoke(Request $request)
     {
-        $data = \json_decode($request->getContent(), true);
+        $analysisDTO = new AnalysisDTO();
+        $form = $this->formFactory->create(AnalysisDTOType::class, $analysisDTO);
 
-        if (JSON_ERROR_NONE !== \json_last_error()) {
-            throw new HttpException(400, 'Invalid json.');
-        }
-
-        $form = $this->createForm(PreAnalysisDTOType::class, new PreAnalysisDTO());
-        $form->submit($data);
+        $form->submit($request->request->all());
         if (!$form->isValid()) {
-            return new JsonResponse([
-                'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
-                'error' => 'codein_seo_toolkit.analyzer.error.data_transfered',
-            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            throw new ValidationException('codein_seo_toolkit.analyzer.error.data_transfered');
         }
 
-        /** @var PreAnalysisDTO */
-        $preAnalysisData = $form->getData();
-        
-        /** @var Field */
-        $fields = $preAnalysisData->getFields();
-        // Reorder fields according to configuration
-        $dataFields = $this->analyzeContentService->manageRichTextData(
-            $preAnalysisData->getFields(),
-            $preAnalysisData->getContentTypeIdentifier(),
-            $preAnalysisData->getSiteaccess()
+        // Select fields according to allowed richText field DI configuration.
+        $filteredDataFields = $this->analyzeContentService->manageRichTextDataFields(
+            $analysisDTO->getFields()->toArray(),
+            $analysisDTO->getContentTypeIdentifier(),
+            $analysisDTO->getSiteaccess()
         );
-        $preAnalysisData->setFields($dataFields);
+        $analysisDTO->setFields($filteredDataFields);
 
         // Retrieving content preview data
-        $dataPreviewHtml = $this->previewControllerService->previewContentAction(
-            $request,
-            $preAnalysisData->getContentId(),
-            $preAnalysisData->getVersionNo(),
-            $preAnalysisData->getLanguageCode(),
-            $preAnalysisData->getSiteaccess()
+        $dataPreviewHtml = $this->previewControllerService->previewContentAction($request,
+            $analysisDTO->getContentId(),
+            $analysisDTO->getVersionNo(),
+            $analysisDTO->getLanguageCode(),
+            $analysisDTO->getSiteaccess()
         )->getContent();
         if (!$dataPreviewHtml || 0 === \strlen($dataPreviewHtml)) {
-            return new JsonResponse([
-                'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
-                'error' => 'codein_seo_toolkit.analyzer.error.preview_not_returning_html',
-            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            throw new ValidationException('codein_seo_toolkit.analyzer.error.preview_not_returning_html');
         }
-       
+
         try {
-            $dataContentConfiguration = $this->analyzeContentService->addContentConfigurationToDataArray($data);
+            $contentConfiguration = $this->analyzeContentService->addContentConfigurationToDataArray($analysisDTO);
         } catch (\Exception $e) {
-            return new JsonResponse([
-                'code' => JsonResponse::HTTP_BAD_REQUEST,
-                'error' => 'codein_seo_toolkit.analyzer.error.content_not_configured',
-            ], JsonResponse::HTTP_BAD_REQUEST);
+            throw new AnalyzeException('codein_seo_toolkit.analyzer.error.content_not_configured');
         }
 
-        $preprocessedData = array_merge(
-            $preAnalysisData->toArray(), 
-            ['previewHtml' => $dataPreviewHtml],
-            $dataContentConfiguration
-        );
+        $analysisDTO->setIsPillarContent($contentConfiguration->getIsPillarContent())
+            ->setKeyword($contentConfiguration->getKeyword())
+            ->setPreviewHtml($dataPreviewHtml);
 
-        // validating and creating DTO
-        $form = $this->createForm(AnalysisDTOType::class, new AnalysisDTO());
-        $form->submit($preprocessedData);
-        $result = [];
-        if ($form->isValid()) {
-            /** @var AnalysisDTO $analysisDTO */
-            $analysisDTO = $form->getData();
-            $result = $this->analyzeContentService->buildResultObject($analysisDTO);
+        $anayzeResult = $this->parentAnalyzerService->analyze($analysisDTO);
 
-            if (\array_key_exists('error', $result)) {
-                return new JsonResponse(\array_merge($result, [
-                    'code' => JsonResponse::HTTP_BAD_REQUEST,
-                ]), JsonResponse::HTTP_BAD_REQUEST);
-            }
-
-            return new JsonResponse($result);
+        if (\array_key_exists('error', $anayzeResult)) {
+            throw new AnalyzeException('codein_seo_toolkit.analyzer.error.content_not_configured');
         }
 
-        return new JsonResponse([
-            'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
-            'error' => 'codein_seo_toolkit.analyzer.error.analyzer_form_invalid',
-        ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        return $anayzeResult;
     }
 }

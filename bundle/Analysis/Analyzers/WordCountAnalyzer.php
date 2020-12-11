@@ -3,16 +3,16 @@
 namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 
 use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface;
+use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
 
 /**
  * Class WordCountAnalyzer.
  */
-final class WordCountAnalyzer extends AbstractAnalyzer implements AnalyzerInterface
+final class WordCountAnalyzer extends AbstractAnalyzer
 {
-    const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
+    private const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
 
     /** @var XmlProcessingService */
     private $xmlProcessingService;
@@ -22,27 +22,27 @@ final class WordCountAnalyzer extends AbstractAnalyzer implements AnalyzerInterf
         $this->xmlProcessingService = $xmlProcessingService;
     }
 
-    public function analyze(AnalysisDTO $data): array
+    public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $fields = $data->getFields();
+        $fields = $analysisDTO->getFields();
 
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
-        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)->saveHTML();
+        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)
+            ->saveHTML();
 
         $text = \strip_tags($html);
 
         $count = \str_word_count($text);
-        $status = 'low';
+        $status = RatioLevels::LOW;
 
         // Pillar content increases the requirements
-        $infimum = 700 * ($data->getIsPillarContent() ? 1.5 : 1);
-        $supremum = 1500 * ($data->getIsPillarContent() ? 1.5 : 1);
-
+        $infimum = 700 * ($analysisDTO->isPillarContent() ? 1.5 : 1);
+        $supremum = 1500 * ($analysisDTO->isPillarContent() ? 1.5 : 1);
         if ($count > $infimum && $count < $supremum) {
-            $status = 'medium';
+            $status = RatioLevels::MEDIUM;
         } elseif ($count >= $supremum) {
-            $status = 'high';
+            $status = RatioLevels::HIGH;
         }
 
         return [

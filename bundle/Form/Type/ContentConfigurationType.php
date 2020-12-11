@@ -16,22 +16,36 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 final class ContentConfigurationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    private const CONSTRAINTS = 'constraints';
+
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
-            ->add('keyword', TextType::class)
-            ->add('isPillarContent', CheckboxType::class, [
-                'constraints' => [],
-            ])
-            ->add('contentId', IntegerType::class, [
-                'constraints' => [new Assert\NotBlank()],
-            ])
-            ->add('languageCode', TextType::class);
+        $formBuilder->add('keyword', TextType::class, [
+            self::CONSTRAINTS => [
+                new Assert\Type('string'),
+            ],
+        ]);
+        $formBuilder->add('isPillarContent', CheckboxType::class, [
+            self::CONSTRAINTS => [
+                new Assert\Type('boolean'),
+            ],
+        ]);
+        $formBuilder->add('contentId', IntegerType::class, [
+            self::CONSTRAINTS => [
+                new Assert\NotBlank(),
+                new Assert\Type('integer'),
+            ],
+        ]);
+        $formBuilder->add('languageCode', TextType::class, [
+            self::CONSTRAINTS => [
+                new Assert\Type('string'),
+            ],
+        ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults([
+        $optionsResolver->setDefaults([
             'data_class' => ContentConfiguration::class,
             'csrf_protection' => false,
         ]);
