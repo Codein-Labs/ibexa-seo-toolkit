@@ -3,7 +3,7 @@ fos_rest:
     param_fetcher_listener: true
     view:
         failed_validation: 422
-        view_response_listener: 'force'
+        view_response_listener: true
         empty_content: 204
         formats:
             json : true
