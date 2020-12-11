@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UpdateContentConfigurationController.
+ * @Rest\View()
  */
 final class UpdateContentConfigurationController
 {
