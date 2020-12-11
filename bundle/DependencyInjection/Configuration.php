@@ -132,9 +132,6 @@ final class Configuration extends SiteAccessConfiguration
                             ->end()
                         ->end()
                     ->end()
-                    ->arrayNode('routes')
-                        ->scalarPrototype()->end()
-                    ->end()
                 ->end()
             ->end()
         ;
