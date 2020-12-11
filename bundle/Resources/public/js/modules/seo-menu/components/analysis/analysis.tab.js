@@ -68,8 +68,8 @@ export default class AnalysisTab extends React.Component {
       }
       else {
         self.seoData = [];
-        if ('error' in res) {
-          self.error = res.error;
+        if ('message' in res) {
+          self.error = res.message;
         }
         else {
           self.error = 'codein_seo_toolkit.analyzer.error.undefined';
