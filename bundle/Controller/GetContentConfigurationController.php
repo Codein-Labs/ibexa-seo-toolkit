@@ -4,9 +4,11 @@ namespace Codein\eZPlatformSeoToolkit\Controller;
 
 use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Class GetContentConfigurationController.
+ * @Rest\View()
  */
 final class GetContentConfigurationController
 {

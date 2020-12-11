@@ -2,13 +2,14 @@
 
 namespace Codein\eZPlatformSeoToolkit\Entity;
 
+use Codein\eZPlatformSeoToolkit\Model\ArrayableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="codein_seo_content_configuration")
  */
-class ContentConfiguration
+class ContentConfiguration implements ArrayableInterface
 {
     /**
      * @ORM\Column(type="integer")

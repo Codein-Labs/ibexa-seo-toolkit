@@ -37,8 +37,8 @@ final class WordCountAnalyzer extends AbstractAnalyzer
         $status = RatioLevels::LOW;
 
         // Pillar content increases the requirements
-        $infimum = 700 * ($data->getIsPillarContent() ? 1.5 : 1);
-        $supremum = 1500 * ($data->getIsPillarContent() ? 1.5 : 1);
+        $infimum = 700 * ($analysisDTO->isPillarContent() ? 1.5 : 1);
+        $supremum = 1500 * ($analysisDTO->isPillarContent() ? 1.5 : 1);
         if ($count > $infimum && $count < $supremum) {
             $status = RatioLevels::MEDIUM;
         } elseif ($count >= $supremum) {

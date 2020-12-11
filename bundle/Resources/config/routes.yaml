@@ -2,7 +2,6 @@
 seo_api.analysis:
     path: /analysis
     controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
-    methods:    POST
 
 seo_api.content_configuration.get:
     path: /content-configuration/{contentId}

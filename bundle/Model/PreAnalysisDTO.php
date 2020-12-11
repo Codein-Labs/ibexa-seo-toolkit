@@ -2,10 +2,12 @@
 
 namespace Codein\eZPlatformSeoToolkit\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * Class PreAnalysisDTO.
+ * Class AnalysisDTO.
  */
-class PreAnalysisDTO
+class PreAnalysisDTO implements ArrayableInterface
 {
     /** @var int */
     private $contentId;
@@ -25,10 +27,9 @@ class PreAnalysisDTO
     /** @var string */
     private $siteaccess;
 
-    /** @var Field[] */
+    /** @var ArrayCollection|array */
     private $fields;
 
-   
     /**
      * Get the value of contentId.
      *
@@ -170,7 +171,7 @@ class PreAnalysisDTO
     /**
      * Get the value of fields.
      *
-     * @return Field[]
+     * @return ArrayCollection|array
      */
     public function getFields()
     {
@@ -191,18 +192,17 @@ class PreAnalysisDTO
     }
 
     /**
-     * return array containing entity data
-     *
-     * @return void
+     * return array containing entity data.
      */
-    public function toArray() {
+    public function toArray(): array
+    {
         return [
             'contentId' => $this->getContentId(),
             'versionNo' => $this->getVersionNo(),
             'locationId' => $this->getLocationId(),
             'contentTypeIdentifier' => $this->getContentTypeIdentifier(),
             'languageCode' => $this->getLanguageCode(),
-            'siteaccess' => $this->getSiteaccess()
+            'siteaccess' => $this->getSiteaccess(),
         ];
     }
 }

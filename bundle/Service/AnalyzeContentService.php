@@ -37,16 +37,6 @@ final class AnalyzeContentService
     }
 
     /**
-     * Launch analysis.
-     *
-     * @return array
-     */
-    public function buildResultObject(AnalysisDTO $analysisDTO)
-    {
-        return $this->parentAnalyzerService->analyze($analysisDTO);
-    }
-
-    /**
      * Get richText field identifier configured for the provided content type.
      */
     public function getRichtextFieldConfiguredForContentType(string $contentTypeIdentifier, string $siteaccess): array
@@ -63,18 +53,10 @@ final class AnalyzeContentService
         }
     }
 
-    public function loadContentConfiguration(string $contentId, string $languageCode): ?ContentConfiguration
-    {
-        return $this->entityManager->getRepository(ContentConfiguration::class)->findOneBy([
-            self::CONTENT_ID => $contentId,
-            self::LANGUAGE_CODE => $languageCode,
-        ]);
-    }
-
     /**
-     * Checks configuration and reorder/.
+     * Checks configuration and reorder.
      */
-    public function manageRichTextData($richTextFieldsData, string $contentTypeIdentifier, string $siteaccess): ?array
+    public function manageRichTextDataFields(array $richTextFieldsData, string $contentTypeIdentifier, string $siteaccess): ?array
     {
         $newRichTextFieldData = [];
         $richTextFieldsConfigured = $this->getRichtextFieldConfiguredForContentType($contentTypeIdentifier, $siteaccess);
@@ -97,29 +79,23 @@ final class AnalyzeContentService
 
     /**
      * Get and aggregate data needed for analysis.
-     *
-     * @param array $data
-     *
-     * @return array
      */
-    public function addContentConfigurationToDataArray($data)
+    public function addContentConfigurationToDataArray(AnalysisDTO $preAnalysisData): ?ContentConfiguration
     {
-        if (!\array_key_exists(self::CONTENT_ID, $data) || !\array_key_exists(self::LANGUAGE_CODE, $data)) {
-            return [];
+        if (!$preAnalysisData->getContentId() || !$preAnalysisData->getLanguageCode()) {
+            return null;
         }
 
-        $contentId = $data[self::CONTENT_ID];
-        $languageCode = $data[self::LANGUAGE_CODE];
-
-        $contentConfiguration = $this->loadContentConfiguration($contentId, $languageCode);
-
-        if (null !== $contentConfiguration) {
-            $contentConfiguration = $contentConfiguration->toArray();
-        } else {
+        /** @var ContentConfiguration $contentConfiguration */
+        $contentConfiguration = $this->entityManager->getRepository(ContentConfiguration::class)->findOneBy([
+            self::CONTENT_ID  => $preAnalysisData->getContentId(),
+            self::LANGUAGE_CODE => $preAnalysisData->getLanguageCode(),
+        ]);
+        if (!$contentConfiguration) {
             throw new \Exception('Content is not already configured!');
         }
 
-        return \array_merge($contentConfiguration, $data);
+        return $contentConfiguration;
     }
 
     private function richTextFieldPosition($richTextFieldsData, $richTextField): int

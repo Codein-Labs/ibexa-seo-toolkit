@@ -5,7 +5,7 @@ fos_rest:
     param_fetcher_listener: true
     view:
         failed_validation: 422
-        view_response_listener: 'force'
+        view_response_listener: true
         empty_content: 204
         formats:
             json : true
@@ -15,6 +15,10 @@ fos_rest:
         rules:
             - { path: '^/api/seo', priorities: ['json'], fallback_format: json, prefer_extension: false }
             - { path: '^/', stop: true }
+    exception:
+        codes:
+            'Codein\eZPlatformSeoToolkit\Exception\ValidationException': 422
+            'Codein\eZPlatformSeoToolkit\Exception\AnalyzeException': 400
 
 doctrine:
     orm:

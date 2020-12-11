@@ -5,6 +5,7 @@ namespace Codein\eZPlatformSeoToolkit\Controller;
 use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
 use Codein\eZPlatformSeoToolkit\Form\Type\ContentConfigurationType;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,7 @@ final class UpdateContentConfigurationController
 
     /**
      * ContentConfigurationController constructor.
+     * @Rest\View()
      */
     public function __construct(
         EntityManagerInterface $entityManager,
