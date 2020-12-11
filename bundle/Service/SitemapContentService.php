@@ -199,7 +199,7 @@ final class SitemapContentService
 
         if ((\array_key_exists('split_by', $sitemapConfiguration) && self::SPLIT_RESULTS !== $sitemapConfiguration['split_by'])
         || !\array_key_exists('split_by', $sitemapConfiguration)) {
-            return;
+            return null;
         }
 
         $query = $this->queryHelper->getSitemapQuery();
@@ -282,13 +282,13 @@ final class SitemapContentService
         return $sitemap;
     }
 
-    public function generateContentTypePage(string $contentType, bool $try = false)
+    public function generateContentTypePage(string $contentType, bool $try = false): ?DOMDocument
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
         $useImages = $sitemapConfiguration['use_images'];
 
         if (\array_key_exists('split_by', $sitemapConfiguration) && self::SPLIT_CONTENT_TYPE !== $sitemapConfiguration['split_by']) {
-            return;
+            return null;
         }
 
         $query = $this->queryHelper->getSitemapQuery($contentType);
