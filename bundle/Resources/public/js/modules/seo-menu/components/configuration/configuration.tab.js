@@ -28,10 +28,9 @@ export default class ConfigurationTab extends React.Component {
       var self = this;
       getConfiguration(this.context.contentId, function (err, res) {
         if (!err) {
-          console.log(res);
           self.setState({
             focusKeyword: res.keyword ? res.keyword : '',
-            isPillarContent: res.isPillarContent,
+            isPillarContent: res.is_pillar_content,
           })
         }
         else {
@@ -65,6 +64,7 @@ export default class ConfigurationTab extends React.Component {
   onChangePillar(event) {
     console.log(event.target.checked)
     this.setState({isPillarContent: event.target.checked})
+
   }
 
 
@@ -118,7 +118,7 @@ export default class ConfigurationTab extends React.Component {
             </div>
             <div className="ez-field-edit__data">
               <div className="ez-data-source">
-                <input type="checkbox" id="isPillarContent" name="isPillarContent" style={pillarCheckboxStyle} className="ez-data-source__input ez-data-source__input--pillar-content form-control" checked={this.state.isPillarContent} onChange={this.onChangePillar} />
+                <input type="checkbox" id="isPillarContent" name="isPillarContent" style={pillarCheckboxStyle} className="ez-data-source__input ez-data-source__input--pillar-content form-control" defaultChecked={this.state.isPillarContent} onChange={this.onChangePillar} />
               </div>
             </div>
           </div>
