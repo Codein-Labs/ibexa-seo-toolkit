@@ -4,14 +4,6 @@
 
 The following is a set of guidelines for contributing to *eZ Platform SEO Toolkit*, which is hosted in the [Codein Labs Organization](https://github.com/Codein-Labs) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
-#### Table Of Contents
-
-[Code of Conduct](#code-of-conduct)
-
-[What should I know before I get started?](#what-should-i-know-before-i-get-started)
-  * [Symfony](#symfony)
-  * [eZ Platform](#ezplatform)
-
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the [Codein Code of Conduct](docs/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [production@codein.fr](mailto:production@codein.com).
@@ -36,6 +28,11 @@ When we make a significant decision in how we maintain the project and what we c
 
 ### Reporting Bugs
 
+In that case, please supply information such as :
+* your composer packages version
+* reproducible example, if it applies
+* other you think useful
+
 ### Suggesting Enhancements
 
 This bundle aims at being useful and giving you the tools you need. 
@@ -46,9 +43,29 @@ Do not hesitate to share your dreamed feature with us !
 
 - *Check the enhancement has not been asked already in the issue section*
 
-
-### Your first code contribution
-
 ### Pull Requests
 
+You can send a pull request for contributing code.
 ## Styleguides
+
+* We follow [symfony coding standards](https://symfony.com/doc/current/contributing/code/standards.html) as much as possible. 
+* You can use tools as [Psalm](https://github.com/vimeo/psalm) and [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer).
+
+### Git commit message
+
+* Use the present tense ("Add feature" not "Added feature")
+* Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
+* Limit the first line to 72 characters or less
+* Reference issues and pull requests liberally after the first line
+* The first word should be one of these in order to describe the goal of the commit : 
+  * feat: (new feature for the user, not a new feature for build script)
+  * fix: (bug fix for the user, not a fix to a build script)
+  * docs: (changes to the documentation)
+  * style: (formatting, missing semi colons, etc; no production code change)
+  * refactor: (refactoring production code, eg. renaming a variable)
+  * test: (adding missing tests, refactoring tests; no production code change)
+  * chore: (updating webpack tasks etc; no production code change)
+* Feel free to use [Gitmojis](https://gist.github.com/MeryllEssig/db4e2b38ebf5cf54169765b8b00c5f8e)
+
+## This contibuting guide
+This guide is inspired by [Atom contributing guide](https://github.com/atom/atom/blob/master/CONTRIBUTING.md).
