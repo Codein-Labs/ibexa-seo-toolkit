@@ -50,7 +50,7 @@ export default class App extends react.Component {
   render() {
     if (this.state.seoMenuOpened) {
       return(
-        <div className="page" style={{ zIndex: 2 }}>
+        <div className="page" style={{ zIndex: 2, overflowY: "scroll" }}>
               <div style={{ background: "#fafafa" }}>
                 <EzDataContext.Provider value={this.props.contentAttributes}>
                   <SeoView closeMenu={this.onCloseMenu} />
