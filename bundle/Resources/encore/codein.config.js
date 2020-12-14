@@ -9,7 +9,6 @@ module.exports = (Encore) => {
     .addExternals({
       react: "React",
       "react-dom": "ReactDOM",
-      "react-spring": "react-spring",
     })
     .copyFiles({
       from: path.resolve(__dirname, "../public/img"),

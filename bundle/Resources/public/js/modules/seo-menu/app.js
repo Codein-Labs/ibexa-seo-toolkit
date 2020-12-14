@@ -1,9 +1,9 @@
-import React from "react";
-import { animated, Transition } from "react-spring/renderprops";
+import react from "react";
+
 import SeoView from "./components/seo_view";
 import EzDataContext from "./ez.datacontext";
 
-export default class App extends React.Component {
+export default class App extends react.Component {
   constructor(props) {
     super(props);
     this.props = props;
@@ -48,29 +48,21 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <Transition
-        native
-        reset
-        unique
-        items={this.state.seoMenuOpened}
-        from={{ opacity: 0, transform: "translate3d(100%,0,0)" }}
-        enter={{ opacity: 1, transform: "translate3d(0%,0,0)" }}
-        leave={{ opacity: 0, transform: "translate3d(-50%,0,0)" }}
-      >
-        {(seoMenuOpened) => (style) =>
-          !seoMenuOpened ? (
-            <animated.div style={{ ...style }}></animated.div>
-          ) : (
-            <div className="page" style={{ zIndex: 2 }}>
-              <animated.div style={{ ...style, background: "#fafafa" }}>
+    if (this.state.seoMenuOpened) {
+      return(
+        <div className="page" style={{ zIndex: 2 }}>
+              <div style={{ background: "#fafafa" }}>
                 <EzDataContext.Provider value={this.props.contentAttributes}>
                   <SeoView closeMenu={this.onCloseMenu} />
                 </EzDataContext.Provider>
-              </animated.div>
+              </div>
             </div>
-          )}
-      </Transition>
-    );
+      );
+    } else {
+      return (
+        <>
+        </>
+      )
+    }
   }
 }
