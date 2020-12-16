@@ -5,6 +5,7 @@ seo_api.analysis:
 codein_ez_platform_seo_toolkit.robots:
     path: /robots.txt
     controller: Codein\eZPlatformSeoToolkit\Controller\GetRobotsController
+
 codein_ez_platform_seo_toolkit.sitemap:
     path: /sitemap.xml
     controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::index
