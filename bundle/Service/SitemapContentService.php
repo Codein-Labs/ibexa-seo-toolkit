@@ -2,7 +2,7 @@
 
 namespace Codein\eZPlatformSeoToolkit\Service;
 
-use Codein\eZPlatformSeoToolkit\Helper\QueryHelper;
+use Codein\eZPlatformSeoToolkit\Helper\SitemapQueryHelper;
 use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use DOMDocument;
 use eZ\Publish\API\Repository\ContentTypeService;
@@ -35,8 +35,8 @@ final class SitemapContentService
     /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var QueryHelper */
-    private $queryHelper;
+    /** @var SitemapQueryHelper */
+    private $sitemapQueryHelper;
 
     public function __construct(
         SiteAccessConfigResolver $siteAccessConfigResolver,
@@ -44,27 +44,27 @@ final class SitemapContentService
         LocationService $locationService,
         SearchService $searchService,
         ContentTypeService $contentTypeService,
-        QueryHelper $queryHelper
+        SitemapQueryHelper $sitemapQueryHelper
     ) {
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
         $this->urlGenerator = $urlGenerator;
         $this->locationService = $locationService;
         $this->searchService = $searchService;
         $this->contentTypeService = $contentTypeService;
-        $this->queryHelper = $queryHelper;
+        $this->sitemapQueryHelper = $sitemapQueryHelper;
     }
 
     public function generate()
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
-        $limit = $sitemapConfiguration['max_results_per_page'];
+        $limit = $sitemapConfiguration['max_items_per_page'];
 
         $paginationType = self::SPLIT_RESULTS;
         if (\array_key_exists('split_by', $sitemapConfiguration)) {
             $paginationType = $sitemapConfiguration['split_by'];
         }
 
-        $query = $this->queryHelper->getSitemapQuery();
+        $query = $this->sitemapQueryHelper->getSitemapQuery();
         $query->limit = 0;
 
         $count = $this->searchService->findLocations($query)->totalCount;
@@ -121,7 +121,7 @@ final class SitemapContentService
 
     public function generateContentTypeIndex(DOMDocument $sitemap): DOMDocument
     {
-        $contentTypes = $this->getListOfContentTypes();
+        $contentTypes = $this->siteAccessConfigResolver->getListOfContentTypes();
 
         $sitemapIndex = $sitemap->createElement('sitemapindex');
         $sitemapIndex->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
@@ -138,7 +138,6 @@ final class SitemapContentService
                     UrlGeneratorInterface::ABSOLUTE_URL
                 );
             } catch (\Exception $e) {
-                dump($e);
                 continue;
             }
 
@@ -155,46 +154,12 @@ final class SitemapContentService
         return $sitemap;
     }
 
-    public function getListOfContentTypes(): array
-    {
-        $passlist = [];
-        $blocklist = [];
-        $sitemapConfig = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
 
-        if (\array_key_exists('passlist', $sitemapConfig)) {
-            $passlist = $sitemapConfig['passlist']['content_type_identifiers'];
-        }
-        if (\array_key_exists('blocklist', $sitemapConfig)) {
-            $blocklist = $sitemapConfig['blocklist']['content_type_identifiers'];
-        }
-
-        $contentTypeIdentifiers = [];
-        $contentTypeGroups = $this->contentTypeService->loadContentTypeGroups();
-
-        foreach ($contentTypeGroups as $contentTypeGroup) {
-            foreach ($this->contentTypeService->loadContentTypes($contentTypeGroup) as $contentType) {
-                $contentTypeIdentifier = $contentType->identifier;
-
-                // We apply the same passing/blocking we do on search
-                if (!\count($passlist) && !\in_array($contentTypeIdentifier, $blocklist, true)) {
-                    $contentTypeIdentifiers[] = $contentType->identifier;
-                } elseif (
-                    \count($passlist)
-                    && \in_array($contentTypeIdentifier, $passlist, true)
-                    && !\in_array($contentTypeIdentifier, $blocklist, true)
-                ) {
-                    $contentTypeIdentifiers[] = $contentType->identifier;
-                }
-            }
-        }
-
-        return $contentTypeIdentifiers;
-    }
 
     public function generatePage($page)
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
-        $limit = $sitemapConfiguration['max_results_per_page'];
+        $limit = $sitemapConfiguration['max_items_per_page'];
         $useImages = $sitemapConfiguration['use_images'];
 
         if ((\array_key_exists('split_by', $sitemapConfiguration) && self::SPLIT_RESULTS !== $sitemapConfiguration['split_by'])
@@ -202,7 +167,7 @@ final class SitemapContentService
             return null;
         }
 
-        $query = $this->queryHelper->getSitemapQuery();
+        $query = $this->sitemapQueryHelper->getSitemapQuery();
         $query->limit = $limit;
         $query->offset = $limit * ($page - 1);
 
@@ -282,7 +247,7 @@ final class SitemapContentService
         return $sitemap;
     }
 
-    public function generateContentTypePage(string $contentType, bool $try = false): ?DOMDocument
+    public function generateContentTypePage(string $contentType, bool $tryQuery = false): ?DOMDocument
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
         $useImages = $sitemapConfiguration['use_images'];
@@ -291,8 +256,8 @@ final class SitemapContentService
             return null;
         }
 
-        $query = $this->queryHelper->getSitemapQuery($contentType);
-        if ($try) {
+        $query = $this->sitemapQueryHelper->getSitemapQuery($contentType);
+        if ($tryQuery) {
             $query->limit = 0;
         }
 
@@ -308,5 +273,22 @@ final class SitemapContentService
     public function setVariationHandler(VariationHandler $variationHandler)
     {
         $this->variationHandler = $variationHandler;
+    }
+
+
+    public function prependXSLStyleTag(\DOMDocument $sitemapContent)
+    {
+        $sitemapContent->xmlStandalone = false;
+        $xslFileRoute = $this->urlGenerator->generate(
+            'codein_ez_platform_seo_toolkit.sitemap_xsl',
+            [],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        $xslt = $sitemapContent->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="' . $xslFileRoute . '"');
+
+        $sitemapContent->insertBefore($xslt, $sitemapContent->firstChild);
+
+        return $sitemapContent;
     }
 }

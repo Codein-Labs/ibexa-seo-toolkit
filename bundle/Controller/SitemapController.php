@@ -4,7 +4,8 @@ namespace Codein\eZPlatformSeoToolkit\Controller;
 
 use Codein\eZPlatformSeoToolkit\Service\SitemapContentService;
 use EzSystems\PlatformHttpCacheBundle\ResponseConfigurator\ResponseCacheConfigurator;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Class SitemapController.
  */
-final class SitemapController extends Controller
+final class SitemapController extends AbstractController
 {
     private $sitemapContentService;
     private $responseCacheConfigurator;
@@ -29,14 +30,10 @@ final class SitemapController extends Controller
     {
         $sitemapContent = $this->sitemapContentService->generate();
 
-        $sitemapContent = $this->styleXML($sitemapContent);
+        $sitemapContent = $this->sitemapContentService->prependXSLStyleTag($sitemapContent);
 
         $response = new Response();
-        $response->setPublic();
-        $response->setMaxAge(600);
         $this->responseCacheConfigurator->setSharedMaxAge($response);
-        $response->headers->set('Content-Type', 'text/xml');
-
         return $response->setContent($sitemapContent->saveXML());
     }
 
@@ -46,14 +43,10 @@ final class SitemapController extends Controller
         if (!$sitemapContent) {
             throw new HttpException(404, 'Not found');
         }
-        $sitemapContent = $this->styleXML($sitemapContent);
+        $sitemapContent = $this->sitemapContentService->prependXSLStyleTag($sitemapContent);
 
         $response = new Response();
-        $response->setPublic();
-        $response->setMaxAge(600);
         $this->responseCacheConfigurator->setSharedMaxAge($response);
-        $response->headers->set('Content-Type', 'text/xml');
-
         return $response->setContent($sitemapContent->saveXML());
     }
 
@@ -63,20 +56,18 @@ final class SitemapController extends Controller
         if (!$sitemapContent) {
             throw new HttpException(404, 'Not found');
         }
-        $sitemapContent = $this->styleXML($sitemapContent);
+        $sitemapContent = $this->sitemapContentService->prependXSLStyleTag($sitemapContent);
 
         $response = new Response();
-        $response->setPublic();
-        $response->setMaxAge(600);
         $this->responseCacheConfigurator->setSharedMaxAge($response);
-        $response->headers->set('Content-Type', 'text/xml');
-
         return $response->setContent($sitemapContent->saveXML());
     }
 
-    public function xsltStylesheet()
+    public function xsltStylesheet(Request $request)
     {
-        $xslView = $this->renderView('EzPlatformSeoToolkitBundle:sitemap:sitemap.xsl.twig');
+        $xslView = $this->renderView('EzPlatformSeoToolkitBundle:sitemap:sitemap.xsl.twig', [
+            'referer' => $request->headers->get('referer')
+        ]);
         $xslDocument = new \DOMDocument('1.0', 'utf-8');
         $xslDocument->loadXML($xslView);
 
@@ -87,22 +78,5 @@ final class SitemapController extends Controller
         $response->headers->set('Content-Type', 'text/xsl');
 
         return $response->setContent($xslDocument->saveXML());
-    }
-
-    private function styleXML(\DOMDocument $sitemapContent)
-    {
-        $sitemapContent->xmlStandalone = false;
-        $xslDocument = new \DOMDocument('1.0', 'utf-8');
-        $xslFileRoute = $this->generateUrl(
-            'codein_ez_platform_seo_toolkit.sitemap_xsl',
-            [],
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $xslt = $sitemapContent->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="' . $xslFileRoute . '"');
-
-        $sitemapContent->insertBefore($xslt, $sitemapContent->firstChild);
-
-        return $sitemapContent;
     }
 }

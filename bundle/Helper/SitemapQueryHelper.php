@@ -9,9 +9,10 @@ use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\Core\Repository\Repository;
 
 /**
- * Class QueryHelper.
+ * Class SitemapQueryHelper
+ *.
  */
-final class QueryHelper
+final class SitemapQueryHelper
 {
     /** @var Repository */
     private $repository;

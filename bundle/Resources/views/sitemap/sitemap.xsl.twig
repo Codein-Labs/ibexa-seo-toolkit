@@ -155,10 +155,12 @@
                             <strong><xsl:value-of select="count(sitemap:urlset/sitemap:url)"/></strong>
                             {{ 'codein_seo_toolkit.sitemap.url' | trans}}.
                         </p>
-
-                        <p class="expl">
-                            <a href="/sitemap.xml">← {{ 'codein_seo_toolkit.sitemap.sitemap_index' | trans}}</a>
-                        </p>
+                        
+                        {% if not referer is defined or not (path('codein_ez_platform_seo_toolkit.sitemap') in referer) %}
+                            <p class="expl">
+                                <a href="{{ path('codein_ez_platform_seo_toolkit.sitemap') }}">← {{ 'codein_seo_toolkit.sitemap.sitemap_index' | trans}}</a>
+                            </p>
+                        {% endif %}
 
                         <table id="sitemap" cellpadding="3">
 

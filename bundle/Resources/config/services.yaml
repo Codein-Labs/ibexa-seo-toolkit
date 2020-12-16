@@ -31,6 +31,6 @@ services:
         calls:
             - [setVariationHandler, ["@ezpublish.image_alias.imagine.alias_generator", "@ezpublish.fieldType.ezimage"]]
 
-    Codein\eZPlatformSeoToolkit\Controller\SitemapController:
-        arguments:
-            # $xslFilePath: "@=service('kernel').locateResource('@EzPlatformSeoToolkitBundle/Resources/public/xsl/sitemap.xsl')"
+    Codein\eZPlatformSeoToolkit\EventListener\SitemapResponseListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
