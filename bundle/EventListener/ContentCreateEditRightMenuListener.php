@@ -2,14 +2,32 @@
 
 namespace Codein\eZPlatformSeoToolkit\EventListener;
 
+use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
 use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
 use EzSystems\EzPlatformPageBuilderBundle\Menu\Event\PageBuilderConfigureMenuEventName;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ContentCreateEditRightMenuListener implements EventSubscriberInterface
 {
+    private $siteAccessConfigResolver;
+
+    public function __construct(SiteAccessConfigResolver $siteAccessConfigResolver)
+    {
+        $this->siteAccessConfigResolver = $siteAccessConfigResolver;
+    }
+
     public function onMenuConfigure(ConfigureMenuEvent $configureMenuEvent): void
     {
+        $currentContentTypeIdentifier = $configureMenuEvent->getOptions()["content_type"]->identifier;
+        $analysisConfiguration = $this->siteAccessConfigResolver->getParameterConfig('analysis');
+        if (!array_key_exists('content_types', $analysisConfiguration)) {
+            return;
+        }
+        
+        if (!in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']))) {
+            return;
+        }
+
         $menuItem = $configureMenuEvent->getMenu();
 
         $menuItem->addChild(
@@ -27,6 +45,16 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
 
     public function onPageBuilderMenuConfigure(ConfigureMenuEvent $configureMenuEvent): void 
     {
+        $currentContentTypeIdentifier = $configureMenuEvent->getOptions()['content']->getContentType()->identifier;
+        $analysisConfiguration = $this->siteAccessConfigResolver->getParameterConfig('analysis');
+        if (!array_key_exists('content_types', $analysisConfiguration)) {
+            return;
+        }
+        
+        if (!in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']))) {
+            return;
+        }
+
         $root = $configureMenuEvent->getMenu();
         $root->addChild(
             'Seo analyzer',

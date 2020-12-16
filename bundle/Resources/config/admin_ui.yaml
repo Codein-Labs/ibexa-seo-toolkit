@@ -11,6 +11,7 @@ services:
 
     Codein\eZPlatformSeoToolkit\EventListener\ContentCreateEditRightMenuListener:
         autoconfigure: true
+        autowire: true
         tags:
             - { name: kernel.event.subscriber }
 
