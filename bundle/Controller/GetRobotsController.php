@@ -34,8 +34,8 @@ final class GetRobotsController
         foreach ($robotsRules['user_agents'] as $userAgent => $robotsElementsRules) {
             ++$i;
             $content .= \sprintf("User-agent: %s\n", $userAgent);
-            if (!empty($robotsElementsRules['crawl-delay'])) {
-                $content .= \sprintf('Crawl-Delay: %s', $robotsElementsRules['crawl-delay']);
+            if (!empty($robotsElementsRules['crawl_delay'])) {
+                $content .= \sprintf("Crawl-Delay: %s\n", $robotsElementsRules['crawl_delay']);
             }
             if (\is_array($robotsElementsRules['disallow'])) {
                 foreach ($robotsElementsRules['disallow'] as $rule) {

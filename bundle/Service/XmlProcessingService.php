@@ -21,11 +21,12 @@ final class XmlProcessingService
             $xml .= $fieldXml;
         }
 
-        if ($process) {
+        if ($xml && $process) {
             $domDocument = new \DOMDocument();
             $domDocument->loadXML($xml);
 
-            return $this->processDocument($domDocument);
+            return $this->processDocument($domDocument)
+                ->saveHTML();
         }
 
         return $xml;

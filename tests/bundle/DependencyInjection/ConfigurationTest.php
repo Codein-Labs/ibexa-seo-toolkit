@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Codein\eZPlatformSeoToolkit\Tests\DependencyInjection;
+
 use Codein\eZPlatformSeoToolkit\DependencyInjection\Configuration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -62,7 +64,11 @@ final class ConfigurationTest extends TestCase
                             'content_type_identifiers' => [],
                         ],
                     ],
-                    'robots' => [],
+                    'robots' => [
+                        'user_agents' => [],
+                        'sitemap_routes' => [],
+                        'sitemap_urls' => []
+                    ],
                     'metas' => [
                         'default_metas' => [],
                         'field_type_metas' => [],

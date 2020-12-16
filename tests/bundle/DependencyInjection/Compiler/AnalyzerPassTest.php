@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Codein\eZPlatformSeoToolkit\Tests\DependencyInjection\Compiler;
+
 use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
