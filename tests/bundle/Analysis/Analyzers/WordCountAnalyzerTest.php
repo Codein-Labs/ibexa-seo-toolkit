@@ -1,8 +1,11 @@
 <?php declare(strict_types=1);
 
+namespace Codein\eZPlatformSeoToolkit\Tests\Analysis\Analyzers;
+
 use Codein\eZPlatformSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Model\Field;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -30,13 +33,12 @@ class WordCountAnalyzerTest extends KernelTestCase
 </section>
 ';
         $analysisDTO = new AnalysisDTO();
-        $analysisDTO->setFields([new Field(
-            'test',
-            $xml
-        )]);
+        $arrayCollection = new ArrayCollection();
+        $arrayCollection->add((new Field())->setFieldIdentifier('test')->setFieldValue($xml));
 
+        $analysisDTO->setFields($arrayCollection);
         $response = $ipsum->analyze($analysisDTO);
-        
+
         $this->assertArrayHasKey(WordCountAnalyzer::CATEGORY, $response);
         $this->assertArrayHasKey('data', $response[WordCountAnalyzer::CATEGORY]);
         $this->assertArrayHasKey('count', $response[WordCountAnalyzer::CATEGORY]['data']);

@@ -67,7 +67,9 @@ final class Configuration extends SiteAccessConfiguration
                         ->arrayPrototype()
                             ->children()
                                 ->arrayNode('richtext_fields')
+                                    ->cannotBeEmpty()
                                     ->scalarPrototype()
+
                                         ->info('Specify rich text fields to analyze in the content type.')
                                         ->validate()
                                         ->ifTrue(
@@ -164,7 +166,7 @@ final class Configuration extends SiteAccessConfiguration
             ->defaultValue([])
                 ->arrayPrototype()
                     ->children()
-                        ->scalarNode('crawl-delay')->defaultNull()->end()
+                        ->scalarNode('crawl_delay')->defaultNull()->end()
                         ->arrayNode('disallow')
                             ->defaultValue([])
                             ->scalarPrototype()->end()

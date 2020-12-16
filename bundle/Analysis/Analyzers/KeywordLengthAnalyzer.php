@@ -6,8 +6,6 @@ use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
 use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
 use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
-use Exception;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class KeywordLengthAnalyzer.
@@ -30,12 +28,12 @@ final class KeywordLengthAnalyzer extends AbstractAnalyzer
         $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
-        $status = RatioLevels::HIGH;
+        $status = RatioLevels::LOW;
 
         foreach ($keywordSynonyms as $keywordSynonym) {
             if (\str_word_count($keywordSynonym) > 6) {
-                $status = RatioLevels::LOW;
-            } else if (\str_word_count($keywordSynonym) > 4 && $status !== RatioLevels::LOW) {
+                $status = RatioLevels::HIGH;
+            } elseif (\str_word_count($keywordSynonym) > 4 && RatioLevels::LOW !== $status) {
                 $status = RatioLevels::MEDIUM;
             }
         }

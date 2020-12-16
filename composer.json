@@ -34,13 +34,14 @@
         "ext-dom": "*",
         "ezsystems/repository-forms": "^2.5",
         "twig/twig": "^2",
-        "doctrine/orm": "^2.5"
-        "ezsystems/ezplatform-http-cache": "^1"
+        "doctrine/orm": "^2.5",
+        "ezsystems/ezplatform-http-cache": "^1",
+        "phpunit/phpunit": "8.0",
+        "jms/serializer-bundle": "^3.7"
     },
     "require-dev": {
+        "matthiasnoback/symfony-dependency-injection-test": "^4.2",
         "symfony/phpunit-bridge": "5.x-dev",
-        "phpunit/phpunit": "8.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "vimeo/psalm": "^4.0",
         "psalm/plugin-symfony": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.16",
@@ -48,11 +49,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Codein\\eZPlatformSeoToolkit\\": "bundle",
-            "Codein\\Tests\\eZPlatformSeoToolkit\\": "tests/bundle"
+            "Codein\\eZPlatformSeoToolkit\\": "bundle/",
+            "Codein\\eZPlatformSeoToolkit\\Tests\\": "tests/bundle/"
         }
     },
     "scripts": {
+        "test": "@php vendor/bin/phpunit --colors=always",
         "pslam": "vendor/bin/psalm -c pslam.xml.dist",
         "phpcsfixer": "vendor/bin/php-cs-fixer fix bundle/ --config=php_cs_fixer.dist --verbose"
     }
