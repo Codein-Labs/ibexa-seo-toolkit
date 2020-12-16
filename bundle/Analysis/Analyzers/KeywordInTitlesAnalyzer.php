@@ -68,7 +68,7 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
         }
 
         return $this->analyzerService->compile(self::CATEGORY, $status, [
-            'ratio' => $ratioKeywordInTitle
+            'ratio' => $ratioKeywordInTitle,
         ]);
     }
 }

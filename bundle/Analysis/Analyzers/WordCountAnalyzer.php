@@ -28,7 +28,7 @@ final class WordCountAnalyzer extends AbstractAnalyzer
 
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
-        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
+        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)->saveHTML();
 
         $text = \strip_tags($html);
 

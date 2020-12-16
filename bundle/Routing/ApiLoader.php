@@ -10,7 +10,7 @@ use Symfony\Component\Routing\RouteCollection;
  */
 final class ApiLoader extends Loader
 {
-    private const API_REST_RESOURCE = '@EzPlatformSeoToolkitBundle/Resources/config/rest.yaml';
+    private const API_REST_RESOURCE = '@EzPlatformSeoToolkitBundle/Resources/config/routes_rest.yaml';
     private const DEFAULT_RESOURCE = '@EzPlatformSeoToolkitBundle/Resources/config/routes.yaml';
 
     private const TYPE = 'yaml';
