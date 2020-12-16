@@ -5,6 +5,7 @@ namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
 use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
 use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
 use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
+use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
 use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
 
 /**
@@ -19,9 +20,13 @@ final class InternalLinksAnalyzer extends AbstractAnalyzer
     /** @var XmlProcessingService */
     private $xmlProcessingService;
 
-    public function __construct(XmlProcessingService $xmlProcessingService)
+    /** @var AnalyzerService */
+    private $analyzerService;
+
+    public function __construct(AnalyzerService $analyzerService, XmlProcessingService $xmlProcessingService)
     {
         $this->xmlProcessingService = $xmlProcessingService;
+        $this->analyzerService = $analyzerService;
     }
 
     public function analyze(AnalysisDTO $analysisDTO): array
@@ -30,8 +35,13 @@ final class InternalLinksAnalyzer extends AbstractAnalyzer
 
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
-        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
+        try {
+            $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
 
+        } catch (\Exception $e) {
+            return $this->analyzerService->compile(self::CATEGORY, null, null);
+        } 
+        
         $htmlText = \strip_tags($html->saveHTML());
         $wordCount = \str_word_count($htmlText);
 
@@ -63,9 +73,17 @@ final class InternalLinksAnalyzer extends AbstractAnalyzer
                 'status' => $status,
                 'data' => [
                     'count' => $count,
-                    'recommended' => \ceil($wordCount / (1 / self::GOOD_RATIO)),
+                    'recommended' => \ceil($wordCount / (1 / self::GOOD_RATIO))
                 ],
             ],
         ];
+    }
+
+    public function support(AnalysisDTO $data): bool
+    {
+        if (count($data->getFields()) === 0) {
+            return false;
+        }
+        return true;
     }
 }

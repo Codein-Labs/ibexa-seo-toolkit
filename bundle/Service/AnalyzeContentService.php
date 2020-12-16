@@ -46,10 +46,6 @@ final class AnalyzeContentService
             $siteaccess
         )['content_types'];
 
-        if (empty($contentTypes[$contentTypeIdentifier]['richtext_fields'])) {
-            throw new \Exception('Analyzer config is not set correctly for this content type: ' . $contentTypeIdentifier);
-        }
-
         return $contentTypes[$contentTypeIdentifier]['richtext_fields'];
     }
 

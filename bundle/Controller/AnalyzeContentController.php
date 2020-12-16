@@ -81,12 +81,12 @@ final class AnalyzeContentController
             ->setKeyword($contentConfiguration->getKeyword())
             ->setPreviewHtml($dataPreviewHtml);
 
-        $anayzeResult = $this->parentAnalyzerService->analyze($analysisDTO);
+        $analyzeResult = $this->parentAnalyzerService->analyze($analysisDTO);
 
-        if (\array_key_exists('error', $anayzeResult)) {
+        if (\array_key_exists('error', $analyzeResult)) {
             throw new AnalyzeException('codein_seo_toolkit.analyzer.error.content_not_configured');
         }
 
-        return $anayzeResult;
+        return $analyzeResult;
     }
 }

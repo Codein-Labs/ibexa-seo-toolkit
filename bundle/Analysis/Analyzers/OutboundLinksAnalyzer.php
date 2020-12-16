@@ -68,4 +68,12 @@ final class OutboundLinksAnalyzer extends AbstractAnalyzer
             ],
         ];
     }
+
+    public function support(AnalysisDTO $data): bool
+    {
+        if (count($data->getFields()) === 0) {
+            return false;
+        }
+        return true;
+    }
 }
