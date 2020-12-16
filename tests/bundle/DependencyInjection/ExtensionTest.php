@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Codein\eZPlatformSeoToolkit\Tests\DependencyInjection;
+
 use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
 use Codein\eZPlatformSeoToolkit\Analysis\Analyzers\TitleTagContainsKeywordAnalyzer;
 use Codein\eZPlatformSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;

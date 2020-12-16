@@ -23,6 +23,7 @@ final class ContentConfigurationType extends AbstractType
         $formBuilder->add('keyword', TextType::class, [
             self::CONSTRAINTS => [
                 new Assert\Type('string'),
+                new Assert\NotBlank()
             ],
         ]);
         $formBuilder->add('isPillarContent', CheckboxType::class, [
