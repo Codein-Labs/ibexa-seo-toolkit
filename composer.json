@@ -34,7 +34,7 @@
         "ext-dom": "*",
         "ezsystems/repository-forms": "^2.5",
         "twig/twig": "^2",
-        "doctrine/orm": "^2.5"
+        "doctrine/orm": "^2.5",
         "ezsystems/ezplatform-http-cache": "^1"
     },
     "require-dev": {
