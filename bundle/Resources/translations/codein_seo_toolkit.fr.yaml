@@ -68,3 +68,15 @@ codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.readable_name
 codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.low: "Vérifiez que vous ayez bien une meta description"
 codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.medium: "Votre mot-clé ou l'un de ses synonymes n'apparaît pas dans la meta description. C'est améliorable."
 codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.high: "Votre mot-clé ou l'un de ses synonymes apparaît dans la meta description. C'est bien !"
+codein_seo_toolkit.sitemap.title: 'Sitemap XML'
+codein_seo_toolkit.sitemap.generated_by_bundle: 'Ce Sitemap XML est généré par le bundle '
+codein_seo_toolkit.sitemap.edited_by: 'et édité par'
+codein_seo_toolkit.sitemap.explain_what_is: 'C’est ce que les moteurs de recherche tels que Google utilisent pour explorer et ré-explorer les contenus de votre site Web.'
+codein_seo_toolkit.sitemap.learn_more: 'En savoir plus sur les '
+codein_seo_toolkit.sitemap.index_contains: 'Ce fichier d’index Sitemap XML contient'
+codein_seo_toolkit.sitemap.contains: 'This XML sitemap contains'
+codein_seo_toolkit.sitemap.sitemap_text: 'plans du site'
+codein_seo_toolkit.sitemap.sitemap_index: 'Index du plan du site'
+codein_seo_toolkit.sitemap.url: 'URL'
+codein_seo_toolkit.sitemap.images: 'Images'
+codein_seo_toolkit.sitemap.last_modification: 'Dernière modification'

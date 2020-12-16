@@ -121,6 +121,8 @@ final class Configuration extends SiteAccessConfiguration
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->enumNode('split_by')->defaultNull()->values(['number_of_results', 'content_type'])->defaultValue('content_type')->example('number_of_results')->end()
+                    ->scalarNode('max_items_per_page')->defaultValue(1000)->end()
+                    ->booleanNode('use_images')->defaultValue(false)->end()
                     ->arrayNode('blocklist')
                         ->addDefaultsIfNotSet()
                         ->children()
