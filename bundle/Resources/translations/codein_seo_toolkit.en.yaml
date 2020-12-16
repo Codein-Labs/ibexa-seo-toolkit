@@ -4,9 +4,71 @@ codein_seo_toolkit.seo_view.desc: 'Optimization Window'
 codein_seo_toolkit.seo_view.footer_made_with: 'Made with'
 codein_seo_toolkit.seo_view.footer_made_by: by
 codein_seo_toolkit.seo_view.tab_analysis: Analysis
+codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyze
+codein_seo_toolkit.seo_view.tab_analysis.global_note: Global note
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword: Keyword
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability: Readability
+codein_seo_toolkit.seo_view.tab_analysis.tips.saving: 'Save your content to update the analysis'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic: 'Traffic lights indicate the score:'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.green: 'Green => Excellent,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.orange: 'Orange => Good,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.red: 'Red => Not good'
+codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support: 'Developers can add types of analysis if you need it'
+codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Focus keyword'
+codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Is a pillar content'
+codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
+codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "You can separate synonyms of your keyword with a comma."
+codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
+codein_seo_toolkit.analyzer.error.preview_not_returning_html: "Content preview does not return valid HTML."
+codein_seo_toolkit.analyzer.error.content_not_configured: "Please configure the content in the associated tab."
+codein_seo_toolkit.analyzer.error.analyzer_form_invalid: "Form is invalid. Please contact technical assitance."
+codein_seo_toolkit.analyzer.error.data_transfered: "Data needed for analysis missing."
+codein_seo_toolkit.analyzer.category.keyword: 'Keyword'
+codein_seo_toolkit.analyzer.category.lisibility: 'Lisibility'
+codein_seo_toolkit.analyzer.not_compatible: 'The analyzer "%analyzer%" is not compatible with your content'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.readable_name: 'Word count'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.low: 'You only have %count% words in your content, it is too low.'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.medium: 'You have %count% words in your content, it is good.'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.high: 'You have %count% words in your content, it is excellent.'
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.readable_name: 'Title tag contains keyword'
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.message.low: "You don't have any title tag."
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.message.medium: "Your SEO title does not contain any references to your focus keyword."
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.message.high: "Your SEO title contains your focus keyword, it's excellent !"
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.readable_name: 'Keyword in titles'
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.low: "The keyword only appears in %ratio%% of titles, it's to low."
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.medium: "The keyword appears in %ratio%% of titles, it's improvable."
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.high: "The keyword appears in %ratio%% of titles, it's very good !"
+codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.readable_name: 'Correct number of H1'
+codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.low: "You have %count% H1 tags in your content. You should have only one !"
+codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.high: "You have exactly one H1 Tag in your article, perfect !"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.readable_name: "Keyword in URL Slug"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.info: "Your keyword should preferably be an exact match with the url slug."
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.low: "Your keyword is not present in the URL, keep in mind it's a good practice !"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.medium: "Your keyword seems present in the URL, make sure there are no typos or useless words in it"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.high: "Your URL slug perfectly matches your keyword"
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.readable_name: "Outbound Links"
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.info: "Outbound links provide a good signal to google. On the opposite, having too much outbound links can lower your rankings. Links should be limited and adapted to the content you're writing. By the way, make sure your internal links are eZ object relations to make this analysis accurate."
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.low: "You have no outbound link. %recommended% are recommended for a content of this length !"
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.medium: "You only have %count% outbound links. We recommend you have at least %recommended% outbound links for a content of this length."
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.high: "You have %count% outbound links. We recommend having close to %recommended% outbound links. Very good."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.readable_name: "Internal Links"
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.info: "Your internal links should be selected by eZ object relation to provide accurate calculation."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.low: "You have no internal link. %recommended% are recommended for a content of this length !"
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.medium: "You only have %count% internal links. We recommend you have at least %recommended% internal links for a content of this length."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.high: "You have %count% internal links. We recommend having close to %recommended% internal links. Very good."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.readable_name: "SEO Title Width"
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.info: "Moz.com research suggest that titles under 60 characters will display properly in 90% of cases."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.message.low: "Check you have a SEO Title tag."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.message.medium: "Your title is too long (%charCount% characters). Make sure it's not too high."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.message.high: "Good, your title doesn't have more than 60 characters."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.readable_name: "Keyword Length"
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.info: "Optimal keywords are up to 4 words. Up to 6 words is acceptable. More is too much."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.message.low: "Your keyword or one of his synonyms have more than 6 words."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.message.medium: "Your keyword or one of his synonyms have more than 4 words . It's acceptable."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.message.high: "Your keyword and his synonyms have 4 words or less. It's good !"
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.readable_name: "Meta description contains keyword"
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.low: "Check you have a meta description"
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.medium: "Your keyword or one of his synonyms does not appear in the meta description. It's improvable."
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.high: "Your keyword or one of his synonyms appear in the meta description. It's good !"
 codein_seo_toolkit.sitemap.title: 'XML Sitemap'
 codein_seo_toolkit.sitemap.generated_by_bundle: 'This XML Sitemap is generated by the bundle '
 codein_seo_toolkit.sitemap.edited_by: 'and edited by'

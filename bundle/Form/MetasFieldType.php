@@ -7,7 +7,6 @@ use Codein\eZPlatformSeoToolkit\FieldType\DynamicCollectionType;
 use Codein\eZPlatformSeoToolkit\FieldType\Value;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

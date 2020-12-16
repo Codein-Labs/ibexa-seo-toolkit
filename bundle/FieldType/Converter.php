@@ -24,32 +24,32 @@ final class Converter implements LegacyConverter
     /**
      * Converts data from $value to $fieldValue.
      */
-    public function toFieldValue(StorageFieldValue $value, FieldValue $fieldValue): void
+    public function toFieldValue(StorageFieldValue $storageFieldValue, FieldValue $fieldValue): void
     {
-        $fieldValue->externalData = \json_decode($value->dataText, true);
-        $fieldValue->sortKey = $value->sortKeyString;
+        $fieldValue->externalData = \json_decode($storageFieldValue->dataText, true);
+        $fieldValue->sortKey = $storageFieldValue->sortKeyString;
     }
 
     /**
      * Converts field definition data in $fieldDef into $storageFieldDef.
      */
-    public function toStorageFieldDefinition(FieldDefinition $fieldDef, StorageFieldDefinition $storageDef): void
+    public function toStorageFieldDefinition(FieldDefinition $fieldDefinition, StorageFieldDefinition $storageFieldDefinition): void
     {
-        $fieldSettings = $fieldDef->fieldTypeConstraints->fieldSettings;
+        $fieldSettings = $fieldDefinition->fieldTypeConstraints->fieldSettings;
 
         if (isset($fieldSettings[self::CONFIGURATION])) {
-            $storageDef->dataText5 = \json_encode($fieldSettings[self::CONFIGURATION]);
+            $storageFieldDefinition->dataText5 = \json_encode($fieldSettings[self::CONFIGURATION]);
         }
     }
 
     /**
      * Converts field definition data in $storageDef into $fieldDef.
      */
-    public function toFieldDefinition(StorageFieldDefinition $storageDef, FieldDefinition $fieldDef): void
+    public function toFieldDefinition(StorageFieldDefinition $storageFieldDefinition, FieldDefinition $fieldDefinition): void
     {
-        $fieldDef->fieldTypeConstraints->fieldSettings = new FieldSettings(
+        $fieldDefinition->fieldTypeConstraints->fieldSettings = new FieldSettings(
             [
-                self::CONFIGURATION => \json_decode($storageDef->dataText5, true),
+                self::CONFIGURATION => \json_decode($storageFieldDefinition->dataText5, true),
             ]
         );
     }

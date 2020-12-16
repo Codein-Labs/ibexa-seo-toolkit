@@ -1,12 +1,73 @@
 codein_seo_toolkit.content_create_edit.menu_label: 'Analyse SEO'
 codein_seo_toolkit.seo_view.title: 'eZ Platform SEO Toolkit'
 codein_seo_toolkit.seo_view.desc: 'Fenêtre d''optimisation SEO'
-codein_seo_toolkit.seo_view.footer_made_with: 'Fait ave'
+codein_seo_toolkit.seo_view.footer_made_with: 'Fait avec'
 codein_seo_toolkit.seo_view.footer_made_by: par
 codein_seo_toolkit.seo_view.tab_analysis: Analyse
+codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyser
+codein_seo_toolkit.seo_view.tab_analysis.global_note: Note globale
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_keyword: 'Mot clé'
-codein_seo_toolkit.seo_view.tab_analysis_accordion_title_readability: Lisibilité
+codein_seo_toolkit.seo_view.tab_analysis.tips.saving: "Sauvegarder votre contenu pour mettre à jour l'analyse"
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic: 'Les feux indiquent le score:'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.green: 'Vert => Excellent,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.orange: 'Orange => Bon,'
+codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.red: 'Rouge => Pas bon'
+codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support: "Les developpeurs peuvent ajouter des types d'analyse"
+codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Mot clé principal'
+codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Est-un contenu pilier'
+codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
+codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "Vous pouvez séparer les synonymes de votre mot clé par une virgule."
+codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
+codein_seo_toolkit.analyzer.error.preview_not_returning_html: "Le content preview ne retourne pas un HTML valide."
+codein_seo_toolkit.analyzer.error.content_not_configured: "Veuillez configurer le contenu dans l'onglet associé."
+codein_seo_toolkit.analyzer.error.analyzer_form_invalid: "Le formulaire est invalide. Veuillez contacter votre prestataire pour une résolution."
+codein_seo_toolkit.analyzer.error.data_transfered: "Des données nécessaires pour l'analyse sont manquantes."
+codein_seo_toolkit.analyzer.category.keyword: 'Mot-clé'
+codein_seo_toolkit.analyzer.category.lisibility: 'Lisibilité'
+codein_seo_toolkit.analyzer.not_compatible: "L'analyse \"%analyzer%\" n'est pas disponible pour votre contenu."
+codein_seo_toolkit.analyzer.WordCountAnalyzer.readable_name: 'Nombre de mots'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.low: "Vous avez seulement %count% mots dans votre contenu, c'est trop faible."
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.medium: "Vous avez %count% mots dans votre contenu, c'est bien."
+codein_seo_toolkit.analyzer.WordCountAnalyzer.message.high: "Vous avez %count% mots dans votre contenu, c'est excellent"
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.readable_name: "Titre du contenu contient le mot clé"
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.message.low: "Vous n'avez pas de balise titre meta (<title>)."
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.message.medium: "Votre titre SEO ne contient pas de référence au mot-clé"
+codein_seo_toolkit.analyzer.TitleTagContainsKeywordAnalyzer.message.high: "Votre titre SEO contient une référence au mot-clé. C'est génial !"
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.readable_name: 'Mot clé présent dans les titres'
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.low: "Le mot-clé n'apparaît que dans %ratio%% des titres. c'est trop peu"
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.medium: "Le mot-clé apparaît dans %ratio%% des titres, c'est améliorable."
+codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.high: "Le mot-clé apparaît dans %ratio%% des titres, c'est très bien."
+codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.readable_name: 'Nombre correct de balises H1'
+codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.low: "Vous avez %count% balises H1 dans votre contenu. Vous devez n'en avoir qu'un !"
+codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.high: "Vous avez exactement une balise H1. C'est parfait !"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.readable_name: "Mot clé dans le slug d'URL"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.low: "Votre mot-clé n'est pas présent dans l'URL, gardez à l'esprit que c'est une bonne pratique!"
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.medium: "Votre mot-clé semble présent dans l'URL. Assurez-vous qu'il n'y a pas de fautes de frappe ou de mots inutiles."
+codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.high: "Votre slug d'URL correspond parfaitement à votre mot-clé."
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.readable_name: "Liens externes"
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.info: "Les liens externes donnent un bon signal aux moteurs de recherche. Au contraire, en avoir trop peu diminuer votre rang dans les résultats. Les liens devraient être limités et adaptés au contenu que vous rédigez. Par ailleurs, pour que cette analyse soit fiable, vos liens internes doivent être des relations d'objet eZ."
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.low: "Vous n'avez aucun lien externe. %recommended% sont recommandés pour un contenu de cette taille !"
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.medium: "Vous n'avez que %count% liens externes. Il faudrait avoir au moins %recommended% liens externes pour un contenu de cette taille."
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.high: "Vous avez %count% liens externes. Nous recommandons que vous ayez à peu près %recommended% liens externes. Très bien."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.readable_name: "Liens internes"
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.info: "Les liens internes doivent être des relations d'objet eZ pour que le calcul soit correct."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.low: "Vous n'avez pas de liens internes. %recommended% sont recommandés pour un contenu de cette taille !"
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.medium: "Vous avez seulement %count% liens internes. %recommended% liens internes sont recommandés pour un contenu de cette taille."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.high: "Vous avez %count% liens internes. Nous recommandons que vous ayez à peu près %recommended% liens internes. Très bien."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.readable_name: "Taille du titre SEO"
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.info: "Les recherches de Moz.com montrent que 90% des titres composés de 60 caractères sont affichés correctement."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.message.low: "Vérifiez que vous ayez un titre SEO."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.message.medium: "Votre titre est trop long (%charCount% caractères). Faites en sorte que ce ne soit pas trop long."
+codein_seo_toolkit.analyzer.SeoTitleWidthAnalyzer.message.high: "Bien, votre titre ne fait pas plus de 60 caractères."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.readable_name: "Longueur du mot-clé"
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.info: "La taille optimale pour un mot-clé est de 1 à 4 mots. Jusque 6 mots: acceptable. Plus, c'est trop."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.message.low: "Votre mot-clé ou l'un de ses synonymes contient plus de 6 mots."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.message.medium: "Votre mot-clé ou l'un de ses synonymes contient plus de 4 mots. C'est acceptable."
+codein_seo_toolkit.analyzer.KeywordLengthAnalyzer.message.high: "Votre mot-clé et ses synonymes font moins de 4 mots. C'est très bien !"
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.readable_name: "Meta description contient le mot-clé"
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.low: "Vérifiez que vous ayez bien une meta description"
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.medium: "Votre mot-clé ou l'un de ses synonymes n'apparaît pas dans la meta description. C'est améliorable."
+codein_seo_toolkit.analyzer.MetaDescriptionContainsKeywordAnalyzer.message.high: "Votre mot-clé ou l'un de ses synonymes apparaît dans la meta description. C'est bien !"
 codein_seo_toolkit.sitemap.title: 'Sitemap XML'
 codein_seo_toolkit.sitemap.generated_by_bundle: 'Ce Sitemap XML est généré par le bundle '
 codein_seo_toolkit.sitemap.edited_by: 'et édité par'

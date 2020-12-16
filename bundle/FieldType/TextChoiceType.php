@@ -5,7 +5,6 @@ namespace Codein\eZPlatformSeoToolkit\FieldType;
 use EzSystems\RepositoryForms\Form\Type\FieldType\SelectionFieldType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -13,13 +12,12 @@ use Symfony\Component\Form\FormView;
 /**
  * Class TextChoiceType.
  */
-class TextChoiceType extends AbstractType
+final class TextChoiceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $formBuilder->addModelTransformer(new CallbackTransformer(
             function ($tagsAsString) {
-
                 // transform the string back to an array
                 $selection = \explode(', ', $tagsAsString);
 
@@ -35,10 +33,12 @@ class TextChoiceType extends AbstractType
         ));
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $formView, FormInterface $form, array $options)
     {
-        $view->vars = array_merge($view->vars, ['selection' => true]);
-        parent::buildView($view, $form, $options);
+        $formView->vars = \array_merge($formView->vars, [
+            'selection' => true,
+        ]);
+        parent::buildView($formView, $form, $options);
     }
 
     public function getParent(): string

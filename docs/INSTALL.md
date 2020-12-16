@@ -51,7 +51,14 @@ EzPlatformSeoToolkitBundle that you want to use it.
 codein_ez_platform_seo_toolkit: ~
 ```
 
-# Configure Webpack to build bundle assets
+## Add necessary tables to the database
+
+In your project root, launch :
+```bash
+php bin/console doctrine:schema-update --force
+```
+
+## Configure Webpack to build bundle assets
 
 In your `webpack.config.js` (same level as your composer.json) :
 ```js
@@ -67,9 +74,19 @@ webpack_encore:
         codein: "%kernel.project_dir%/web/bundles/codein-ezplatformseotoolkit"
 ```
 
-## That was it!
+### Compiling backoffice translations
 
-Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find out how
-to specify your custom configuration.
+```bash
+php bin/console bazinga:js-translation:dump web/assets --merge-domains
+```
+
+### Compiling JS files: 
+```
+yarn encore dev
+```
+
+## That's it!
+
+Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find out how to specify your custom configuration.
 
 [1]: docs/REQUIREMENTS.md
