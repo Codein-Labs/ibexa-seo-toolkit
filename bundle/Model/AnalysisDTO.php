@@ -23,7 +23,7 @@ class AnalysisDTO extends PreAnalysisDTO
      */
     public function getKeyword(): ?string
     {
-        return '';
+        return $this->keyword;
     }
 
     /**
