@@ -26,7 +26,7 @@ class ContentConfiguration implements ArrayableInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $keyword;
+    private $keyword = '';
 
     /**
      * @ORM\Column(type="boolean")

@@ -31,7 +31,7 @@ final class OutboundLinksAnalyzer extends AbstractAnalyzer
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
         $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
-        
+
         $htmlText = \strip_tags($html->saveHTML());
         $wordCount = \str_word_count($htmlText);
 
@@ -39,13 +39,13 @@ final class OutboundLinksAnalyzer extends AbstractAnalyzer
         $allLinks = $domxPath->query('.//a');
 
         $count = 0;
-        
+
         /** @var \DOMElement $link */
         foreach ($allLinks as $link) {
             $linkHref = $link->getAttribute('href');
             // Drop internal links
-            if (strpos($linkHref, 'ezlocation://') === false) {
-                $count += 1;
+            if (false === \strpos($linkHref, 'ezlocation://')) {
+                ++$count;
             }
         }
 
@@ -54,7 +54,7 @@ final class OutboundLinksAnalyzer extends AbstractAnalyzer
         $status = RatioLevels::LOW;
         if ($ratio > 0 && $ratio < self::GOOD_RATIO) {
             $status = RatioLevels::MEDIUM;
-        } else if ($ratio >= self::GOOD_RATIO) {
+        } elseif ($ratio >= self::GOOD_RATIO) {
             $status = RatioLevels::HIGH;
         }
 
@@ -63,7 +63,7 @@ final class OutboundLinksAnalyzer extends AbstractAnalyzer
                 'status' => $status,
                 'data' => [
                     'count' => $count,
-                    'recommended' => \ceil($wordCount / (1 / self::GOOD_RATIO))
+                    'recommended' => \ceil($wordCount / (1 / self::GOOD_RATIO)),
                 ],
             ],
         ];

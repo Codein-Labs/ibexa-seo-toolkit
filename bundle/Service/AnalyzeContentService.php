@@ -41,16 +41,16 @@ final class AnalyzeContentService
      */
     public function getRichtextFieldConfiguredForContentType(string $contentTypeIdentifier, string $siteaccess): array
     {
-        try {
-            return $this->siteAccessConfigResolver->getParameterConfig(
-                'analysis',
-                $siteaccess
-            )['content_types'][$contentTypeIdentifier]['richtext_fields'];
-        } catch (\Exception $exception) {
-            $this->logger->warning('Analyzer config is not set correctly for this content type: ' . $contentTypeIdentifier);
+        $contentTypes = $this->siteAccessConfigResolver->getParameterConfig(
+            'analysis',
+            $siteaccess
+        )['content_types'];
 
-            return [];
+        if (empty($contentTypes[$contentTypeIdentifier]['richtext_fields'])) {
+            throw new \Exception('Analyzer config is not set correctly for this content type: ' . $contentTypeIdentifier);
         }
+
+        return $contentTypes[$contentTypeIdentifier]['richtext_fields'];
     }
 
     /**
@@ -88,7 +88,7 @@ final class AnalyzeContentService
 
         /** @var ContentConfiguration $contentConfiguration */
         $contentConfiguration = $this->entityManager->getRepository(ContentConfiguration::class)->findOneBy([
-            self::CONTENT_ID  => $preAnalysisData->getContentId(),
+            self::CONTENT_ID => $preAnalysisData->getContentId(),
             self::LANGUAGE_CODE => $preAnalysisData->getLanguageCode(),
         ]);
         if (!$contentConfiguration) {

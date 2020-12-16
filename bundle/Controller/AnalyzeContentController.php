@@ -48,6 +48,7 @@ final class AnalyzeContentController
 
         $form->submit($request->request->all());
         if (!$form->isValid()) {
+
             throw new ValidationException('codein_seo_toolkit.analyzer.error.data_transfered');
         }
 

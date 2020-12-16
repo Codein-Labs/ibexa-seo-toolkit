@@ -12,7 +12,7 @@ use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
  */
 final class WordCountAnalyzer extends AbstractAnalyzer
 {
-    private const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
+    public const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
 
     /** @var XmlProcessingService */
     private $xmlProcessingService;
@@ -28,8 +28,7 @@ final class WordCountAnalyzer extends AbstractAnalyzer
 
         \libxml_use_internal_errors(true);
         /** @var \DOMDocument $xml */
-        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)
-            ->saveHTML();
+        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)->saveHTML();
 
         $text = \strip_tags($html);
 
