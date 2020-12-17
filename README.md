@@ -7,12 +7,6 @@ ______________
 </div>
 
 <div align="center">
-    <a href="https://travis-ci.org/Codein-Labs/ezplatform-seo-toolkit">
-        <img src="https://travis-ci.org/Codein-Labs/ezplatform-seo-toolkit?branch=master" alt="Build" />
-    </a>
-    <a href="https://coveralls.io/github/Codein-Labs/ezplatform-seo-toolkit?branch=master">
-        <img src="https://coveralls.io/repos/github/Codein-Labs/ezplatform-seo-toolkit/badge.svg" alt="Coverage" />
-    </a>
     <a href="https://github.com/Codein-Labs/ezplatform-seo-toolkit/blob/master/LICENSE">
         <img src="https://img.shields.io/github/license/Codein-Labs/ezplatform-seo-toolkit.svg" alt="License" />
     </a>
@@ -31,9 +25,9 @@ ______________
 
 <img align="right" src="https://i.ibb.co/wBTfdyQ/S-lection-397.png" alt="Codein SEO Toolkit demo" />
 
-- :electric_plug: Super easy to start using the full-featured controllers and services :point_right:
+- :electric_plug: Super easy to start by using the full-featured controllers and services :point_right:
 
-- :octopus: Extendable analysis type of SEO content
+- :octopus: Extendable analysis of SEO content
 
 - :telescope: Blazing fast analysis when editing content
 
@@ -49,7 +43,7 @@ ______________
 
 - :pencil2: Complete documentation
 
-More details available on [features][2]
+More details available on [features][2].
 
 Installation
 -----------
@@ -61,16 +55,18 @@ Documentation
 -------------
 
 * Read the [Getting Started guide][5] if you are new to the bundle
+* Additionally, read the [Analyzers][6] documentation.
 
 
 Contributing 
 ------------
 
-This bundle allows you to make your own custom content analyses. You can contribute your packaged analyses to the community, or [contributing directly to this bundle][6]. 
+This bundle allows you to make your own custom content analyses. You can contribute your packaged analyses to the community, or [contributing directly to this bundle][7]. 
 
 [1]: https://www.codein.fr
 [2]: docs/FEATURES.md
 [3]: docs/INSTALL.md
 [4]: docs/REQUIREMENTS.md
 [5]: docs/GETTING_STARTED.md
-[6]: CONTRIBUTING.md
+[6]: docs/ANALYZERS.md
+[7]: CONTRIBUTING.md

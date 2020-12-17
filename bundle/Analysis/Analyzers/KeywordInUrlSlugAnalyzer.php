@@ -84,6 +84,11 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
         // Difficult to get non latin alphabet languages
         // to work well with this analyzer.
         // Moreover, we don't know how Search Engines treats them
+
+        if (count($analysisDTO->getFields()) === 0) {
+            return false;
+        }
+
         return !\in_array($analysisDTO->getLanguageCode(), [
             'ara-SA',
             'chi-CN',

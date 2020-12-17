@@ -89,4 +89,4 @@ yarn encore dev
 
 Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find out how to specify your custom configuration.
 
-[1]: docs/REQUIREMENTS.md
+[1]: REQUIREMENTS.md

@@ -11,9 +11,11 @@ codein_ez_platform_seo_toolkit:
       analysis:
         content_types:
           product:
-            richtext_field: description
-            blocklist: [WordCountAnalyzer]
-        blocklist: [SomeAnalyzerYouNeverWantToUse]
+            richtext_fields: 
+              - description
+            blocklist: 
+              - "Codein\\eZPlatformSeoToolkit\\Analysis\\Analyzers\\WordCountAnalyzer"
+        blocklist: ["Namespace\\SomeAnalyzerYouNeverWantToUse"]
 ```
 
 This configuration allows the product content_type to be analyzed.
@@ -29,12 +31,19 @@ codein_ez_platform_seo_toolkit:
     default:
       sitemap:
         split_by: "number_of_results" # One of "number_of_results"; "content_type"
+        use_images: true #or false
+        max_results_per_page: 1000 # defaults 500, applies to number_of_results split
         blocklist:
           locations:             [2, 5]
           subtrees:             [153]
           content_type_identifiers: ['product']
+        passlist:
+          locations:             []
+          subtrees:             []
+          content_type_identifiers: []
 ```
 `blocklist`: disallow some objects to appear in sitemap
+`passlist`: allow only some objects to appear in sitemap
 `split_by`: in case of a to large sitemap, it gives an option to split either by number of results or content_types.
 
 ## Robots
@@ -44,15 +53,17 @@ codein_ez_platform_seo_toolkit:
   system:
     default:
       robots:
-        # If true, prevent search engines from indexing.
-        prevent_indexing: '%is_dev_environment%'
-        rules:
+        user_agents:
           googlebot:
             Allow: /
             Crawl-delay: 120
             Disallow: /search
           '*':
             Allow: /
+        sitemap_routes:
+          - my_sitemap
+        sitemap_urls:
+          - "https://domain.tld/sitemap_index.xml"
 ```
 
 ## Metas

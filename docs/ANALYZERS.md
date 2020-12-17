@@ -80,9 +80,9 @@ At the moment there are several available analyzers:
   * _Low_ : No h1 tag or more than one.
   * _High_ : 1 h1 tag
 
-### Create a custom RichText Analyzer
+### Create a custom analyzer
 
-To create a custom RichText Analyzer, simply extend ``Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer`` class and in the ``analyze`` method of your class return the result.
+To create a custom analyzer, simply extend ``Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer`` class and in the ``analyze`` method of your class return the result.
 
 
 ## That's it!

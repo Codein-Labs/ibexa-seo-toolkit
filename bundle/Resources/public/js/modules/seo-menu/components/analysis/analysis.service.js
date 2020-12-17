@@ -36,7 +36,7 @@ export const getSeoRichText = () => {
         }
     }
     if (richTextValidatorIndexes.length === 0) {
-        return;
+        return [];
     }
     let seoRichTextFields = [];
     richTextValidatorIndexes.forEach((element) => {
@@ -52,7 +52,6 @@ export const getSeoRichText = () => {
             seoRichTextFields.push({'fieldIdentifier': fieldIdentifier, 'fieldValue': seoRichText.value});
         }
     });
-    
     return seoRichTextFields;
 }
 

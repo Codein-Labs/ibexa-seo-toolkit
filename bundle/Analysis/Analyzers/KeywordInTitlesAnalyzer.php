@@ -71,4 +71,12 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
             'ratio' => $ratioKeywordInTitle,
         ]);
     }
+
+    public function support(AnalysisDTO $data): bool
+    {
+        if (count($data->getFields()) === 0) {
+            return false;
+        }
+        return true;
+    }
 }

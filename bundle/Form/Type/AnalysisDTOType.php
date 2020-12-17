@@ -42,7 +42,7 @@ final class AnalysisDTOType extends AbstractType
             ])
             ->add('fields', FieldType::class, [
                 self::CONSTRAINTS => [new Count([
-                    'min' => 1,
+                    'min' => 0,
                 ])],
             ])
         ;

@@ -38,7 +38,7 @@ codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.low: "Le mot-clé n'
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.medium: "Le mot-clé apparaît dans %ratio%% des titres, c'est améliorable."
 codein_seo_toolkit.analyzer.KeywordInTitlesAnalyzer.message.high: "Le mot-clé apparaît dans %ratio%% des titres, c'est très bien."
 codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.readable_name: 'Nombre correct de balises H1'
-codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.low: "Vous avez %count% balises H1 dans votre contenu. Vous devez n'en avoir qu'un !"
+codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.low: "Vous avez %count% balises H1 dans votre contenu. Vous devez en avoir 1 exactement !"
 codein_seo_toolkit.analyzer.OneH1TagMaximumAnalyzer.message.high: "Vous avez exactement une balise H1. C'est parfait !"
 codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.readable_name: "Mot clé dans le slug d'URL"
 codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.low: "Votre mot-clé n'est pas présent dans l'URL, gardez à l'esprit que c'est une bonne pratique!"
