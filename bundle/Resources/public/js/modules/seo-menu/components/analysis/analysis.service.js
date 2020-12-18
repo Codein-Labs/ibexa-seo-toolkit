@@ -1,11 +1,10 @@
 import * as HTTPHelper from '../../services/http.helper';
 
-
-
 export const getAnalysis = (context, richTextFields, callback) => {
     const headers = {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Siteaccess': document.querySelector('meta[name="SiteAccess"]').content,
     };
 
     const method = 'POST';
@@ -46,7 +45,7 @@ export const getSeoRichText = () => {
         .container
         .$.closest('.ez-data-source')
         .querySelector('textarea')
-        
+
         let fieldIdentifier = extractFieldIdentifier(seoRichText.getAttribute('name'));
         if (fieldIdentifier) {
             seoRichTextFields.push({'fieldIdentifier': fieldIdentifier, 'fieldValue': seoRichText.value});
@@ -67,7 +66,7 @@ const extractFieldIdentifier = (textareaNameAttribute) => {
 export const calculateScore = (seoData) => {
     let globalScore = 0;
     let subScores = {};
-    
+
     for (let i in seoData) {
         let subNote = 0;
         let subTotal = 0;

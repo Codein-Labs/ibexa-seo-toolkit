@@ -5,7 +5,8 @@ export const getConfiguration = (contentId, callback) => {
 
     const headers = {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Siteaccess': document.querySelector('meta[name="SiteAccess"]').content,
     };
 
     const method = 'GET';
@@ -21,7 +22,8 @@ export const updateConfiguration = (contentId, keyword, isPillarContent, languag
 
     const headers = {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Siteaccess': document.querySelector('meta[name="SiteAccess"]').content,
     };
 
     const method = 'PUT';
