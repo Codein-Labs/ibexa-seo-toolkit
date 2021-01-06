@@ -10,7 +10,6 @@ use eZ\Publish\Core\Repository\LocationService;
 use eZ\Publish\Core\Repository\SearchService;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\SPI\Variation\VariationHandler;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SitemapContentService
@@ -39,17 +38,13 @@ final class SitemapContentService
     /** @var SitemapQueryHelper */
     private $sitemapQueryHelper;
 
-    /** @var RequestStack */
-    private $requestStack;
-
     public function __construct(
         SiteAccessConfigResolver $siteAccessConfigResolver,
         UrlGeneratorInterface $urlGenerator,
         LocationService $locationService,
         SearchService $searchService,
         ContentTypeService $contentTypeService,
-        SitemapQueryHelper $sitemapQueryHelper,
-        RequestStack $requestStack
+        SitemapQueryHelper $sitemapQueryHelper
     ) {
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
         $this->urlGenerator = $urlGenerator;
@@ -57,7 +52,6 @@ final class SitemapContentService
         $this->searchService = $searchService;
         $this->contentTypeService = $contentTypeService;
         $this->sitemapQueryHelper = $sitemapQueryHelper;
-        $this->requestStack = $requestStack;
     }
 
     public function generate()
@@ -103,9 +97,10 @@ final class SitemapContentService
 
         for ($page = 1; $page <= $maxPages; ++$page) {
             try {
-                $locString = $this->generateURLWithScheme(
+                $locString = $this->urlGenerator->generate(
                     'codein_ez_platform_seo_toolkit.sitemap_page_result',
-                    ['page' => $page]
+                    ['page' => $page],
+                    UrlGeneratorInterface::ABSOLUTE_URL
                 );
             } catch (\Exception $e) {
                 continue;
@@ -137,9 +132,10 @@ final class SitemapContentService
                 continue;
             }
             try {
-                $locString = $this->generateURLWithScheme(
+                $locString = $this->urlGenerator->generate(
                     'codein_ez_platform_seo_toolkit.sitemap_page_content_type',
-                    ['contentTypeIdentifier' => $contentType]
+                    ['contentTypeIdentifier' => $contentType],
+                    UrlGeneratorInterface::ABSOLUTE_URL
                 );
             } catch (\Exception $e) {
                 continue;
@@ -205,9 +201,11 @@ final class SitemapContentService
             $location = $queryResult->valueObject;
 
             try {
-                $locString = $this->generateURLWithScheme(
+                $locString = $this->urlGenerator->generate(
                     'ez_urlalias',
-                    ['location' => $location]);
+                    ['location' => $location],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                );
             } catch (\Exception $e) {
                 continue;
             }
@@ -281,28 +279,16 @@ final class SitemapContentService
     public function prependXSLStyleTag(\DOMDocument $sitemapContent)
     {
         $sitemapContent->xmlStandalone = false;
-        $xslFileRoute = $this->generateURLWithScheme('codein_ez_platform_seo_toolkit.sitemap_xsl');
+        $xslFileRoute = $this->urlGenerator->generate(
+            'codein_ez_platform_seo_toolkit.sitemap_xsl',
+            [],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
         $xslt = $sitemapContent->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="' . $xslFileRoute . '"');
 
         $sitemapContent->insertBefore($xslt, $sitemapContent->firstChild);
 
         return $sitemapContent;
-    }
-
-    private function generateURLWithScheme(string $route, $data = []) {
-        $request = $this->requestStack->getCurrentRequest();
-
-        $url = $this->urlGenerator->generate(
-            $route,
-            $data,
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
-
-        $scheme = $request->getScheme();
-
-        if (strpos($scheme, "https") !== false) {
-            $url = preg_replace('/^http:/', 'https:', $url);
-        }
-        return $url;
     }
 }
