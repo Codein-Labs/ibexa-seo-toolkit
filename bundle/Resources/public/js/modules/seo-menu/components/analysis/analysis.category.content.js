@@ -18,6 +18,7 @@ export default class AnalysisCategoryContent extends React.Component {
         return (
         <>
           <p className={"analysis-content__result analysis-content__result--" + this.props.content[analyzer].status}>
+            <strong>{TRANS_READABLE_NAME}: </strong> 
             {__("codein_seo_toolkit.analyzer."+ analyzer +".message." + this.props.content[analyzer].status, "codein_seo_toolkit", this.props.content[analyzer].data)}
             {TRANS_INFO != TRANS_INFO_STRING ? (
               <a className="ml-3 badge badge-dark collapsed" data-toggle="collapse" href={'#'+analyzer+'Tooltip'} aria-expanded="false" role="button">?</a>
