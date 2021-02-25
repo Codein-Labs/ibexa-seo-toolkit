@@ -17,7 +17,7 @@ Learn how to exploit the power of this bundle, and start making SEO optimization
 
 ## Analyzers
 
-Learn how to exploit the power of this bundle, and start making SEO optimization a better experience: [USAGE.md](USAGE.md).
+Learn how to exploit the power of this bundle, and start making SEO optimization a better experience: [ANALYZERS.md](ANALYZERS.md).
 
 ## Learning everything you can do
 
