@@ -6,7 +6,7 @@ The following is a set of guidelines for contributing to *eZ Platform SEO Toolki
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [Codein Code of Conduct](docs/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [production@codein.fr](mailto:production@codein.com).
+This project and everyone participating in it is governed by the [Codein Code of Conduct](docs/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [labs@codein.fr](mailto:labs@codein.com).
 
 ## What should I know before I get started?
 
