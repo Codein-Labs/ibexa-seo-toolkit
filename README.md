@@ -48,7 +48,6 @@ More details available on [features][2].
 Installation
 -----------
 
-Don't worry, it will be quick and easy (I promise!):
 * [Installation procedure](docs/INSTALL.md)
 
 Documentation
