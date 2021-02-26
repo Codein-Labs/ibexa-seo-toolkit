@@ -4,6 +4,7 @@ import AnalysisCategoryContent from "./analysis.category.content";
 import { getAnalysis, getSeoRichText, calculateScore } from './analysis.service';
 import { validateContextData } from '../../services/validator.helper';
 import EzDataContext from "../../ez.datacontext";
+import ConfigurationTab from "../configuration/configuration.tab";
 
 export default class AnalysisTab extends React.Component {
 
@@ -139,12 +140,16 @@ export default class AnalysisTab extends React.Component {
     const transTipsTrafficOrange = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.orange');
     const transTipsTrafficRed = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.red');
     const transTipsDeveloper = __('codein_seo_toolkit.seo_view.tab_analysis.tips.developer_support');
+    const transHelpPillarContent = __('codein_seo_toolkit.seo_view.tab_analysis.help.pillar_content');
+    const transSiteaccessAnalyzed = __('codein_seo_toolkit.analyzer.siteaccess_analyzed');
+    const transHelpSiteaccessAnalyzed = __('codein_seo_toolkit.seo_view.tab_analysis.help.siteaccess_analyzed');
     const transGlobalNote = __('codein_seo_toolkit.seo_view.tab_analysis.global_note');
     
     return (
       <>
-        <a className="badge badge-info collapsed" data-toggle="collapse" href="#generalHelpCollapse" aria-expanded="false">⚠ Tips</a>
-        <div className="collapse" id="generalHelpCollapse">
+        <a className="badge badge-info collapsed mr-2" data-toggle="collapse" href="#generalTipsCollapse" aria-expanded="false">⚠ Tips</a>
+        <a className="badge badge-primary collapsed" data-toggle="collapse" href="#generalHelpCollapse" aria-expanded="false">⚠ Help</a>
+        <div className="collapse" id="generalTipsCollapse">
           <div className="alert alert-info mb-0 mt-3" role="alert">
             <ul>
               <li>{transTipsSaving}</li>
@@ -160,11 +165,19 @@ export default class AnalysisTab extends React.Component {
             </ul>
           </div>
         </div>
+        <div className="collapse" id="generalHelpCollapse">
+          <div className="alert alert-primary mb-0 mt-3" role="alert">
+            <ul>
+              <li>{transHelpPillarContent}</li>
+              <li>{transHelpSiteaccessAnalyzed}</li>
+            </ul>
+          </div>
+        </div>
         
         <hr class="separator mt-2 mb-2"></hr>
-
+        <ConfigurationTab />
         <div class="ez-field-edit__label-wrapper">
-          <label class="ez-field-edit__label" for="ezrepoforms_content_edit_fieldsData_new_type_value">Siteaccess analyzed:</label>
+          <label class="ez-field-edit__label" for="ezrepoforms_content_edit_fieldsData_new_type_value">{transSiteaccessAnalyzed}:</label>
         </div>
         <select id="siteaccess-selection" class="analysis-content__siteaccess-selection form-control" value={this.state.selectedSiteaccess} onChange={this.handleSiteAccessChange}>
           {this.siteaccesses?.map((siteaccess, index) => (

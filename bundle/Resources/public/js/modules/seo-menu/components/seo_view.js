@@ -59,14 +59,9 @@ export default class SeoView extends React.Component {
                   </h1>
                   <h4 class="ez-page-title__content-type-name">{transDesc}</h4>
                 </div>
-                <SeoViewTabsNav
-                  tabs={TABS}
-                  selectTab={this.selectTab}
-                  currentTabIndex={this.state.currentTabIndex}
-                />
               </div>
             </div>
-            <div className="tab-content container mt-4">
+            <div className="tab-content container mt-4 pb-3">
               <div class="panel panel-primary">
                 <div class="panel-body">
                   <div class="tab-content" id="nav-tabContent">
@@ -79,7 +74,7 @@ export default class SeoView extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="container">
+            <div className="container pb-4">
               <p>
                 {transMadeWith} ❤️ {transMadeBy}{" "}
                 <a href="https://codein.fr">Codéin</a>.
