@@ -34,7 +34,15 @@ export default class App extends react.Component {
           () => {
             this.setState((state) => ({
               seoMenuOpened: !state.seoMenuOpened,
-            }));
+            }), function () {
+              if (this.state.seoMenuOpened) {
+                seoButtonAnalysis.classList.remove('btn-secondary');
+                seoButtonAnalysis.classList.add('btn-primary');
+              } else {
+                seoButtonAnalysis.classList.remove('btn-primary');
+                seoButtonAnalysis.classList.add('btn-secondary');
+              }
+            });
           },
           false
         );
@@ -42,16 +50,21 @@ export default class App extends react.Component {
   }
 
   onCloseMenu() {
+    const seoButtonAnalysis = document.getElementById(
+      "menu_item_seo_analyzer-tab"
+    );
     this.setState(() => ({
       seoMenuOpened: false,
     }));
+    seoButtonAnalysis.classList.remove('btn-primary');
+    seoButtonAnalysis.classList.add('btn-secondary');
   }
 
   render() {
     if (this.state.seoMenuOpened) {
       return(
-        <div className="page" style={{ zIndex: 2, overflowY: "scroll" }}>
-              <div style={{ background: "#fafafa" }}>
+        <div className="page" style={{ zIndex: 2, overflowY: "scroll", background: "#fafafa" }}>
+              <div>
                 <EzDataContext.Provider value={this.props.contentAttributes}>
                   <SeoView closeMenu={this.onCloseMenu} />
                 </EzDataContext.Provider>
