@@ -44,12 +44,15 @@ export default class App extends react.Component {
                 seoButtonAnalysis.classList.remove('btn-secondary');
                 seoButtonAnalysis.classList.add('btn-primary');
 
-                ezPageBuilderFields.style.display = "block";
+                if (ezPageBuilderFields != null) 
+                {
+                  ezPageBuilderFields.style.display = "block";
+                }
               } else {
                 seoButtonAnalysis.classList.remove('btn-primary');
                 seoButtonAnalysis.classList.add('btn-secondary');
                 
-                if (document.querySelector('.ez-page-builder-edit:not(.ez-page-builder--fields-visible).ez-page-builder__fields') !== null) {
+                if (ezPageBuilderFields != null && document.querySelector('.ez-page-builder-edit:not(.ez-page-builder--fields-visible).ez-page-builder__fields') !== null) {
                   ezPageBuilderFields.style.display = "none";
 
                 }
