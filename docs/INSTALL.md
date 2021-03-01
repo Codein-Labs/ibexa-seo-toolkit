@@ -58,6 +58,10 @@ In your project root, launch :
 php bin/console doctrine:schema-update --force
 ```
 
+As doctrine migrations aren't installed by default on eZ Platform projects, we use `doctrine:schema-update`. 
+
+You can make a migration of it instead.
+
 ## Configure Webpack to build bundle assets
 
 In your `webpack.config.js` (same level as your composer.json) :
@@ -84,6 +88,24 @@ php bin/console bazinga:js-translation:dump web/assets --merge-domains
 ```
 yarn encore dev
 ```
+
+
+### FAQ
+
+#### Why so much configuration ?
+
+As an eZ Platform bundle, we want to make sure developers can extend / override most of it. 
+
+Moreover, we use React for adding an interface in the backoffice, for maintainability purposes ... and it comes with upfront application configuration. 
+
+#### Backoffice translations aren't found
+
+This is typically not a problem with the bundle. 
+
+**Try:**
+* clearing caches,
+* check yarn cache is writable,
+* do `yarn install`
 
 ## That's it!
 
