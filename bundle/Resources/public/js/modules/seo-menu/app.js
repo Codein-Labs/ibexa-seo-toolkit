@@ -28,6 +28,11 @@ export default class App extends react.Component {
     const seoButtonAnalysis = document.getElementById(
       "menu_item_seo_analyzer-tab"
     );
+
+    // Allow for the bundle to display properly on landing pages.
+    const ezPageBuilderFields = document.querySelector(
+      '.ez-page-builder__fields'
+    );
     if(seoButtonAnalysis) {
         seoButtonAnalysis.addEventListener(
           "click",
@@ -38,9 +43,17 @@ export default class App extends react.Component {
               if (this.state.seoMenuOpened) {
                 seoButtonAnalysis.classList.remove('btn-secondary');
                 seoButtonAnalysis.classList.add('btn-primary');
+
+                ezPageBuilderFields.style.display = "block";
               } else {
                 seoButtonAnalysis.classList.remove('btn-primary');
                 seoButtonAnalysis.classList.add('btn-secondary');
+                
+                if (document.querySelector('.ez-page-builder-edit:not(.ez-page-builder--fields-visible).ez-page-builder__fields') !== null) {
+                  ezPageBuilderFields.style.display = "none";
+
+                }
+                
               }
             });
           },
@@ -66,7 +79,7 @@ export default class App extends react.Component {
         <div className="page" style={{ zIndex: 2, overflowY: "scroll", background: "#fafafa" }}>
               <div>
                 <EzDataContext.Provider value={this.props.contentAttributes}>
-                  <SeoView closeMenu={this.onCloseMenu} />
+                  <SeoView closeMenu={this.onCloseMenu} contentName={this.props.contentName} />
                 </EzDataContext.Provider>
               </div>
             </div>
