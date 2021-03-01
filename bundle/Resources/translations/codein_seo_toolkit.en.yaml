@@ -4,7 +4,8 @@ codein_seo_toolkit.seo_view.desc: 'Get better SEO'
 codein_seo_toolkit.seo_view.footer_made_with: 'Made with'
 codein_seo_toolkit.seo_view.footer_made_by: by
 codein_seo_toolkit.seo_view.tab_analysis: Analysis
-codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyze
+codein_seo_toolkit.seo_view.tab_analysis.trigger_analysis: Analyze
+codein_seo_toolkit.seo_view.tab_analysis.back_to_edit: "Back to edit"
 codein_seo_toolkit.seo_view.tab_analysis.global_note: Global note
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
 codein_seo_toolkit.seo_view.tab_analysis.tips.saving: 'Save your content to update the analysis'
@@ -17,7 +18,7 @@ codein_seo_toolkit.seo_view.tab_analysis.help.pillar_content: "A pillar content 
 codein_seo_toolkit.seo_view.tab_analysis.help.siteaccess_analyzed: "Siteaccess analyzed: Some analyses are based on your rendered page. In case your content is on multiple sites, choose which site you want to analyze you content for..."
 codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Focus keyword'
 codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Is a pillar content'
-codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
+codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update target'
 codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "You can separate synonyms of your keyword with a comma."
 codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
 codein_seo_toolkit.analyzer.error.preview_not_returning_html: "Content preview does not return valid HTML."

@@ -4,7 +4,8 @@ codein_seo_toolkit.seo_view.desc: 'Fenêtre d''optimisation SEO'
 codein_seo_toolkit.seo_view.footer_made_with: 'Fait avec'
 codein_seo_toolkit.seo_view.footer_made_by: par
 codein_seo_toolkit.seo_view.tab_analysis: Analyse
-codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis: Analyser
+codein_seo_toolkit.seo_view.tab_analysis.trigger_analysis: Analyser
+codein_seo_toolkit.seo_view.tab_analysis.back_to_edit: "Revenir à l'édition"
 codein_seo_toolkit.seo_view.tab_analysis.global_note: Note globale
 codein_seo_toolkit.seo_view.tab_configuration: Configuration
 codein_seo_toolkit.seo_view.tab_analysis.tips.saving: "Sauvegarder votre contenu pour mettre à jour l'analyse"
@@ -17,7 +18,7 @@ codein_seo_toolkit.seo_view.tab_analysis.help.pillarContent: "Un contenu pilier 
 codein_seo_toolkit.seo_view.tab_analysis.help.siteaccessAnalyzed: "Siteaccess analysé: Certaines analyses se basent sur le rendu de votre page. Dans le cas où votre contenu est sur plusieurs sites, choisissez le site que vous voulez analyser. "
 codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Mot clé principal'
 codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Est-un contenu pilier'
-codein_seo_toolkit.seo_view.tab_configuration_update_configuration: 'Update configuration'
+codein_seo_toolkit.seo_view.tab_configuration_update_configuration: "Mettre l'objectif à jour"
 codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "Vous pouvez séparer les synonymes de votre mot clé par une virgule."
 codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
 codein_seo_toolkit.analyzer.error.preview_not_returning_html: "Le content preview ne retourne pas un HTML valide."
