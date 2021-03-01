@@ -12,6 +12,7 @@ export default class ConfigurationTab extends React.Component {
 
   constructor(props) {
     super(props);
+    this.analysisCallback = props.callback;
     this.state = {
       'focusKeyword': '',
       'isPillarContent': false,
@@ -53,6 +54,7 @@ export default class ConfigurationTab extends React.Component {
         self.setState({
           loading: false
         })
+        self.analysisCallback(null)
       })
     }
   }
@@ -85,8 +87,9 @@ export default class ConfigurationTab extends React.Component {
       "codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms"
     );
     const css = ``
+    var buttonContent = transConfigurationUpdateConfiguration;
     if (this.state.loading) {
-      return (
+      buttonContent = (
         <>
           <style>
             {css}
@@ -102,6 +105,7 @@ export default class ConfigurationTab extends React.Component {
     return (
       <>
         <form>
+
           <div className="ez-field-edit">
             <div className="ez-field-edit__label-wrapper">
                 <label className="ez-field-edit__label" for="keyword">{transConfigurationKeyword}</label>
@@ -109,6 +113,7 @@ export default class ConfigurationTab extends React.Component {
             <div className="ez-field-edit__data">
                 <div className="ez-data-source">
                   <input type="text" id="keyword" name="keyword" className="ez-data-source__input form-control" value={this.state.focusKeyword} onChange={this.onChangeFocusKeyword} />
+                  <em class="light-text">{transConfigurationKeywordSynonyms}</em>
                 </div>
             </div>
           </div>
@@ -122,10 +127,9 @@ export default class ConfigurationTab extends React.Component {
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary" onClick={this.triggerUpdateConfiguration}>{transConfigurationUpdateConfiguration}</button>
-          <hr/>
-          <em class="light-text">{transConfigurationKeywordSynonyms}</em>
+          <button type="button" class="btn btn-primary" onClick={this.triggerUpdateConfiguration}>{buttonContent}</button>
         </form>
+        <hr/>
       </>
     );
   }

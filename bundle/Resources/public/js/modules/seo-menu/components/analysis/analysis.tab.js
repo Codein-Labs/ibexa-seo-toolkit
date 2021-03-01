@@ -133,7 +133,8 @@ export default class AnalysisTab extends React.Component {
 
   
   render() {
-    const transAnalyzeButton = __("codein_seo_toolkit.seo_view.tab_analysis.triggerAnalysis");
+    const transAnalyzeButton = __("codein_seo_toolkit.seo_view.tab_analysis.trigger_analysis");
+    const transBackToEditButton = __("codein_seo_toolkit.seo_view.tab_analysis.back_to_edit");
     const transTipsSaving = __('codein_seo_toolkit.seo_view.tab_analysis.tips.saving');
     const transTipsTraffic = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic');
     const transTipsTrafficGreen = __('codein_seo_toolkit.seo_view.tab_analysis.tips.traffic.green');
@@ -175,7 +176,7 @@ export default class AnalysisTab extends React.Component {
         </div>
         
         <hr class="separator mt-2 mb-2"></hr>
-        <ConfigurationTab />
+        <ConfigurationTab callback={this.triggerAnalysis}/>
         <div class="ez-field-edit__label-wrapper">
           <label class="ez-field-edit__label" for="ezrepoforms_content_edit_fieldsData_new_type_value">{transSiteaccessAnalyzed}:</label>
         </div>
@@ -224,7 +225,7 @@ export default class AnalysisTab extends React.Component {
         </div>
   
         <hr class="separator mt-2"></hr>
-        <button class="btn btn-primary" onClick={this.triggerAnalysis}>{transAnalyzeButton}</button>
+        <button class="btn btn-primary mr-2" onClick={this.triggerAnalysis}>{transAnalyzeButton}</button>
       </>
     );
   }
