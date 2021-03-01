@@ -17,7 +17,7 @@ const attr = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App contentAttributes={attr} />
+    <App contentAttributes={attr} contentName={root.getAttribute('data-content-name')}/>
   </React.StrictMode>,
   document.getElementById(ROOT_ELEMENT)
 );

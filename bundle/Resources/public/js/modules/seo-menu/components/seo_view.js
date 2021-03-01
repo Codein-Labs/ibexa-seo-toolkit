@@ -57,7 +57,7 @@ export default class SeoView extends React.Component {
                       {transTitle}
                     </div>
                   </h1>
-                  <h4 class="ez-page-title__content-type-name">{transDesc}</h4>
+                  <h4 class="ez-page-title__content-type-name">{this.props.contentName}</h4>
                 </div>
               </div>
             </div>
