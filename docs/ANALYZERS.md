@@ -84,6 +84,11 @@ At the moment there are several available analyzers:
 
 To create a custom analyzer, simply extend ``Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer`` class and in the ``analyze`` method of your class return the result.
 
+You can get inspiration on how to proceed by looking at existing analysis classes.
+
+By extending AbstractAnalyzer, your service should automatically be tagged : `codein_ez_platform_seo_toolkit.seo_analyzer`
+
+If that's not the case, know that it's required for your analysis class to be taken into account.
 
 ## That's it!
 
