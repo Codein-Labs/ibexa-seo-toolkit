@@ -11,7 +11,7 @@ Here's a succinct list of features:
   * sitemap link override support
 
 * Content Analysis
-  * Contributors now have a similar tool to Yoast SEO on eZ Platform
+  * Contributors now have a similar tool to Yoast SEO on Ibexa
   * Analyzers can be easily created by the developper for custom use cases
   * Analyzers can be disabled on some content types.
 

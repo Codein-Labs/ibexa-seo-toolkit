@@ -1,6 +1,6 @@
 # User Documentation
 
-This documentation is for eZ Platform Contibutors
+This documentation is for Ibexa Contibutors
 
 ## Features
 

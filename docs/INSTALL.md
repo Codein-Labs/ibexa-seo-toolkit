@@ -1,4 +1,4 @@
-# Installing Codein eZ Platform SEO Toolkit
+# Installing Codein Ibexa SEO Toolkit
 
 ## Get the bundle using composer
 
@@ -6,10 +6,10 @@ Add IbexaSeoToolkitBundle. by running this command from the terminal at the root
 your Symfony project:
 
 ```bash
-composer require codein/ezplatform-seo-toolkit
+composer require codein/ibexa-seo-toolkit
 ```
 
-Alternatively, you can add the requirement `"codein/ezplatform-seo-toolkit": "^1.12"` to your composer.json and run `composer update`.
+Alternatively, you can add the requirement `"codein/ibexa-seo-toolkit": "^1.12"` to your composer.json and run `composer update`.
 This could be useful when the installation of IbexaSeoToolkitBundle is not compatible with some currently installed dependencies (see [requirements details][1]).
 Anyway, the previous option is the preferred way, since composer can pick the best requirement constraint for you.
 
@@ -58,7 +58,7 @@ In your project root, launch :
 php bin/console doctrine:schema-update --force
 ```
 
-As doctrine migrations aren't installed by default on eZ Platform projects, we use `doctrine:schema-update`. 
+As doctrine migrations aren't installed by default on Ibexa projects, we use `doctrine:schema-update`. 
 
 You can make a migration of it instead.
 
@@ -66,7 +66,7 @@ You can make a migration of it instead.
 
 In your `webpack.config.js` (same level as your composer.json) :
 ```js
-const codeinSeoToolkitConfig = require('./vendor/codein/ezplatform-seo-toolkit/bundle/Resources/encore/codein.config.js')(Encore);
+const codeinSeoToolkitConfig = require('./vendor/codein/ibexa-seo-toolkit/bundle/Resources/encore/codein.config.js')(Encore);
 
 module.exports = [ eZConfig, ...customConfigs, codeinSeoToolkitConfig ];
 ```
@@ -94,7 +94,7 @@ yarn encore dev
 
 #### Why so much configuration ?
 
-As an eZ Platform bundle, we want to make sure developers can extend / override most of it. 
+As an Ibexa bundle, we want to make sure developers can extend / override most of it. 
 
 Moreover, we use React for adding an interface in the backoffice, for maintainability purposes ... and it comes with upfront application configuration. 
 

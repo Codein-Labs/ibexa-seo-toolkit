@@ -1,6 +1,6 @@
-# Using eZ Platform SEO Toolkit
+# Using Ibexa SEO Toolkit
 
-Unlike a wordpress plugin such as Yoast, eZ Platform SEO Toolkit allows developper configuration to match specific customer needs.
+Unlike a wordpress plugin such as Yoast, Ibexa SEO Toolkit allows developper configuration to match specific customer needs.
 
 ## Analysis
 

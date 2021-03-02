@@ -14,7 +14,7 @@ ______________
         <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=blueviolet" alt="PRs welcome" />
     </a>
     <a href="http://makeapullrequest.com">
-        <img src="https://img.shields.io/packagist/1M/codein/ezplatform-seo-toolkit/?color=blue" alt="Packagist download" />
+        <img src="https://img.shields.io/packagist/1M/codein/ibexa-seo-toolkit/?color=blue" alt="Packagist download" />
     </a>
     <a href="https://www.codein.fr">
         <img alt="flat" src="https://img.shields.io/badge/Made%20by-Codein-fb5b39?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAOCAMAAAD6xte7AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABLUExURUdwTBQbTRQbTRQbTRQbTRUcTRQbTf9cORQbTRQbTfFXO/9cOcxKQhQbTRQbTRQbTRQbTcxKQhQbTclJQv9cOf9cORQbTf9cOcxKQj3W4ekAAAAWdFJOUwDiuszCCpSZ91xvCpZw8CA9ZinCwoJkT6Q2AAAAkElEQVQY01WO2w6EIBBDKwiieNct/P+Xbpk12diHBg7TocBLw/QcFk/S7Q2VcjQSev4Uke9SOYo11Pkkn5EvMm0Y5XoKkbUMFopwtGlgKmI4FYJCz1fT0HzVnVytxOd50Sp05GklZkNa7xDJPohVxiCU2vpNfmXM6pK8QuxtupY7t3mTQtJhJbA7JfzyKvHXF1koCbxlF5LJAAAAAElFTkSuQmCC&style=flat">

@@ -15,7 +15,7 @@ From here, you have two main options:
 
 The goal of analyzers is **to provide good intel of whether the writing strategy is adapted** to the focus keyword we want to rank on. (a.k.a. *Keyword analysis*)
 
-For example, if we want to rank for "eZ Platform Bundle", it make sense to use this keyword in some h2 titles, in the text.
+For example, if we want to rank for "Ibexa Bundle", it make sense to use this keyword in some h2 titles, in the text.
 
 Moreover, another goal is to help content creators to write content which will be read well by both Google and the customer (a.k.a. *Lisibility analysis*).
 

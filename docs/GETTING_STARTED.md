@@ -1,10 +1,10 @@
 # Getting Started
 
-[Codein](https://www.codein.fr) eZ Platform SEO Toolkit is a Symfony bundle for eZ Platform users, developers and contributors alike. 
+[Codein](https://www.codein.fr) Ibexa SEO Toolkit is a Symfony bundle for Ibexa users, developers and contributors alike. 
 
 ## Installing the bundle on your project
 
-This bundle require eZ Platform 2.5 or higher, and PHP 7.1 or higher. 
+This bundle require Ibexa 2.5 or higher, and PHP 7.1 or higher. 
 [Click here for more details on requirements](REQUIREMENTS.md).
 
 ____
