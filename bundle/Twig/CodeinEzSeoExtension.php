@@ -98,13 +98,13 @@ final class CodeinIbexaSeoExtension extends AbstractExtension implements Globals
     public function getGlobals(): array
     {
         $metas = $this->siteAccessConfigResolver->getParameterConfig('metas');
-        $codeinEzSeo = [
+        $codeinIbexaSeo = [
             self::FIELD_TYPE_METAS => $metas[self::FIELD_TYPE_METAS],
             'default_metas' => $metas['default_metas'],
         ];
 
         return [
-            'codein_ibexaseo' => $codeinEzSeo,
+            'codein_ibexaseo' => $codeinIbexaSeo,
         ];
     }
 

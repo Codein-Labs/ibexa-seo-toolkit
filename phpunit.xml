@@ -5,7 +5,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="codeinEzSeoToolkit">
+        <testsuite name="codeinIbexaSeoToolkit">
             <directory>./tests/bundle/</directory>
             <directory>./tests/lib</directory>
         </testsuite>
