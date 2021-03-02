@@ -4,33 +4,33 @@ services:
         autoconfigure: true
         public: true
     _instanceof:
-        Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerInterface:
-            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer.parent_interface' ]
-        Codein\eZPlatformSeoToolkit\Analysis\AnalyzerInterface:
-            tags: [ 'codein_ez_platform_seo_toolkit.seo_analyzer' ]
+        Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerInterface:
+            tags: [ 'codein_ibexa_seo_toolkit.seo_analyzer.parent_interface' ]
+        Codein\IbexaSeoToolkit\Analysis\AnalyzerInterface:
+            tags: [ 'codein_ibexa_seo_toolkit.seo_analyzer' ]
 
-    Codein\eZPlatformSeoToolkit\Analysis\:
+    Codein\IbexaSeoToolkit\Analysis\:
         resource: '../../Analysis/*'
 
-    Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService: ~
+    Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService: ~
 
-    Codein\eZPlatformSeoToolkit\Controller\:
+    Codein\IbexaSeoToolkit\Controller\:
         resource: '../../Controller/*'
 
-    Codein\eZPlatformSeoToolkit\Routing\ApiLoader:
+    Codein\IbexaSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
-    Codein\eZPlatformSeoToolkit\Twig\CodeinEzSeoExtension:
+    Codein\IbexaSeoToolkit\Twig\CodeinIbexaSeoExtension:
         arguments:
             $siteAccessesByLanguage : '%ezpublish.siteaccesses_by_language%'
 
-    Codein\eZPlatformSeoToolkit\Form\MetasFieldType: ~
+    Codein\IbexaSeoToolkit\Form\MetasFieldType: ~
 
-    Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService: ~
+    Codein\IbexaSeoToolkit\Service\AnalyzeContentService: ~
 
-    Codein\eZPlatformSeoToolkit\Service\SitemapContentService: 
+    Codein\IbexaSeoToolkit\Service\SitemapContentService: 
         calls:
             - [setVariationHandler, ["@ezpublish.image_alias.imagine.alias_generator", "@ezpublish.fieldType.ezimage"]]
 
-    Codein\eZPlatformSeoToolkit\EventListener\SitemapResponseListener:
+    Codein\IbexaSeoToolkit\EventListener\SitemapResponseListener:
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

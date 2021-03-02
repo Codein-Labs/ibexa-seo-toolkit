@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Form\Type;
+namespace Codein\IbexaSeoToolkit\Form\Type;
 
-use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
+use Codein\IbexaSeoToolkit\Entity\ContentConfiguration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Helper;
+namespace Codein\IbexaSeoToolkit\Helper;
 
 use DOMDocument;
 

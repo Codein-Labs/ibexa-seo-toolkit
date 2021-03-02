@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Controller;
+namespace Codein\IbexaSeoToolkit\Controller;
 
-use Codein\eZPlatformSeoToolkit\Service\SitemapContentService;
+use Codein\IbexaSeoToolkit\Service\SitemapContentService;
 use EzSystems\PlatformHttpCacheBundle\ResponseConfigurator\ResponseCacheConfigurator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +65,7 @@ final class SitemapController extends AbstractController
 
     public function xsltStylesheet(Request $request)
     {
-        $xslView = $this->renderView('EzPlatformSeoToolkitBundle:sitemap:sitemap.xsl.twig', [
+        $xslView = $this->renderView('IbexaSeoToolkitBundle:sitemap:sitemap.xsl.twig', [
             'referer' => $request->headers->get('referer')
         ]);
         $xslDocument = new \DOMDocument('1.0', 'utf-8');

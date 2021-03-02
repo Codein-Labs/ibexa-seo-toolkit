@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Service;
+namespace Codein\IbexaSeoToolkit\Service;
 
-use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerInterface;
-use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
-use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
-use Codein\eZPlatformSeoToolkit\Helper\XmlValidator;
-use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
+use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerInterface;
+use Codein\IbexaSeoToolkit\Entity\ContentConfiguration;
+use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\IbexaSeoToolkit\Helper\XmlValidator;
+use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 

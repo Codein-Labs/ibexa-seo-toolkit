@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Entity;
+namespace Codein\IbexaSeoToolkit\Entity;
 
-use Codein\eZPlatformSeoToolkit\Model\ArrayableInterface;
+use Codein\IbexaSeoToolkit\Model\ArrayableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

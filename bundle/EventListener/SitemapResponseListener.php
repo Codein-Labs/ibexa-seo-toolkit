@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\EventListener;
+namespace Codein\IbexaSeoToolkit\EventListener;
 
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 final class SitemapResponseListener
 {
     const ROUTES = [
-        'codein_ez_platform_seo_toolkit.sitemap',
-        'codein_ez_platform_seo_toolkit.sitemap_page_result',
-        'codein_ez_platform_seo_toolkit.sitemap_page_content_type'
+        'codein_ibexa_seo_toolkit.sitemap',
+        'codein_ibexa_seo_toolkit.sitemap_page_result',
+        'codein_ibexa_seo_toolkit.sitemap_page_content_type'
     ];
 
     public function onKernelResponse(FilterResponseEvent $event)

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\EventListener;
+namespace Codein\IbexaSeoToolkit\EventListener;
 
-use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
 use EzSystems\EzPlatformPageBuilderBundle\Menu\Event\PageBuilderConfigureMenuEventName;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

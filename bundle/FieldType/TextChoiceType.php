@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\FieldType;
+namespace Codein\IbexaSeoToolkit\FieldType;
 
 use EzSystems\RepositoryForms\Form\Type\FieldType\SelectionFieldType;
 use Symfony\Component\Form\AbstractType;

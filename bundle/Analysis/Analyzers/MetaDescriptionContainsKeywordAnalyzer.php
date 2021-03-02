@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
+namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
-use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
-use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
-use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
+use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
+use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
+use Codein\IbexaSeoToolkit\Service\AnalyzerService;
 use Exception;
 use Psr\Log\LoggerInterface;
 
@@ -16,7 +16,7 @@ final class MetaDescriptionContainsKeywordAnalyzer extends AbstractAnalyzer
 {
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
-    /** @var \Codein\eZPlatformSeoToolkit\Service\AnalyzerService */
+    /** @var \Codein\IbexaSeoToolkit\Service\AnalyzerService */
     private $analyzerService;
 
     /** @var \Psr\Log\LoggerInterface */

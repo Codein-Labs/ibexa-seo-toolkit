@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Exception;
+namespace Codein\IbexaSeoToolkit\Exception;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

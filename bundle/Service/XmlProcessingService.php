@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Service;
+namespace Codein\IbexaSeoToolkit\Service;
 
-use Codein\eZPlatformSeoToolkit\Model\Field;
+use Codein\IbexaSeoToolkit\Model\Field;
 
 /**
  * Class XmlProcessingService.

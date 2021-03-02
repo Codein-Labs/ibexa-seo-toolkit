@@ -1,24 +1,24 @@
 seo_api.analysis:
     path: /analysis
-    controller: Codein\eZPlatformSeoToolkit\Controller\AnalyzeContentController
+    controller: Codein\IbexaSeoToolkit\Controller\AnalyzeContentController
 
 seo_api.content_configuration.get:
     path: /content-configuration/{contentId}
-    controller: Codein\eZPlatformSeoToolkit\Controller\GetContentConfigurationController
+    controller: Codein\IbexaSeoToolkit\Controller\GetContentConfigurationController
     methods:    GET
     requirements:
         contentId: '\d+'
 
 seo_api.content_configuration.update:
     path: /content-configuration/{contentId}
-    controller: Codein\eZPlatformSeoToolkit\Controller\UpdateContentConfigurationController
+    controller: Codein\IbexaSeoToolkit\Controller\UpdateContentConfigurationController
     methods:    PUT
     requirements:
         contentId: '\d+'
 
 seo_api.content_configuration.post:
     path: /content-configuration
-    controller: Codein\eZPlatformSeoToolkit\Controller\UpdateContentConfigurationController
+    controller: Codein\IbexaSeoToolkit\Controller\UpdateContentConfigurationController
     methods:    PUT
     requirements:
         contentId: '\d+'

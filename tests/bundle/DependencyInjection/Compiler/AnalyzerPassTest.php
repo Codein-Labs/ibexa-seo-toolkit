@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Tests\DependencyInjection\Compiler;
+namespace Codein\IbexaSeoToolkit\Tests\DependencyInjection\Compiler;
 
-use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
-use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
+use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\IbexaSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;

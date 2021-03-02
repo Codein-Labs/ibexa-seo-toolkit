@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Form\Type;
+namespace Codein\IbexaSeoToolkit\Form\Type;
 
-use Codein\eZPlatformSeoToolkit\Form\DataTransformer\FieldArrayToObjectTransformer;
+use Codein\IbexaSeoToolkit\Form\DataTransformer\FieldArrayToObjectTransformer;
 use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

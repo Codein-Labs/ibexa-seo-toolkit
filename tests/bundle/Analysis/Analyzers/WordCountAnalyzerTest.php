@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Tests\Analysis\Analyzers;
+namespace Codein\IbexaSeoToolkit\Tests\Analysis\Analyzers;
 
-use Codein\eZPlatformSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;
-use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
-use Codein\eZPlatformSeoToolkit\Model\Field;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;
+use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
+use Codein\IbexaSeoToolkit\Model\Field;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

@@ -3,7 +3,7 @@ Analyzers
 
 The bundle uses a set of analyzers to analyze Rich Text Contents and Content Preview. 
 
-An analyzer extends the `Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer` abstract class.
+An analyzer extends the `Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer` abstract class.
 
 From here, you have two main options: 
 * Use the set of analyzers provided by the bundle.
@@ -32,7 +32,7 @@ Analyzers uses data configured:
 At the moment there are several available analyzers:
 ### Word Count Analyzer
 
-* <ins>Class</ins>: `Codein\eZPlatformSeoToolkit\Analysis\Analyzers\WordCountAnalyzer`
+* <ins>Class</ins>: `Codein\IbexaSeoToolkit\Analysis\Analyzers\WordCountAnalyzer`
 * <ins>Data context</ins>: `Rich text data`
 * <ins>Role</ins> : It will count the number of words in all **Rich Text** fields configured.
 * <ins>Scores</ins> :
@@ -43,7 +43,7 @@ At the moment there are several available analyzers:
 
 ### Keyword In Titles Analyzer
 
-* <ins>Class</ins>: `Codein\eZPlatformSeoToolkit\Analysis\Analyzers\KeywordInTitlesAnalyzer`
+* <ins>Class</ins>: `Codein\IbexaSeoToolkit\Analysis\Analyzers\KeywordInTitlesAnalyzer`
 * <ins>Data context</ins>: `Rich text data`
 * <ins>Role</ins> : It will check if the keyword is present in (h1|h2|h3|h4|h5|h6) titles.
 * <ins>Scores</ins> :
@@ -53,7 +53,7 @@ At the moment there are several available analyzers:
 
 ### Keyword In Url Slug Analyzer
 
-* <ins>Class</ins>: `Codein\eZPlatformSeoToolkit\Analysis\Analyzers\KeywordInUrlSlugAnalyzer`
+* <ins>Class</ins>: `Codein\IbexaSeoToolkit\Analysis\Analyzers\KeywordInUrlSlugAnalyzer`
 * <ins>Data context</ins>: `Url slug via locationId`
 * <ins>Role</ins> : It will check if the keyword is present in the url alias (= url slug).
 * <ins>Scores</ins> :
@@ -63,7 +63,7 @@ At the moment there are several available analyzers:
 
 ### Title Tag Contains Keyword Analyzer
 
-* <ins>Class</ins>: `Codein\eZPlatformSeoToolkit\Analysis\Analyzers\TitleTagContainsKeywordAnalyzer`
+* <ins>Class</ins>: `Codein\IbexaSeoToolkit\Analysis\Analyzers\TitleTagContainsKeywordAnalyzer`
 * <ins>Data context</ins>: `Content Preview`
 * <ins>Role</ins> : It will check if the keyword is present in the title tag (= `<title></title>`).
 * <ins>Scores</ins> :
@@ -73,7 +73,7 @@ At the moment there are several available analyzers:
 
 ### One H1 Tag Maximum Analyzer
 
-* <ins>Class</ins>: `Codein\eZPlatformSeoToolkit\Analysis\Analyzers\OneH1TagMaximumAnalyzer`
+* <ins>Class</ins>: `Codein\IbexaSeoToolkit\Analysis\Analyzers\OneH1TagMaximumAnalyzer`
 * <ins>Data context</ins>: `Content Preview`
 * <ins>Role</ins> : It will check if the article has exactly one `h1 tag`.
 * <ins>Scores</ins> :
@@ -82,11 +82,11 @@ At the moment there are several available analyzers:
 
 ### Create a custom analyzer
 
-To create a custom analyzer, simply extend ``Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer`` class and in the ``analyze`` method of your class return the result.
+To create a custom analyzer, simply extend ``Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer`` class and in the ``analyze`` method of your class return the result.
 
 You can get inspiration on how to proceed by looking at existing analysis classes.
 
-By extending AbstractAnalyzer, your service should automatically be tagged : `codein_ez_platform_seo_toolkit.seo_analyzer`
+By extending AbstractAnalyzer, your service should automatically be tagged : `codein_ibexa_seo_toolkit.seo_analyzer`
 
 If that's not the case, know that it's required for your analysis class to be taken into account.
 

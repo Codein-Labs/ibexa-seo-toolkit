@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Controller;
+namespace Codein\IbexaSeoToolkit\Controller;
 
-use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use EzSystems\PlatformHttpCacheBundle\ResponseConfigurator\ResponseCacheConfigurator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

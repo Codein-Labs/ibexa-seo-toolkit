@@ -5,7 +5,7 @@ Unlike a wordpress plugin such as Yoast, eZ Platform SEO Toolkit allows developp
 ## Analysis
 
 ```yml
-codein_ez_platform_seo_toolkit:
+codein_ibexa_seo_toolkit:
   system:
     default: # siteaccess
       analysis:
@@ -14,7 +14,7 @@ codein_ez_platform_seo_toolkit:
             richtext_fields: 
               - description
             blocklist: 
-              - "Codein\\eZPlatformSeoToolkit\\Analysis\\Analyzers\\WordCountAnalyzer"
+              - "Codein\\IbexaSeoToolkit\\Analysis\\Analyzers\\WordCountAnalyzer"
         blocklist: ["Namespace\\SomeAnalyzerYouNeverWantToUse"]
 ```
 
@@ -26,7 +26,7 @@ On the `product` content type, the field identified by `description` will be ana
 
 ## Sitemap
 ```yml
-codein_ez_platform_seo_toolkit:
+codein_ibexa_seo_toolkit:
   system:
     default:
       sitemap:
@@ -49,7 +49,7 @@ codein_ez_platform_seo_toolkit:
 ## Robots
 
 ```yml
-codein_ez_platform_seo_toolkit:
+codein_ibexa_seo_toolkit:
   system:
     default:
       robots:
@@ -69,7 +69,7 @@ codein_ez_platform_seo_toolkit:
 ## Metas
 
 ```yml
-codein_ez_platform_seo_toolkit:
+codein_ibexa_seo_toolkit:
   system:
     default:
       metas:

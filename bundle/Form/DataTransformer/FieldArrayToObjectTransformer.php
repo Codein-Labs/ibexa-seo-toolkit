@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Form\DataTransformer;
+namespace Codein\IbexaSeoToolkit\Form\DataTransformer;
 
-use Codein\eZPlatformSeoToolkit\Model\Field;
+use Codein\IbexaSeoToolkit\Model\Field;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

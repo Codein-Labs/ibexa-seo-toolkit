@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\FieldType;
+namespace Codein\IbexaSeoToolkit\FieldType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

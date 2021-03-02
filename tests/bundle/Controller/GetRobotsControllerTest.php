@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Tests\Controller;
+namespace Codein\IbexaSeoToolkit\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

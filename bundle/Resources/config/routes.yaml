@@ -1,29 +1,29 @@
 # config/routes.yaml
-codein_ez_platform_seo_toolkit.robots:
+codein_ibexa_seo_toolkit.robots:
     path: /robots.txt
-    controller: Codein\eZPlatformSeoToolkit\Controller\GetRobotsController
+    controller: Codein\IbexaSeoToolkit\Controller\GetRobotsController
 
-codein_ez_platform_seo_toolkit.sitemap:
+codein_ibexa_seo_toolkit.sitemap:
     path: /sitemap.xml
-    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::index
+    controller: Codein\IbexaSeoToolkit\Controller\SitemapController::index
     methods: [GET]
 
-codein_ez_platform_seo_toolkit.sitemap_page_result:
+codein_ibexa_seo_toolkit.sitemap_page_result:
     path: /sitemap-{page}.xml
-    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::page
+    controller: Codein\IbexaSeoToolkit\Controller\SitemapController::page
     requirements:
         page: '\d+'
     methods: [GET]
 
-codein_ez_platform_seo_toolkit.sitemap_page_content_type:
+codein_ibexa_seo_toolkit.sitemap_page_content_type:
     path: /sitemap-{contentTypeIdentifier}.xml
-    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::contentTypePage
+    controller: Codein\IbexaSeoToolkit\Controller\SitemapController::contentTypePage
     requirements:
         contentTypeIdentifier: '[a-zA-Z0-9][a-zA-Z0-9_]*'
     methods: [GET]
 
-codein_ez_platform_seo_toolkit.sitemap_xsl:
+codein_ibexa_seo_toolkit.sitemap_xsl:
     path: /main-sitemap.xsl
-    controller: Codein\eZPlatformSeoToolkit\Controller\SitemapController::xsltStylesheet
+    controller: Codein\IbexaSeoToolkit\Controller\SitemapController::xsltStylesheet
     methods: [GET]
 

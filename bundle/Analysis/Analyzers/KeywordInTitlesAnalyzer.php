@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Analysis\Analyzers;
+namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
-use Codein\eZPlatformSeoToolkit\Analysis\AbstractAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\RatioLevels;
-use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
-use Codein\eZPlatformSeoToolkit\Service\AnalyzerService;
-use Codein\eZPlatformSeoToolkit\Service\XmlProcessingService;
+use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
+use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
+use Codein\IbexaSeoToolkit\Service\AnalyzerService;
+use Codein\IbexaSeoToolkit\Service\XmlProcessingService;
 
 /**
  * Class KeywordInTitlesAnalyzer.

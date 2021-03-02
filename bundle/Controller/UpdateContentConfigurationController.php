@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Controller;
+namespace Codein\IbexaSeoToolkit\Controller;
 
-use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
-use Codein\eZPlatformSeoToolkit\Form\Type\ContentConfigurationType;
+use Codein\IbexaSeoToolkit\Entity\ContentConfiguration;
+use Codein\IbexaSeoToolkit\Form\Type\ContentConfigurationType;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormFactoryInterface;

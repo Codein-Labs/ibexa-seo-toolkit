@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Controller;
+namespace Codein\IbexaSeoToolkit\Controller;
 
-use Codein\eZPlatformSeoToolkit\Entity\ContentConfiguration;
+use Codein\IbexaSeoToolkit\Entity\ContentConfiguration;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 

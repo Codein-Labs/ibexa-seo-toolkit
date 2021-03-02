@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\FieldType;
+namespace Codein\IbexaSeoToolkit\FieldType;
 
-use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
-use Codein\eZPlatformSeoToolkit\Form\MetasFieldType;
+use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
+use Codein\IbexaSeoToolkit\Form\MetasFieldType;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\RepositoryForms\Data\Content\FieldData;
 use EzSystems\RepositoryForms\Data\FieldDefinitionData;
@@ -39,7 +39,7 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
      */
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
-        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
+        $metasConfig = $this->configResolver->getParameter('metas', IbexaSeoToolkitExtension::ALIAS)['field_type_metas'];
 
         $aConfigurations = $data->fieldDefinition->fieldSettings[self::CONFIGURATION];
         // we add new field_type_metas entries
@@ -86,7 +86,7 @@ final class FormMapper implements FieldDefinitionFormMapperInterface, FieldValue
 
         $formConfig = $fieldForm->getConfig();
 
-        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
+        $metasConfig = $this->configResolver->getParameter('metas', IbexaSeoToolkitExtension::ALIAS)['field_type_metas'];
 
         // we add new field_type_metas entries
         foreach (\array_keys($metasConfig) as $key) {

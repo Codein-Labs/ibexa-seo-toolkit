@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Tests\DependencyInjection;
+namespace Codein\IbexaSeoToolkit\Tests\DependencyInjection;
 
-use Codein\eZPlatformSeoToolkit\DependencyInjection\Configuration;
+use Codein\IbexaSeoToolkit\DependencyInjection\Configuration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -38,7 +38,7 @@ final class ConfigurationTest extends TestCase
     {
         $treeBuilder = $this->configuration->getConfigTreeBuilder();
         $config = $this->processor->processConfiguration($this->configuration, [
-            'codein_ez_platform_seo_toolkit' => [
+            'codein_ibexa_seo_toolkit' => [
                 'system' => [
                     'default' => [],
                 ],

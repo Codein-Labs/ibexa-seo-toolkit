@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Controller;
+namespace Codein\IbexaSeoToolkit\Controller;
 
-use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
-use Codein\eZPlatformSeoToolkit\Exception\AnalyzeException;
-use Codein\eZPlatformSeoToolkit\Exception\ValidationException;
-use Codein\eZPlatformSeoToolkit\Form\Type\AnalysisDTOType;
-use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
-use Codein\eZPlatformSeoToolkit\Service\AnalyzeContentService;
+use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\IbexaSeoToolkit\Exception\AnalyzeException;
+use Codein\IbexaSeoToolkit\Exception\ValidationException;
+use Codein\IbexaSeoToolkit\Form\Type\AnalysisDTOType;
+use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
+use Codein\IbexaSeoToolkit\Service\AnalyzeContentService;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
 use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;

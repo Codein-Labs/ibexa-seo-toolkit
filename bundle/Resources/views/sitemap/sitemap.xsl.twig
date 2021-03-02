@@ -156,9 +156,9 @@
                             {{ 'codein_seo_toolkit.sitemap.url' | trans}}.
                         </p>
                         
-                        {% if not referer is defined or not (path('codein_ez_platform_seo_toolkit.sitemap') in referer) %}
+                        {% if not referer is defined or not (path('codein_ibexa_seo_toolkit.sitemap') in referer) %}
                             <p class="expl">
-                                <a href="{{ path('codein_ez_platform_seo_toolkit.sitemap') }}">← {{ 'codein_seo_toolkit.sitemap.sitemap_index' | trans}}</a>
+                                <a href="{{ path('codein_ibexa_seo_toolkit.sitemap') }}">← {{ 'codein_seo_toolkit.sitemap.sitemap_index' | trans}}</a>
                             </p>
                         {% endif %}
 

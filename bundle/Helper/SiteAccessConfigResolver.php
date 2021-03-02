@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Helper;
+namespace Codein\IbexaSeoToolkit\Helper;
 
-use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
+use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\ContentTypeService;
 
@@ -24,7 +24,7 @@ final class SiteAccessConfigResolver
     {
         return $this->configResolver->getParameter(
             $paramName,
-            EzPlatformSeoToolkitExtension::ALIAS,
+            IbexaSeoToolkitExtension::ALIAS,
             $siteAccess
         );
     }

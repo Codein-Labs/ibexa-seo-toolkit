@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Routing;
+namespace Codein\IbexaSeoToolkit\Routing;
 
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\RouteCollection;
@@ -10,8 +10,8 @@ use Symfony\Component\Routing\RouteCollection;
  */
 final class ApiLoader extends Loader
 {
-    private const API_REST_RESOURCE = '@EzPlatformSeoToolkitBundle/Resources/config/routes_rest.yaml';
-    private const DEFAULT_RESOURCE = '@EzPlatformSeoToolkitBundle/Resources/config/routes.yaml';
+    private const API_REST_RESOURCE = '@IbexaSeoToolkitBundle/Resources/config/routes_rest.yaml';
+    private const DEFAULT_RESOURCE = '@IbexaSeoToolkitBundle/Resources/config/routes.yaml';
 
     private const TYPE = 'yaml';
     private const API_REST_ROUTE_PREFIX = '/api/seo';

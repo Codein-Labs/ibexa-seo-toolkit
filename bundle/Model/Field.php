@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Model;
+namespace Codein\IbexaSeoToolkit\Model;
 
 /**
  * Class Field.

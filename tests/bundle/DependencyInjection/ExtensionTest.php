@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Tests\DependencyInjection;
+namespace Codein\IbexaSeoToolkit\Tests\DependencyInjection;
 
-use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
-use Codein\eZPlatformSeoToolkit\Analysis\Analyzers\TitleTagContainsKeywordAnalyzer;
-use Codein\eZPlatformSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;
-use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
+use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\TitleTagContainsKeywordAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;
+use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
@@ -19,22 +19,22 @@ final class ExtensionTest extends AbstractExtensionTestCase
         $this->compile();
         $this->assertContainerBuilderHasServiceDefinitionWithTag(
             ParentAnalyzerService::class,
-             'codein_ez_platform_seo_toolkit.seo_analyzer.parent_interface'
+             'codein_ibexa_seo_toolkit.seo_analyzer.parent_interface'
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithTag(
             WordCountAnalyzer::class,
-             'codein_ez_platform_seo_toolkit.seo_analyzer'
+             'codein_ibexa_seo_toolkit.seo_analyzer'
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithTag(
             TitleTagContainsKeywordAnalyzer::class,
-             'codein_ez_platform_seo_toolkit.seo_analyzer'
+             'codein_ibexa_seo_toolkit.seo_analyzer'
         );
     }
 
     protected function getContainerExtensions(): array
     {
-        return [new EzPlatformSeoToolkitExtension()];
+        return [new IbexaSeoToolkitExtension()];
     }
 }

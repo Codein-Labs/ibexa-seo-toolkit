@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit;
+namespace Codein\IbexaSeoToolkit;
 
-use Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
-use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
+use Codein\IbexaSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
+use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class EzPlatformSeoToolkitBundle extends Bundle
+class IbexaSeoToolkitBundle extends Bundle
 {
     /**
      * Overridden to allow for the custom extension alias.
@@ -15,7 +15,7 @@ class EzPlatformSeoToolkitBundle extends Bundle
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $this->extension = new EzPlatformSeoToolkitExtension();
+            $this->extension = new IbexaSeoToolkitExtension();
         }
 
         return $this->extension;

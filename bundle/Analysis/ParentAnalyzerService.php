@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Analysis;
+namespace Codein\IbexaSeoToolkit\Analysis;
 
-use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
-use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
+use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 
 /**
  * Class AnalyzerService.

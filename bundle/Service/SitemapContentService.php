@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Service;
+namespace Codein\IbexaSeoToolkit\Service;
 
-use Codein\eZPlatformSeoToolkit\Helper\SitemapQueryHelper;
-use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\IbexaSeoToolkit\Helper\SitemapQueryHelper;
+use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use DOMDocument;
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\Core\Repository\LocationService;
@@ -98,7 +98,7 @@ final class SitemapContentService
         for ($page = 1; $page <= $maxPages; ++$page) {
             try {
                 $locString = $this->urlGenerator->generate(
-                    'codein_ez_platform_seo_toolkit.sitemap_page_result',
+                    'codein_ibexa_seo_toolkit.sitemap_page_result',
                     ['page' => $page],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 );
@@ -133,7 +133,7 @@ final class SitemapContentService
             }
             try {
                 $locString = $this->urlGenerator->generate(
-                    'codein_ez_platform_seo_toolkit.sitemap_page_content_type',
+                    'codein_ibexa_seo_toolkit.sitemap_page_content_type',
                     ['contentTypeIdentifier' => $contentType],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 );
@@ -280,7 +280,7 @@ final class SitemapContentService
     {
         $sitemapContent->xmlStandalone = false;
         $xslFileRoute = $this->urlGenerator->generate(
-            'codein_ez_platform_seo_toolkit.sitemap_xsl',
+            'codein_ibexa_seo_toolkit.sitemap_xsl',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

@@ -2,7 +2,7 @@
 
 ## Get the bundle using composer
 
-Add EzPlatformSeoToolkitBundle. by running this command from the terminal at the root of
+Add IbexaSeoToolkitBundle. by running this command from the terminal at the root of
 your Symfony project:
 
 ```bash
@@ -10,7 +10,7 @@ composer require codein/ezplatform-seo-toolkit
 ```
 
 Alternatively, you can add the requirement `"codein/ezplatform-seo-toolkit": "^1.12"` to your composer.json and run `composer update`.
-This could be useful when the installation of EzPlatformSeoToolkitBundle is not compatible with some currently installed dependencies (see [requirements details][1]).
+This could be useful when the installation of IbexaSeoToolkitBundle is not compatible with some currently installed dependencies (see [requirements details][1]).
 Anyway, the previous option is the preferred way, since composer can pick the best requirement constraint for you.
 
 ## Enable the bundle
@@ -26,7 +26,7 @@ class AppKernel extends Kernel
     {
         $bundles = [
             // ...
-            new Codein\eZPlatformSeoToolkit\EzPlatformSeoToolkitBundle(),
+            new Codein\IbexaSeoToolkit\IbexaSeoToolkitBundle(),
             // ...
         ];
     }
@@ -44,11 +44,11 @@ api_ez_platform_seo:
 ```
 
 Once the bundle is installed and configured, tell
-EzPlatformSeoToolkitBundle that you want to use it.
+IbexaSeoToolkitBundle that you want to use it.
 
 ```yaml
-# config/packages/codein_ez_platform_seo_toolkit.yaml or app/config/config.yml
-codein_ez_platform_seo_toolkit: ~
+# config/packages/codein_ibexa_seo_toolkit.yaml or app/config/config.yml
+codein_ibexa_seo_toolkit: ~
 ```
 
 ## Add necessary tables to the database

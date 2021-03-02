@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Analysis;
+namespace Codein\IbexaSeoToolkit\Analysis;
 
-use Codein\eZPlatformSeoToolkit\Model\AnalysisDTO;
+use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 
 /**
  * Class AbstractAnalyzer.

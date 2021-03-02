@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Analysis;
+namespace Codein\IbexaSeoToolkit\Analysis;
 
 /**
  * Class RatioLevels.

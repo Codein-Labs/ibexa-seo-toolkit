@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\DependencyInjection;
+namespace Codein\IbexaSeoToolkit\DependencyInjection;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
@@ -13,11 +13,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class EzPlatformSeoToolkitExtension.
+ * Class IbexaSeoToolkitExtension.
  */
-final class EzPlatformSeoToolkitExtension extends Extension implements PrependExtensionInterface
+final class IbexaSeoToolkitExtension extends Extension implements PrependExtensionInterface
 {
-    public const ALIAS = 'codein_ez_platform_seo_toolkit';
+    public const ALIAS = 'codein_ibexa_seo_toolkit';
 
     public function prepend(ContainerBuilder $containerBuilder): void
     {

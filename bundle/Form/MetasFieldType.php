@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Form;
+namespace Codein\IbexaSeoToolkit\Form;
 
-use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
-use Codein\eZPlatformSeoToolkit\FieldType\DynamicCollectionType;
-use Codein\eZPlatformSeoToolkit\FieldType\Value;
+use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
+use Codein\IbexaSeoToolkit\FieldType\DynamicCollectionType;
+use Codein\IbexaSeoToolkit\FieldType\Value;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +28,7 @@ final class MetasFieldType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $metasConfig = $this->configResolver->getParameter('metas', EzPlatformSeoToolkitExtension::ALIAS)['field_type_metas'];
+        $metasConfig = $this->configResolver->getParameter('metas', IbexaSeoToolkitExtension::ALIAS)['field_type_metas'];
 
         $builder
             ->add('metas', DynamicCollectionType::class, [

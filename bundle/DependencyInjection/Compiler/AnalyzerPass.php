@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\DependencyInjection\Compiler;
+namespace Codein\IbexaSeoToolkit\DependencyInjection\Compiler;
 
-use Codein\eZPlatformSeoToolkit\Analysis\ParentAnalyzerService;
-use Codein\eZPlatformSeoToolkit\DependencyInjection\EzPlatformSeoToolkitExtension;
+use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class AnalyzerPass implements CompilerPassInterface
 {
-    public const TAG_NAME = EzPlatformSeoToolkitExtension::ALIAS . '.seo_analyzer';
+    public const TAG_NAME = IbexaSeoToolkitExtension::ALIAS . '.seo_analyzer';
 
     public function process(ContainerBuilder $containerBuilder): void
     {
@@ -24,7 +24,7 @@ final class AnalyzerPass implements CompilerPassInterface
         $analyzerDefinition = $containerBuilder->getDefinition(ParentAnalyzerService::class);
 
         $allFieldAnalyzers = $containerBuilder->findTaggedServiceIds(self::TAG_NAME);
-        $analysisParam = \sprintf('%s.default.analysis', EzPlatformSeoToolkitExtension::ALIAS);
+        $analysisParam = \sprintf('%s.default.analysis', IbexaSeoToolkitExtension::ALIAS);
         if (true === $containerBuilder->hasParameter($analysisParam)) {
             $blockedAnalysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
         }

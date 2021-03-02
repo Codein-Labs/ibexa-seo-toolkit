@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\Twig;
+namespace Codein\IbexaSeoToolkit\Twig;
 
-use Codein\eZPlatformSeoToolkit\FieldType\Value;
-use Codein\eZPlatformSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\IbexaSeoToolkit\FieldType\Value;
+use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\Repository\Repository;
@@ -12,9 +12,9 @@ use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;
 
 /**
- * Class CodeinEzSeoExtension.
+ * Class CodeinIbexaSeoExtension.
  */
-final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInterface
+final class CodeinIbexaSeoExtension extends AbstractExtension implements GlobalsInterface
 {
     private const FIELD_TYPE_METAS = 'field_type_metas';
 
@@ -23,7 +23,7 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
     private $siteAccessConfigResolver;
 
     /**
-     * CodeinEzSeoExtension constructor.
+     * CodeinIbexaSeoExtension constructor.
      *
      * @param $configResolver
      */
@@ -104,7 +104,7 @@ final class CodeinEzSeoExtension extends AbstractExtension implements GlobalsInt
         ];
 
         return [
-            'codein_ezseo' => $codeinEzSeo,
+            'codein_ibexaseo' => $codeinEzSeo,
         ];
     }
 

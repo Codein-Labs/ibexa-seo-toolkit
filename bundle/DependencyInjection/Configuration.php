@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Codein\eZPlatformSeoToolkit\DependencyInjection;
+namespace Codein\IbexaSeoToolkit\DependencyInjection;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\Configuration as SiteAccessConfiguration;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
@@ -17,12 +17,12 @@ final class Configuration extends SiteAccessConfiguration
     public function getConfigTreeBuilder(): TreeBuilder
     {
         if (\method_exists(TreeBuilder::class, 'getRootNode')) {
-            $treeBuilder = new TreeBuilder(EzPlatformSeoToolkitExtension::ALIAS);
+            $treeBuilder = new TreeBuilder(IbexaSeoToolkitExtension::ALIAS);
             $rootNode = $treeBuilder->getRootNode();
         } else {
             // BC layer for symfony/config 4.1 and older.
             $treeBuilder = new TreeBuilder();
-            $rootNode = $treeBuilder->root(EzPlatformSeoToolkitExtension::ALIAS);
+            $rootNode = $treeBuilder->root(IbexaSeoToolkitExtension::ALIAS);
         }
 
         $nodeBuilder = $this->generateScopeBaseNode($rootNode);

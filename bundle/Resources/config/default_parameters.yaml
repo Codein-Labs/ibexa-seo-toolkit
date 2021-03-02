@@ -1,5 +1,5 @@
 parameters:
-    codein_ez_platform_seo_toolkit.default.metas:
+    codein_ibexa_seo_toolkit.default.metas:
         field_type_metas:
             title:
                 label: 'Title'

@@ -17,8 +17,8 @@ fos_rest:
             - { path: '^/', stop: true }
     exception:
         codes:
-            'Codein\eZPlatformSeoToolkit\Exception\ValidationException': 422
-            'Codein\eZPlatformSeoToolkit\Exception\AnalyzeException': 400
+            'Codein\IbexaSeoToolkit\Exception\ValidationException': 422
+            'Codein\IbexaSeoToolkit\Exception\AnalyzeException': 400
 
 doctrine:
     orm:
@@ -26,8 +26,8 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:         #..
-            EzPlatformSeoToolkitBundle:
+            IbexaSeoToolkitBundle:
                 is_bundle: true
                 type: annotation
                 dir: 'Entity'
-                prefix: 'Codein\eZPlatformSeoToolkit\Entity'
+                prefix: 'Codein\IbexaSeoToolkit\Entity'
