@@ -4,7 +4,7 @@ namespace Codein\IbexaSeoToolkit\Helper;
 
 use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\ContentTypeService;
+use eZ\Publish\API\Repository\ContentTypeService;
 
 /**
  * Class SiteAccessConfigResolver.

@@ -6,7 +6,7 @@ use Codein\IbexaSeoToolkit\FieldType\Value;
 use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Repository;
+use eZ\Publish\API\Repository\Repository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;

@@ -2,7 +2,7 @@
 
 namespace Codein\IbexaSeoToolkit\EventListener;
 
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 final class SitemapResponseListener
 {
@@ -12,7 +12,7 @@ final class SitemapResponseListener
         'codein_ibexa_seo_toolkit.sitemap_page_content_type'
     ];
 
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(ResponseEvent $event)
     {
         $request = $event->getRequest();
         $response = $event->getResponse();

@@ -75,7 +75,7 @@ In your `config.yml`:
 ```yml
 webpack_encore:
     builds:
-        codein: "%kernel.project_dir%/web/bundles/codein-ezplatformseotoolkit"
+        codein: "%kernel.project_dir%/web/bundles/codein-ibexaseotoolkit"
 ```
 
 ### Compiling backoffice translations

@@ -4,8 +4,8 @@ const addCSSEntries = require("./codein.css.config.js");
 
 module.exports = (Encore) => {
   Encore.reset();
-  Encore.setOutputPath("web/bundles/codein-ezplatformseotoolkit")
-    .setPublicPath("/bundles/codein-ezplatformseotoolkit")
+  Encore.setOutputPath("web/bundles/codein-ibexaseotoolkit")
+    .setPublicPath("/bundles/codein-ibexaseotoolkit")
     .addExternals({
       react: "React",
       "react-dom": "ReactDOM",

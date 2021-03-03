@@ -1,6 +1,6 @@
 services:
     # Bundle pages.
-    codein.ezplatformseotoolkit.entry_script:
+    codein.ibexaseotoolkit.entry_script:
         parent: EzSystems\EzPlatformAdminUi\Component\TwigComponent
         autowire: true
         autoconfigure: false
@@ -19,25 +19,24 @@ services:
     Codein\IbexaSeoToolkit\FieldType\Type:
         parent: ezpublish.fieldType
         tags:
-            - { name: ezpublish.fieldType, alias: codeinseometas }
+            - { name: ezplatform.field_type, alias: codeinseometas }
     Codein\IbexaSeoToolkit\FieldType\FormMapper:
         tags:
-            - { name: ez.fieldFormMapper.definition, fieldType: codeinseometas }
-            - { name: ez.fieldFormMapper.value, fieldType: codeinseometas }
+            - { name: ezplatform.field_type.form_mapper.definition, fieldType: codeinseometas }
+            - { name: ezplatform.field_type.form_mapper.value, fieldType: codeinseometas }
         arguments:
-          [ '@ezpublish.config.resolver.core' ]
+          [ '@ezpublish.config.resolver' ]
     ezsystems.elfinderbundle.fieldtype.ezelfinder.form_mapper:
         class: Codein\IbexaSeoToolkit\FieldType\FormMapper
         tags:
-            - {name: ez.fieldFormMapper.definition, fieldType: codeinseometas}
-            - {name: ez.fieldFormMapper.value, fieldType: codeinseometas}
+            - {name: ezplatform.field_type.form_mapper.definition, fieldType: codeinseometas}
+            - {name: ezplatform.field_type.form_mapper.value, fieldType: codeinseometas}
         arguments:
-          [ '@ezpublish.config.resolver.core' ]
+          [ '@ezpublish.config.resolver' ]
     Codein\IbexaSeoToolkit\FieldType\Converter:
         tags:
-            - { name: ezpublish.storageEngine.legacy.converter, alias: codeinseometas, lazy: true, callback: '::create' }
+            - { name: ezplatform.field_type.legacy_storage.converter, alias: codeinseometas, lazy: true, callback: '::create' }
     codein.codeinseobundle.field_type.codeinseometas.indexable.unindexed:
         class: "%ezpublish.fieldType.indexable.unindexed.class%"
         tags:
-            - { name: ezpublish.fieldType.indexable, alias: codeinseometas }
-
+            - { name: ezplatform.field_type.indexable, alias: codeinseometas }

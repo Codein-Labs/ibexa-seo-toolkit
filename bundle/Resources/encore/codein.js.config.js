@@ -13,5 +13,5 @@ fs.readdirSync(translationsPath).forEach((file) => {
 });
 
 module.exports = (Encore) => {
-  Encore.addEntry("codein-ezplatform-seo-toolkit-js", jsEntries);
+  Encore.addEntry("codein-ibexa-seo-toolkit-js", jsEntries);
 };

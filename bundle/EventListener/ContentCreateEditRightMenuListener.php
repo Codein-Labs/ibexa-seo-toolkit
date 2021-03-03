@@ -36,7 +36,7 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
                 'label' => 'codein_seo_toolkit.content_create_edit.menu_label',
                 'uri' => '#codein-seo-move-in',
                 'extras' => [
-                    'icon_path' => '/bundles/codein-ezplatformseotoolkit/images/SEO-Toolkit_logo.svg#codein-seo-toolkit-logo',
+                    'icon_path' => '/bundles/codein-ibexaseotoolkit/images/SEO-Toolkit_logo.svg#codein-seo-toolkit-logo',
                     'translation_domain' => 'codein_seo_toolkit',
                 ],
             ]
@@ -68,7 +68,7 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
                 'uri' => '#codein-seo-move-in',
                 'extras' => [
                     'translation_domain' => 'codein_seo_toolkit',
-                    'icon_path' => '/bundles/codein-ezplatformseotoolkit/images/SEO-Toolkit_logo.svg#codein-seo-toolkit-logo',
+                    'icon_path' => '/bundles/codein-ibexaseotoolkit/images/SEO-Toolkit_logo.svg#codein-seo-toolkit-logo',
                     // 'template' => 'EzSystemsDateBasedPublisherBundle::publish_later_widget.html.twig',
                     'orderNumber' => 20,
                 ],

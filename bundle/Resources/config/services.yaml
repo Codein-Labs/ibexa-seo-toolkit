@@ -16,6 +16,11 @@ services:
 
     Codein\IbexaSeoToolkit\Controller\:
         resource: '../../Controller/*'
+    
+    Codein\IbexaSeoToolkit\Service\:
+        resource: '../../Service'
+    Codein\IbexaSeoToolkit\Helper\:
+        resource: '../../Helper'
 
     Codein\IbexaSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
@@ -25,7 +30,6 @@ services:
 
     Codein\IbexaSeoToolkit\Form\MetasFieldType: ~
 
-    Codein\IbexaSeoToolkit\Service\AnalyzeContentService: ~
 
     Codein\IbexaSeoToolkit\Service\SitemapContentService: 
         calls:
@@ -34,3 +38,19 @@ services:
     Codein\IbexaSeoToolkit\EventListener\SitemapResponseListener:
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+
+    eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController:
+        alias: ezpublish.controller.content.preview.core
+
+    Codein\IbexaSeoToolkit\Controller\AnalyzeContentController:
+        arguments:
+            $previewControllerService: '@ezpublish.controller.content.preview.core'
+
+    Codein\IbexaSeoToolkit\Controller\GetRobotsController:
+        arguments:
+            $responseCacheConfigurator: '@ezplatform.view_cache.response_configurator'
+
+    Codein\IbexaSeoToolkit\Controller\SitemapController:
+        arguments:
+            $responseCacheConfigurator: '@ezplatform.view_cache.response_configurator'

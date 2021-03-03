@@ -6,8 +6,8 @@ use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzerService;
-use eZ\Publish\Core\Repository\LocationService;
-use eZ\Publish\Core\Repository\URLAliasService;
+use eZ\Publish\API\Repository\LocationService;
+use eZ\Publish\API\Repository\URLAliasService;
 
 /**
  * Class KeywordInUrlSlugAnalyzer.

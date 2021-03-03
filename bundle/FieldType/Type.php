@@ -2,6 +2,7 @@
 
 namespace Codein\IbexaSeoToolkit\FieldType;
 
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
@@ -75,7 +76,7 @@ class Type extends FieldType
     /**
      * Returns a human readable string representation from the given $value.
      */
-    public function getName(SPIValue $value): string
+    public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
         return $value->__toString();
     }
