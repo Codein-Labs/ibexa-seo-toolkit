@@ -4,7 +4,7 @@ const addCSSEntries = require("./codein.css.config.js");
 
 module.exports = (Encore) => {
   Encore.reset();
-  Encore.setOutputPath("web/bundles/codein-ibexaseotoolkit")
+  Encore.setOutputPath("public/bundles/codein-ibexaseotoolkit")
     .setPublicPath("/bundles/codein-ibexaseotoolkit")
     .addExternals({
       react: "React",
@@ -23,6 +23,6 @@ module.exports = (Encore) => {
 
   const codeinSeoToolkitConfig = Encore.getWebpackConfig();
   codeinSeoToolkitConfig.name = "codein";
-
+    console.log(codeinSeoToolkitConfig);
   return codeinSeoToolkitConfig;
 };

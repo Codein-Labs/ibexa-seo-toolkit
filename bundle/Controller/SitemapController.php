@@ -34,6 +34,7 @@ final class SitemapController extends AbstractController
 
         $response = new Response();
         $this->responseCacheConfigurator->setSharedMaxAge($response);
+        
         return $response->setContent($sitemapContent->saveXML());
     }
 
@@ -65,7 +66,7 @@ final class SitemapController extends AbstractController
 
     public function xsltStylesheet(Request $request)
     {
-        $xslView = $this->renderView('IbexaSeoToolkitBundle:sitemap:sitemap.xsl.twig', [
+        $xslView = $this->renderView('@CodeinIbexaSeoToolkit/sitemap/sitemap.xsl.twig', [
             'referer' => $request->headers->get('referer')
         ]);
         $xslDocument = new \DOMDocument('1.0', 'utf-8');

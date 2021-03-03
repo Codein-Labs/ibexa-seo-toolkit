@@ -31,3 +31,7 @@ doctrine:
                 type: annotation
                 dir: 'Entity'
                 prefix: 'Codein\IbexaSeoToolkit\Entity'
+
+twig:
+    paths:
+        '%kernel.project_dir%/vendor/codein/ibexa-seo-toolkit/bundle/templates': CodeinIbexaSeoToolkit

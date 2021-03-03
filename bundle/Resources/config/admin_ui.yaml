@@ -5,7 +5,7 @@ services:
         autowire: true
         autoconfigure: false
         arguments:
-            $template: "IbexaSeoToolkitBundle::seo_menu.html.twig"
+            $template: "@@CodeinIbexaSeoToolkit/seo_menu.html.twig"
         tags:
             - { name: ezplatform.admin_ui.component, group: "content-edit-form-after" }
 
