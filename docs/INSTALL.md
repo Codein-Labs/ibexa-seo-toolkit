@@ -51,6 +51,8 @@ IbexaSeoToolkitBundle that you want to use it.
 codein_ibexa_seo_toolkit: ~
 ```
 
+See [USAGE.md](USAGE.md) for configuring the bundle.
+
 ## Add necessary tables to the database
 
 In your project root, launch :
@@ -58,9 +60,19 @@ In your project root, launch :
 php bin/console doctrine:schema-update --force
 ```
 
-As doctrine migrations aren't installed by default on Ibexa projects, we use `doctrine:schema-update`. 
+If you're using MySQL and have DoctrineMigrationsBundle installed, you can use the migration provided by configuring the bundle path:
+```yml
+doctrine_migrations:
+    migrations_paths:
+        'Codein\IbexaSeoToolkit\DoctrineMigrations': '@IbexaSeoToolkitBundle/migrations'
+```
 
-You can make a migration of it instead.
+Then, execute it:
+```bash
+php bin/console doctrine:migrations:execute 'Codein\IbexaSeoToolkit\DoctrineMigrations\Version20210304163313' --up
+```
+
+Obviously, the migration name matches what we've got at the current time of editing this documentation. Look inside the bundle to find the migration file. 
 
 ## Configure Webpack to build bundle assets
 

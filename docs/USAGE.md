@@ -88,3 +88,8 @@ codein_ibexa_seo_toolkit:
 This serves both as default metas and field type metas configuration.
 
 `title` key serves as en example, and will make title configuration appear in the field definition of the meta field type.
+
+## Next Features
+
+* **Links handling**: you'll be able to configure link tags for your website
+* **Hreflang**: the goal is to provide automated hreflang tags according to the languages in which your content is translated.
