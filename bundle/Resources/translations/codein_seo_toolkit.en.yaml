@@ -85,3 +85,4 @@ codein_seo_toolkit.sitemap.sitemap_index: 'Sitemap index'
 codein_seo_toolkit.sitemap.url: 'URL'
 codein_seo_toolkit.sitemap.images: 'Images'
 codein_seo_toolkit.sitemap.last_modification: 'Last modification'
+menu_item_seo_analyzer: "Seo Analyzer" # no namespace because of Ibexa name API

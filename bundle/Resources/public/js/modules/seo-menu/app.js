@@ -41,16 +41,16 @@ export default class App extends react.Component {
               seoMenuOpened: !state.seoMenuOpened,
             }), function () {
               if (this.state.seoMenuOpened) {
-                seoButtonAnalysis.classList.remove('btn-secondary');
-                seoButtonAnalysis.classList.add('btn-primary');
+                seoButtonAnalysis.classList.remove('btn-primary');
+                seoButtonAnalysis.classList.add('btn-secondary');
 
                 if (ezPageBuilderFields != null) 
                 {
                   ezPageBuilderFields.style.display = "block";
                 }
               } else {
-                seoButtonAnalysis.classList.remove('btn-primary');
-                seoButtonAnalysis.classList.add('btn-secondary');
+                seoButtonAnalysis.classList.remove('btn-secondary');
+                seoButtonAnalysis.classList.add('btn-primary');
                 
                 if (ezPageBuilderFields != null && document.querySelector('.ez-page-builder-edit:not(.ez-page-builder--fields-visible).ez-page-builder__fields') !== null) {
                   ezPageBuilderFields.style.display = "none";
@@ -72,8 +72,8 @@ export default class App extends react.Component {
     this.setState(() => ({
       seoMenuOpened: false,
     }));
-    seoButtonAnalysis.classList.remove('btn-primary');
-    seoButtonAnalysis.classList.add('btn-secondary');
+    seoButtonAnalysis.classList.remove('btn-secondary');
+    seoButtonAnalysis.classList.add('btn-primary');
   }
 
   render() {

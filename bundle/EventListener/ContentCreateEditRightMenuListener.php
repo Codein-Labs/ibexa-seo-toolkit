@@ -57,7 +57,7 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
 
         $root = $configureMenuEvent->getMenu();
         $root->addChild(
-            'Seo analyzer',
+            'menu_item_seo_analyzer',
             [
                 'attributes' => [
                     // 'class' => 'ez-btn--extra-actions',

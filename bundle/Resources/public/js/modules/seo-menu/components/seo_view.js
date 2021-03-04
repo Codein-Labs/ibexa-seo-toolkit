@@ -37,13 +37,18 @@ export default class SeoView extends React.Component {
     ];
     return (
       <>
-        <div className="ez-header pt-2">
+        <div className="ez-header codein-header pt-2">
           <div className="container px-0 pb-4 pt-3 ez-content-edit-container">
-            <a
-              class="ez-content-edit-container__close"
+            <a 
+              class="ez-content-edit-container__close" 
               href="#"
-              onClick={this.props.closeMenu}
-            ></a>
+              onClick={this.props.closeMenu} 
+              data-original-title="Exit"
+            >
+                <svg class="ez-icon ez-icon--small ez-icon--primary">
+                  <use xlinkHref="/bundles/ibexaplatformicons/img/all-icons.svg#discard"></use>
+                </svg>
+            </a>
           </div>
         </div>
         <div className="px-0 pb-4 ez-content-container">
