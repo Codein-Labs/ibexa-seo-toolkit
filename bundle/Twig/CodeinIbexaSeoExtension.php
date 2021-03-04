@@ -6,7 +6,7 @@ use Codein\IbexaSeoToolkit\FieldType\Value;
 use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\Core\Repository\Repository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;
@@ -114,8 +114,20 @@ final class CodeinIbexaSeoExtension extends AbstractExtension implements Globals
     public function getSiteaccessesByLanguage(string $languageCode): string
     {
         $siteAccesses = [];
-        if ($languageCode && \array_key_exists($languageCode, $this->siteAccessesByLanguage)) {
-            $siteAccesses = $this->siteAccessesByLanguage[$languageCode];
+        $analysisConfig = $this->siteAccessConfigResolver->getParameterConfig('analysis');
+        if (
+            $languageCode 
+            && \array_key_exists($languageCode, $this->siteAccessesByLanguage)
+        ) {
+            if (!array_key_exists('siteaccesses_blocklist', $analysisConfig)) {
+                $siteAccesses = $this->siteAccessesByLanguage[$languageCode];
+                return \json_encode($siteAccesses);
+            }
+            foreach ($this->siteAccessesByLanguage[$languageCode] as $siteAccess) {
+                if (!in_array($siteAccess, $analysisConfig['siteaccesses_blocklist'], true)) {
+                    $siteAccesses[] = $siteAccess;
+                } 
+            }
         }
 
         return \json_encode($siteAccesses);

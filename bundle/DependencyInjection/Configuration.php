@@ -100,7 +100,12 @@ final class Configuration extends SiteAccessConfiguration
                         ->end()
 
                     ->end()
-
+                    ->arrayNode('siteaccesses_blocklist')
+                        ->scalarPrototype()
+                        ->info("Specify which siteaccesses won't be suggested for analysis. Typically admin siteaccesses.")
+                        ->example('admin_group')
+                        ->end()
+                    ->end()
                     ->arrayNode('blocklist')
                         ->scalarPrototype()
                         ->info('Specify some analyzer services identifier to block.')

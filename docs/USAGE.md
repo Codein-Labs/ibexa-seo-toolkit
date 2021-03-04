@@ -15,6 +15,7 @@ codein_ibexa_seo_toolkit:
               - description
             blocklist: 
               - "Codein\\IbexaSeoToolkit\\Analysis\\Analyzers\\WordCountAnalyzer"
+        siteaccesses_blocklist: ['admin', 'admin_group']
         blocklist: ["Namespace\\SomeAnalyzerYouNeverWantToUse"]
 ```
 
@@ -22,6 +23,7 @@ This configuration allows the product content_type to be analyzed.
 
 On the `product` content type, the field identified by `description` will be analyzed.
 
+`siteaccesses_blocklist`: Some siteaccesses can't be analyzed, admin for example. Block them here from being analyzed.
 `blocklist`: You can prevent some analyzers to run, if you don't find them useful.
 
 ## Sitemap
