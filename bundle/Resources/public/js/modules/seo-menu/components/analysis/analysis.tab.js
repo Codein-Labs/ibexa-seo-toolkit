@@ -178,7 +178,7 @@ export default class AnalysisTab extends React.Component {
         <hr class="separator mt-2 mb-2"></hr>
         <ConfigurationTab callback={this.triggerAnalysis}/>
         <div class="ez-field-edit__label-wrapper">
-          <label class="ez-field-edit__label" for="ezrepoforms_content_edit_fieldsData_new_type_value">{transSiteaccessAnalyzed}:</label>
+          <label class="ez-field-edit__label" for="ezrepoforms_content_edit_fieldsData_new_type_value">{transSiteaccessAnalyzed}</label>
         </div>
         <select id="siteaccess-selection" class="analysis-content__siteaccess-selection form-control" value={this.state.selectedSiteaccess} onChange={this.handleSiteAccessChange}>
           {this.siteaccesses?.map((siteaccess, index) => (

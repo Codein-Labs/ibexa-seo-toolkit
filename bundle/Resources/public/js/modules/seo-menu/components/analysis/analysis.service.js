@@ -56,8 +56,9 @@ export const getSeoRichText = () => {
 
 
 const extractFieldIdentifier = (textareaNameAttribute) => {
-    let matches = textareaNameAttribute.match(/^ezrepoforms_content_edit\[fieldsData\]\[(.*)\]\[value\]/,);
-    if (matches.length && 1 in matches) {
+    let matches = textareaNameAttribute.match(/^ezplatform_content_forms_content_edit\[fieldsData\]\[(.*)\]\[value\]/,);
+
+    if (matches !== null && matches.length && 1 in matches) {
         return matches[1];
     }
     return false;
