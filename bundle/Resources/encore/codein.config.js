@@ -23,6 +23,5 @@ module.exports = (Encore) => {
 
   const codeinSeoToolkitConfig = Encore.getWebpackConfig();
   codeinSeoToolkitConfig.name = "codein";
-    console.log(codeinSeoToolkitConfig);
   return codeinSeoToolkitConfig;
 };
