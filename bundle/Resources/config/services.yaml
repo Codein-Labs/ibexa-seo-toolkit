@@ -26,6 +26,7 @@ services:
         tags: ['routing.loader']
     Codein\IbexaSeoToolkit\Twig\CodeinIbexaSeoExtension:
         arguments:
+            $eZRepository: '@codein.ibexa_repository'
             $siteAccessesByLanguage : '%ezpublish.siteaccesses_by_language%'
 
     Codein\IbexaSeoToolkit\Form\MetasFieldType: ~
@@ -42,6 +43,18 @@ services:
 
     eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController:
         alias: ezpublish.controller.content.preview.core
+
+    # Ibexa hides this implementation, but NameSchema service is needed right now. So, the service needs to be available
+    codein.ibexa_repository:
+        class: eZ\Publish\Core\Repository\Repository
+        public: true
+        arguments: 
+            $persistenceHandler: '@ezpublish.spi.persistence.cache'
+            $searchHandler: '@ezpublish.spi.search_engine'
+            $backgroundIndexer: '@ezpublish.search.background_indexer'
+            $relationProcessor: '@ezpublish.repository.relation_processor'
+            $thumbnailStrategy: '@eZ\Publish\Core\Repository\Strategy\ContentThumbnail\FirstMatchingFieldStrategy'
+            $proxyDomainMapperFactory: '@eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactory'
 
     Codein\IbexaSeoToolkit\Controller\AnalyzeContentController:
         arguments:
