@@ -197,10 +197,10 @@ export default class AnalysisTab extends React.Component {
                   <h2 className="mb-0">
                     <span className={"subscore subscore--" + this.getScoreDisplayValue(this.scores, seoAnalysisCategoryName)}></span>
                     <a
-                      className={ index == 0 ? "ez-content-preview-toggle": "ez-content-preview-toggle collapsed"}
+                      className="ez-content-preview-toggle"
                       type="button"
                       data-toggle="collapse"
-                      data-target={'#' + seoAnalysisCategoryName.split('.').pop()}
+                      data-target={'#category-' + seoAnalysisCategoryName.split('.').pop()}
                       aria-expanded="true"
                       aria-controls="collapseOne"
                     >
@@ -210,8 +210,8 @@ export default class AnalysisTab extends React.Component {
                 </div>
       
                 <div
-                  id={seoAnalysisCategoryName.split('.').pop()}
-                  class={ index == 0 ? "ez-content-preview-collapse collapse show": "ez-content-preview-collapse collapse"}
+                  id={'category-' + seoAnalysisCategoryName.split('.').pop()}
+                  class="ez-content-preview-collapse collapse show"
                   aria-labelledby={seoAnalysisCategoryName.split('.').pop()}
                 >
                   <div class="card-body">
