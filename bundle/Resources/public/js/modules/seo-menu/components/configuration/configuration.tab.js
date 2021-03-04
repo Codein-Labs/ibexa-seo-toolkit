@@ -64,7 +64,6 @@ export default class ConfigurationTab extends React.Component {
   }
 
   onChangePillar(event) {
-    console.log(event.target.checked)
     this.setState({isPillarContent: event.target.checked})
 
   }
