@@ -1,5 +1,5 @@
 codein_seo_toolkit.content_create_edit.menu_label: 'SEO Analysis'
-codein_seo_toolkit.seo_view.title: 'eZ Platform SEO Toolkit'
+codein_seo_toolkit.seo_view.title: 'Ibexa SEO Toolkit'
 codein_seo_toolkit.seo_view.desc: 'Get better SEO'
 codein_seo_toolkit.seo_view.footer_made_with: 'Made with'
 codein_seo_toolkit.seo_view.footer_made_by: by
@@ -50,12 +50,12 @@ codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.low: "Your keyword 
 codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.medium: "Your keyword seems present in the URL, make sure there are no typos or useless words in it"
 codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.high: "Your URL slug perfectly matches your keyword"
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.readable_name: "Outbound Links"
-codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.info: "Outbound links provide a good signal to google. On the opposite, having too much outbound links can lower your rankings. Links should be limited and adapted to the content you're writing. By the way, make sure your internal links are eZ object relations to make this analysis accurate."
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.info: "Outbound links provide a good signal to google. On the opposite, having too much outbound links can lower your rankings. Links should be limited and adapted to the content you're writing. By the way, make sure your internal links are Ibexa object relations to make this analysis accurate."
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.low: "You have no outbound link. %recommended% are recommended for a content of this length !"
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.medium: "You only have %count% outbound links. We recommend you have at least %recommended% outbound links for a content of this length."
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.high: "You have %count% outbound links. We recommend having close to %recommended% outbound links. Very good."
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.readable_name: "Internal Links"
-codein_seo_toolkit.analyzer.InternalLinksAnalyzer.info: "Your internal links should be selected by eZ object relation to provide accurate calculation."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.info: "Your internal links should be selected by Ibexa object relation to provide accurate calculation."
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.low: "You have no internal link. %recommended% are recommended for a content of this length !"
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.medium: "You only have %count% internal links. We recommend you have at least %recommended% internal links for a content of this length."
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.high: "You have %count% internal links. We recommend having close to %recommended% internal links. Very good."

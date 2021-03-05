@@ -1,5 +1,5 @@
 codein_seo_toolkit.content_create_edit.menu_label: 'Analyse SEO'
-codein_seo_toolkit.seo_view.title: 'eZ Platform SEO Toolkit'
+codein_seo_toolkit.seo_view.title: 'Ibexa SEO Toolkit'
 codein_seo_toolkit.seo_view.desc: 'Fenêtre d''optimisation SEO'
 codein_seo_toolkit.seo_view.footer_made_with: 'Fait avec'
 codein_seo_toolkit.seo_view.footer_made_by: par
@@ -49,12 +49,12 @@ codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.low: "Votre mot-cl�
 codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.medium: "Votre mot-clé semble présent dans l'URL. Assurez-vous qu'il n'y a pas de fautes de frappe ou de mots inutiles."
 codein_seo_toolkit.analyzer.KeywordInUrlSlugAnalyzer.message.high: "Votre slug d'URL correspond parfaitement à votre mot-clé."
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.readable_name: "Liens externes"
-codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.info: "Les liens externes donnent un bon signal aux moteurs de recherche. Au contraire, en avoir trop peu diminuer votre rang dans les résultats. Les liens devraient être limités et adaptés au contenu que vous rédigez. Par ailleurs, pour que cette analyse soit fiable, vos liens internes doivent être des relations d'objet eZ."
+codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.info: "Les liens externes donnent un bon signal aux moteurs de recherche. Au contraire, en avoir trop peu diminuer votre rang dans les résultats. Les liens devraient être limités et adaptés au contenu que vous rédigez. Par ailleurs, pour que cette analyse soit fiable, vos liens internes doivent être des relations d'objet d'Ibexa."
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.low: "Vous n'avez aucun lien externe. %recommended% sont recommandés pour un contenu de cette taille !"
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.medium: "Vous n'avez que %count% liens externes. Il faudrait avoir au moins %recommended% liens externes pour un contenu de cette taille."
 codein_seo_toolkit.analyzer.OutboundLinksAnalyzer.message.high: "Vous avez %count% liens externes. Nous recommandons que vous ayez à peu près %recommended% liens externes. Très bien."
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.readable_name: "Liens internes"
-codein_seo_toolkit.analyzer.InternalLinksAnalyzer.info: "Les liens internes doivent être des relations d'objet eZ pour que le calcul soit correct."
+codein_seo_toolkit.analyzer.InternalLinksAnalyzer.info: "Les liens internes doivent être des relations d'objet d'Ibexa pour que le calcul soit correct."
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.low: "Vous n'avez pas de liens internes. %recommended% sont recommandés pour un contenu de cette taille !"
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.medium: "Vous avez seulement %count% liens internes. %recommended% liens internes sont recommandés pour un contenu de cette taille."
 codein_seo_toolkit.analyzer.InternalLinksAnalyzer.message.high: "Vous avez %count% liens internes. Nous recommandons que vous ayez à peu près %recommended% liens internes. Très bien."
