@@ -93,7 +93,7 @@ webpack_encore:
 ### Compiling backoffice translations
 
 ```bash
-php bin/console bazinga:js-translation:dump web/assets --merge-domains
+php bin/console bazinga:js-translation:dump public/assets --merge-domains
 ```
 
 ### Compiling JS files: 
