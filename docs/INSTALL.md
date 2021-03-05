@@ -38,9 +38,9 @@ Register the routes of our seo entrypoint by adding the following lines to ``app
 
 ```yaml
 # app/routes.yaml or app/config/routing.yml
-api_ez_platform_seo:
+api_codein_ibexa_seo:
     resource: .
-    type: api_ez_platform_seo
+    type: api_codein_ibexa_seo
 ```
 
 Once the bundle is installed and configured, tell

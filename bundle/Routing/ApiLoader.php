@@ -33,6 +33,6 @@ final class ApiLoader extends Loader
 
     public function supports($resource, $type = null)
     {
-        return 'api_ez_platform_seo' === $type;
+        return 'api_codein_ibexa_seo' === $type;
     }
 }
