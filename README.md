@@ -23,7 +23,7 @@ ______________
 
 ## Features
 
-<img align="right" src="docs/img/PresentationCodeinSeoToolkit3.png" alt="Codein SEO Toolkit demo" />
+<img align="right" src="docs/img/IbexaSeoToolkitDemo2.png" width="540px" alt="Codein SEO Toolkit demo" />
 
 - :electric_plug: Super easy to start by using the full-featured controllers and services :point_right:
 

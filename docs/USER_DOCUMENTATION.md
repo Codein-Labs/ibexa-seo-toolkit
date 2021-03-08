@@ -2,6 +2,12 @@
 
 This documentation is for Ibexa Contibutors
 
+## Disclaimer
+
+These tools should not replace a global SEO strategy.
+
+Our goal is to support you in the structuration and the respect of the best practices in your content creation.
+ 
 ## Features
 
 ### Metas 
@@ -27,7 +33,6 @@ No Artificial Intelligence, but we use some commonly followed best practices to 
 
 Any developer can create his own analysis type if you require something specific.
 
-#### Classic Content (No landing page)
 
 You can display the SEO Analysis for your current content by editing it.
 
@@ -35,17 +40,6 @@ Then click on the button "SEO Analysis" on the sidebar:
 
 <img height="500" src="./img/OpenSEOWindow.png">
 
-#### Landing Page Content
-
-Like previously, you should switch to edit mode on your content to access it. 
-
-Go on the top menu here:
-<img src="./img/MenuPublish.png">
-
-On the publish button, click on the rightmost part of the button :
-<img src="./img/SubMenuSeo.png">
-
-You get a button Seo analyzer which you can click on.
 
 #### SEO Analysis View
 
