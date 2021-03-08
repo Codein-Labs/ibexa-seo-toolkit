@@ -24,6 +24,7 @@ This configuration allows the product content_type to be analyzed.
 On the `product` content type, the field identified by `description` will be analyzed.
 
 `siteaccesses_blocklist`: Some siteaccesses can't be analyzed, admin for example. Block them here from being analyzed.
+
 `blocklist`: You can prevent some analyzers to run, if you don't find them useful.
 
 ## Sitemap
@@ -45,7 +46,9 @@ codein_ibexa_seo_toolkit:
           content_type_identifiers: []
 ```
 `blocklist`: disallow some objects to appear in sitemap
+
 `passlist`: allow only some objects to appear in sitemap
+
 `split_by`: in case of a to large sitemap, it gives an option to split either by number of results or content_types.
 
 ## Robots
