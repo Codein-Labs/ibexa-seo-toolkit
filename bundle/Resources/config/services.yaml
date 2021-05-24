@@ -40,6 +40,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
 
+    Codein\IbexaSeoToolkit\EventListener\PageBuilderMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: ezplatform_page_builder.menu_configure.infobar.edit.actions, method: onPageBuilderMenuConfigure }
+
 
     eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController:
         alias: ezpublish.controller.content.preview.core
