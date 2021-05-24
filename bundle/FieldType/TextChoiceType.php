@@ -2,7 +2,7 @@
 
 namespace Codein\IbexaSeoToolkit\FieldType;
 
-use EzSystems\RepositoryForms\Form\Type\FieldType\SelectionFieldType;
+use EzSystems\EzPlatformContentForms\Form\Type\FieldType\SelectionFieldType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
