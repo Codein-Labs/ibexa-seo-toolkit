@@ -31,7 +31,6 @@ export const getSeoRichText = () => {
     for (const [i, v] of configuredValidators.entries()) {
         if (v.hasOwnProperty('alloyEditor')) {
             richTextValidatorIndexes.push(i);
-            break;
         }
     }
     if (richTextValidatorIndexes.length === 0) {
