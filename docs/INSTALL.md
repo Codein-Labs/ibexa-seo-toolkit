@@ -16,28 +16,21 @@ Anyway, the previous option is the preferred way, since composer can pick the be
 ## Enable the bundle
 
 If you use Flex (you should!), the bundle is automatically enabled with a recipe and no further action is required.
-Otherwise, to start using the bundle, register it in your application's kernel class:
+Otherwise, to start using the bundle, register it in the bundles list:
 
 ```php
-// app/AppKernel.php (your kernel class may be defined in a different class/path)
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = [
-            // ...
-            new Codein\IbexaSeoToolkit\IbexaSeoToolkitBundle(),
-            // ...
-        ];
-    }
-}
+// config/bundles.php
+return [
+    //...
+    Codein\IbexaSeoToolkit\IbexaSeoToolkitBundle::class => ['all' => true],
+];
 ```
 
-Register the routes of our seo entrypoint by adding the following lines to ``app/config/routing.yml``:
+Register the routes of our seo entrypoint by adding the following lines to ``config/routes.yml``:
 
 
 ```yaml
-# app/routes.yaml or app/config/routing.yml
+# config/routes.yaml
 api_codein_ibexa_seo:
     resource: .
     type: api_codein_ibexa_seo
@@ -47,7 +40,7 @@ Once the bundle is installed and configured, tell
 IbexaSeoToolkitBundle that you want to use it.
 
 ```yaml
-# config/packages/codein_ibexa_seo_toolkit.yaml or app/config/config.yml
+# config/packages/codein_ibexa_seo_toolkit.yaml
 codein_ibexa_seo_toolkit: ~
 ```
 
@@ -57,7 +50,7 @@ See [USAGE.md](USAGE.md) for configuring the bundle.
 
 In your project root, launch :
 ```bash
-php bin/console doctrine:schema-update --force
+php bin/console doctrine:schema:update --force
 ```
 
 If you're using MySQL and have DoctrineMigrationsBundle installed, you can use the migration provided by configuring the bundle path:
@@ -72,7 +65,7 @@ Then, execute it:
 php bin/console doctrine:migrations:execute 'Codein\IbexaSeoToolkit\DoctrineMigrations\Version20210304163313' --up
 ```
 
-Obviously, the migration name matches what we've got at the current time of editing this documentation. Look inside the bundle to find the migration file. 
+Obviously, the migration name matches what we've got at the current time of editing this documentation. Look inside the bundle to find the migration file.
 
 ## Configure Webpack to build bundle assets
 
@@ -83,11 +76,11 @@ const codeinSeoToolkitConfig = require('./vendor/codein/ibexa-seo-toolkit/bundle
 module.exports = [ eZConfig, ...customConfigs, codeinSeoToolkitConfig ];
 ```
 
-In your `config.yml`:
+In your `config/packages/webpack_encore.yml`:
 ```yml
 webpack_encore:
     builds:
-        codein: "%kernel.project_dir%/web/bundles/codein-ibexaseotoolkit"
+        codein: "%kernel.project_dir%/public/bundles/codein-ibexaseotoolkit"
 ```
 
 ### Compiling backoffice translations
@@ -96,7 +89,7 @@ webpack_encore:
 php bin/console bazinga:js-translation:dump public/assets --merge-domains
 ```
 
-### Compiling JS files: 
+### Compiling JS files:
 ```
 yarn encore dev
 ```
@@ -106,13 +99,13 @@ yarn encore dev
 
 #### Why so much configuration ?
 
-As an Ibexa bundle, we want to make sure developers can extend / override most of it. 
+As an Ibexa bundle, we want to make sure developers can extend / override most of it.
 
-Moreover, we use React for adding an interface in the backoffice, for maintainability purposes ... and it comes with upfront application configuration. 
+Moreover, we use React for adding an interface in the backoffice, for maintainability purposes ... and it comes with upfront application configuration.
 
 #### Backoffice translations aren't found
 
-This is typically not a problem with the bundle. 
+This is typically not a problem with the bundle.
 
 **Try:**
 * clearing caches,
