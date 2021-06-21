@@ -10,12 +10,16 @@
             "homepage": "https://www.codein.fr"
         },
         {
-            "name": "Meryll Essig",
-            "email": "meryll.essig@codein.fr"
+            "name": "Ahmed Eben Hassine",
+            "email": "ahmedbhs123@gmail.com"
         },
         {
-            "name": "Axel Veber",
-            "email": "axel.veber@codein.fr"
+            "name": "Alexandre Soyer",
+            "email": "contact.alexsoyes@gmail.com"
+        },
+        {
+            "name": "Meryll Essig",
+            "email": "meryll.essig@codein.fr"
         }
     ],
     "require": {
