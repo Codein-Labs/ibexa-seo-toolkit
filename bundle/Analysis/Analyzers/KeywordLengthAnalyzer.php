@@ -27,17 +27,29 @@ final class KeywordLengthAnalyzer extends AbstractAnalyzer
     {
         $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);
+        $maxCount = 0;
 
-        $status = RatioLevels::LOW;
+        $status = RatioLevels::HIGH;
 
         foreach ($keywordSynonyms as $keywordSynonym) {
-            if (\str_word_count($keywordSynonym) > 6) {
-                $status = RatioLevels::HIGH;
-            } elseif (\str_word_count($keywordSynonym) > 4 && RatioLevels::LOW !== $status) {
+            $count = \str_word_count($keywordSynonym);
+            if ($count > 6) {
+                $status = RatioLevels::LOW;
+            } elseif ($count > 4 && RatioLevels::LOW !== $status) {
                 $status = RatioLevels::MEDIUM;
+            }
+            if ($count > $maxCount) {
+                $maxCount = $count;
             }
         }
 
-        return $this->analyzerService->compile(self::CATEGORY, $status, []);
+        return [
+            self::CATEGORY => [
+                'status' => $status,
+                'data' => [
+                    'count' => $maxCount,
+                ],
+            ],
+        ];
     }
 }
