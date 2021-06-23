@@ -1,6 +1,7 @@
 import react from "react";
 
 import SeoView from "./components/seo_view";
+import SeoViewNotConfigured from "./components/seo_view_not_configured";
 import EzDataContext from "./ez.datacontext";
 
 export default class App extends react.Component {
