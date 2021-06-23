@@ -29,6 +29,11 @@ export default class App extends react.Component {
       "menu_item_seo_analyzer-tab"
     );
 
+      // If analysis is not configured for the content type
+      const seoButtonAnalysisNotConfigured = document.getElementById(
+          "menu_item_seo_analyzer_not_configured-tab"
+      );
+
     // Allow for the bundle to display properly on landing pages.
     const ezPageBuilderFields = document.querySelector(
       '.ez-page-builder__fields'
@@ -44,49 +49,99 @@ export default class App extends react.Component {
                 seoButtonAnalysis.classList.remove('btn-primary');
                 seoButtonAnalysis.classList.add('btn-secondary');
 
-                if (ezPageBuilderFields != null) 
+                if (ezPageBuilderFields != null)
                 {
                   ezPageBuilderFields.style.display = "block";
                 }
               } else {
                 seoButtonAnalysis.classList.remove('btn-secondary');
                 seoButtonAnalysis.classList.add('btn-primary');
-                
+
                 if (ezPageBuilderFields != null && document.querySelector('.ez-page-builder-edit:not(.ez-page-builder--fields-visible).ez-page-builder__fields') !== null) {
                   ezPageBuilderFields.style.display = "none";
 
                 }
-                
+
               }
             });
           },
           false
         );
     }
+      if (seoButtonAnalysisNotConfigured) {
+          seoButtonAnalysisNotConfigured.addEventListener(
+              "click",
+              () => {
+                  this.setState((state) => ({
+                      seoMenuOpened: !state.seoMenuOpened,
+                      isConfigured: false
+                  }), function () {
+                      if (this.state.seoMenuOpened) {
+                          seoButtonAnalysisNotConfigured.classList.remove('btn-primary');
+                          seoButtonAnalysisNotConfigured.classList.add('btn-secondary');
+
+                          if (ezPageBuilderFields != null)
+                          {
+                              ezPageBuilderFields.style.display = "block";
+                          }
+                      }
+                      else {
+                          seoButtonAnalysisNotConfigured.classList.remove('btn-secondary');
+                          seoButtonAnalysisNotConfigured.classList.add('btn-primary');
+                      }
+                  });
+              }
+          )
+      }
   }
 
   onCloseMenu() {
     const seoButtonAnalysis = document.getElementById(
       "menu_item_seo_analyzer-tab"
     );
+
+    const seoButtonAnalysisNotConfigured = document.getElementById(
+        "menu_item_seo_analyzer_not_configured-tab"
+    );
+
     this.setState(() => ({
       seoMenuOpened: false,
     }));
-    seoButtonAnalysis.classList.remove('btn-secondary');
-    seoButtonAnalysis.classList.add('btn-primary');
+
+    if (seoButtonAnalysis) {
+        seoButtonAnalysis.classList.remove('btn-secondary');
+        seoButtonAnalysis.classList.add('btn-primary');
+    }
+    if (seoButtonAnalysisNotConfigured) {
+        seoButtonAnalysisNotConfigured.classList.remove('btn-secondary');
+        seoButtonAnalysisNotConfigured.classList.add('btn-primary');
+    }
   }
 
   render() {
     if (this.state.seoMenuOpened) {
-      return(
-        <div className="page" style={{ zIndex: 2, overflowY: "scroll", background: "#fafafa" }}>
-              <div>
-                <EzDataContext.Provider value={this.props.contentAttributes}>
-                  <SeoView closeMenu={this.onCloseMenu} contentName={this.props.contentName} />
-                </EzDataContext.Provider>
-              </div>
-            </div>
-      );
+        if (this.state.isConfigured) {
+            return(
+                <div className="page" style={{ zIndex: 2, overflowY: "scroll", background: "#fafafa" }}>
+                    <div>
+                        <EzDataContext.Provider value={this.props.contentAttributes}>
+                            <SeoView closeMenu={this.onCloseMenu} contentName={this.props.contentName} />
+                        </EzDataContext.Provider>
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return(
+                <div className="page" style={{ zIndex: 2, overflowY: "scroll", background: "#fafafa" }}>
+                    <div>
+                        <EzDataContext.Provider value={this.props.contentAttributes}>
+                            <SeoViewNotConfigured closeMenu={this.onCloseMenu} contentName={this.props.contentName} />
+                        </EzDataContext.Provider>
+                    </div>
+                </div>
+            );
+        }
     } else {
       return (
         <>

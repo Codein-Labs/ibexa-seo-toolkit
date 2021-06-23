@@ -19,15 +19,24 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
     {
         $currentContentTypeIdentifier = $configureMenuEvent->getOptions()["content_type"]->identifier;
         $analysisConfiguration = $this->siteAccessConfigResolver->getParameterConfig('analysis');
-        if (!array_key_exists('content_types', $analysisConfiguration)) {
-            return;
-        }
-        
-        if (!in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']))) {
+
+        $menuItem = $configureMenuEvent->getMenu();
+
+        if (!array_key_exists('content_types', $analysisConfiguration) or !in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']))) {
+            $menuItem->addChild(
+                'menu_item_seo_analyzer_not_configured',
+                [
+                    'label' => 'codein_seo_toolkit.content_create_edit.menu_label',
+                    'uri' => '#codein-seo-not-configured',
+                    'extras' => [
+                        'icon_path' => '/bundles/codein-ibexaseotoolkit/images/SEO-Toolkit_logo.svg#codein-seo-toolkit-logo',
+                        'translation_domain' => 'codein_seo_toolkit',
+                    ],
+                ]
+            );
             return;
         }
 
-        $menuItem = $configureMenuEvent->getMenu();
 
         $menuItem->addChild(
             'menu_item_seo_analyzer',

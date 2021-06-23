@@ -20,6 +20,7 @@ codein_seo_toolkit.seo_view.tab_configuration_keyword: 'Mot clé principal'
 codein_seo_toolkit.seo_view.tab_configuration_is_pillar: 'Est-un contenu pilier'
 codein_seo_toolkit.seo_view.tab_configuration_update_configuration: "Mettre l'objectif à jour"
 codein_seo_toolkit.seo_view.tab_configuration_keyword_synonyms: "Vous pouvez séparer les synonymes de votre mot clé par une virgule."
+codein_seo_toolkit.seo_view.not_configured: "Ce type de contenu n'est pas configuré pour être analysé."
 codein_seo_toolkit.analyzer.error.undefined: "Undefined error."
 codein_seo_toolkit.analyzer.error.preview_not_returning_html: "Le content preview ne retourne pas un HTML valide."
 codein_seo_toolkit.analyzer.error.content_not_configured: "Veuillez configurer le contenu dans l'onglet associé."
