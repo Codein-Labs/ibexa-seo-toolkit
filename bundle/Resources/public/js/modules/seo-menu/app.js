@@ -8,7 +8,7 @@ export default class App extends react.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    this.state = { seoMenuOpened: false };
+    this.state = { seoMenuOpened: false, isConfigured: true };
 
     this.toggleSeoMenu = this.toggleSeoMenu.bind(this);
     this.onCloseMenu = this.onCloseMenu.bind(this);
@@ -45,6 +45,7 @@ export default class App extends react.Component {
           () => {
             this.setState((state) => ({
               seoMenuOpened: !state.seoMenuOpened,
+              isConfigured: true
             }), function () {
               if (this.state.seoMenuOpened) {
                 seoButtonAnalysis.classList.remove('btn-primary');
