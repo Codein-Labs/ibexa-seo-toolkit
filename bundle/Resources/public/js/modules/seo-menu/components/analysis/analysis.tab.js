@@ -19,14 +19,16 @@ export default class AnalysisTab extends React.Component {
     this.scores = {};
     this.globalScore = -1;
     this.triggerAnalysis = this.triggerAnalysis.bind(this);
+    this.triggerAnalysisButton = this.triggerAnalysisButton.bind(this);
     this.handleSiteAccessChange = this.handleSiteAccessChange.bind(this);
+    this.addKeywordRequiredFieldError = this.addKeywordRequiredFieldError.bind(this);
     this.updateScore = this.updateScore.bind(this);
     this.renderError = this.renderError.bind(this);
     this.error = false;
   }
-  
+
   componentDidMount() {
-    
+
     if (this.siteaccesses.length) return;
     if (this.context.siteaccesses == "") return;
 
@@ -45,7 +47,7 @@ export default class AnalysisTab extends React.Component {
     }
     this.siteaccesses = siteaccesses;
   }
-  
+
   /**
    * Provide data and fetch analysis
    */
@@ -53,12 +55,12 @@ export default class AnalysisTab extends React.Component {
     if(e !== null) e.preventDefault();
 
     var self = this;
-    
+
     // Deep copy of context data
     let dataContext = {...this.context};
     delete dataContext.siteaccesses;
     dataContext.siteaccess = this.state.selectedSiteaccess;
-    
+
     if (!validateContextData(dataContext)) return;
     getAnalysis(dataContext, getSeoRichText(), (err, res) => {
       if (!err) {
@@ -78,6 +80,15 @@ export default class AnalysisTab extends React.Component {
       }
       return;
     })
+  }
+
+  triggerAnalysisButton(e) {
+      const keywordInput = document.querySelector("input[id='keyword']");
+      if (!keywordInput.value) {
+          this.addKeywordRequiredFieldError();
+          return;
+      }
+      this.triggerAnalysis(e);
   }
 
   handleSiteAccessChange(event) {
@@ -109,7 +120,7 @@ export default class AnalysisTab extends React.Component {
       )
     }
   }
-  
+
   getScoreDisplayValue(scores = null, seoCategoryName = null) {
     let score = 0;
     if (scores == null && seoCategoryName == null) {
@@ -131,7 +142,20 @@ export default class AnalysisTab extends React.Component {
     return '';
   }
 
-  
+    addKeywordRequiredFieldError() {
+        const keywordInput = document.querySelector("input[id='keyword']");
+        const keywordInputParent = keywordInput.parentElement;
+        const transFieldRequired = __("codein_seo_toolkit.analyzer.error.keywords_required");
+        if (!keywordInput.classList.contains('is-invalid')) {
+            keywordInput.classList.add('is-invalid');
+            let emFieldRequired = document.createElement('em');
+            emFieldRequired.classList.add('ez-field-edit__error');
+            emFieldRequired.classList.add('mt-1');
+            emFieldRequired.innerText = transFieldRequired;
+            keywordInputParent.appendChild(emFieldRequired);
+        }
+    }
+
   render() {
     const transAnalyzeButton = __("codein_seo_toolkit.seo_view.tab_analysis.trigger_analysis");
     const transBackToEditButton = __("codein_seo_toolkit.seo_view.tab_analysis.back_to_edit");
@@ -145,7 +169,7 @@ export default class AnalysisTab extends React.Component {
     const transSiteaccessAnalyzed = __('codein_seo_toolkit.analyzer.siteaccess_analyzed');
     const transHelpSiteaccessAnalyzed = __('codein_seo_toolkit.seo_view.tab_analysis.help.siteaccess_analyzed');
     const transGlobalNote = __('codein_seo_toolkit.seo_view.tab_analysis.global_note');
-    
+
     return (
       <>
         <a className="badge badge-info collapsed mr-2" data-toggle="collapse" href="#generalTipsCollapse" aria-expanded="false">⚠ Tips</a>
@@ -174,7 +198,7 @@ export default class AnalysisTab extends React.Component {
             </ul>
           </div>
         </div>
-        
+
         <hr class="separator mt-2 mb-2"></hr>
         <ConfigurationTab callback={this.triggerAnalysis}/>
         <div class="ez-field-edit__label-wrapper">
@@ -208,7 +232,7 @@ export default class AnalysisTab extends React.Component {
                     </a>
                   </h2>
                 </div>
-      
+
                 <div
                   id={'category-' + seoAnalysisCategoryName.split('.').pop()}
                   class="ez-content-preview-collapse collapse show"
@@ -223,9 +247,9 @@ export default class AnalysisTab extends React.Component {
           ))}
 
         </div>
-  
+
         <hr class="separator mt-2"></hr>
-        <button class="btn btn-primary mr-2" onClick={this.triggerAnalysis}>{transAnalyzeButton}</button>
+        <button class="btn btn-primary mr-2" onClick={this.triggerAnalysisButton}>{transAnalyzeButton}</button>
       </>
     );
   }

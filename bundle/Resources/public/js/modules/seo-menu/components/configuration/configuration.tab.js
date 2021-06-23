@@ -21,7 +21,8 @@ export default class ConfigurationTab extends React.Component {
     this.triggerUpdateConfiguration = this.triggerUpdateConfiguration.bind(this);
     this.onChangeFocusKeyword = this.onChangeFocusKeyword.bind(this)
     this.onChangePillar = this.onChangePillar.bind(this)
-
+    this.addKeywordRequiredFieldError = this.addKeywordRequiredFieldError.bind(this);
+    this.removeKeywordRequiredFieldError = this.removeKeywordRequiredFieldError.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +46,12 @@ export default class ConfigurationTab extends React.Component {
   }
 
   triggerUpdateConfiguration() {
+    const keywordInput = document.querySelector("input[id='keyword']");
+    if (!keywordInput.value) {
+        this.addKeywordRequiredFieldError();
+        return;
+    }
+
     this.setState({
       loading: true
     })
@@ -61,6 +68,12 @@ export default class ConfigurationTab extends React.Component {
 
   onChangeFocusKeyword(event) {
     this.setState({focusKeyword: event.target.value})
+    if (!event.target.value) {
+        this.addKeywordRequiredFieldError();
+    }
+    else {
+        this.removeKeywordRequiredFieldError();
+    }
   }
 
   onChangePillar(event) {
@@ -68,6 +81,31 @@ export default class ConfigurationTab extends React.Component {
 
   }
 
+    addKeywordRequiredFieldError() {
+        const keywordInput = document.querySelector("input[id='keyword']");
+        const keywordInputParent = keywordInput.parentElement;
+        const transFieldRequired = __("codein_seo_toolkit.analyzer.error.keywords_required");
+
+        if (!keywordInput.classList.contains('is-invalid')) {
+            keywordInput.classList.add('is-invalid');
+            let emFieldRequired = document.createElement('em');
+            emFieldRequired.classList.add('ez-field-edit__error');
+            emFieldRequired.classList.add('mt-1');
+            emFieldRequired.innerText = transFieldRequired;
+            keywordInputParent.appendChild(emFieldRequired);
+        }
+    }
+
+    removeKeywordRequiredFieldError() {
+        const keywordInput = document.querySelector("input[id='keyword']");
+        const keywordInputParent = keywordInput.parentElement;
+
+        keywordInput.classList.remove('is-invalid');
+        let emFieldRequired = keywordInputParent.querySelector('.ez-field-edit__error');
+        if (emFieldRequired) {
+            keywordInputParent.removeChild(emFieldRequired);
+        }
+    }
 
   render() {
     let pillarCheckboxStyle = {
@@ -107,7 +145,7 @@ export default class ConfigurationTab extends React.Component {
 
           <div className="ez-field-edit">
             <div className="ez-field-edit__label-wrapper">
-                <label className="ez-field-edit__label" for="keyword">{transConfigurationKeyword}</label>
+                <label className="ez-field-edit__label required" for="keyword">{transConfigurationKeyword}</label>
             </div>
             <div className="ez-field-edit__data">
                 <div className="ez-data-source">
