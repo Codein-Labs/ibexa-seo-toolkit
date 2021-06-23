@@ -1,27 +1,27 @@
 Analyzers
 ======
 
-The bundle uses a set of analyzers to analyze Rich Text Contents and Content Preview. 
+The bundle uses a set of analyzers to analyze Rich Text Contents and Content Preview.
 
 An analyzer extends the `Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer` abstract class.
 
-From here, you have two main options: 
+From here, you have two main options:
 * Use the set of analyzers provided by the bundle.
 * Implement some analyzers yourself. (After all, Symfony offers great tooling for extending bundles)
 
 ## Details
 
-### Philosophy 
+### Philosophy
 
 The goal of analyzers is **to provide good intel of whether the writing strategy is adapted** to the focus keyword we want to rank on. (a.k.a. *Keyword analysis*)
 
 For example, if we want to rank for "Ibexa Bundle", it make sense to use this keyword in some h2 titles, in the text.
 
-Moreover, another goal is to help content creators to write content which will be read well by both Google and the customer (a.k.a. *Lisibility analysis*).
+Moreover, another goal is to help content creators to write content which will be read well by both search engines and the customer (a.k.a. *Lisibility analysis*).
 
 ### Data analytics
 
-Analyzers uses data configured: 
+Analyzers uses data configured:
 * Rich text field (at writing time)
 * Content preview (requires at least to save the content to get up to date insight)
 * Keyword text field (contributed in the content edit view)
@@ -93,4 +93,4 @@ If that's not the case, know that it's required for your analysis class to be ta
 ## That's it!
 
 Check out the docs for information on how to use the bundle! [Return to the
-index.](USAGE.md)
+index.](./usage)

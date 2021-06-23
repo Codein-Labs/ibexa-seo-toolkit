@@ -44,7 +44,7 @@ IbexaSeoToolkitBundle that you want to use it.
 codein_ibexa_seo_toolkit: ~
 ```
 
-See [USAGE.md](USAGE.md) for configuring the bundle.
+See [usage section](./usage) for configuring the bundle.
 
 ## Add necessary tables to the database
 
@@ -114,6 +114,6 @@ This is typically not a problem with the bundle.
 
 ## That's it!
 
-Yeah, the bundle is installed! Move onto the [usage section](USAGE.md) to find out how to specify your custom configuration.
+Yeah, the bundle is installed! Move onto the [usage section](./usage) to find out how to specify your custom configuration.
 
 [1]: REQUIREMENTS.md
