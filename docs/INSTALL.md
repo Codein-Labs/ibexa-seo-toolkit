@@ -41,7 +41,11 @@ IbexaSeoToolkitBundle that you want to use it.
 
 ```yaml
 # config/packages/codein_ibexa_seo_toolkit.yaml
-codein_ibexa_seo_toolkit: ~
+codein_ibexa_seo_toolkit:
+    system:
+        default:
+            metas:
+                default_metas:
 ```
 
 See [usage section](./usage) for configuring the bundle.
