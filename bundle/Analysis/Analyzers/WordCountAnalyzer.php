@@ -14,6 +14,9 @@ final class WordCountAnalyzer extends AbstractAnalyzer
 {
     public const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
 
+    public const INFIMUM = 700;
+    public const SUPREMUM = 1500;
+
     /** @var XmlProcessingService */
     private $xmlProcessingService;
 
@@ -36,8 +39,8 @@ final class WordCountAnalyzer extends AbstractAnalyzer
         $status = RatioLevels::LOW;
 
         // Pillar content increases the requirements
-        $infimum = 700 * ($analysisDTO->isPillarContent() ? 1.5 : 1);
-        $supremum = 1500 * ($analysisDTO->isPillarContent() ? 1.5 : 1);
+        $infimum = self::INFIMUM * ($analysisDTO->isPillarContent() ? 1.5 : 1);
+        $supremum = self::SUPREMUM * ($analysisDTO->isPillarContent() ? 1.5 : 1);
         if ($count > $infimum && $count < $supremum) {
             $status = RatioLevels::MEDIUM;
         } elseif ($count >= $supremum) {
@@ -49,11 +52,13 @@ final class WordCountAnalyzer extends AbstractAnalyzer
                 'status' => $status,
                 'data' => [
                     'count' => $count,
+                    'infimum' => $infimum,
+                    'supremum' => $supremum
                 ],
             ],
         ];
     }
-    
+
     public function support(AnalysisDTO $data): bool
     {
         if (count($data->getFields()) === 0) {

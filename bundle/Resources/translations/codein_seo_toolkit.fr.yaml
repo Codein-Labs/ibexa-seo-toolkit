@@ -32,6 +32,7 @@ codein_seo_toolkit.analyzer.category.keyword: 'Mot-clé'
 codein_seo_toolkit.analyzer.category.lisibility: 'Lisibilité'
 codein_seo_toolkit.analyzer.not_compatible: "L'analyse \"%analyzer%\" n'est pas disponible pour votre contenu."
 codein_seo_toolkit.analyzer.WordCountAnalyzer.readable_name: 'Nombre de mots'
+codein_seo_toolkit.analyzer.WordCountAnalyzer.info: "Un nombre de mots compris entre %infimum% et %supremum% est acceptable, plus de %supremum% c'est très bien."
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.low: "Vous avez seulement %count% mots dans votre contenu, c'est trop faible."
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.medium: "Vous avez %count% mots dans votre contenu, c'est bien."
 codein_seo_toolkit.analyzer.WordCountAnalyzer.message.high: "Vous avez %count% mots dans votre contenu, c'est excellent"

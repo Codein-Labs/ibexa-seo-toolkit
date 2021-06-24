@@ -13,12 +13,12 @@ export default class AnalysisCategoryContent extends React.Component {
     return Object.keys(this.props.content)?.map(analyzer => {
       const TRANS_READABLE_NAME = __("codein_seo_toolkit.analyzer." + analyzer + ".readable_name", "codein_seo_toolkit");
       const TRANS_INFO_STRING = "codein_seo_toolkit.analyzer." + analyzer + ".info";
-      const TRANS_INFO = __(TRANS_INFO_STRING);
+      const TRANS_INFO = __(TRANS_INFO_STRING, "codein_seo_toolkit", this.props.content[analyzer].data);
       if (this.props.content[analyzer].status) {
         return (
         <>
           <p className={"analysis-content__result analysis-content__result--" + this.props.content[analyzer].status}>
-            <strong>{TRANS_READABLE_NAME}: </strong> 
+            <strong>{TRANS_READABLE_NAME}: </strong>
             {__("codein_seo_toolkit.analyzer."+ analyzer +".message." + this.props.content[analyzer].status, "codein_seo_toolkit", this.props.content[analyzer].data)}
             {TRANS_INFO != TRANS_INFO_STRING ? (
               <a className="ml-3 badge badge-dark collapsed" data-toggle="collapse" href={'#'+analyzer+'Tooltip'} aria-expanded="false" role="button">?</a>
@@ -37,13 +37,13 @@ export default class AnalysisCategoryContent extends React.Component {
       else {
         return (
           <p className="analysis-content__result analysis-content__result--not-compatible">
-            {__("codein_seo_toolkit.analyzer.not_compatible", "codein_seo_toolkit", { 'analyzer': TRANS_READABLE_NAME } )} 
+            {__("codein_seo_toolkit.analyzer.not_compatible", "codein_seo_toolkit", { 'analyzer': TRANS_READABLE_NAME } )}
           </p>
         );
       }
     })
   }
- 
+
   render() {
     return (
       <>
