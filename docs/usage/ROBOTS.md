@@ -5,6 +5,13 @@ The `robot.txt` file is a text file that tells web robots which pages on the web
 The bundle eases the construction of this file.
 
 ## Configuration
+Ibexa blocks the `robots.txt` file by default, add a rewrite rule to your vhost to use it :
+```
+<VirtualHost>
+    ...
+    RewriteRule ^/robots.txt ^/robots.txt
+</VirtualHost>
+```
 
 ```yml
 # config/packages/codein_ibexa_seo_toolkit.yaml
