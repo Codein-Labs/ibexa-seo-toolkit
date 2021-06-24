@@ -15,7 +15,7 @@ codein_ibexa_seo_toolkit:
       sitemap:
         split_by: "content_type" # One of "number_of_results"; "content_type"
         use_images: true #or false
-        max_results_per_page: 1000 # defaults 500, applies to number_of_results split
+        max_items_per_page: 1000 # defaults 500, applies to number_of_results split
         blocklist:
           locations:             [2, 5]
           subtrees:             [153]
