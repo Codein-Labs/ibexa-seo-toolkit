@@ -17,7 +17,6 @@ codein_ibexa_seo_toolkit:
           copyright: 'My Company'
           author: 'John Doe'
         field_type_metas:
-          # Prototype
           title:
             label: 'Title'
             default_pattern: "<title|name>"
@@ -48,7 +47,7 @@ There are 3 levels of fallback which allow to set a value for the metas :
 ## Result
 
 The meta informations can be rendered as any other content field in a twig template:
-```html
+```twig
 <head>
     {{ ez_render_field(content, 'metas') }}
     ...
@@ -58,8 +57,23 @@ The meta informations can be rendered as any other content field in a twig templ
 The result can be seen in the source code of the page:
 ```html
 <head>
+    <meta name="copyright" content="My Company"/>
+    <meta name="author" content="John Doe"/>
     <title> This is a title </title>
     <meta name="meta_description" content="This is a description">
+    ...
+</head>
+```
+
+If you want to render a page that's not an Ibexa Content (for example a classic Symfony route), you can still render the default meta informations by including this template :
+```twig
+<head>
+    {# You can override the default metas according if you need it #}
+    {% include "@CodeinIbexaSeoToolkit/default_metas.html.twig" with {
+        metas: {
+            'author': 'John Doe'
+        }
+    } %}
     ...
 </head>
 ```

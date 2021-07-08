@@ -4,7 +4,7 @@
     {%- set is_the_canonical_found = false -%}
     {%- set field_value_metas = resolve_pattern(field, fieldSettings, content) -%}
     {%- set is_the_title_found = false -%}
-    {%- for meta_name, meta_content in field_value_metas|filter(meta_content => meta_content is not empty) -%}
+    {%- for meta_name, meta_content in (codein_ibexaseo.default_metas is defined ? codein_ibexaseo.default_metas : [])|merge(field_value_metas)|filter((meta_name, meta_content) => meta_name is not empty and meta_content is not empty) -%}
         {%- if meta_content is not empty -%}
             {%- if meta_name is same as("title") -%}
                 <title>{{ meta_content }}</title>
