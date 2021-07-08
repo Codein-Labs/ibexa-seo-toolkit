@@ -7,8 +7,8 @@ ______________
 </div>
 
 <div align="center">
-    <a href="https://github.com/Codein-Labs/ezplatform-seo-toolkit/blob/master/LICENSE">
-        <img src="https://img.shields.io/github/license/Codein-Labs/ezplatform-seo-toolkit.svg" alt="License" />
+    <a href="https://github.com/Codein-Labs/ibexa-seo-toolkit/blob/master/LICENSE">
+        <img src="https://img.shields.io/github/license/Codein-Labs/ibexa-seo-toolkit.svg" alt="License" />
     </a>
     <a href="http://makeapullrequest.com">
         <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=blueviolet" alt="PRs welcome" />

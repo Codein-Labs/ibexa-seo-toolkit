@@ -22,7 +22,7 @@ As such, we don't provide tools for a Symfony only application, and don't plan t
 
 ### Design Decisions
 
-When we make a significant decision in how we maintain the project and what we can or cannot support, we will document it in the [/docs](https://github.com/Codein-Labs/ezplatform-seo-toolkit/tree/master/docs) folder of the repository. If you have a question around how we do things, check to see if it is documented there. If it is *not* documented there, please open a new issue and ask your question.
+When we make a significant decision in how we maintain the project and what we can or cannot support, we will document it in the [/docs](https://github.com/Codein-Labs/ibexa-seo-toolkit/tree/master/docs) folder of the repository. If you have a question around how we do things, check to see if it is documented there. If it is *not* documented there, please open a new issue and ask your question.
 
 ## How Can I Contribute ?
 
