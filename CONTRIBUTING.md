@@ -16,7 +16,7 @@ This project and everyone participating in it is governed by the [Codein Code of
 
 ### Ibexa
 
-This symfony bundle aims at providing tools for Ibexa, a Digital Experience Platform (DXP) edited by Ibexa.
+This symfony bundle aims at providing tools for Ibexa DXP (Digital Experience Platform).
 
 As such, we don't provide tools for a Symfony only application, and don't plan to.
 
