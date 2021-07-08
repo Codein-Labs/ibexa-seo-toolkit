@@ -3,7 +3,7 @@
 </a></p>
 ______________
 <div align="center">
-  <strong>Toolkit as a Symfony bundle to enhance eZ Platform SEO capabilities.</strong>
+  <strong>Toolkit as a Symfony bundle to enhance Ibexa SEO capabilities.</strong>
 </div>
 
 <div align="center">
@@ -33,7 +33,7 @@ ______________
 
 - :mag_right: Configure content for SEO performance
 
-- :space_invader: Exploit eZ Platform freedom of use to make power SEO tooling for your client
+- :space_invader: Exploit Ibexa freedom of use to make power SEO tooling for your client
 
 - :clapper: Overriding controller methods with ease
 

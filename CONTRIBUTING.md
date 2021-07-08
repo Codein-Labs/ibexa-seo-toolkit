@@ -1,8 +1,8 @@
-# Contributing to Codein eZ Platform SEO Toolkit
+# Contributing to Codein Ibexa SEO Toolkit
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
-The following is a set of guidelines for contributing to *eZ Platform SEO Toolkit*, which is hosted in the [Codein Labs Organization](https://github.com/Codein-Labs) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to *Ibexa SEO Toolkit*, which is hosted in the [Codein Labs Organization](https://github.com/Codein-Labs) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Code of Conduct
 
@@ -12,11 +12,11 @@ This project and everyone participating in it is governed by the [Codein Code of
 
 ### Symfony
 
-**Codein eZ Platform SEO Toolkit** is a symfony bundle. As such, we aim at providing code that comply to [symfony coding standards](https://symfony.com/doc/current/contributing/code/standards.html).
+**Codein Ibexa SEO Toolkit** is a symfony bundle. As such, we aim at providing code that comply to [symfony coding standards](https://symfony.com/doc/current/contributing/code/standards.html).
 
-### eZ Platform
+### Ibexa
 
-This symfony bundle aims at providing tools for eZ Platform, a Digital Experience Platform (DXP) edited by Ibexa.
+This symfony bundle aims at providing tools for Ibexa, a Digital Experience Platform (DXP) edited by Ibexa.
 
 As such, we don't provide tools for a Symfony only application, and don't plan to.
 
