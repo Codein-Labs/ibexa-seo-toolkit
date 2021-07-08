@@ -100,19 +100,16 @@
                     <h1>{{ 'codein_seo_toolkit.sitemap.title' | trans}}</h1>
 
                     <p>
-                        {{ 'codein_seo_toolkit.sitemap.generated_by_bundle' | trans }} 
-                        <a href="https://github.com/Codein-Labs/ibexa-seo-toolkit" target="_blank" style="color: #ff5c39; font-weight:bold;">
-                            Ibexa SEO Toolkit
-                        </a>
-                        {{ 'codein_seo_toolkit.sitemap.edited_by' | trans() }}
-                        <a href="https://www.codein.fr" target="_blank" style="color: #ff5c39; font-weight:bold;">
-                            Codéin
-                        </a>.
-                        {{ 'codein_seo_toolkit.sitemap.explain_what_is' | trans }}
+                        {{ 'codein_seo_toolkit.sitemap.intro'|trans({
+                            '%bundle%': '<a href="https://github.com/Codein-Labs/ibexa-seo-toolkit" target="_blank" style="color: #ff5c39; font-weight:bold;">Ibexa SEO Toolkit</a>',
+                            '%editor%': '<a href="https://www.codein.fr" target="_blank" style="color: #ff5c39; font-weight:bold;">Codéin</a>'
+                        })|raw }}
                     </p>
 
                     <p>
-                        {{ 'codein_seo_toolkit.sitemap.learn_more' | trans }} <a href="http://sitemaps.org" target="_blank">{{ 'codein_seo_toolkit.sitemap.title' | trans}}</a>.
+                        {{ 'codein_seo_toolkit.sitemap.learn_more'|trans({
+                            '%link%': '<a href="http://sitemaps.org" target="_blank">' ~ 'codein_seo_toolkit.sitemap.title'|trans ~ '</a>'
+                        })|raw }}
                     </p>
 
                 </div>
@@ -121,10 +118,9 @@
                     <xsl:if test="count(sitemap:sitemapindex/sitemap:sitemap) &gt; 0">
 
                         <p>
-                            {{ 'codein_seo_toolkit.sitemap.index_contains' | trans}}
-                            <strong><xsl:value-of select="count(sitemap:sitemapindex/sitemap:sitemap)"/>
-                            </strong>
-                            {{ 'codein_seo_toolkit.sitemap.sitemap_text' | trans}}.
+                            {{ 'codein_seo_toolkit.sitemap.index_contains'|trans({
+                                '%count%': '<strong><xsl:value-of select="count(sitemap:sitemapindex/sitemap:sitemap)"/></strong>'
+                            })|raw }}
                         </p>
 
                         <table id="sitemap" cellpadding="3">
@@ -157,9 +153,9 @@
                     </xsl:if>
                     <xsl:if test="count(sitemap:sitemapindex/sitemap:sitemap) &lt; 1">
                         <p>
-                            {{ 'codein_seo_toolkit.sitemap.contains' | trans}}
-                            <strong><xsl:value-of select="count(sitemap:urlset/sitemap:url)"/></strong>
-                            {{ 'codein_seo_toolkit.sitemap.url' | trans}}.
+                            {{ 'codein_seo_toolkit.sitemap.contains'|trans({
+                                '%count%': '<strong><xsl:value-of select="count(sitemap:urlset/sitemap:url)"/></strong>'
+                            })|raw }}
                         </p>
                         
                         {% if not referer is defined or not (path('codein_ibexa_seo_toolkit.sitemap') in referer) %}
