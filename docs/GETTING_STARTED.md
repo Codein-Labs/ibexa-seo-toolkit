@@ -4,7 +4,7 @@
 
 ## Installing the bundle on your project
 
-This bundle require Ibexa 2.5 or higher, and PHP 7.1 or higher.
+This bundle require Ibexa DXP 3.3 or higher, and PHP 7.3 or higher.
 [Click here for more details on requirements](REQUIREMENTS.md).
 
 ____
