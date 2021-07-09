@@ -9,7 +9,7 @@ your Symfony project:
 composer require codein/ibexa-seo-toolkit
 ```
 
-Alternatively, you can add the requirement `"codein/ibexa-seo-toolkit": "^1.12"` to your composer.json and run `composer update`.
+Alternatively, you can add the requirement `"codein/ibexa-seo-toolkit": "^1.0"` to your composer.json and run `composer update`.
 This could be useful when the installation of IbexaSeoToolkitBundle is not compatible with some currently installed dependencies (see [requirements details][1]).
 Anyway, the previous option is the preferred way, since composer can pick the best requirement constraint for you.
 
