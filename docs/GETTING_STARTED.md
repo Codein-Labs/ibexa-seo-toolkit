@@ -2,6 +2,8 @@
 
 [Codein](https://www.codein.fr) Ibexa SEO Toolkit is a Symfony bundle for Ibexa users, developers and contributors alike.
 
+> If you want an eZ Platform 2.5 compatible version, check <a href="https://github.com/Codein-Labs/ezplatform-seo-toolkit">ezplatform-seo-toolkit</a> repository instead.
+
 ## Installing the bundle on your project
 
 This bundle require Ibexa DXP 3.3 or higher, and PHP 7.3 or higher.
