@@ -6,7 +6,7 @@ Add IbexaSeoToolkitBundle. by running this command from the terminal at the root
 your Symfony project:
 
 ```bash
-composer require codein/ibexa-seo-toolkit
+composer require codein/ibexa-seo-toolkit --no-scripts
 ```
 
 Alternatively, you can add the requirement `"codein/ibexa-seo-toolkit": "^1.0"` to your composer.json and run `composer update`.
@@ -49,6 +49,12 @@ codein_ibexa_seo_toolkit:
 ```
 
 See [usage section](./usage) for configuring the bundle.
+
+## Run post-install scripts
+
+```bash
+composer composer run-script post-install-cmd
+```
 
 ## Add necessary tables to the database
 
