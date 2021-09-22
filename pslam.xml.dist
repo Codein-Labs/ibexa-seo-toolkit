@@ -11,16 +11,22 @@
         <directory name="bundle"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <directory name="bundle/DoctrineMigrations"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
     </plugins>
     <issueHandlers>
-        <UndefinedDocblockClass>
-            <errorLevel type="suppress">
-                <referencedClass name="Stringable"/>
+        <ParamNameMismatch>
+            <errorLevel type="info">
+                <directory name="bundle/" />
             </errorLevel>
-        </UndefinedDocblockClass>
+        </ParamNameMismatch>
+        <MethodSignatureMismatch>
+            <errorLevel type="info">
+                <directory name="bundle/" />
+            </errorLevel>
+        </MethodSignatureMismatch>
     </issueHandlers>
 </psalm>
