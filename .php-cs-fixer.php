@@ -3,8 +3,8 @@
 use PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer;
 
 $finder = PhpCsFixer\Finder::create()
-    ->in([__DIR__])
-    ->exclude('bundle/DoctrineMigrations')
+    ->in(__DIR__.'/bundle')
+    ->exclude('DoctrineMigrations')
 ;
 
 return (new PhpCsFixer\Config())
