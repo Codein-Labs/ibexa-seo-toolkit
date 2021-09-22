@@ -19,8 +19,12 @@ services:
 
     Codein\IbexaSeoToolkit\Service\:
         resource: '../../Service'
+
     Codein\IbexaSeoToolkit\Helper\:
         resource: '../../Helper'
+
+    Codein\IbexaSeoToolkit\EventSubscriber\:
+        resource: '../../EventSubscriber'
 
     Codein\IbexaSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
