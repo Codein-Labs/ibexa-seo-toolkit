@@ -53,17 +53,18 @@ final class WordCountAnalyzer extends AbstractAnalyzer
                 'data' => [
                     'count' => $count,
                     'infimum' => $infimum,
-                    'supremum' => $supremum
+                    'supremum' => $supremum,
                 ],
             ],
         ];
     }
 
-    public function support(AnalysisDTO $data): bool
+    public function support(AnalysisDTO $analysisDTO): bool
     {
-        if (count($data->getFields()) === 0) {
+        if (0 === \count($analysisDTO->getFields())) {
             return false;
         }
+
         return true;
     }
 }

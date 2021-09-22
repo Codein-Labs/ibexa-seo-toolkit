@@ -28,8 +28,7 @@ class Type extends FieldType
     ];
 
     /**
-     * Validates the fieldSettings of a FieldDefinitionCreateStruct or FieldDefinitionUpdateStruct.
-     * @param mixed $fieldSettings
+     * {@inheritdoc}
      */
     public function validateFieldSettings($fieldSettings): array
     {

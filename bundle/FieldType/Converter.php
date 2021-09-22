@@ -16,6 +16,7 @@ final class Converter implements LegacyConverter
 {
     private const CONFIGURATION = 'configuration';
 
+    /** @no-named-arguments */
     public function toStorageValue(FieldValue $fieldValue, StorageFieldValue $storageFieldValue): void
     {
         $storageFieldValue->dataText = \json_encode($fieldValue->externalData);
@@ -43,7 +44,7 @@ final class Converter implements LegacyConverter
     }
 
     /**
-     * Converts field definition data in $storageDef into $fieldDef.
+     * Converts field definition data in $storageDef into $storageFieldDefinition.
      */
     public function toFieldDefinition(StorageFieldDefinition $storageFieldDefinition, FieldDefinition $fieldDefinition): void
     {

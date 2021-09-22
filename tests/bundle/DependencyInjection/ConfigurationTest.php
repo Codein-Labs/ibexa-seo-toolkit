@@ -67,7 +67,7 @@ final class ConfigurationTest extends TestCase
                     'robots' => [
                         'user_agents' => [],
                         'sitemap_routes' => [],
-                        'sitemap_urls' => []
+                        'sitemap_urls' => [],
                     ],
                     'metas' => [
                         'default_metas' => [],

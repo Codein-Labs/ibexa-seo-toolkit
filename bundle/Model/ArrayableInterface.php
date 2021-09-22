@@ -8,9 +8,9 @@ namespace Codein\IbexaSeoToolkit\Model;
 interface ArrayableInterface
 {
     /**
-   	 * Returns a representation of the object as a native PHP array.
-   	 *
-   	 * @return array Associative array of object data.
-   	 */
-   	public function toArray();
+     * Returns a representation of the object as a native PHP array.
+     *
+     * @return array Associative array of object data.
+     */
+    public function toArray();
 }

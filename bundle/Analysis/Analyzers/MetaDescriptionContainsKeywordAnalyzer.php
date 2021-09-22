@@ -48,10 +48,11 @@ final class MetaDescriptionContainsKeywordAnalyzer extends AbstractAnalyzer
             if (0 === $metaDescriptionTags->count()) {
                 $status = RatioLevels::LOW;
             } else {
+                /** @var \DOMElement $metaDescriptionTag */
                 foreach ($metaDescriptionTags as $metaDescriptionTag) {
                     foreach ($keywordSynonyms as $keyword) {
                         $contentMetaDescriptionTagAttribute = $metaDescriptionTag->getAttribute('content');
-                        if (false !== \strpos($contentMetaDescriptionTagAttribute, $keyword)) {
+                        if (false !== \mb_strpos($contentMetaDescriptionTagAttribute, $keyword)) {
                             $status = RatioLevels::HIGH;
                             break;
                         }

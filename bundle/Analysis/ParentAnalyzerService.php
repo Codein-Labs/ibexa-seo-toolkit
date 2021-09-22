@@ -49,7 +49,7 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
             if (!\array_key_exists(\key($analysisResult), $result)) {
                 $result[\key($analysisResult)] = [];
             }
-            $result[\key($analysisResult)][\substr(\get_class($analyzer), \strrpos(\get_class($analyzer), '\\') + 1)] =
+            $result[\key($analysisResult)][\mb_substr(\get_class($analyzer), \mb_strrpos(\get_class($analyzer), '\\') + 1)] =
                 $analysisResult[\key($analysisResult)];
         }
 

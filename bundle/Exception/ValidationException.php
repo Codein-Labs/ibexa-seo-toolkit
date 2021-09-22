@@ -2,8 +2,6 @@
 
 namespace Codein\IbexaSeoToolkit\Exception;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
-
 /**
  * Class ValidationException.
  */
