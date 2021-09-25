@@ -37,11 +37,10 @@ final class InternalLinksAnalyzer extends AbstractAnalyzer
         /** @var \DOMDocument $xml */
         try {
             $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
-
         } catch (\Exception $e) {
             return $this->analyzerService->compile(self::CATEGORY, null, null);
-        } 
-        
+        }
+
         $htmlText = \strip_tags($html->saveHTML());
         $wordCount = \str_word_count($htmlText);
 
@@ -54,7 +53,7 @@ final class InternalLinksAnalyzer extends AbstractAnalyzer
         foreach ($allLinks as $link) {
             $linkHref = $link->getAttribute('href');
             // Drop internal links
-            if (false !== \strpos($linkHref, 'ezlocation://')) {
+            if (false !== \mb_strpos($linkHref, 'ezlocation://')) {
                 ++$count;
             }
         }
@@ -73,17 +72,18 @@ final class InternalLinksAnalyzer extends AbstractAnalyzer
                 'status' => $status,
                 'data' => [
                     'count' => $count,
-                    'recommended' => \ceil($wordCount / (1 / self::GOOD_RATIO))
+                    'recommended' => \ceil($wordCount / (1 / self::GOOD_RATIO)),
                 ],
             ],
         ];
     }
 
-    public function support(AnalysisDTO $data): bool
+    public function support(AnalysisDTO $analysisDTO): bool
     {
-        if (count($data->getFields()) === 0) {
+        if (0 === \count($analysisDTO->getFields())) {
             return false;
         }
+
         return true;
     }
 }

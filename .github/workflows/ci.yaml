@@ -1,0 +1,63 @@
+name: "Static analysis"
+
+on: [push, pull_request]
+
+jobs:
+    linters:
+        name: Static analyzers / checks
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                php-version: ['7.3']
+
+        steps:
+            - name: "Checkout code"
+              uses: actions/checkout@v2.3.3
+
+            - name: "Install PHP with extensions"
+              uses: shivammathur/setup-php@2.7.0
+              with:
+                  coverage: "none"
+                  extensions: intl
+                  php-version: ${{ matrix.php-version }}
+                  tools: composer:v2
+
+            - name: "Set composer cache directory"
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: "Cache composer"
+              uses: actions/cache@v2.1.2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.lock') }}
+                  restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
+
+            - name: "Composer install"
+              id: install
+              run: composer install --no-interaction --no-progress
+
+            - name: Lint Composer config
+              if: always() && steps.install.outcome == 'success'
+              run: composer validate --strict
+
+            - name: PHP CS FIXER
+              if: always() && steps.install.outcome == 'success'
+              run: composer run phpcsfixer
+
+            - name: PSLAM
+              if: always() && steps.install.outcome == 'success'
+              run: composer run pslam
+
+            - name: TWIG CS
+              if: always() && steps.install.outcome == 'success'
+              run: composer run twigcs
+
+            - name: Download Symfony CLI
+              if: always() && steps.install.outcome == 'success'
+              run: wget https://get.symfony.com/cli/installer -O - | bash
+
+            - name: Check if any dependencies are compromised
+              if: always() && steps.install.outcome == 'success'
+              run: /home/runner/.symfony/bin/symfony check:security

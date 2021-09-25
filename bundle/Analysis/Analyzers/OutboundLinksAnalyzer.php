@@ -44,7 +44,7 @@ final class OutboundLinksAnalyzer extends AbstractAnalyzer
         foreach ($allLinks as $link) {
             $linkHref = $link->getAttribute('href');
             // Drop internal links
-            if (false === \strpos($linkHref, 'ezlocation://')) {
+            if (false === \mb_strpos($linkHref, 'ezlocation://')) {
                 ++$count;
             }
         }
@@ -69,11 +69,12 @@ final class OutboundLinksAnalyzer extends AbstractAnalyzer
         ];
     }
 
-    public function support(AnalysisDTO $data): bool
+    public function support(AnalysisDTO $analysisDTO): bool
     {
-        if (count($data->getFields()) === 0) {
+        if (0 === \count($analysisDTO->getFields())) {
             return false;
         }
+
         return true;
     }
 }

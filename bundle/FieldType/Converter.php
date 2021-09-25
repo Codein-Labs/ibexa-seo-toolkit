@@ -43,7 +43,7 @@ final class Converter implements LegacyConverter
     }
 
     /**
-     * Converts field definition data in $storageDef into $fieldDef.
+     * Converts field definition data in $storageDef into $storageFieldDefinition.
      */
     public function toFieldDefinition(StorageFieldDefinition $storageFieldDefinition, FieldDefinition $fieldDefinition): void
     {

@@ -41,7 +41,7 @@ final class SeoTitleWidthAnalyzer extends AbstractAnalyzer
         $status = RatioLevels::MEDIUM;
         if (0 === $titleTags->count()) {
             $status = RatioLevels::LOW;
-        } elseif (($titleLength = \strlen($titleTags->item(0)->nodeValue)) < 60) {
+        } elseif (($titleLength = \mb_strlen($titleTags->item(0)->nodeValue)) < 60) {
             $status = RatioLevels::HIGH;
         }
 

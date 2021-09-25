@@ -5,7 +5,6 @@ namespace Codein\IbexaSeoToolkit\Tests\DependencyInjection\Compiler;
 use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
 use Codein\IbexaSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -28,13 +27,13 @@ class AnalyzerPassTest extends AbstractCompilerPassTestCase
         $definition = new Definition();
         $definition->addTag(AnalyzerPass::TAG_NAME);
 
-        $this->setDefinition(self::ANALYZER_ADDER_ID , $definition);
+        $this->setDefinition(self::ANALYZER_ADDER_ID, $definition);
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             ParentAnalyzerService::class,
              'addAnalyzer',
-             [self::ANALYZER_ADDER_ID, new Reference(self::ANALYZER_ADDER_ID )]
+             [self::ANALYZER_ADDER_ID, new Reference(self::ANALYZER_ADDER_ID)]
          );
     }
 

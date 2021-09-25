@@ -52,7 +52,6 @@ final class GetRobotsController
             if (\is_array($robotsRules['sitemap_urls'])) {
                 foreach ($robotsRules['sitemap_urls'] as $key => $value) {
                     $content .= \sprintf("Sitemap: %s\n", $value);
-
                 }
             }
 
@@ -60,7 +59,6 @@ final class GetRobotsController
                 foreach ($robotsRules['sitemap_routes'] as $key => $value) {
                     $url = $this->urlGenerator->generate($value, [], UrlGeneratorInterface::ABSOLUTE_URL);
                     $content .= \sprintf("Sitemap: %s\n", $url);
-
                 }
             }
 

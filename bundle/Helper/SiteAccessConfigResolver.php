@@ -3,8 +3,8 @@
 namespace Codein\IbexaSeoToolkit\Helper;
 
 use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\API\Repository\ContentTypeService;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 
 /**
  * Class SiteAccessConfigResolver.
@@ -35,9 +35,7 @@ final class SiteAccessConfigResolver
     }
 
     /**
-     * Get full list of content types
-     *
-     * @return array
+     * Get full list of content types.
      */
     public function getListOfContentTypes(): array
     {

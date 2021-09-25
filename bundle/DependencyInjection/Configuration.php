@@ -13,6 +13,7 @@ final class Configuration extends SiteAccessConfiguration
 {
     /**
      * {@inheritdoc}
+     * @psalm-suppress TooFewArguments
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
@@ -198,7 +199,7 @@ final class Configuration extends SiteAccessConfiguration
              function ($array) {
                  $notValid = false;
                  foreach ($array as $key => $value) {
-                     if (false === \filter_var($value, FILTER_VALIDATE_URL)) {
+                     if (false === \filter_var($value, \FILTER_VALIDATE_URL)) {
                          $notValid = true;
                          break;
                      }

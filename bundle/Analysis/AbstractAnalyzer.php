@@ -11,7 +11,7 @@ abstract class AbstractAnalyzer implements AnalyzerInterface
 {
     abstract public function analyze(AnalysisDTO $analysisDTO): array;
 
-    public function support(AnalysisDTO $data): bool
+    public function support(AnalysisDTO $analysisDTO): bool
     {
         return true;
     }

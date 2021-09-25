@@ -47,7 +47,7 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
             foreach ($keywordSynonyms as $keyword) {
                 /** @var \DOMElement $title */
                 $titleLowercase = \strtr(\mb_strtolower($title->textContent), AnalyzerService::ACCENT_VALUES);
-                if (false !== \strpos($titleLowercase, $keyword)) {
+                if (false !== \mb_strpos($titleLowercase, $keyword)) {
                     ++$numberOfTitlesContainingKeyword;
                     break;
                 }
@@ -72,11 +72,12 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
         ]);
     }
 
-    public function support(AnalysisDTO $data): bool
+    public function support(AnalysisDTO $analysisDTO): bool
     {
-        if (count($data->getFields()) === 0) {
+        if (0 === \count($analysisDTO->getFields())) {
             return false;
         }
+
         return true;
     }
 }

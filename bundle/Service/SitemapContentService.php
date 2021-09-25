@@ -2,13 +2,10 @@
 
 namespace Codein\IbexaSeoToolkit\Service;
 
-use Codein\IbexaSeoToolkit\Helper\SitemapQueryHelper;
 use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
+use Codein\IbexaSeoToolkit\Helper\SitemapQueryHelper;
 use DOMDocument;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\SPI\Variation\VariationHandler;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,44 +15,23 @@ final class SitemapContentService
     public const SPLIT_RESULTS = 'number_of_results';
     public const SPLIT_CONTENT_TYPE = 'content_type';
 
-    /** @var SiteAccessConfigResolver */
-    private $siteAccessConfigResolver;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var VariationHandler */
-    private $variationHandler;
-
-    /** @var LocationService */
-    private $locationService;
-
-    /** @var SearchService */
-    private $searchService;
-
-    /** @var ContentTypeService */
-    private $contentTypeService;
-
-    /** @var SitemapQueryHelper */
-    private $sitemapQueryHelper;
-
-    /** @var RequestStack */
     private $requestStack;
+    private $urlGenerator;
+    private $searchService;
+    private $variationHandler;
+    private $sitemapQueryHelper;
+    private $siteAccessConfigResolver;
 
     public function __construct(
         SiteAccessConfigResolver $siteAccessConfigResolver,
         UrlGeneratorInterface $urlGenerator,
-        LocationService $locationService,
         SearchService $searchService,
-        ContentTypeService $contentTypeService,
         SitemapQueryHelper $sitemapQueryHelper,
         RequestStack $requestStack
-    ){
+    ) {
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
         $this->urlGenerator = $urlGenerator;
-        $this->locationService = $locationService;
         $this->searchService = $searchService;
-        $this->contentTypeService = $contentTypeService;
         $this->sitemapQueryHelper = $sitemapQueryHelper;
         $this->requestStack = $requestStack;
     }
@@ -158,8 +134,6 @@ final class SitemapContentService
         return $sitemap;
     }
 
-
-
     public function generatePage($page)
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
@@ -226,7 +200,7 @@ final class SitemapContentService
                     if ('ezimage' !== $field->fieldTypeIdentifier) {
                         continue;
                     }
-                    $variation = $this->variationHandler->getVariation($field, new VersionInfo(), 'original');
+                    $variation = $this->variationHandler->getVariation($field, new \eZ\Publish\Core\Repository\Values\Content\VersionInfo(), 'original');
 
                     $imageBlock = $sitemap->createElement('image:image');
                     $imageLoc = $sitemap->createElement('image:loc', $variation->uri);
@@ -278,8 +252,7 @@ final class SitemapContentService
         $this->variationHandler = $variationHandler;
     }
 
-
-    public function prependXSLStyleTag(\DOMDocument $sitemapContent)
+    public function prependXSLStyleTag(DOMDocument $sitemapContent)
     {
         $sitemapContent->xmlStandalone = false;
         $xslFileRoute = $this->generateURLWithScheme('codein_ibexa_seo_toolkit.sitemap_xsl');
@@ -291,7 +264,8 @@ final class SitemapContentService
         return $sitemapContent;
     }
 
-    private function generateURLWithScheme(string $route, $data = []) {
+    private function generateURLWithScheme(string $route, $data = [])
+    {
         $request = $this->requestStack->getCurrentRequest();
 
         $url = $this->urlGenerator->generate(
@@ -302,10 +276,10 @@ final class SitemapContentService
 
         $scheme = $request->getScheme();
 
-        if (strpos($scheme, "https") !== false) {
+        if (false !== mb_strpos($scheme, 'https')) {
             $url = preg_replace('/^http:/', 'https:', $url);
         }
+
         return $url;
     }
-
 }

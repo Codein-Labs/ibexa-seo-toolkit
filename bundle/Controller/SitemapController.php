@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class SitemapController.
@@ -34,7 +33,7 @@ final class SitemapController extends AbstractController
 
         $response = new Response();
         $this->responseCacheConfigurator->setSharedMaxAge($response);
-        
+
         return $response->setContent($sitemapContent->saveXML());
     }
 
@@ -48,6 +47,7 @@ final class SitemapController extends AbstractController
 
         $response = new Response();
         $this->responseCacheConfigurator->setSharedMaxAge($response);
+
         return $response->setContent($sitemapContent->saveXML());
     }
 
@@ -61,13 +61,14 @@ final class SitemapController extends AbstractController
 
         $response = new Response();
         $this->responseCacheConfigurator->setSharedMaxAge($response);
+
         return $response->setContent($sitemapContent->saveXML());
     }
 
     public function xsltStylesheet(Request $request)
     {
         $xslView = $this->renderView('@CodeinIbexaSeoToolkit/sitemap/sitemap.xsl.twig', [
-            'referer' => $request->headers->get('referer')
+            'referer' => $request->headers->get('referer'),
         ]);
         $xslDocument = new \DOMDocument('1.0', 'utf-8');
         $xslDocument->loadXML($xslView);

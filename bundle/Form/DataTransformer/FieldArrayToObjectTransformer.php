@@ -13,7 +13,7 @@ final class FieldArrayToObjectTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function transform($fields): array
+    public function transform($fields)
     {
         return $fields;
     }
@@ -21,7 +21,7 @@ final class FieldArrayToObjectTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function reverseTransform($fields): array
+    public function reverseTransform($fields)
     {
         if (!\is_array($fields)) {
             return [];

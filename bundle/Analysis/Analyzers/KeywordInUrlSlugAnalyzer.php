@@ -53,7 +53,7 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
             $bestRatio = 0;
             foreach ($keywordSynonyms as $keyword) {
                 $distance = AnalyzerService::levenshtein_utf8($keyword, $urlSlugWithoutDashes);
-                $lenSum = \strlen($urlSlugWithoutDashes) + \strlen($keyword);
+                $lenSum = \mb_strlen($urlSlugWithoutDashes) + \mb_strlen($keyword);
                 $levenshteinRatio = 1 - ($distance / $lenSum);
                 $bestRatio = ($levenshteinRatio > $bestRatio ? $levenshteinRatio : $bestRatio);
             }
@@ -67,7 +67,7 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
             }
 
             // case keyword is included, but far from equal
-            if (RatioLevels::LOW === $status && false !== \strpos($urlSlugWithoutDashes, $keyword)) {
+            if (RatioLevels::LOW === $status && false !== \mb_strpos($urlSlugWithoutDashes, $keyword)) {
                 $status = RatioLevels::MEDIUM;
             }
         } catch (\Exception $e) {
@@ -85,7 +85,7 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
         // to work well with this analyzer.
         // Moreover, we don't know how Search Engines treats them
 
-        if (count($analysisDTO->getFields()) === 0) {
+        if (0 === \count($analysisDTO->getFields())) {
             return false;
         }
 

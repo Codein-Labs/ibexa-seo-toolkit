@@ -9,11 +9,9 @@ use Codein\IbexaSeoToolkit\Form\Type\AnalysisDTOType;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzeContentService;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
-use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class AnalyzeContentController.
@@ -48,7 +46,6 @@ final class AnalyzeContentController
 
         $form->submit($request->request->all());
         if (!$form->isValid()) {
-
             throw new ValidationException('codein_seo_toolkit.analyzer.error.data_transfered');
         }
 
@@ -67,7 +64,7 @@ final class AnalyzeContentController
             $analysisDTO->getLanguageCode(),
             $analysisDTO->getSiteaccess()
         )->getContent();
-        if (!$dataPreviewHtml || 0 === \strlen($dataPreviewHtml)) {
+        if (!$dataPreviewHtml || 0 === \mb_strlen($dataPreviewHtml)) {
             throw new ValidationException('codein_seo_toolkit.analyzer.error.preview_not_returning_html');
         }
 

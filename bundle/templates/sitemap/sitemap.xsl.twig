@@ -1,12 +1,12 @@
 {% trans_default_domain 'codein_seo_toolkit' %}
 
-<xsl:stylesheet 
-    version="1.0" 
-    xmlns:html="http://www.w3.org/TR/REC-html40" 
-    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" 
-    xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9" 
-    xmlns:kml="http://www.opengis.net/kml/2.2" 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<xsl:stylesheet
+    version="1.0"
+    xmlns:html="http://www.w3.org/TR/REC-html40"
+    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+    xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:kml="http://www.opengis.net/kml/2.2"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:atom="http://www.w3.org/2005/Atom"
 >
     <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
@@ -97,7 +97,7 @@
             <body>
                 <div id="description">
 
-                    <h1>{{ 'codein_seo_toolkit.sitemap.title' | trans}}</h1>
+                    <h1>{{ 'codein_seo_toolkit.sitemap.title'|trans }}</h1>
 
                     <p>
                         {{ 'codein_seo_toolkit.sitemap.intro'|trans({
@@ -127,8 +127,8 @@
 
                             <thead>
                                 <tr>
-                                    <th width="75%">{{ 'codein_seo_toolkit.sitemap.sitemap_text' | trans | capitalize }}</th>
-                                    <th width="25%">{{ 'codein_seo_toolkit.sitemap.last_modification' | trans}}</th>
+                                    <th width="75%">{{ 'codein_seo_toolkit.sitemap.sitemap_text'|trans|capitalize }}</th>
+                                    <th width="25%">{{ 'codein_seo_toolkit.sitemap.last_modification'|trans }}</th>
                                 </tr>
                             </thead>
 
@@ -157,10 +157,10 @@
                                 '%count%': '<strong><xsl:value-of select="count(sitemap:urlset/sitemap:url)"/></strong>'
                             })|raw }}
                         </p>
-                        
+
                         {% if not referer is defined or not (path('codein_ibexa_seo_toolkit.sitemap') in referer) %}
                             <p class="expl">
-                                <a href="{{ path('codein_ibexa_seo_toolkit.sitemap') }}">← {{ 'codein_seo_toolkit.sitemap.sitemap_index' | trans}}</a>
+                                <a href="{{ path('codein_ibexa_seo_toolkit.sitemap') }}">← {{ 'codein_seo_toolkit.sitemap.sitemap_index'|trans }}</a>
                             </p>
                         {% endif %}
 
@@ -168,9 +168,9 @@
 
                             <thead>
                                 <tr>
-                                    <th width="80%">{{ 'codein_seo_toolkit.sitemap.url' | trans}}</th>
-                                    <th width="5%">{{ 'codein_seo_toolkit.sitemap.images' | trans}}</th>
-                                    <th title="Last Modification Time" width="15%">{{ 'codein_seo_toolkit.sitemap.last_modification' | trans}}</th>
+                                    <th width="80%">{{ 'codein_seo_toolkit.sitemap.url'|trans }}</th>
+                                    <th width="5%">{{ 'codein_seo_toolkit.sitemap.images'|trans }}</th>
+                                    <th title="Last Modification Time" width="15%">{{ 'codein_seo_toolkit.sitemap.last_modification'|trans }}</th>
                                 </tr>
                             </thead>
 

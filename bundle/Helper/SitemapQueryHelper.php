@@ -2,11 +2,11 @@
 
 namespace Codein\IbexaSeoToolkit\Helper;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Repository;
 
 /**
  * Class SitemapQueryHelper
@@ -32,7 +32,6 @@ final class SitemapQueryHelper
      * Get Sitemap Query.
      *
      * @param string $specificContentType for content type sitemap cut
-     * @return LocationQuery
      */
     public function getSitemapQuery(string $specificContentType = ''): LocationQuery
     {
@@ -42,7 +41,7 @@ final class SitemapQueryHelper
             new Criterion\Visibility(Criterion\Visibility::VISIBLE),
         ];
 
-        if (\strlen($specificContentType)) {
+        if (\mb_strlen($specificContentType)) {
             $baseCriteria[] = new Criterion\ContentTypeIdentifier($specificContentType);
         }
 

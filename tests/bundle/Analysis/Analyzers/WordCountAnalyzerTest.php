@@ -13,19 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 class WordCountAnalyzerTest extends KernelTestCase
 {
-    private $container;
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
-
-        $this->container = self::$kernel->getContainer();
     }
 
     public function testWordCount()
     {
         /** @var WordCountAnalyzer $ipsum */
-        $ipsum = $this->container->get(WordCountAnalyzer::class);
+        $ipsum = self::$kernel->getContainer()->get(WordCountAnalyzer::class);
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ezxhtml="http://ez.no/xmlns/ezpublish/docbook/xhtml" xmlns:ezcustom="http://ez.no/xmlns/ezpublish/docbook/custom" version="5.0-variant ezpublish-1.0">
   <title>This is a heading.</title>
