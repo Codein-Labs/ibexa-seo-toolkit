@@ -2,14 +2,12 @@ name: "Static analysis"
 
 on: [push, pull_request]
 
-env:
-    fail-fast: true
-
 jobs:
     linters:
-        name: Linters
+        name: Static analyzers / checks (PHP ${{ matrix.php-versions }})
         runs-on: ubuntu-latest
         strategy:
+            fail-fast: false
             matrix:
                 php-version: ['7.3']
 
