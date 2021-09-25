@@ -15,18 +15,18 @@ final class AnalyzerPass implements CompilerPassInterface
 {
     public const TAG_NAME = IbexaSeoToolkitExtension::ALIAS . '.seo_analyzer';
 
-    public function process(ContainerBuilder $container): void
+    public function process(ContainerBuilder $containerBuilder): void
     {
-        if (!$container->has(ParentAnalyzerService::class)) {
+        if (!$containerBuilder->has(ParentAnalyzerService::class)) {
             return;
         }
         $blockedAnalysis = [];
-        $analyzerDefinition = $container->getDefinition(ParentAnalyzerService::class);
+        $analyzerDefinition = $containerBuilder->getDefinition(ParentAnalyzerService::class);
 
-        $allFieldAnalyzers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $allFieldAnalyzers = $containerBuilder->findTaggedServiceIds(self::TAG_NAME);
         $analysisParam = \sprintf('%s.default.analysis', IbexaSeoToolkitExtension::ALIAS);
-        if (true === $container->hasParameter($analysisParam)) {
-            $blockedAnalysis = $container->getParameter($analysisParam)['blocklist'];
+        if (true === $containerBuilder->hasParameter($analysisParam)) {
+            $blockedAnalysis = $containerBuilder->getParameter($analysisParam)['blocklist'];
         }
 
         foreach (\array_keys($allFieldAnalyzers) as $id) {

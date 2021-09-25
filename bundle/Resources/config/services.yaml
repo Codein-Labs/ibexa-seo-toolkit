@@ -25,14 +25,14 @@ services:
     Codein\IbexaSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
 
-    ezpublish.api.service.inner_namer:
+    ezpublish.api.service.inner_schema_namer:
         class: eZ\Publish\Core\Repository\Helper\NameSchemaService
         factory: ["@ezpublish.api.inner_repository", getNameSchemaService]
         lazy: true
 
     Codein\IbexaSeoToolkit\Twig\CodeinIbexaSeoExtension:
         arguments:
-            $nameSchemaService: '@ezpublish.api.service.inner_namer'
+            $nameSchemaService: '@ezpublish.api.service.schema_namer'
             $siteAccessesByLanguage : '%ezpublish.siteaccesses_by_language%'
 
     Codein\IbexaSeoToolkit\Form\MetasFieldType: ~
