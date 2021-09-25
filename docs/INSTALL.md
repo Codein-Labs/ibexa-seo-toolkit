@@ -71,22 +71,6 @@ php bin/console doctrine:migrations:execute 'Codein\IbexaSeoToolkit\DoctrineMigr
 
 Obviously, the migration name matches what we've got at the current time of editing this documentation. Look inside the bundle to find the migration file.
 
-## Configure Webpack to build bundle assets
-
-In your `webpack.config.js` (same level as your composer.json) :
-```js
-const codeinSeoToolkitConfig = require('./vendor/codein/ibexa-seo-toolkit/bundle/Resources/encore/codein.config.js')(Encore);
-
-module.exports = [ eZConfig, ...customConfigs, codeinSeoToolkitConfig ];
-```
-
-In your `config/packages/webpack_encore.yml`:
-```yml
-webpack_encore:
-    builds:
-        codein: "%kernel.project_dir%/public/bundles/codein-ibexaseotoolkit"
-```
-
 ### Compiling backoffice translations
 
 ```bash
