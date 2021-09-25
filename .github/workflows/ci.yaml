@@ -44,7 +44,7 @@ jobs:
 
             - name: Lint YAML files
               if: always() && steps.install.outcome == 'success'
-              run: vendor/symfony/yaml/Resources/bin/yaml-lint bundle/Resources/config/
+              run: vendor/bin/yaml-lint bundle/Resources/config/
 
             - name: PHP CS FIXER
               if: always() && steps.install.outcome == 'success'
