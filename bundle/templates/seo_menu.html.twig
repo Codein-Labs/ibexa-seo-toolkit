@@ -1,16 +1,16 @@
-{{ encore_entry_link_tags('codein-ibexa-seo-toolkit-css', null, 'codein')|raw }}
+{{ encore_entry_link_tags('codein-ibexa-seo-toolkit-css', null, 'ezplatform')|raw }}
 
 
-<div 
-    id="codein-seo-toolkit-root" 
+<div
+    id="codein-seo-toolkit-root"
     data-content-id="{{ content is defined ? content.id : 0 }}"
     data-content-name="{{ content is defined ? content.name: 0 }}"
     data-version-no="{{ content is defined ? content.versionInfo.versionNo : 0 }}"
-    data-location-id="{{ location is defined and not location is null ? location.id : 0}}" 
+    data-location-id="{{ location is defined and not location is null ? location.id : 0}}"
     data-content-type-identifier="{{ content.contentType.identifier }}"
     data-language="{{ language is defined ? language.languageCode : '' }}"
     data-siteaccesses="{{ codein_siteaccesses_by_language(language.languageCode) }}"
 >
 </div>
 
-{{ encore_entry_script_tags("codein-ibexa-seo-toolkit-js", null, "codein") | raw }}
+{{ encore_entry_script_tags("codein-ibexa-seo-toolkit-js", null, "ezplatform")|raw }}
