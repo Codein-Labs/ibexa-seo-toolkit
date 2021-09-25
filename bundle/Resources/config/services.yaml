@@ -32,7 +32,7 @@ services:
 
     Codein\IbexaSeoToolkit\Twig\CodeinIbexaSeoExtension:
         arguments:
-            $nameSchemaService: '@ezpublish.api.service.schema_namer'
+            $nameSchemaService: '@ezpublish.api.service.inner_schema_namer'
             $siteAccessesByLanguage : '%ezpublish.siteaccesses_by_language%'
 
     Codein\IbexaSeoToolkit\Form\MetasFieldType: ~
