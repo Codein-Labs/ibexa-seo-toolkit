@@ -15,14 +15,13 @@ class GetRobotsControllerTest extends WebTestCase
     {
         parent::setUp();
         $this->client = $this->createClient();
-
     }
 
     public function testSuccessRequest()
     {
         $this->client->request('GET', '/robots.txt');
         $response = $this->client->getResponse();
-        $data ='User-agent: *
+        $data = 'User-agent: *
 Crawl-Delay: 30
 Disallow: /directory1/
 Disallow: /directory2/
@@ -44,6 +43,6 @@ Allow: /nogooglebot/subdirectory4/
 Sitemap: http://localhost/sitemap1.xml
 Sitemap: http://localhost/sitemap2.xml
 ';
-       $this->assertEquals($data, $response->getContent());
+        $this->assertSame($data, $response->getContent());
     }
 }

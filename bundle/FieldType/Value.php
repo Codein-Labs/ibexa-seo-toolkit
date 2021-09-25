@@ -12,15 +12,10 @@ class Value extends FieldValue
     /**
      * Array of Meta.
      *
-     * @var []
+     * @var array
      */
     public $metas = [];
 
-    /**
-     * Constructor.
-     *
-     * @param [] $metas
-     */
     public function __construct($metas = null)
     {
         parent::__construct();

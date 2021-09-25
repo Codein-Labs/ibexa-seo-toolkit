@@ -48,10 +48,11 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
             if (0 === $titleTags->count()) {
                 $status = RatioLevels::LOW;
             } else {
+                /** @var \DOMElement $titleTag */
                 foreach ($titleTags as $titleTag) {
                     foreach ($keywordSynonyms as $keyword) {
                         $contentTitleTagAttribute = $titleTag->getAttribute('content');
-                        if (false !== \strpos($contentTitleTagAttribute, $keyword)) {
+                        if (false !== \mb_strpos($contentTitleTagAttribute, $keyword)) {
                             $status = RatioLevels::HIGH;
                             break;
                         }

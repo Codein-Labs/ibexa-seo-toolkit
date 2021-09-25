@@ -17,12 +17,12 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
 
     public function onMenuConfigure(ConfigureMenuEvent $configureMenuEvent): void
     {
-        $currentContentTypeIdentifier = $configureMenuEvent->getOptions()["content_type"]->identifier;
+        $currentContentTypeIdentifier = $configureMenuEvent->getOptions()['content_type']->identifier;
         $analysisConfiguration = $this->siteAccessConfigResolver->getParameterConfig('analysis');
 
         $menuItem = $configureMenuEvent->getMenu();
 
-        if (!array_key_exists('content_types', $analysisConfiguration) or !in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']))) {
+        if (!\array_key_exists('content_types', $analysisConfiguration) || !\in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']), true)) {
             $menuItem->addChild(
                 'menu_item_seo_analyzer_not_configured',
                 [
@@ -34,9 +34,9 @@ final class ContentCreateEditRightMenuListener implements EventSubscriberInterfa
                     ],
                 ]
             );
+
             return;
         }
-
 
         $menuItem->addChild(
             'menu_item_seo_analyzer',

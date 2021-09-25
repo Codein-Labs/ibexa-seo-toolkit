@@ -50,7 +50,7 @@ class Field implements ArrayableInterface
     {
         return [
             'fieldIdentifier' => $this->getFieldIdentifier(),
-            'fieldValue' => $this->getFieldValue()
+            'fieldValue' => $this->getFieldValue(),
         ];
     }
 }

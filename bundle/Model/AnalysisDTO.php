@@ -18,10 +18,8 @@ class AnalysisDTO extends PreAnalysisDTO
 
     /**
      * Get the value of keyword.
-     *
-     * @return ?string
      */
-    public function getKeyword(): ?string
+    public function getKeyword(): string
     {
         return $this->keyword;
     }
@@ -79,5 +77,4 @@ class AnalysisDTO extends PreAnalysisDTO
 
         return $this;
     }
-
 }

@@ -2,9 +2,9 @@
 
 namespace Codein\IbexaSeoToolkit\Tests\DependencyInjection;
 
-use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
 use Codein\IbexaSeoToolkit\Analysis\Analyzers\TitleTagContainsKeywordAnalyzer;
 use Codein\IbexaSeoToolkit\Analysis\Analyzers\WordCountAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
 use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 

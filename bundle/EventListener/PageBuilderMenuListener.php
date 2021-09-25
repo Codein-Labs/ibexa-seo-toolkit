@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Codein\IbexaSeoToolkit\EventListener;
 
@@ -14,15 +14,15 @@ class PageBuilderMenuListener
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
     }
 
-    public function onPageBuilderMenuConfigure(ConfigureMenuEvent $configureMenuEvent): void 
+    public function onPageBuilderMenuConfigure(ConfigureMenuEvent $configureMenuEvent): void
     {
         $currentContentTypeIdentifier = $configureMenuEvent->getOptions()['content']->getContentType()->identifier;
         $analysisConfiguration = $this->siteAccessConfigResolver->getParameterConfig('analysis');
-        if (!array_key_exists('content_types', $analysisConfiguration)) {
+        if (!\array_key_exists('content_types', $analysisConfiguration)) {
             return;
         }
-        
-        if (!in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']))) {
+
+        if (!\in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']), true)) {
             return;
         }
 
