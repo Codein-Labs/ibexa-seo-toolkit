@@ -6,8 +6,6 @@ services:
     _instanceof:
         Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerInterface:
             tags: [ 'codein_ibexa_seo_toolkit.seo_analyzer.parent_interface' ]
-        Codein\IbexaSeoToolkit\Analysis\AnalyzerInterface:
-            tags: [ 'codein_ibexa_seo_toolkit.seo_analyzer' ]
 
     Codein\IbexaSeoToolkit\Analysis\:
         resource: '../../Analysis/*'
