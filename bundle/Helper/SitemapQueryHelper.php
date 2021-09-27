@@ -2,11 +2,13 @@
 
 namespace Codein\IbexaSeoToolkit\Helper;
 
-use eZ\Publish\API\Repository\Repository;
+use Codein\IbexaSeoToolkit\Event\SitemapQueryEvent;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\API\Repository\Repository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class SitemapQueryHelper
@@ -20,12 +22,17 @@ final class SitemapQueryHelper
     /** @var SiteAccessConfigResolver */
     private $siteAccessConfigResolver;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     public function __construct(
         Repository $repository,
-        SiteAccessConfigResolver $siteAccessConfigResolver
+        SiteAccessConfigResolver $siteAccessConfigResolver,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->repository = $repository;
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -37,28 +44,29 @@ final class SitemapQueryHelper
     {
         $query = new LocationQuery();
 
-        $baseCriteria = [
-            new Criterion\Visibility(Criterion\Visibility::VISIBLE),
-        ];
+        $baseCriteria = $this->generateSiteaccessRootLocationCriterion();
+        $baseCriteria[] = new Criterion\Visibility(Criterion\Visibility::VISIBLE);
 
         if (\mb_strlen($specificContentType)) {
             $baseCriteria[] = new Criterion\ContentTypeIdentifier($specificContentType);
         }
 
-        $query->query = new Criterion\LogicalAnd(
-            \array_merge(
-                $baseCriteria,
-                $this->createGenericFilterCriteria()
-            )
-        );
         $query->sortClauses = [
             new SortClause\DatePublished(LocationQuery::SORT_DESC),
         ];
 
-        return $query;
+        /** @var SitemapQueryEvent $event */
+        $event = $this->eventDispatcher->dispatch(new SitemapQueryEvent(
+            $query,
+            $baseCriteria,
+            $this->getBlocklistCriteria(),
+            $this->getPasslistCriteria(),
+            $specificContentType
+        ));
+        return $event->getLocationQuery();
     }
 
-    public function generateSiteaccessRootLocationCriterion(): array
+    private function generateSiteaccessRootLocationCriterion(): array
     {
         $siteaccessRootLocation = $this->repository->getLocationService()->loadLocation(
             $this->siteAccessConfigResolver->getConfigResolver()->getParameter('content.tree_root.location_id')
@@ -67,13 +75,10 @@ final class SitemapQueryHelper
         return [new Criterion\Subtree($siteaccessRootLocation->pathString)];
     }
 
-    private function createGenericFilterCriteria(): array
+    private function getBlocklistCriteria() : array
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
-
         $blocklistCriteria = [];
-        $passlistCriteria = [];
-
         if (\array_key_exists('blocklist', $sitemapConfiguration)) {
             $locations = $sitemapConfiguration['blocklist']['locations'];
             $subtrees = $sitemapConfiguration['blocklist']['subtrees'];
@@ -89,6 +94,14 @@ final class SitemapQueryHelper
                 return new Criterion\LogicalNot($criterion);
             }, $criteria);
         }
+
+        return $blocklistCriteria;
+    }
+
+    private function getPasslistCriteria() : array
+    {
+        $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
+        $passlistCriteria = [];
         if (\array_key_exists('passlist', $sitemapConfiguration)) {
             $locations = $sitemapConfiguration['passlist']['locations'];
             $subtrees = $sitemapConfiguration['passlist']['subtrees'];
@@ -100,12 +113,7 @@ final class SitemapQueryHelper
                 $contentTypeIdentifiers
             );
         }
-
-        return \array_merge(
-            $this->generateSiteaccessRootLocationCriterion(),
-            $blocklistCriteria,
-            $passlistCriteria,
-        );
+        return $passlistCriteria;
     }
 
     private function calculateCriteria(

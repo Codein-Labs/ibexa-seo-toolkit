@@ -34,3 +34,11 @@ codein_ibexa_seo_toolkit:
 ## Result
 
 <img src="../img/SitemapExample.png">
+
+## Extensibility
+
+You can modify the sitemap `LocationQuery` by plugin an event subscriber on the `Codein\IbexaSeoToolkit\Event\SitemapQueryEvent`
+
+The default `SitemapQueryEventSubscriber` will merge the base criteria, the blocklist criteria and the passlist criteria
+in a `eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd`
+

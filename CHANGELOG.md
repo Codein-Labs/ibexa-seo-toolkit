@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Fixed versions requirements in the docs to be consistent.
 * Use `ezpublish.api.service.inner_schema_namer` factory instead of the internal schema_namer service (#8)
+* Removal of `codein_ibexa_seo_toolkit.seo_analyzer` yaml service tag declaration. Replaced by DI `registerForAutoconfiguration`
+* Adding SitemapQuery Extensibility point through `Codein\IbexaSeoToolkit\Event\SitemapQueryEvent`
 
 ## [1.0.0] - 2021-07-09
 ### Added
