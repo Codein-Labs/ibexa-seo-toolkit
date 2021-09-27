@@ -26,9 +26,9 @@ class IbexaSeoToolkitBundle extends Bundle
     {
         parent::build($container);
 
+        $container->addCompilerPass(new AnalyzerPass());
+
         $container->registerForAutoconfiguration(AnalyzerInterface::class)
             ->addTag(AnalyzerPass::TAG_NAME);
-
-        $container->addCompilerPass(new AnalyzerPass());
     }
 }
