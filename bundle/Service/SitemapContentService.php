@@ -204,7 +204,7 @@ final class SitemapContentService
                     if ('ezimage' !== $field->fieldTypeIdentifier) {
                         continue;
                     }
-                    if($this->fieldHelper->isFieldEmpty($location->getContent(), $field->fieldDefIdentifier)) {
+                    if ($this->fieldHelper->isFieldEmpty($location->getContent(), $field->fieldDefIdentifier)) {
                         continue;
                     }
 

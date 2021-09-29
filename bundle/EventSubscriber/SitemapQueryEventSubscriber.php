@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Codein\IbexaSeoToolkit\EventSubscriber;
 
 use Codein\IbexaSeoToolkit\Event\SitemapQueryEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SitemapQueryEventSubscriber implements EventSubscriberInterface
 {
