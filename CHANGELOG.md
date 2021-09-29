@@ -10,9 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Fixed versions requirements in the docs to be consistent.
-* Update install documentation
 * Use `ezpublish.api.service.inner_schema_namer` factory instead of the internal schema_namer service (#8)
-* Removal of `codein_ibexa_seo_toolkit.seo_analyzer` yaml service tag declaration. Replaced by DI `registerForAutoconfiguration`
+* Use `ezplatform` entrypoint for assets import (#9)
+* Update install documentation
+* Removed `codein_ibexa_seo_toolkit.seo_analyzer` yaml service tag declaration. Replaced by DI `registerForAutoconfiguration`
 * Allow `KeywordInUrlSlugAnalyzer` to run event if no richtext is configured
 * Fixed content type filtering with multiple content types in `SitemapQueryHelper`
 * Fixed image variation generation in `SitemapContentService`
