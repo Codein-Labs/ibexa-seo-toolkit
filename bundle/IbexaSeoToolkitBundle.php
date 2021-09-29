@@ -2,6 +2,7 @@
 
 namespace Codein\IbexaSeoToolkit;
 
+use Codein\IbexaSeoToolkit\Analysis\AnalyzerInterface;
 use Codein\IbexaSeoToolkit\DependencyInjection\Compiler\AnalyzerPass;
 use Codein\IbexaSeoToolkit\DependencyInjection\IbexaSeoToolkitExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -26,5 +27,8 @@ class IbexaSeoToolkitBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new AnalyzerPass());
+
+        $container->registerForAutoconfiguration(AnalyzerInterface::class)
+            ->addTag(AnalyzerPass::TAG_NAME);
     }
 }

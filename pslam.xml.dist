@@ -11,7 +11,7 @@
         <directory name="bundle"/>
         <ignoreFiles>
             <directory name="vendor"/>
-            <directory name="bundle/DoctrineMigrations"/>
+            <directory name="bundle/migrations"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
