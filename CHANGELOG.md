@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed return value of `SitemapContentService::generate()` and `SitemapContentService::generateResults()`
 * Move Doctrine migrations from `bundle/DoctrineMigrations/` to `bundle/migrations/`
 * Fixed title and description analysis in lowercase without accents
+* [Admin UI] Fixed edition right toolbar button handling between contents with or without page builder
 
 ## [1.0.0] - 2021-07-09
 ### Added
