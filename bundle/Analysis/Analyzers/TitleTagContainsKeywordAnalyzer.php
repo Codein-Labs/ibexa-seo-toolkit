@@ -51,7 +51,7 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
                 /** @var \DOMElement $titleTag */
                 foreach ($titleTags as $titleTag) {
                     foreach ($keywordSynonyms as $keyword) {
-                        $contentTitleTagAttribute = $titleTag->getAttribute('content');
+                        $contentTitleTagAttribute = \strtr(\mb_strtolower($titleTag->textContent), AnalyzerService::ACCENT_VALUES);
                         if (false !== \mb_strpos($contentTitleTagAttribute, $keyword)) {
                             $status = RatioLevels::HIGH;
                             break;

@@ -51,7 +51,7 @@ final class MetaDescriptionContainsKeywordAnalyzer extends AbstractAnalyzer
                 /** @var \DOMElement $metaDescriptionTag */
                 foreach ($metaDescriptionTags as $metaDescriptionTag) {
                     foreach ($keywordSynonyms as $keyword) {
-                        $contentMetaDescriptionTagAttribute = $metaDescriptionTag->getAttribute('content');
+                        $contentMetaDescriptionTagAttribute = \strtr(\mb_strtolower($metaDescriptionTag->getAttribute('content')), AnalyzerService::ACCENT_VALUES);
                         if (false !== \mb_strpos($contentMetaDescriptionTagAttribute, $keyword)) {
                             $status = RatioLevels::HIGH;
                             break;
