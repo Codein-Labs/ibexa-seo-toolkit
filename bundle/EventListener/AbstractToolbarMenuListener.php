@@ -15,18 +15,10 @@ abstract class AbstractToolbarMenuListener
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
     }
 
-    protected function getCurrentContentTypeIdentifier(array $options): ?string
-    {
-        if(isset($options['content']) && $options['content'] instanceof Content) {
-            return $options['content']->getContentType()->identifier;
-        }
-        return null;
-    }
-
     public function onMenuConfigure(ConfigureMenuEvent $configureMenuEvent): void
     {
         $currentContentTypeIdentifier = $this->getCurrentContentTypeIdentifier($configureMenuEvent->getOptions());
-        if(null === $currentContentTypeIdentifier) {
+        if (null === $currentContentTypeIdentifier) {
             return;
         }
 
@@ -34,7 +26,7 @@ abstract class AbstractToolbarMenuListener
 
         $menuItem = $configureMenuEvent->getMenu();
 
-        if (!array_key_exists('content_types', $analysisConfiguration) or !in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']))) {
+        if (!\array_key_exists('content_types', $analysisConfiguration) || !\in_array($currentContentTypeIdentifier, array_keys($analysisConfiguration['content_types']), true)) {
             $menuItem->addChild(
                 'menu_item_seo_analyzer_not_configured',
                 [
@@ -46,9 +38,9 @@ abstract class AbstractToolbarMenuListener
                     ],
                 ]
             );
+
             return;
         }
-
 
         $menuItem->addChild(
             'menu_item_seo_analyzer',
@@ -61,5 +53,14 @@ abstract class AbstractToolbarMenuListener
                 ],
             ]
         );
+    }
+
+    protected function getCurrentContentTypeIdentifier(array $options): ?string
+    {
+        if (isset($options['content']) && $options['content'] instanceof Content) {
+            return $options['content']->getContentType()->identifier;
+        }
+
+        return null;
     }
 }
