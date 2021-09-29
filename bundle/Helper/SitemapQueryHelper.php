@@ -3,11 +3,11 @@
 namespace Codein\IbexaSeoToolkit\Helper;
 
 use Codein\IbexaSeoToolkit\Event\SitemapQueryEvent;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Repository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -63,6 +63,7 @@ final class SitemapQueryHelper
             $this->getPasslistCriteria(),
             $specificContentType
         ));
+
         return $event->getLocationQuery();
     }
 
@@ -75,7 +76,7 @@ final class SitemapQueryHelper
         return [new Criterion\Subtree($siteaccessRootLocation->pathString)];
     }
 
-    private function getBlocklistCriteria() : array
+    private function getBlocklistCriteria(): array
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
         $blocklistCriteria = [];
@@ -98,7 +99,7 @@ final class SitemapQueryHelper
         return $blocklistCriteria;
     }
 
-    private function getPasslistCriteria() : array
+    private function getPasslistCriteria(): array
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
         $passlistCriteria = [];
@@ -113,6 +114,7 @@ final class SitemapQueryHelper
                 $contentTypeIdentifiers
             );
         }
+
         return $passlistCriteria;
     }
 
@@ -146,13 +148,18 @@ final class SitemapQueryHelper
             $criteria[] = new Criterion\Subtree($subtree->pathString);
         }
 
+        $contentTypeIdentifiersList = [];
         foreach ($contentTypeIdentifiers as $contentTypeIdentifier) {
             try {
                 $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
             } catch (\eZ\Publish\API\Repository\Exceptions\NotFoundException $e) {
                 continue;
             }
-            $criteria[] = new Criterion\ContentTypeIdentifier($contentTypeIdentifier);
+            $contentTypeIdentifiersList[] = $contentTypeIdentifier;
+        }
+
+        if (!empty($contentTypeIdentifiersList)) {
+            $criteria[] = new Criterion\ContentTypeIdentifier($contentTypeIdentifiersList);
         }
 
         return $criteria;

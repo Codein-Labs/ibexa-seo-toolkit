@@ -13,8 +13,6 @@ use eZ\Publish\API\Repository\URLAliasService;
  * Class KeywordInUrlSlugAnalyzer.
  *
  * Look for keyword in URL Slug
- *
- * This could be implemented as a richtext analyzer as well as it doesn't need access to content specifically
  */
 final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
 {
@@ -84,11 +82,6 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
         // Difficult to get non latin alphabet languages
         // to work well with this analyzer.
         // Moreover, we don't know how Search Engines treats them
-
-        if (0 === \count($analysisDTO->getFields())) {
-            return false;
-        }
-
         return !\in_array($analysisDTO->getLanguageCode(), [
             'ara-SA',
             'chi-CN',

@@ -6,6 +6,7 @@ use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use Codein\IbexaSeoToolkit\Helper\SitemapQueryHelper;
 use DOMDocument;
 use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\Core\Helper\FieldHelper;
 use eZ\Publish\SPI\Variation\VariationHandler;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -21,12 +22,14 @@ final class SitemapContentService
     private $variationHandler;
     private $sitemapQueryHelper;
     private $siteAccessConfigResolver;
+    private $fieldHelper;
 
     public function __construct(
         SiteAccessConfigResolver $siteAccessConfigResolver,
         UrlGeneratorInterface $urlGenerator,
         SearchService $searchService,
         SitemapQueryHelper $sitemapQueryHelper,
+        FieldHelper $fieldHelper,
         RequestStack $requestStack
     ) {
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
@@ -34,9 +37,10 @@ final class SitemapContentService
         $this->searchService = $searchService;
         $this->sitemapQueryHelper = $sitemapQueryHelper;
         $this->requestStack = $requestStack;
+        $this->fieldHelper = $fieldHelper;
     }
 
-    public function generate()
+    public function generate(): DOMDocument
     {
         $sitemapConfiguration = $this->siteAccessConfigResolver->getParameterConfig('sitemap');
         $limit = $sitemapConfiguration['max_items_per_page'];
@@ -162,7 +166,7 @@ final class SitemapContentService
         DOMDocument $sitemap,
         \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $queryResults,
         bool $useImages
-    ): ?DOMDocument {
+    ): DOMDocument {
         $sitemapUrlset = $sitemap->createElement('urlset');
         $sitemapUrlset->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         $sitemapUrlset->setAttribute('xmlns:image', 'http://www.google.com/schemas/sitemap-image/1.1');
@@ -171,7 +175,7 @@ final class SitemapContentService
         $sitemap->appendChild($sitemapUrlset);
 
         if (0 === $queryResults->totalCount) {
-            return null;
+            return $sitemap;
         }
 
         foreach ($queryResults->searchHits as $queryResult) {
@@ -200,7 +204,11 @@ final class SitemapContentService
                     if ('ezimage' !== $field->fieldTypeIdentifier) {
                         continue;
                     }
-                    $variation = $this->variationHandler->getVariation($field, new \eZ\Publish\Core\Repository\Values\Content\VersionInfo(), 'original');
+                    if ($this->fieldHelper->isFieldEmpty($location->getContent(), $field->fieldDefIdentifier)) {
+                        continue;
+                    }
+
+                    $variation = $this->variationHandler->getVariation($field, $location->getContent()->getVersionInfo(), 'original');
 
                     $imageBlock = $sitemap->createElement('image:image');
                     $imageLoc = $sitemap->createElement('image:loc', $variation->uri);

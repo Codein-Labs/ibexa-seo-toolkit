@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Codein\IbexaSeoToolkit\Event;
 
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use Symfony\Contracts\EventDispatcher\Event;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class SitemapQueryEvent extends Event
 {
@@ -14,13 +14,13 @@ class SitemapQueryEvent extends Event
     /** @var string */
     private $specificContentType;
 
-    /** @var Criterion[]  */
+    /** @var Criterion[] */
     private $baseCriteria;
 
-    /** @var Criterion[]  */
+    /** @var Criterion[] */
     private $blocklistCriteria;
 
-    /** @var Criterion[]  */
+    /** @var Criterion[] */
     private $passlistCriteria;
 
     public function __construct(LocationQuery $locationQuery, array $baseCriteria, array $blocklistCriteria, array $passlistCriteria, string $specificContentType)
@@ -32,33 +32,21 @@ class SitemapQueryEvent extends Event
         $this->passlistCriteria = $passlistCriteria;
     }
 
-    /**
-     * @return LocationQuery
-     */
     public function getLocationQuery(): LocationQuery
     {
         return $this->locationQuery;
     }
 
-    /**
-     * @param LocationQuery $locationQuery
-     */
     public function setLocationQuery(LocationQuery $locationQuery): void
     {
         $this->locationQuery = $locationQuery;
     }
 
-    /**
-     * @return string
-     */
     public function getSpecificContentType(): string
     {
         return $this->specificContentType;
     }
 
-    /**
-     * @param string $specificContentType
-     */
     public function setSpecificContentType(string $specificContentType): void
     {
         $this->specificContentType = $specificContentType;
