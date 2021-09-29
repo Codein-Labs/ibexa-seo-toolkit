@@ -4,7 +4,7 @@ use PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer;
 
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__.'/bundle')
-    ->exclude('DoctrineMigrations')
+    ->exclude('migrations')
 ;
 
 return (new PhpCsFixer\Config())
