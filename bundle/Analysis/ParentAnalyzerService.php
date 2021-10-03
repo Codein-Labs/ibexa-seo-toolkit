@@ -36,6 +36,7 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
     public function analyze(AnalysisDTO $analysisDTO): array
     {
         $result = [];
+
         foreach ($this->analyzers as $className => $analyzer) {
             if (
                 !$this->isAllowed($analysisDTO->getContentTypeIdentifier(), $className, $analysisDTO->getSiteaccess()) ||
@@ -45,7 +46,9 @@ final class ParentAnalyzerService implements ParentAnalyzerInterface, \IteratorA
             }
 
             $analysisResult = $analyzer->analyze($analysisDTO);
-
+            if (true === empty($analysisResult)) {
+                continue;
+            }
             if (!\array_key_exists(\key($analysisResult), $result)) {
                 $result[\key($analysisResult)] = [];
             }

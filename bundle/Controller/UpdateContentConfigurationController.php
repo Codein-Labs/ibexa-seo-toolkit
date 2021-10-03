@@ -2,10 +2,10 @@
 
 namespace Codein\IbexaSeoToolkit\Controller;
 
+use Codein\IbexaSeoToolkit\Controller\Annotations as Rest;
 use Codein\IbexaSeoToolkit\Entity\ContentConfiguration;
 use Codein\IbexaSeoToolkit\Form\Type\ContentConfigurationType;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

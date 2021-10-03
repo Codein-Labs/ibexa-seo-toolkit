@@ -3,13 +3,13 @@
 namespace Codein\IbexaSeoToolkit\Controller;
 
 use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerService;
+use Codein\IbexaSeoToolkit\Controller\Annotations as Rest;
 use Codein\IbexaSeoToolkit\Exception\AnalyzeException;
 use Codein\IbexaSeoToolkit\Exception\ValidationException;
 use Codein\IbexaSeoToolkit\Form\Type\AnalysisDTOType;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzeContentService;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
