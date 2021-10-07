@@ -23,10 +23,7 @@ final class OneH1TagMaximumAnalyzer extends AbstractAnalyzer
 
     public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $domDocument = new \DOMDocument();
-        $domDocument->loadHTML($analysisDTO->getPreviewHtml());
-
-        $selector = new \DOMXPath($domDocument);
+        $selector = new \DOMXPath($analysisDTO->getContentDOMDocument());
         $h1 = $selector->query('//h1');
         $count = $h1->count();
         $status = RatioLevels::LOW;

@@ -3,29 +3,22 @@
 namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
 use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\Traits\StringNormalizerTrait;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
-use Codein\IbexaSeoToolkit\Service\AnalyzerService;
 
 /**
  * Class KeywordLengthAnalyzer.
  */
 final class KeywordLengthAnalyzer extends AbstractAnalyzer
 {
+    use StringNormalizerTrait;
+
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
-
-    /** @var \Codein\IbexaSeoToolkit\Service\AnalyzerService */
-    private $analyzerService;
-
-    public function __construct(
-        AnalyzerService $analyzerService
-    ) {
-        $this->analyzerService = $analyzerService;
-    }
 
     public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
+        $keywordSynonyms = \explode(',', $this->normalizeString($analysisDTO->getKeyword()));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);
         $maxCount = 0;
 

@@ -3,6 +3,7 @@
 namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
 use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\Traits\StringNormalizerTrait;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzerService;
@@ -16,10 +17,17 @@ use eZ\Publish\API\Repository\URLAliasService;
  */
 final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
 {
+    use StringNormalizerTrait;
+
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
+    /** @var AnalyzerService */
     private $analyzerService;
+
+    /** @var URLAliasService */
     private $urlAliasService;
+
+    /** @var LocationService */
     private $locationService;
 
     public function __construct(
@@ -45,7 +53,7 @@ final class KeywordInUrlSlugAnalyzer extends AbstractAnalyzer
             $pathArray = \explode('/', $urlAlias->path);
             $urlSlug = \mb_strtolower(\end($pathArray));
             $urlSlugWithoutDashes = \str_replace('-', ' ', $urlSlug);
-            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = \explode(',', $this->normalizeString($analysisDTO->getKeyword()));
             $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
             $bestRatio = 0;

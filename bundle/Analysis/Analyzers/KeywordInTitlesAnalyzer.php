@@ -3,42 +3,36 @@
 namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
 use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\Traits\StringNormalizerTrait;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzerService;
-use Codein\IbexaSeoToolkit\Service\XmlProcessingService;
 
 /**
  * Class KeywordInTitlesAnalyzer.
  */
 final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
 {
+    use StringNormalizerTrait;
+
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
+    /** @var AnalyzerService */
     private $analyzerService;
-    private $xmlProcessingService;
 
     public function __construct(
-        AnalyzerService $analyzerService,
-        XmlProcessingService $xmlProcessingService
+        AnalyzerService $analyzerService
     ) {
         $this->analyzerService = $analyzerService;
-        $this->xmlProcessingService = $xmlProcessingService;
     }
 
     public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $fields = $analysisDTO->getFields();
-
-        \libxml_use_internal_errors(true);
-        /** @var \DOMDocument $xml */
-        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields);
-
-        $domxPath = new \DOMXPath($html);
+        $domxPath = new \DOMXPath($analysisDTO->getContentDOMDocument());
 
         $titles = $domxPath->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]');
 
-        $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
+        $keywordSynonyms = \explode(',', $this->normalizeString($analysisDTO->getKeyword()));
         $keywordSynonyms = \array_map('trim', $keywordSynonyms);
 
         $numberOfTitles = 0;
@@ -46,7 +40,7 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
         foreach ($titles as $title) {
             foreach ($keywordSynonyms as $keyword) {
                 /** @var \DOMElement $title */
-                $titleLowercase = \strtr(\mb_strtolower($title->textContent), AnalyzerService::ACCENT_VALUES);
+                $titleLowercase = $this->normalizeString($title->textContent);
                 if (false !== \mb_strpos($titleLowercase, $keyword)) {
                     ++$numberOfTitlesContainingKeyword;
                     break;
@@ -70,14 +64,5 @@ final class KeywordInTitlesAnalyzer extends AbstractAnalyzer
         return $this->analyzerService->compile(self::CATEGORY, $status, [
             'ratio' => $ratioKeywordInTitle,
         ]);
-    }
-
-    public function support(AnalysisDTO $analysisDTO): bool
-    {
-        if (0 === \count($analysisDTO->getFields())) {
-            return false;
-        }
-
-        return true;
     }
 }

@@ -25,10 +25,7 @@ final class SeoTitleWidthAnalyzer extends AbstractAnalyzer
 
     public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $domDocument = new \DOMDocument();
-        $domDocument->loadHTML($analysisDTO->getPreviewHtml());
-
-        $domxPath = new \DOMXPath($domDocument);
+        $domxPath = new \DOMXPath($analysisDTO->getHtmlPreviewDOMDocument());
 
         /** @var \DOMNodeList $titleTags */
         $titleTags = $domxPath->query('//title');

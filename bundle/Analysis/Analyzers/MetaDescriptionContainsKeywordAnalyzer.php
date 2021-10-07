@@ -3,6 +3,7 @@
 namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
 use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\Traits\StringNormalizerTrait;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzerService;
@@ -14,6 +15,8 @@ use Psr\Log\LoggerInterface;
  */
 final class MetaDescriptionContainsKeywordAnalyzer extends AbstractAnalyzer
 {
+    use StringNormalizerTrait;
+
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
     /** @var \Codein\IbexaSeoToolkit\Service\AnalyzerService */
@@ -32,16 +35,13 @@ final class MetaDescriptionContainsKeywordAnalyzer extends AbstractAnalyzer
 
     public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $domDocument = new \DOMDocument();
-        $domDocument->loadHTML($analysisDTO->getPreviewHtml());
-
-        $domxPath = new \DOMXPath($domDocument);
+        $domxPath = new \DOMXPath($analysisDTO->getHtmlPreviewDOMDocument());
 
         /** @var \DOMNodeList $titleTags */
         $metaDescriptionTags = $domxPath->query('//meta[@name="description"]');
 
         try {
-            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = \explode(',', $this->normalizeString($analysisDTO->getKeyword()));
 
             $keywordSynonyms = \array_map('trim', $keywordSynonyms);
             $status = RatioLevels::MEDIUM;
@@ -51,7 +51,7 @@ final class MetaDescriptionContainsKeywordAnalyzer extends AbstractAnalyzer
                 /** @var \DOMElement $metaDescriptionTag */
                 foreach ($metaDescriptionTags as $metaDescriptionTag) {
                     foreach ($keywordSynonyms as $keyword) {
-                        $contentMetaDescriptionTagAttribute = \strtr(\mb_strtolower($metaDescriptionTag->getAttribute('content')), AnalyzerService::ACCENT_VALUES);
+                        $contentMetaDescriptionTagAttribute = $this->normalizeString($metaDescriptionTag->getAttribute('content'));
                         if (false !== \mb_strpos($contentMetaDescriptionTagAttribute, $keyword)) {
                             $status = RatioLevels::HIGH;
                             break;

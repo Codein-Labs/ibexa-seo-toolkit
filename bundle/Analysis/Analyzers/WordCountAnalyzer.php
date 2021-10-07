@@ -3,6 +3,7 @@
 namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
 use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\Traits\WordCountTrait;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\XmlProcessingService;
@@ -12,30 +13,16 @@ use Codein\IbexaSeoToolkit\Service\XmlProcessingService;
  */
 final class WordCountAnalyzer extends AbstractAnalyzer
 {
+    use WordCountTrait;
+
     public const CATEGORY = 'codein_seo_toolkit.analyzer.category.lisibility';
 
     public const INFIMUM = 700;
     public const SUPREMUM = 1500;
 
-    /** @var XmlProcessingService */
-    private $xmlProcessingService;
-
-    public function __construct(XmlProcessingService $xmlProcessingService)
-    {
-        $this->xmlProcessingService = $xmlProcessingService;
-    }
-
     public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $fields = $analysisDTO->getFields();
-
-        \libxml_use_internal_errors(true);
-        /** @var \DOMDocument $xml */
-        $html = $this->xmlProcessingService->combineAndProcessXmlFields($fields)->saveHTML();
-
-        $text = \strip_tags($html);
-
-        $count = \str_word_count($text);
+        $count = $this->getWordCount($analysisDTO->getContentDOMDocument());
         $status = RatioLevels::LOW;
 
         // Pillar content increases the requirements
@@ -57,14 +44,5 @@ final class WordCountAnalyzer extends AbstractAnalyzer
                 ],
             ],
         ];
-    }
-
-    public function support(AnalysisDTO $analysisDTO): bool
-    {
-        if (0 === \count($analysisDTO->getFields())) {
-            return false;
-        }
-
-        return true;
     }
 }
