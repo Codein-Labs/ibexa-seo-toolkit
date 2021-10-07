@@ -322,6 +322,7 @@ final class Configuration extends SiteAccessConfiguration
                 ->scalarPrototype()->end()
             ->end()
         ;
+
         return $this;
     }
 }

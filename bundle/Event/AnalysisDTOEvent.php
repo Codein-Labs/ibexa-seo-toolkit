@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Codein\IbexaSeoToolkit\Event;
 
@@ -15,21 +15,15 @@ class AnalysisDTOEvent extends Event
         $this->analysisDTO = $analysisDTO;
     }
 
-    /**
-     * @return AnalysisDTO
-     */
     public function getAnalysisDTO(): AnalysisDTO
     {
         return $this->analysisDTO;
     }
 
-    /**
-     * @param AnalysisDTO $analysisDTO
-     * @return AnalysisDTOEvent
-     */
-    public function setAnalysisDTO(AnalysisDTO $analysisDTO): AnalysisDTOEvent
+    public function setAnalysisDTO(AnalysisDTO $analysisDTO): self
     {
         $this->analysisDTO = $analysisDTO;
+
         return $this;
     }
 }

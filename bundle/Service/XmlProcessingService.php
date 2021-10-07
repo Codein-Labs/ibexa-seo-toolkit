@@ -30,6 +30,7 @@ final class XmlProcessingService
 
         $domDocument = new DOMDocument('1.0', 'utf-8');
         $domDocument->loadHTML($xmlDocument->saveHTML());
+
         return $domDocument;
     }
 }

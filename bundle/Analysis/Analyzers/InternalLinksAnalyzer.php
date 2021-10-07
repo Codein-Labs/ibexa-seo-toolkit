@@ -20,6 +20,7 @@ final class InternalLinksAnalyzer extends AbstractLinksAnalyzer
                 ++$count;
             }
         }
+
         return $count;
     }
 }

@@ -6,7 +6,6 @@ use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
 use Codein\IbexaSeoToolkit\Analysis\Analyzers\Traits\WordCountTrait;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
-use Codein\IbexaSeoToolkit\Service\XmlProcessingService;
 
 /**
  * Class WordCountAnalyzer.

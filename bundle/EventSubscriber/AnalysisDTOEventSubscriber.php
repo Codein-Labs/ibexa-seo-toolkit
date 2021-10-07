@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Codein\IbexaSeoToolkit\EventSubscriber;
 
@@ -7,7 +7,6 @@ use Codein\IbexaSeoToolkit\Service\XmlProcessingService;
 use DOMElement;
 use DOMXPath;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use function count;
 
 class AnalysisDTOEventSubscriber implements EventSubscriberInterface
 {
@@ -26,19 +25,18 @@ class AnalysisDTOEventSubscriber implements EventSubscriberInterface
                 ['setAnalyzableHtmlContent', -1000],
             ],
         ];
-
     }
 
     public function setAnalyzableHtmlContent(AnalysisDTOEvent $event)
     {
         libxml_use_internal_errors(true);
-        if(0 === count($event->getAnalysisDTO()->getFields())) {
+        if (0 === \count($event->getAnalysisDTO()->getFields())) {
             $xpath = new DOMXPath($event->getAnalysisDTO()->getContentDOMDocument());
             $body = $xpath->query('//*');
 
             foreach ($body as $item) {
                 /** @var DOMElement $item */
-                if (in_array($item->tagName, ['head', 'header', 'footer', 'script', 'nav', 'aside', 'style', 'xml'])
+                if (\in_array($item->tagName, ['head', 'header', 'footer', 'script', 'nav', 'aside', 'style', 'xml'], true)
                     && $item->parentNode instanceof DOMElement) {
                     $item->parentNode->removeChild($item);
                 }
@@ -49,5 +47,4 @@ class AnalysisDTOEventSubscriber implements EventSubscriberInterface
             ));
         }
     }
-
 }

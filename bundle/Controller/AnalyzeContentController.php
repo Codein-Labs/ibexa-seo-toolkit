@@ -11,9 +11,9 @@ use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzeContentService;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class AnalyzeContentController.

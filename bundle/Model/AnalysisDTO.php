@@ -78,7 +78,7 @@ class AnalysisDTO extends PreAnalysisDTO
 
     /**
      * Set the value of the full HTML preview.
-     * Keeps the analyzableDOMDocument in sync with the HTML preview
+     * Keeps the analyzableDOMDocument in sync with the HTML preview.
      *
      * @param string $previewHtml
      */
@@ -86,7 +86,7 @@ class AnalysisDTO extends PreAnalysisDTO
     {
         $this->previewHtml = $previewHtml;
 
-        if(null !== $previewHtml) {
+        if (null !== $previewHtml) {
             $this->contentDOMDocument->loadHTML($previewHtml);
         } else {
             $this->contentDOMDocument = new DOMDocument();
@@ -96,21 +96,18 @@ class AnalysisDTO extends PreAnalysisDTO
     }
 
     /**
-     * Get the full HTML preview as DOMDocument
-     *
-     * @return DOMDocument
+     * Get the full HTML preview as DOMDocument.
      */
     public function getHtmlPreviewDOMDocument(): DOMDocument
     {
         $DOMDocument = new DOMDocument();
         $DOMDocument->loadHTML($this->previewHtml);
+
         return $DOMDocument;
     }
 
     /**
-     * Get the analyzable part of the HTML preview as DOMDocument
-     *
-     * @return DOMDocument
+     * Get the analyzable part of the HTML preview as DOMDocument.
      */
     public function getContentDOMDocument(): DOMDocument
     {
@@ -118,14 +115,12 @@ class AnalysisDTO extends PreAnalysisDTO
     }
 
     /**
-     * Set the analyzable part of the HTML preview as DOMDocument
-     *
-     * @param DOMDocument $contentDOMDocument
-     * @return AnalysisDTO
+     * Set the analyzable part of the HTML preview as DOMDocument.
      */
-    public function setContentDOMDocument(DOMDocument $contentDOMDocument): AnalysisDTO
+    public function setContentDOMDocument(DOMDocument $contentDOMDocument): self
     {
         $this->contentDOMDocument = $contentDOMDocument;
+
         return $this;
     }
 }

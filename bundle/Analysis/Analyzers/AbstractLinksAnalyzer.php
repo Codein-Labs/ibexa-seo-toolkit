@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
@@ -65,11 +65,10 @@ abstract class AbstractLinksAnalyzer extends AbstractAnalyzer
 
         $parsed = parse_url($linkHref);
         $isInternal = false;
-        if (is_array($parsed)) {
+        if (\is_array($parsed)) {
             $isInternal = true;
-            if (isset($parsed['scheme'])
-                && isset($parsed['host'])
-                && !in_array($parsed['host'], $this->internalHostnames)
+            if (isset($parsed['scheme'], $parsed['host'])
+                && !\in_array($parsed['host'], $this->internalHostnames, true)
             ) {
                 $isInternal = false;
             }

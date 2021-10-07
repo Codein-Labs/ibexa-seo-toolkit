@@ -20,6 +20,7 @@ final class OutboundLinksAnalyzer extends AbstractLinksAnalyzer
                 ++$count;
             }
         }
+
         return $count;
     }
 }
