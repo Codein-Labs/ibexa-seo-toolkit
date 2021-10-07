@@ -6,9 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-* SitemapQuery Extensibility point through `Codein\IbexaSeoToolkit\Event\SitemapQueryEvent`
+* Analyzers traits for word count and string normalization
+* New `internal_links_hostnames` configuration parameter to improve internal links analysis
+* `AnalysisDTO` content extensibility point through `Codein\IbexaSeoToolkit\Event\AnalysisDTOEvent`
+* `SitemapQuery` extensibility point through `Codein\IbexaSeoToolkit\Event\SitemapQueryEvent`
 
 ### Changed
+* Refactor links and improve links analysis
+* Analysis based either on
+    * full preview content (metas, title, etc.)
+    * "real" page content (page without head, header, footer, etc. )
+    * richtext fields content
+* Fixed richtext fields merging
 * Fixed versions requirements in the docs to be consistent.
 * Use `ezpublish.api.service.inner_schema_namer` factory instead of the internal schema_namer service (#8)
 * Update install documentation
@@ -22,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * [Admin UI] Fixed edition right toolbar button handling between contents with or without page builder
 * Use `ezplatform` entrypoint for assets import (#9)
 * [Admin UI] Fixed toolbar icon path
+
+### Removed
+* Removed `XmlProcessingService::combineAndProcessXmlFields($fields, $process = true)` second parameter `$process = true`
 
 ## [1.0.0] - 2021-07-09
 ### Added
