@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `SitemapQuery` extensibility point through `Codein\IbexaSeoToolkit\Event\SitemapQueryEvent`
 
 ### Changed
-* Refactor links and improve links analysis
-* Analysis based either on
+* Refactor and improve links analysis
+* Allow analysis based either on
     * full preview content (metas, title, etc.)
     * "real" page content (page without head, header, footer, etc. )
     * richtext fields content
