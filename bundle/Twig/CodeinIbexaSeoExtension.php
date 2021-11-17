@@ -112,6 +112,9 @@ final class CodeinIbexaSeoExtension extends AbstractExtension implements Globals
                     $fieldMetas[$key] = $metaContent[$mainLanguageCode];
                 }
             }
+            if ($metasConfig[$key]['type'] == 'ezboolean') {
+                $fieldMetas[$key] = (bool)$fieldMetas[$key];
+            }
         }
 
         return $fieldMetas;

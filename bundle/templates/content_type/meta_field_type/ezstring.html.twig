@@ -1,8 +1,10 @@
-<li class="ez-field meta-value">
-    {% set meta_content_value = meta_content %}
-    <b>{{ label }}:</b> <span class="badge badge-secondary">{{ meta_content_value }}</span>
+{% if meta_content is not empty %}
+    <li class="ez-field meta-value">
+        {% set meta_content_value = meta_content %}
+        <b>{{ label }}:</b> <span class="badge badge-secondary">{{ meta_content_value }}</span>
 
-    {% set default_pattern = default_value is defined and default_value is not empty ? default_value.default_pattern|raw : null %}
-    {% set content_definition_value = (fieldSettings.configuration[meta_name] is defined and fieldSettings.configuration[meta_name] is not empty) ? fieldSettings.configuration[meta_name] : null %}
-    <code style="font-style: italic;font-size: 0.675rem;color: #d0caca;"> (ContentType setting: {{ content_definition_value is empty ? "<em>empty</em>" : content_definition_value }} - Default Pattern: {{ default_pattern is empty ? "<em>empty</em>" : default_pattern }})</code>
-</li>
+        {% set default_pattern = default_value is defined and default_value is not empty ? default_value.default_pattern|raw : null %}
+        {% set content_definition_value = (fieldSettings.configuration[meta_name] is defined and fieldSettings.configuration[meta_name] is not empty) ? fieldSettings.configuration[meta_name] : null %}
+        <code style="font-style: italic;font-size: 0.675rem;color: #d0caca;"> (ContentType setting: {{ content_definition_value is empty ? "<em>empty</em>" : content_definition_value }} - Default Pattern: {{ default_pattern is empty ? "<em>empty</em>" : default_pattern }})</code>
+    </li>
+{% endif %}
