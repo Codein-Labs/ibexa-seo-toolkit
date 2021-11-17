@@ -238,6 +238,7 @@ final class Configuration extends SiteAccessConfiguration
                         ->children()
                                 ->scalarNode('name')->defaultNull()->example('title')->end()
                                 ->scalarNode('label')->defaultNull()->example('bo.meta_label')->end()
+                                ->scalarNode('type')->defaultValue('ezstring')->example('ezstring')->end()
                                 ->scalarNode('default_pattern')->defaultNull()->example('<title|name>')->end()
                                 ->arrayNode('default_choices')->scalarPrototype()->end()->example('[index, noindex]')->end()
                         ->end()
