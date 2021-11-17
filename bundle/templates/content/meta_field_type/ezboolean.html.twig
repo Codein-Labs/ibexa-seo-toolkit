@@ -1,1 +1,2 @@
-<meta name="{{ meta_name }}" content={{ meta_content }}/>
+{% set meta_content_value = meta_content ? "1" : "0" %}
+<meta name="{{ meta_name }}" content="{{ meta_content_value }}"/>
