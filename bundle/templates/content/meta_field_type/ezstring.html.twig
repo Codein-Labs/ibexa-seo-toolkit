@@ -1,0 +1,15 @@
+{% if meta_content is not empty %}
+    {%- if meta_name is same as("title") -%}
+        <title>{{ meta_content }}</title>
+        {%- set is_the_title_found = true -%}
+    {%- elseif meta_name is same as("canonical") -%}
+        <link rel="canonical" href="{{ meta_content }}" />
+        {%- set is_the_canonical_found = true -%}
+    {%- elseif 'card' in meta_name|trim or 'url' in meta_name|trim -%}
+        <meta property="{{ meta_name }}" content="{{ meta_content }}"/>
+    {% elseif meta_name|trim starts with "og" -%}
+        <meta property="{{ meta_name }}" content="{{ meta_content }}"/>
+    {% else -%}
+        <meta name="{{ meta_name }}" content="{{ meta_content }}"/>
+    {% endif -%}
+{% endif %}
