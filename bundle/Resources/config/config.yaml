@@ -1,3 +1,6 @@
+imports:
+    - { resource: 'ibexa_seo_toolkit_images.yaml' }
+
 fos_rest:
     serializer:
         serialize_null: true
