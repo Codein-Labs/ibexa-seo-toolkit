@@ -109,7 +109,7 @@ _Result in the source code of the page :_
 
 ### ezboolean
 
-`ezboolean` add a checkbox in the meta fields form.
+`ezboolean` adds a checkbox in the meta fields form.
 
 _Result in the source code of the page :_
 ```html
@@ -118,7 +118,7 @@ _Result in the source code of the page :_
 
 ### ezimage
 
-`ezimage` doesn't add input in the meta fields form, it can only take value of the fields passed in the `default_pattern` option.
+`ezimage` doesn't add input in the meta fields form, it can only take value of fields passed in the `default_pattern` option.
 
 _Result in the source code of the page :_
 ```html
@@ -129,13 +129,13 @@ _Result in the source code of the page :_
 
 ### title
 
-There is a particular case if a meta field has the name 'title', a `title` tag will be displayed instead of a `meta` tag :
+There is a particular case if a meta field has the name 'title', a `title` tag is displayed instead of a `meta` tag :
 ```html
 <title> This is a title </title>
 ```
 
 ### robots
-There is another particular case for meta fields starting with 'robots_', they will all be grouped in the same `meta` tag :
+There is another particular case for meta fields starting with 'robots_', they are all grouped in the same `meta` tag :
 ```yaml
 field_type_metas:
   robots_index:
