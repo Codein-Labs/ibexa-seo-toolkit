@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 * SitemapQuery Extensibility point through `Codein\IbexaSeoToolkit\Event\SitemapQueryEvent`
+* Handle "non-string" metadata field types (such as images and checkboxes)
 
 ### Changed
 * Fixed versions requirements in the docs to be consistent.
