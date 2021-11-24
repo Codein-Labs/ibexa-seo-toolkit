@@ -11,7 +11,7 @@
 
     {%- for meta_name, meta_content in meta_fields -%}
         {% set field_type_metas = codein_ibexaseo.field_type_metas %}
-        {% set type = field_type_metas[meta_name].type %}
+        {% set type = field_type_metas[meta_name] is defined ? field_type_metas[meta_name].type : 'ezstring' %}
         {% include '@CodeinIbexaSeoToolkit/content/meta_field_type/' ~ type ~ '.html.twig'  ignore missing %}
     {% endfor %}
 
