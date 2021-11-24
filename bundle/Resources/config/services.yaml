@@ -24,6 +24,9 @@ services:
     Codein\IbexaSeoToolkit\EventSubscriber\:
         resource: '../../EventSubscriber'
 
+    Codein\IbexaSeoToolkit\FieldType\:
+        resource: '../../FieldType/*'
+
     Codein\IbexaSeoToolkit\Routing\ApiLoader:
         tags: ['routing.loader']
 

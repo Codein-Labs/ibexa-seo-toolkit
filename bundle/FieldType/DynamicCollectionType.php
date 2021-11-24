@@ -2,8 +2,9 @@
 
 namespace Codein\IbexaSeoToolkit\FieldType;
 
+use Codein\IbexaSeoToolkit\Event\MetaFieldFormEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -20,9 +21,26 @@ final class DynamicCollectionType extends AbstractType
      */
     private const META_CONFIG = 'meta_config';
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
+    /**
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $metaConfigs = $options[self::META_CONFIG];
+
+        foreach ($metaConfigs as $key => $metaConfig) {
+            $metaConfig['key'] = $key;
+            $this->eventDispatcher->dispatch(new MetaFieldFormEvent($formBuilder, $metaConfig));
+        }
+
         $formBuilder->addEventListener(
             FormEvents::POST_SET_DATA,
             function (FormEvent $event) use ($metaConfigs): void {
@@ -68,8 +86,4 @@ final class DynamicCollectionType extends AbstractType
             ->setAllowedTypes(self::META_CONFIG, ['array', 'null']);
     }
 
-    public function getParent(): string
-    {
-        return CollectionType::class;
-    }
 }

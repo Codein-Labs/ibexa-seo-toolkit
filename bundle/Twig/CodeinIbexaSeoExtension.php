@@ -7,6 +7,7 @@ use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\Repository\Helper\NameSchemaService;
+use eZ\Publish\SPI\Variation\VariationHandler;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;
@@ -17,10 +18,12 @@ use Twig\TwigFunction;
 final class CodeinIbexaSeoExtension extends AbstractExtension implements GlobalsInterface
 {
     private const FIELD_TYPE_METAS = 'field_type_metas';
+    private const OG_IMAGE_ALIAS_NAME = 'ibexa_seo_toolkit_og_image1200x630';
 
     private $nameSchemaService;
     private $siteAccessesByLanguage;
     private $siteAccessConfigResolver;
+    private $variationHandler;
 
     /**
      * CodeinIbexaSeoExtension constructor.
@@ -30,10 +33,12 @@ final class CodeinIbexaSeoExtension extends AbstractExtension implements Globals
     public function __construct(
         SiteAccessConfigResolver $configResolver,
         NameSchemaService $nameSchemaService,
+        VariationHandler $variationHandler,
         array $siteAccessesByLanguage
     ) {
         $this->siteAccessConfigResolver = $configResolver;
         $this->nameSchemaService = $nameSchemaService;
+        $this->variationHandler = $variationHandler;
         $this->siteAccessesByLanguage = $siteAccessesByLanguage;
     }
 
@@ -86,8 +91,29 @@ final class CodeinIbexaSeoExtension extends AbstractExtension implements Globals
                 continue;
             }
             if ($nameSchema) {
-                $metaContent = $this->nameSchemaService->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
-                $fieldMetas[$key] = $metaContent[$mainLanguageCode];
+                if ($metasConfig[$key]['type'] == 'ezimage') {
+                    foreach (explode('|', trim($nameSchema,'<>')) as $field) {
+                        if (in_array($field, array_keys($content->fields)) && ($content->getField($field)->fieldTypeIdentifier === 'ezimage') && ($content->getFieldValue($field)) && ($content->getFieldValue($field)->uri)) {
+                            $originalImage = $content->getFieldValue($field);
+                            $aliasImage = $this->variationHandler->getVariation($content->getField($field), $content->versionInfo, self::OG_IMAGE_ALIAS_NAME);
+                            $fieldMetas[$key] = [
+                                'uri' => $aliasImage->uri,
+                                'width' => $aliasImage->width,
+                                'height' => $aliasImage->height,
+                                'fileName' => $aliasImage->fileName,
+                                'alternativeText' => $originalImage->alternativeText
+                            ];
+                            break;
+                        }
+                    }
+                }
+                else {
+                    $metaContent = $this->nameSchemaService->resolve($nameSchema, $content->getContentType(), $content->fields, [$mainLanguageCode]);
+                    $fieldMetas[$key] = $metaContent[$mainLanguageCode];
+                }
+            }
+            if ($metasConfig[$key]['type'] == 'ezboolean') {
+                $fieldMetas[$key] = (bool)$fieldMetas[$key];
             }
         }
 

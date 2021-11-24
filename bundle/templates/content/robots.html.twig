@@ -1,0 +1,9 @@
+{% if robots_fields %}
+    {% set robots_fields_values = '' %}
+    {%- for meta_name, meta_content in robots_fields -%}
+        {% set robots_field_name = meta_name|replace({'robots_': ''}) %}
+        {% set robots_field_value = meta_content ? robots_field_name : 'no' ~ robots_field_name %}
+        {% set robots_fields_values = robots_fields_values ~ robots_field_value  ~ ', ' %}
+    {% endfor %}
+    <meta name="robots" content="{{ robots_fields_values|trim(', ') }}"/>
+{% endif %}

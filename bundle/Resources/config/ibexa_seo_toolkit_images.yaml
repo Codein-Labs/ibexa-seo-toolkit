@@ -1,0 +1,9 @@
+ezpublish:
+    system:
+        default:
+            image_variations:
+                ibexa_seo_toolkit_og_image1200x630:
+                    filters:
+                        thumbnail:
+                            size: [ 1200, 630 ]
+                            mode: outbound
