@@ -3,39 +3,33 @@
 namespace Codein\IbexaSeoToolkit\Service;
 
 use Codein\IbexaSeoToolkit\Model\Field;
+use DOMDocument;
 
 /**
  * Class XmlProcessingService.
  */
 final class XmlProcessingService
 {
-    public function combineAndProcessXmlFields($fields, $process = true)
+    public function combineAndProcessXmlFields($fields): DOMDocument
     {
-        $xml = '';
+        $xmlDocument = new DOMDocument();
+
         /** @var Field $field */
         foreach ($fields as $key => $field) {
-            $fieldXml = $field->getFieldValue();
-            if (0 !== $key) {
-                $fieldXml = \preg_replace('/^<\?.*\?>(\n)?/', '', $fieldXml);
+            if (0 === $key) {
+                $xmlDocument->loadXML($field->getFieldValue());
+            } else {
+                $fieldXMLDocument = new DOMDocument();
+                $fieldXMLDocument->loadXML($field->getFieldValue());
+                foreach ($fieldXMLDocument->firstChild->childNodes as $childNode) {
+                    $domNode = $xmlDocument->importNode($childNode, true);
+                    $xmlDocument->firstChild->appendChild($domNode);
+                }
             }
-            $xml .= $fieldXml;
         }
 
-        if ($process) {
-            $domDocument = new \DOMDocument();
-            $domDocument->loadXML($xml);
-
-            return $this->processDocument($domDocument);
-        }
-
-        return $xml;
-    }
-
-    private function processDocument(\DOMDocument $domDocument)
-    {
-        $xmlStr = $domDocument->saveHTML();
-        $domDocument = new \DOMDocument('1.0', 'utf-8');
-        $domDocument->loadHTML($xmlStr);
+        $domDocument = new DOMDocument('1.0', 'utf-8');
+        $domDocument->loadHTML($xmlDocument->saveHTML());
 
         return $domDocument;
     }

@@ -33,6 +33,7 @@ final class Configuration extends SiteAccessConfiguration
         $this->addMetasSection($nodeBuilder);
         $this->addLinksSection($nodeBuilder);
         $this->addHreflangSection($nodeBuilder);
+        $this->addInternalLinksHostnamesSection($nodeBuilder);
         $nodeBuilder->end();
 
         return $treeBuilder;
@@ -307,6 +308,19 @@ final class Configuration extends SiteAccessConfiguration
                     ->info('If true, hreflang link tags will be generated automatically according to the languages already configured.')
                     ->end()
                 ->end()
+            ->end()
+        ;
+
+        return $this;
+    }
+
+    private function addInternalLinksHostnamesSection(NodeBuilder $nodeBuilder): self
+    {
+        $nodeBuilder
+            ->arrayNode('internal_links_hostnames')
+                ->info('Hostnames to consider as internal links during analysis.')
+                ->defaultValue([])
+                ->scalarPrototype()->end()
             ->end()
         ;
 

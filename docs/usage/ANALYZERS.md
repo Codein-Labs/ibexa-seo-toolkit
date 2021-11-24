@@ -18,6 +18,8 @@ To enable analyzers on a content type, update the configuration of the bundle:
 codein_ibexa_seo_toolkit:
   system:
     default: # siteaccess
+    internal_links_hostnames: # To improve links analysis, set hostnames to consider as internal absolute links
+        - myhostname.com
       analysis:
         content_types:
           product:

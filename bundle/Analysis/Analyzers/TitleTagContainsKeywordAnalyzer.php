@@ -3,6 +3,7 @@
 namespace Codein\IbexaSeoToolkit\Analysis\Analyzers;
 
 use Codein\IbexaSeoToolkit\Analysis\AbstractAnalyzer;
+use Codein\IbexaSeoToolkit\Analysis\Analyzers\Traits\StringNormalizerTrait;
 use Codein\IbexaSeoToolkit\Analysis\RatioLevels;
 use Codein\IbexaSeoToolkit\Model\AnalysisDTO;
 use Codein\IbexaSeoToolkit\Service\AnalyzerService;
@@ -14,6 +15,8 @@ use Psr\Log\LoggerInterface;
  */
 final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
 {
+    use StringNormalizerTrait;
+
     private const CATEGORY = 'codein_seo_toolkit.analyzer.category.keyword';
 
     /** @var \Codein\IbexaSeoToolkit\Service\AnalyzerService */
@@ -32,16 +35,13 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
 
     public function analyze(AnalysisDTO $analysisDTO): array
     {
-        $domDocument = new \DOMDocument();
-        $domDocument->loadHTML($analysisDTO->getPreviewHtml());
-
-        $domxPath = new \DOMXPath($domDocument);
+        $domxPath = new \DOMXPath($analysisDTO->getHtmlPreviewDOMDocument());
 
         /** @var \DOMNodeList $titleTags */
         $titleTags = $domxPath->query('//title');
 
         try {
-            $keywordSynonyms = \explode(',', \strtr(\mb_strtolower($analysisDTO->getKeyword()), AnalyzerService::ACCENT_VALUES));
+            $keywordSynonyms = \explode(',', $this->normalizeString($analysisDTO->getKeyword()));
 
             $keywordSynonyms = \array_map('trim', $keywordSynonyms);
             $status = RatioLevels::MEDIUM;
@@ -51,7 +51,7 @@ final class TitleTagContainsKeywordAnalyzer extends AbstractAnalyzer
                 /** @var \DOMElement $titleTag */
                 foreach ($titleTags as $titleTag) {
                     foreach ($keywordSynonyms as $keyword) {
-                        $contentTitleTagAttribute = \strtr(\mb_strtolower($titleTag->textContent), AnalyzerService::ACCENT_VALUES);
+                        $contentTitleTagAttribute = $this->normalizeString($titleTag->textContent);
                         if (false !== \mb_strpos($contentTitleTagAttribute, $keyword)) {
                             $status = RatioLevels::HIGH;
                             break;
