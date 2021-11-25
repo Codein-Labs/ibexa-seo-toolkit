@@ -10,6 +10,9 @@
     {% set meta_fields = meta_fields|filter((meta_name, meta_content) => (not (meta_content starts with "robots_"))) %}
 
     {%- for meta_name, meta_content in meta_fields -%}
+        {%- if meta_name is same as("title") -%}
+            {%- set is_the_title_found = true -%}
+        {%- endif -%}
         {% set field_type_metas = codein_ibexaseo.field_type_metas %}
         {% set type = field_type_metas[meta_name] is defined ? field_type_metas[meta_name].type : 'ezstring' %}
         {% include '@CodeinIbexaSeoToolkit/content/meta_field_type/' ~ type ~ '.html.twig'  ignore missing %}
