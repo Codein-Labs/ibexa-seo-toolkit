@@ -16,7 +16,7 @@
                 {% set default_value = "" %}
             {% endif %}
 
-            {% include '@CodeinIbexaSeoToolkit/content_type/meta_field_type/' ~ type ~ '.html.twig'  ignore missing with {'label': label, 'default_value': default_value}%}
+            {% include '@CodeinIbexaSeoToolkit/content_type/meta_field_type/' ~ type ~ '.html.twig'  ignore missing with {'label': label, 'default_value': default_value} %}
         {% endfor %}
         </ul>
     {% else %}
