@@ -2,7 +2,6 @@
 
 namespace Codein\IbexaSeoToolkit\Service;
 
-use Codein\IbexaSeoToolkit\Analysis\ParentAnalyzerInterface;
 use Codein\IbexaSeoToolkit\Entity\ContentConfiguration;
 use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use Codein\IbexaSeoToolkit\Helper\XmlValidator;
@@ -21,18 +20,15 @@ final class AnalyzeContentService
 
     private $logger;
     private $entityManager;
-    private $parentAnalyzerService;
     private $siteAccessConfigResolver;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         LoggerInterface $logger,
-        ParentAnalyzerInterface $parentAnalyzer,
         SiteAccessConfigResolver $siteAccessConfigResolver
     ) {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
-        $this->parentAnalyzerService = $parentAnalyzer;
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
     }
 

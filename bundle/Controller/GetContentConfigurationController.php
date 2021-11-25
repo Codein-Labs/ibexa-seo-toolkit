@@ -2,9 +2,9 @@
 
 namespace Codein\IbexaSeoToolkit\Controller;
 
+use Codein\IbexaSeoToolkit\Controller\Annotations as Rest;
 use Codein\IbexaSeoToolkit\Entity\ContentConfiguration;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Class GetContentConfigurationController.

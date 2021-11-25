@@ -14,6 +14,7 @@ services:
 
     Codein\IbexaSeoToolkit\Controller\:
         resource: '../../Controller/*'
+        exclude: '../../Controller/{Annotations}'
 
     Codein\IbexaSeoToolkit\Service\:
         resource: '../../Service'
@@ -45,7 +46,8 @@ services:
     Codein\IbexaSeoToolkit\Service\SitemapContentService:
         calls:
             - [setVariationHandler, ["@ezpublish.image_alias.imagine.alias_generator", "@ezpublish.fieldType.ezimage"]]
-
+        arguments:
+            $fieldHelper: "@ezpublish.field_helper"
     Codein\IbexaSeoToolkit\EventListener\SitemapResponseListener:
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
@@ -69,3 +71,15 @@ services:
     Codein\IbexaSeoToolkit\Controller\SitemapController:
         arguments:
             $responseCacheConfigurator: '@ezplatform.view_cache.response_configurator'
+
+    Codein\IbexaSeoToolkit\Serializer\Normalizer\FormErrorNormalizer:
+        tags:
+            - { name: serializer.normalizer, priority: -10 }
+
+    Codein\IbexaSeoToolkit\EventListener\ViewResponseListener:
+        tags:
+            - { name: kernel.event.subscriber }
+
+    Codein\IbexaSeoToolkit\Serializer\Normalizer\FlattenExceptionNormalizer:
+        tags:
+            - { name: serializer.normalizer, priority: -10 }
