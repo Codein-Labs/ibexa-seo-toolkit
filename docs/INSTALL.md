@@ -13,7 +13,7 @@ Alternatively, you can add the requirement `"codein/ibexa-seo-toolkit": "^1.0"` 
 This could be useful when the installation of IbexaSeoToolkitBundle is not compatible with some currently installed dependencies (see [requirements details][1]).
 Anyway, the previous option is the preferred way, since composer can pick the best requirement constraint for you.
 
-## Enable the bundle
+### Enable the bundle
 
 If you use Flex (you should!), the bundle is automatically enabled with a recipe and no further action is required.
 Otherwise, to start using the bundle, register it in the bundles list:
@@ -50,13 +50,13 @@ codein_ibexa_seo_toolkit:
 
 See [usage section](./usage) for configuring the bundle.
 
-## Run post-install scripts
+### Run post-install scripts
 
 ```bash
-composer composer run-script post-install-cmd
+composer run-script post-install-cmd
 ```
 
-## Add necessary tables to the database
+### Add necessary tables to the database
 
 In your project root, launch :
 ```bash
@@ -77,6 +77,20 @@ php bin/console doctrine:migrations:execute 'Codein\IbexaSeoToolkit\DoctrineMigr
 
 Obviously, the migration name matches what we've got at the current time of editing this documentation. Look inside the bundle to find the migration file.
 
+## That's it!
+
+Yeah, the bundle is installed! Move onto the [usage section](./usage) to find out how to specify your custom configuration.
+
+[1]: REQUIREMENTS.md
+
+## FAQ
+
+### Why so much configuration ?
+
+As an Ibexa bundle, we want to make sure developers can extend / override most of it.
+
+Moreover, we use React for adding an interface in the backoffice, for maintainability purposes ... and it comes with upfront application configuration.
+
 ### Compiling backoffice translations
 
 ```bash
@@ -88,16 +102,7 @@ php bin/console bazinga:js-translation:dump public/assets --merge-domains
 yarn encore dev
 ```
 
-
-### FAQ
-
-#### Why so much configuration ?
-
-As an Ibexa bundle, we want to make sure developers can extend / override most of it.
-
-Moreover, we use React for adding an interface in the backoffice, for maintainability purposes ... and it comes with upfront application configuration.
-
-#### Backoffice translations aren't found
+### Backoffice translations aren't found
 
 This is typically not a problem with the bundle.
 
@@ -106,8 +111,23 @@ This is typically not a problem with the bundle.
 * check yarn cache is writable,
 * do `yarn install`
 
-## That's it!
+### Know issues
 
-Yeah, the bundle is installed! Move onto the [usage section](./usage) to find out how to specify your custom configuration.
+#### Error while dump JS translation
 
-[1]: REQUIREMENTS.md
+If an error occurs, while running `bazinga:js-translation:dump %PUBLIC_DIR%/assets --merge-domains`, refering to missing
+folders :
+
+```
+[webpack-cli] Error: ENOENT: no such file or directory, scandir '/app/ezplatform/public/assets/translations'
+```
+
+Use `make-dir` to create the missing directories as first step in `webpack.config.js`
+
+```
+const makeDir = require('make-dir');
+makeDir.sync('./public/assets');
+makeDir.sync('./public/assets/translations');
+
+const Encore = require('@symfony/webpack-encore');
+```
