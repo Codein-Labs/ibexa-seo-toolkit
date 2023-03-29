@@ -43,6 +43,8 @@ services:
     Codein\IbexaSeoToolkit\Form\MetasFieldType: ~
 
     Codein\IbexaSeoToolkit\Service\SitemapContentService:
+        arguments:
+            $fieldHelper: '@ezpublish.field_helper'
         calls:
             - [setVariationHandler, ["@ezpublish.image_alias.imagine.alias_generator", "@ezpublish.fieldType.ezimage"]]
 

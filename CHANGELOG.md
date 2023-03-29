@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] - 2023-03-29
+
+### Fixed
+* Fix injection of `eZ\Publish\Core\Helper\FieldHelper` in `Codein\IbexaSeoToolkit\Service\SitemapContentService` (Issue #20)
+
+### Changed
+* Update install documentation. Add "know issues" about the issue with the command `bazinga:js-translation:dump` on Ibexa 3.3.16 (Issue #19)
+
 ## [1.1.2] - 2021-11-25
 
 ### Fixed
