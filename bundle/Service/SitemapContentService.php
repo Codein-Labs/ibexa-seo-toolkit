@@ -5,9 +5,11 @@ namespace Codein\IbexaSeoToolkit\Service;
 use Codein\IbexaSeoToolkit\Helper\SiteAccessConfigResolver;
 use Codein\IbexaSeoToolkit\Helper\SitemapQueryHelper;
 use DOMDocument;
+use Exception;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\Core\Helper\FieldHelper;
 use eZ\Publish\SPI\Variation\VariationHandler;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -23,6 +25,7 @@ final class SitemapContentService
     private $sitemapQueryHelper;
     private $siteAccessConfigResolver;
     private $fieldHelper;
+    private $logger;
 
     public function __construct(
         SiteAccessConfigResolver $siteAccessConfigResolver,
@@ -30,7 +33,8 @@ final class SitemapContentService
         SearchService $searchService,
         SitemapQueryHelper $sitemapQueryHelper,
         FieldHelper $fieldHelper,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        LoggerInterface $logger
     ) {
         $this->siteAccessConfigResolver = $siteAccessConfigResolver;
         $this->urlGenerator = $urlGenerator;
@@ -38,6 +42,7 @@ final class SitemapContentService
         $this->sitemapQueryHelper = $sitemapQueryHelper;
         $this->requestStack = $requestStack;
         $this->fieldHelper = $fieldHelper;
+        $this->logger = $logger;
     }
 
     public function generate(): DOMDocument
@@ -87,7 +92,7 @@ final class SitemapContentService
                     'codein_ibexa_seo_toolkit.sitemap_page_result',
                     ['page' => $page]
                 );
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
 
@@ -121,7 +126,7 @@ final class SitemapContentService
                     'codein_ibexa_seo_toolkit.sitemap_page_content_type',
                     ['contentTypeIdentifier' => $contentType]
                 );
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
 
@@ -187,7 +192,7 @@ final class SitemapContentService
                     'ez_urlalias',
                     ['location' => $location]
                 );
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
 
@@ -207,19 +212,25 @@ final class SitemapContentService
                     if ($this->fieldHelper->isFieldEmpty($location->getContent(), $field->fieldDefIdentifier)) {
                         continue;
                     }
+                    try {
+                        $variation = $this->variationHandler->getVariation($field, $location->getContent()->getVersionInfo(), 'original');
 
-                    $variation = $this->variationHandler->getVariation($field, $location->getContent()->getVersionInfo(), 'original');
+                        $imageBlock = $sitemap->createElement('image:image');
+                        $imageLoc = $sitemap->createElement('image:loc', $variation->uri);
+                        $imageBlock->appendChild($imageLoc);
 
-                    $imageBlock = $sitemap->createElement('image:image');
-                    $imageLoc = $sitemap->createElement('image:loc', $variation->uri);
-                    $imageBlock->appendChild($imageLoc);
+                        if ($field->value->alternativeText) {
+                            $imageCaption = $sitemap->createElement('image:caption', $field->value->alternativeText);
+                            $imageBlock->appendChild($imageCaption);
+                        }
 
-                    if ($field->value->alternativeText) {
-                        $imageCaption = $sitemap->createElement('image:caption', $field->value->alternativeText);
-                        $imageBlock->appendChild($imageCaption);
+                        $sitemapUrl->appendChild($imageBlock);
+                    } catch (Exception $exception) {
+                        $this->logger->critical(
+                            sprintf('Unable to get original image variation for content %s on field %s', self::class, $location->contentId, $field->fieldDefIdentifier),
+                            [ 'exception' => $exception ]
+                        );
                     }
-
-                    $sitemapUrl->appendChild($imageBlock);
                 }
             }
 
